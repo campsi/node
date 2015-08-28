@@ -1,0 +1,477 @@
+/*@import reset*/
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video
+  margin: 0
+  padding: 0
+  border: 0
+  outline: 0
+  font-size: 100%
+  vertical-align: baseline
+  background: transparent
+
+body
+  line-height: 1
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section
+  display: block
+
+nav ul
+  list-style: none
+
+blockquote,
+q
+  quotes: none
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after
+  content: ''
+  content: none
+
+a
+  margin: 0
+  padding: 0
+  font-size: 100%
+  vertical-align: baseline
+  background: transparent
+
+/* change colours to suit your needs */
+ins
+  background-color: #ff9
+  color: #000
+  text-decoration: none
+
+/* change colours to suit your needs */
+mark
+  background-color: #ff9
+  color: #000
+  font-style: italic
+  font-weight: bold
+
+del
+  text-decoration: line-through
+
+abbr[title],
+dfn[title]
+  border-bottom: 1px dotted
+  cursor: help
+
+table
+  border-collapse: collapse
+  border-spacing: 0
+
+/* change border colour to suit your needs */
+hr
+  display: block
+  height: 1px
+  border: 0
+  border-top: 1px solid #cccccc
+  margin: 1em 0
+  padding: 0
+
+input,
+select
+  vertical-align: middle
+
+/*@import colors*/
+
+$dark = #31393c
+$theme = #1e90ff
+$test = #598392
+$brown = #786452
+$contrast = #fdca40
+$light = #eaf2ef
+$white = #fafcfc
+
+/*@import fonts*/
+
+$fonts = "SanFrancisco", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif
+
+html, body
+  font-family $fonts
+  font-size 12pt
+  line-height 1.45em
+
+button, input, select
+  font-family $fonts
+  line-height 1rem
+  font-size 1rem
+
+p
+  margin-bottom 1.3em
+
+h1, h2, h3, h4
+  margin .6em 0 0.6em
+  font-weight inherit
+  line-height 1.2
+
+h1 {
+  margin-top 0
+  margin-bottom 1rem
+  font-size 2.074em
+}
+
+h2
+  font-size 1.728em
+
+h3
+  font-size 1.44em
+
+h4
+  font-size 1.2em
+
+small, .font_small
+  font-size 0.833em
+
+.legal
+  font-size 0.579em
+
+/*@import layout*/
+
+html, body, #app
+  height 100%
+  width 100%
+  margin 0
+  padding 0
+  overflow hidden
+
+*
+  box-sizing border-box
+
+//http://stackoverflow.com/questions/12605816/sticky-flexible-footers-and-headers-css-working-fine-in-webkit-but-not-in-gecko/12622740#12622740
+.vmax
+  display table
+  height 100%
+  width 100%
+  overflow hidden
+
+  > .row
+    display table-row
+
+    > .cell
+      display table-cell
+
+    &.hmax
+      height 100%
+
+      > .cell
+        height 100%
+        width 100%
+        display inline-block
+        overflow-y auto
+        position relative
+        /*box-shadow: inset 0 20px 20px -20px rgba($dark, 0.3)*/
+
+      > .scroll > div
+        position absolute
+        top 0
+        bottom 0
+        width 100%
+
+        .content
+          min-height: 100%
+
+panel-duration = .3s
+panel-easing = ease-in-out
+
+.panels
+  width 100%
+  height 100%
+  margin 0
+  position relative
+  overflow: hidden
+
+  .panel
+    height 100%
+    width 100%
+    position absolute
+    top 0
+    left 0
+    transition left panel-duration panel-easing, width panel-duration panel-easing
+    transform translate3d(0, 0, 0)
+
+    &.active
+      left 0
+
+    &.next
+      left 100%
+
+    &.prev
+      right -100%
+
+    .content
+      padding 2rem
+
+    header
+      box-sizing border-box
+      display flex
+      border: 1px groove alpha(black, 0.2);
+      border-top-color: alpha(white, 0.5);
+
+      h2
+        font-size 1em
+        padding 0.5em
+        font-weight normal
+        text-align center
+        margin 0 auto
+        display inline-block
+
+      button
+        margin auto .5em
+        outline none
+
+header.main
+  padding 1rem
+  display flex
+
+  h1
+    flex 1
+    font-size: 2em
+
+/*@import ui*/
+
+light-button(color)
+  display inline-block
+  background transparent
+  border 1px solid color
+  color color
+  outline none
+  /*font-size 1em*/
+  padding .4em .5em .2em .5em
+  line-height 1.2em
+  border-radius .5em
+  cursor pointer
+  font-size: 0.8em
+  opacity .7
+
+  &:hover
+    opacity 1
+
+  &:active
+    opacity 1
+    background rgba(color, .1)
+
+/*@import style */
+
+header.main
+  background $dark
+  color $light
+  border-bottom 1px solid #000
+
+  h1
+    font-weight lighter
+    margin 0
+
+footer.main
+  padding .5em
+  background $dark
+  border-top 1px solid lighten($dark, 30%)
+  color $light
+
+.panel
+
+  background: $white
+  box-shadow 0 0 3px rgba($dark, .3)
+
+  header
+    background $theme
+    color $light
+    border-bottom 1px groove darken($theme, 30%)
+    border-top 1px groove lighten($theme, 50%)
+
+    button
+      light-button($light)
+
+    h2
+      color: $white
+      text-shadow: 0 1px 1px darken($theme, 10);
+
+  .content
+
+
+    h1
+      color: rgba($theme, .4)
+      /*text-shadow: inset 1px 1px 1px lighten($dark, 10)*/
+      /*color: rgba($dark, 0.8);*/
+      /*text-shadow: 1px 4px 6px $light, 0 0 0 $dark, 1px 4px 6px $light;*/
+      font-weight: lighter
+
+button
+  light-button($theme)
+
+#projects
+
+  .project
+    float left
+    margin 1em
+    cursor:pointer
+    
+    .name
+      text-align: center
+      width: 100%
+      display: inline-block
+      margin-top: .5em
+
+    &.placeholder
+
+      opacity .5
+      transition opacity .1s
+
+      &:hover
+        opacity: 1
+
+      .name
+        font-style: italic
+
+      .logo
+        border: 3px dashed darken($light, 20)
+        box-shadow: none
+        color $theme
+        /*font-size: em*/
+        text-align: center
+
+    &:hover
+      .logo
+        border-bottom-color darken($light, 20)
+
+    .logo
+
+      $logoSize = 10em
+      $logoPadding = 1em
+
+      background: #FFF
+      /*box-shadow -1px 1px 2px rgba($dark, .1)*/
+      border: 2px solid darken($white, 5)
+      border-bottom: 3px solid darken($light, 10)
+      width $logoSize
+      height $logoSize
+      border-radius 10px//($logoSize / 6)
+      padding: $logoPadding
+      overflow: hidden
+      display: table-cell
+      vertical-align: middle
+
+      img
+        margin: 0 auto
+        max-width: $logoSize - $logoPadding* 2
+        max-height: $logoSize - $logoPadding* 2
+
+
+.field.invisible .control
+  position relative
+  display: flex
+
+  input
+    border none
+    outline none
+    background transparent
+    margin-left .5em
+
+  &::before
+    content '✎'
+    /*border 1px solid red*/
+    /*position absolute*/
+    color darken($white, 20)
+    /*left 0*/
+    /*top 0*/
+    width 1em
+    align-self: center
+
+.project-name .control
+  font-size: 2.5em
+.control
+  clear left
+  margin-top: 2em
+
+.users
+  min-height: 6em //  todo dégager ça
+  /*border: 1px solid red*/
+  li
+    float left
+    list-style-type none
+    margin-right .5rem
+    position relative
+
+    .username
+      font-size: .635em
+      position absolute
+      padding: .2em .5em 0
+      background: rgba($dark, .5)
+      color $white
+      bottom -3em
+      left 0
+      text-align center
+      white-space nowrap
+      display none
+      min-width 3rem
+      border-radius .5em
+      text-shadow: 1px -1px 2px #666
+
+    &:hover .username
+      display block
+
+.avatar
+  border-radius 3em
+  height 3.5rem
+  width: 3.5rem
+  overflow hidden
+  float left
+  position:relative
+  border: solid .2rem darken($white, 5)
+  img
+    height 3.5rem
+    width 3.5rem
+
+.avatar::after
+  z-index 999
+  border-radius 3em
+  content ''
+  position absolute
+  height 3.5rem
+  width 3.5rem
+  top 0
+  left 0
+  display block
+  box-shadow inset -.2em -.5em .5rem 0 rgba($dark, .8)
+
+.control .label
+  font-weight lighter
+  font-size 1.5em
+  color darken($white, 50)
+  margin: 1em 0 .5em
+
+
+#project
+  .collections
+    ul
+      list-style-type: none
+
+      li
+        background #FFF
+        border .1em solid darken($light, 2)
+        border-bottom-color darken($light, 10)
+        border-radius .5em
+        margin-bottom: 1em
+        padding 1em
+
+
+#welcome
+  h1
+    font-size: 7em
+    font-style: italic
+    margin-top: .3em
+    color white;
+
+  .scroll
+    background: lighten($dark, 40)
+    color: white;

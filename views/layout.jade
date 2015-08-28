@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    //link(rel='stylesheet', href='/stylesheets/core.css')
+  body
+    div#app
+      .vmax
+        .row
+          .cell
+            include partials/header
+        .row.hmax
+          .cell
+            block content
+        //.row
+        //  .cell
+        //    include partials/footer
+    div#modal
+      block modal
+    script(src='lib/jquery/dist/jquery.min.js')
+    script(src='lib/auth0-lock/build/auth0-lock.min.js')
+    script(src='javascripts/campsi.auth.js')
+    script(src='javascripts/campsi.core.js')
+    script(src='javascripts/campsi.loader.js')
+    script(src='javascripts/campsi.layout.js')
+    script(src='javascripts/projects.js')
+    block scripts

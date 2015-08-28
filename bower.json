@@ -1,0 +1,20 @@
+{
+  "name": "campsi",
+  "version": "0.0.0",
+  "authors": [
+    "Romain Bessuges <romainbessuges@gmail.com>"
+  ],
+  "dependencies": {
+    "jquery": "*",
+    "dragula.js": "*",
+    "auth0-lock": "*"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

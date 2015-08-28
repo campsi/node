@@ -1,0 +1,34 @@
+extends layout
+
+mixin panel(title, id, classes)
+  .panel(class=classes)(id=id)
+    .vmax
+      .row
+        .cell
+          header
+            button.prev(data-state='projects') Prev
+            h2= title
+            button.next(data-state='projects+project')  Next
+      .row.hmax
+        .cell.scroll
+          .scrollpane
+            .content
+              block
+
+block content
+  .panels
+    +panel('Hello', 'welcome', 'active')
+      include partials/panels/welcome
+    +panel('My Projects', 'projects', 'active')
+      //include partials/panels/project
+      #projectList
+    +panel('Project Detail', 'project', 'active')
+      //include partials/panels/project-detail
+      #projectDetail
+    +panel('Collection Detail', 'collection', 'next')
+      include partials/lorem
+    +panel('Form', 'form', 'next')
+      include partials/lorem
+
+block scripts
+  script hola('welcome+projects')

@@ -1,0 +1,535 @@
+/*@import reset*/
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+body {
+  line-height: 1;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+nav ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+/* change colours to suit your needs */
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+/* change colours to suit your needs */
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+del {
+  text-decoration: line-through;
+}
+abbr[title],
+dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* change border colour to suit your needs */
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+input,
+select {
+  vertical-align: middle;
+}
+/*@import colors*/
+/*@import fonts*/
+html,
+body {
+  font-family: "SanFrancisco", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12pt;
+  line-height: 1.45em;
+}
+button,
+input,
+select {
+  font-family: "SanFrancisco", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1rem;
+  font-size: 1rem;
+}
+p {
+  margin-bottom: 1.3em;
+}
+h1,
+h2,
+h3,
+h4 {
+  margin: 0.6em 0 0.6em;
+  font-weight: inherit;
+  line-height: 1.2;
+}
+h1 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 2.074em;
+}
+h2 {
+  font-size: 1.728em;
+}
+h3 {
+  font-size: 1.44em;
+}
+h4 {
+  font-size: 1.2em;
+}
+small,
+.font_small {
+  font-size: 0.833em;
+}
+.legal {
+  font-size: 0.579em;
+}
+/*@import layout*/
+html,
+body,
+#app {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+* {
+  box-sizing: border-box;
+}
+.vmax {
+  display: table;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.vmax > .row {
+  display: table-row;
+}
+.vmax > .row > .cell {
+  display: table-cell;
+}
+.vmax > .row.hmax {
+  height: 100%;
+}
+.vmax > .row.hmax > .cell {
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  overflow-y: auto;
+  position: relative;
+/*box-shadow: inset 0 20px 20px -20px rgba($dark, 0.3)*/
+}
+.vmax > .row.hmax > .scroll > div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+.vmax > .row.hmax > .scroll > div .content {
+  min-height: 100%;
+}
+.panels {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+}
+.panels .panel {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: left 0.3s ease-in-out, width 0.3s ease-in-out;
+  transform: translate3d(0, 0, 0);
+}
+.panels .panel.active {
+  left: 0;
+}
+.panels .panel.next {
+  left: 100%;
+}
+.panels .panel.prev {
+  right: -100%;
+}
+.panels .panel .content {
+  padding: 2rem;
+}
+.panels .panel header {
+  box-sizing: border-box;
+  display: flex;
+  border: 1px groove 1;
+  border-top-color: 1;
+}
+.panels .panel header h2 {
+  font-size: 1em;
+  padding: 0.5em;
+  font-weight: normal;
+  text-align: center;
+  margin: 0 auto;
+  display: inline-block;
+}
+.panels .panel header button {
+  margin: auto 0.5em;
+  outline: none;
+}
+header.main {
+  padding: 1rem;
+  display: flex;
+}
+header.main h1 {
+  flex: 1;
+  font-size: 2em;
+}
+/*@import ui*/
+/*@import style */
+header.main {
+  background: #31393c;
+  color: #eaf2ef;
+  border-bottom: 1px solid #000;
+}
+header.main h1 {
+  font-weight: lighter;
+  margin: 0;
+}
+footer.main {
+  padding: 0.5em;
+  background: #31393c;
+  border-top: 1px solid #67787e;
+  color: #eaf2ef;
+}
+.panel {
+  background: #fafcfc;
+  box-shadow: 0 0 3px rgba(49,57,60,0.3);
+}
+.panel header {
+  background: #1e90ff;
+  color: #eaf2ef;
+  border-bottom: 1px groove #0065c8;
+  border-top: 1px groove #8fc7ff;
+}
+.panel header button {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #eaf2ef;
+  color: #eaf2ef;
+  outline: none;
+/*font-size 1em*/
+  padding: 0.4em 0.5em 0.2em 0.5em;
+  line-height: 1.2em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-size: 0.8em;
+  opacity: 0.7;
+}
+.panel header button:hover {
+  opacity: 1;
+}
+.panel header button:active {
+  opacity: 1;
+  background: rgba(234,242,239,0.1);
+}
+.panel header h2 {
+  color: #fafcfc;
+  text-shadow: 0 1px 1px #0077ea;
+}
+.panel .content h1 {
+  color: rgba(30,144,255,0.4);
+/*text-shadow: inset 1px 1px 1px lighten($dark, 10)*/
+/*color: rgba($dark, 0.8);*/
+/*text-shadow: 1px 4px 6px $light, 0 0 0 $dark, 1px 4px 6px $light;*/
+  font-weight: lighter;
+}
+button {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #1e90ff;
+  color: #1e90ff;
+  outline: none;
+/*font-size 1em*/
+  padding: 0.4em 0.5em 0.2em 0.5em;
+  line-height: 1.2em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-size: 0.8em;
+  opacity: 0.7;
+}
+button:hover {
+  opacity: 1;
+}
+button:active {
+  opacity: 1;
+  background: rgba(30,144,255,0.1);
+}
+#projects .project {
+  float: left;
+  margin: 1em;
+  cursor: pointer;
+}
+#projects .project .name {
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  margin-top: 0.5em;
+}
+#projects .project.placeholder {
+  opacity: 0.5;
+  transition: opacity 0.1s;
+}
+#projects .project.placeholder:hover {
+  opacity: 1;
+}
+#projects .project.placeholder .name {
+  font-style: italic;
+}
+#projects .project.placeholder .logo {
+  border: 3px dashed #abcbbf;
+  box-shadow: none;
+  color: #1e90ff;
+/*font-size: em*/
+  text-align: center;
+}
+#projects .project:hover .logo {
+  border-bottom-color: #abcbbf;
+}
+#projects .project .logo {
+  background: #fff;
+/*box-shadow -1px 1px 2px rgba($dark, .1)*/
+  border: 2px solid #eaf2f2;
+  border-bottom: 3px solid #cadfd7;
+  width: 10em;
+  height: 10em;
+  border-radius: 10px;
+  padding: 1em;
+  overflow: hidden;
+  display: table-cell;
+  vertical-align: middle;
+}
+#projects .project .logo img {
+  margin: 0 auto;
+  max-width: 8em;
+  max-height: 8em;
+}
+.field.invisible .control {
+  position: relative;
+  display: flex;
+}
+.field.invisible .control input {
+  border: none;
+  outline: none;
+  background: transparent;
+  margin-left: 0.5em;
+}
+.field.invisible .control::before {
+  content: '✎';
+/*border 1px solid red*/
+/*position absolute*/
+  color: #bad6d6;
+/*left 0*/
+/*top 0*/
+  width: 1em;
+  align-self: center;
+}
+.project-name .control {
+  font-size: 2.5em;
+}
+.control {
+  clear: left;
+  margin-top: 2em;
+}
+.users {
+  min-height: 6em;
+/*border: 1px solid red*/
+}
+.users li {
+  float: left;
+  list-style-type: none;
+  margin-right: 0.5rem;
+  position: relative;
+}
+.users li .username {
+  font-size: 0.635em;
+  position: absolute;
+  padding: 0.2em 0.5em 0;
+  background: rgba(49,57,60,0.5);
+  color: #fafcfc;
+  bottom: -3em;
+  left: 0;
+  text-align: center;
+  white-space: nowrap;
+  display: none;
+  min-width: 3rem;
+  border-radius: 0.5em;
+  text-shadow: 1px -1px 2px #666;
+}
+.users li:hover .username {
+  display: block;
+}
+.avatar {
+  border-radius: 3em;
+  height: 3.5rem;
+  width: 3.5rem;
+  overflow: hidden;
+  float: left;
+  position: relative;
+  border: solid 0.2rem #eaf2f2;
+}
+.avatar img {
+  height: 3.5rem;
+  width: 3.5rem;
+}
+.avatar::after {
+  z-index: 999;
+  border-radius: 3em;
+  content: '';
+  position: absolute;
+  height: 3.5rem;
+  width: 3.5rem;
+  top: 0;
+  left: 0;
+  display: block;
+  box-shadow: inset -0.2em -0.5em 0.5rem 0 rgba(49,57,60,0.8);
+}
+.control .label {
+  font-weight: lighter;
+  font-size: 1.5em;
+  color: #5d9a9a;
+  margin: 1em 0 0.5em;
+}
+#project .collections ul {
+  list-style-type: none;
+}
+#project .collections ul li {
+  background: #fff;
+  border: 0.1em solid #e4eeea;
+  border-bottom-color: #cadfd7;
+  border-radius: 0.5em;
+  margin-bottom: 1em;
+  padding: 1em;
+}
+#welcome h1 {
+  font-size: 7em;
+  font-style: italic;
+  margin-top: 0.3em;
+  color: #fff;
+}
+#welcome .scroll {
+  background: #93a1a6;
+  color: #fff;
+}
