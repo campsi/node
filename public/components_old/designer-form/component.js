@@ -13,7 +13,9 @@ Campsi.components.extend('collection', function($super){
         },
 
         createDOM: function(){
+            $super.createDOM.call(this);
             this.dom.list.addClass('component-dropzone').data('component', this);
         }
+
     }
 });

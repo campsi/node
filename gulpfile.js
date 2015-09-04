@@ -1,61 +1,31 @@
-var gulp = require('gulp');
+'use strict';
+
 var browserify = require('browserify');
-var watchify = require('watchify');
-var assign = require('lodash.assign');
+var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
+var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var gutil = require('gulp-util');
-var babelify = require('babelify');
-var nodemon = require('gulp-nodemon');
-var livereload = require('gulp-livereload');
-var stylus = require('gulp-stylus');
 
-var customOpts = {
-    entries: ['./client/app.js'],
-    debug: true
-};
+gulp.task('default', function () {
+    // set up the browserify instance on a task basis
+    var b = browserify({
+        //noParse: ['cheerio'],
+        debug: true
+    });
 
-var opts = assign({}, watchify.args, customOpts);
-var b = watchify(browserify(opts));
+    b.require('campsi', {expose: 'campsi'});
+    b.exclude('cheerio');
 
-b.transform(babelify);
 
-function bundle() {
-    livereload.listen();
     return b.bundle()
-        .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-        .pipe(source('bundle.js'))
+        .pipe(source('campsi.core.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
+         //Add transformation tasks to the pipeline here.
+        .pipe(uglify())
+        .on('error', gutil.log)
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./server/build/js'))
-        .pipe(livereload());
-}
-
-gulp.task('js', bundle);
-b.on('update', bundle);
-b.on('log', gutil.log);
-
-gulp.task('nodemon', function() {
-    return nodemon({
-        script: 'server/app.js',
-        ignore: ['client/**/*.*', 'client/*.js', 'gulpfile.js']
-    });
+        .pipe(gulp.dest('./public/javascripts/'));
 });
-
-gulp.task('stylus', function() {
-    livereload.listen();
-    gulp.src('./client/styles/app.styl')
-        .pipe(stylus())
-        .pipe(gulp.dest('./server/build/css'))
-        .pipe(livereload());
-});
-
-gulp.task('watch', function() {
-    gulp.watch(
-        ['./client/styles/*.styl', './client/styles/**/*.styl'], ['stylus']
-    );
-});
-
-gulp.task('dev', ['stylus', 'js', 'nodemon', 'watch']);

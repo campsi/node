@@ -19,7 +19,7 @@ Campsi.components.add(function ($super) {
         createDOM: function () {
             this.dom.container = $('<div class="projects">');
 
-            this.dom.root.remove('.errors, .control').append(this.dom.container);
+            this.dom.root.append(this.dom.container);
         },
 
         update: function () {

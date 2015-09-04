@@ -1,0 +1,10 @@
+{
+  "name": "campsi",
+  "main": "./index.js",
+  "private": true,
+  "dependencies": {
+    "async": "*",
+    "microevent": "*",
+    "extend": "*"
+  }
+}

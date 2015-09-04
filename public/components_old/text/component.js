@@ -27,7 +27,9 @@ Campsi.components.add(function ($super) {
         },
 
         update: function () {
-            this.dom.input.val(this.value);
+            if (this.dom) {
+                this.dom.input.val(this.value);
+            }
         },
 
         validate: function (value) {
@@ -43,8 +45,8 @@ Campsi.components.add(function ($super) {
         getPropsFormFields: function () {
             return $super.getPropsFormFields().concat([
                 {
-                    name:  'beginsWith',
-                    type:  'text',
+                    name: 'beginsWith',
+                    type: 'text',
                     label: 'Begins with'
                 }
             ]);

@@ -6,7 +6,9 @@ Campsi.components.extend('form', function ($super) {
 
         defaultValue: {
             name: "Untitled collection",
-            fields: []
+            props: {
+                fields: []
+            }
         },
 
         defaultOptions: {
@@ -15,17 +17,6 @@ Campsi.components.extend('form', function ($super) {
                     name: "name",
                     label: "Collection name",
                     type: "text"
-                },{
-                    name: "fieldsToDisplayInAdminTable",
-                    label: "Fields to display in admin table",
-                    type: "collection",
-                    props: {
-                        items: {
-                            type: "text",
-                            name: "name"
-                        },
-                        withEmptyField: true
-                    }
                 }, {
                     name: 'props',
                     label: 'Properties',

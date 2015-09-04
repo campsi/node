@@ -1,3 +1,5 @@
+var Campsi = require('campsi');
+
 (function(Campsi){
     var Loader = function () {
         this.loaded = {};
@@ -17,7 +19,7 @@
         script.type = 'text/javascript';
         script.src = url;
         script.onerror = function () {
-            return false;
+            throw new Error('unable to fetch component');
         };
         script.onload = script.onreadystatechange = function () {
             if (!r && (!this.readyState || this.readyState === 'complete')) {

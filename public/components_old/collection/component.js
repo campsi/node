@@ -13,21 +13,27 @@ Campsi.components.add(function ($super) {
             props: {withEmptyForm: false}
         },
 
-        createDOM: function(){
-            this.dom.root.addClass('collection');
+        createDOM: function () {
 
-            if (this.options.props.placeholder) {
-                this.createPlaceholder();
+            if (this.dom.list === undefined) {
+                this.dom.root.addClass('collection');
+
+                if (this.options.props.placeholder) {
+                    this.createPlaceholder();
+                }
+
+                this.dom.list = $('<ul class="items">');
+                this.dom.control.append(this.dom.list);
+
+                if (this.options.props.withEmptyForm !== false) {
+                    this.createEmptyItem();
+                }
+            } else {
+                this.dom.list.empty();
             }
-
-            this.dom.list = $('<ul class="items">');
-            this.dom.control.append(this.dom.list);
 
             this.createItems();
 
-            if (this.options.props.withEmptyForm !== false) {
-                this.createEmptyItem();
-            }
 
         },
         createPlaceholder: function () {
@@ -38,6 +44,7 @@ Campsi.components.add(function ($super) {
             var instance = this;
             instance.items = [];
 
+            console.info('Collection createItems', instance.value)
             $(instance.value).each(function (i, item) {
                 instance.createItemComponent(i, item, function (component) {
 
@@ -196,7 +203,8 @@ Campsi.components.add(function ($super) {
         },
 
         update: function () {
-            //console.info(this.previousValue, this.value);
+            this.dom.list.empty();
+            this.createDOM(false)
         },
 
         getDesignerFields: function () {

@@ -1,0 +1,4 @@
+{
+  "name": "cheerio-or-jquery",
+  "main": "./index.js"
+}

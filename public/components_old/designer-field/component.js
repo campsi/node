@@ -21,12 +21,15 @@ Campsi.components.extend('form', function ($super) {
 
         style: ['style.css'],
 
-        init: function (options, value, context, callback) {
+        update: function () {
 
             var instance = this;
-            var alteredOptions = JSON.parse(JSON.stringify(options));
+            var alteredOptions = JSON.parse(JSON.stringify(instance.options));
 
-            Campsi.components.get(value.type, function (component) {
+            if(!instance.value.type){
+                return;
+            }
+            Campsi.components.get(instance.value.type, function (component) {
 
                 alteredOptions.props = alteredOptions.props || {};
                 alteredOptions.props.fields = [];
@@ -53,7 +56,7 @@ Campsi.components.extend('form', function ($super) {
                     });
                 }
 
-                if (value.type !== 'form') {
+                if (instance.value.type !== 'form') {
                     //
                     //alteredOptions.props.fields.push({
                     //    type: value.type,
@@ -79,10 +82,10 @@ Campsi.components.extend('form', function ($super) {
                     });
                 }
 
-                $super.init.call(instance, alteredOptions, value, context, callback);
+                //$super.init.call(instance, alteredOptions, value, context, callback);
 
                 instance.component = component;
-                //instance.createFields();
+                instance.createFields();
 
 
             });
@@ -92,10 +95,11 @@ Campsi.components.extend('form', function ($super) {
 
             $super.createDOM.call(this);
 
+            var instance = this;
+
             instance.dom.root.addClass('designer-field').addClass('collapsed');
 
             instance.dom.header = $('<h2 class="type">').text(instance.value.type + ' : ' + instance.value.name);
-            //instance.dom.header.prepend($('<img>').attr('src', 'src/' + instance.value.type + '/icon.png'));
             instance.dom.control.prepend(instance.dom.header);
             instance.dom.header.click(function () {
                 $(this).closest('.designer-field').toggleClass('collapsed');

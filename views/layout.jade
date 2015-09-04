@@ -3,7 +3,7 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    //link(rel='stylesheet', href='/stylesheets/core.css')
+    link(rel='stylesheet', href='/lib/dragula.js/dist/dragula.css')
   body
     div#app
       .vmax
@@ -19,6 +19,7 @@ html
     div#modal
       block modal
     script(src='lib/jquery/dist/jquery.min.js')
+    script(src='lib/dragula.js/dist/dragula.js')
     script(src='lib/auth0-lock/build/auth0-lock.min.js')
     script(src='javascripts/campsi.auth.js')
     script(src='javascripts/campsi.core.js')
