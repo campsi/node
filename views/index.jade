@@ -22,11 +22,13 @@ block content
     +panel('My Projects', 'projects', 'active')
       include partials/panels/projects
     +panel('Project Detail', 'project', 'active')
-      include partials/panels/project-detail
+      .component-container
     +panel('Collection Detail', 'collection', 'next')
-      #collectionDesigner
-    +panel('Form', 'form', 'next')
-      include partials/lorem
+      .component-container
+    +panel('Collection Designer', 'collection-designer', 'next')
+      .component-container
+    +panel('Components', 'components', 'next')
+      include partials/panels/components
 
 block scripts
   script hola('welcome+projects')

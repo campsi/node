@@ -79,6 +79,9 @@ video {
 body {
   line-height: 1;
 }
+.clear {
+  clear: both;
+}
 article,
 aside,
 details,
@@ -225,6 +228,7 @@ body,
 }
 .vmax > .row.hmax {
   height: 100%;
+/*box-shadow: inset 0 20px 20px -20px rgba($dark, 0.3)*/
 }
 .vmax > .row.hmax > .cell {
   height: 100%;
@@ -232,7 +236,6 @@ body,
   display: inline-block;
   overflow-y: auto;
   position: relative;
-/*box-shadow: inset 0 20px 20px -20px rgba($dark, 0.3)*/
 }
 .vmax > .row.hmax > .scroll > div {
   position: absolute;
@@ -267,9 +270,6 @@ body,
 }
 .panels .panel.prev {
   right: -100%;
-}
-.panels .panel .content {
-  padding: 2rem;
 }
 .panels .panel header {
   box-sizing: border-box;
@@ -377,6 +377,9 @@ button:active {
   opacity: 1;
   background: rgba(30,144,255,0.1);
 }
+#projects .content {
+  padding: 2em;
+}
 #projects .project {
   float: left;
   margin: 1em;
@@ -426,17 +429,20 @@ button:active {
   max-width: 8em;
   max-height: 8em;
 }
-.field.invisible .control {
+#project .content {
+  padding: 2rem;
+}
+.component.invisible .control {
   position: relative;
   display: flex;
 }
-.field.invisible .control input {
+.component.invisible .control input {
   border: none;
   outline: none;
   background: transparent;
   margin-left: 0.5em;
 }
-.field.invisible .control::before {
+.component.invisible .control::before {
   content: '✎';
 /*border 1px solid red*/
 /*position absolute*/
@@ -449,21 +455,17 @@ button:active {
 .project-name .control {
   font-size: 2.5em;
 }
-.control {
-  clear: left;
-  margin-top: 2em;
-}
-.users {
+.campsi_user-list {
   min-height: 6em;
 /*border: 1px solid red*/
 }
-.users li {
+.campsi_user-list .campsi_user-list_user {
   float: left;
   list-style-type: none;
   margin-right: 0.5rem;
   position: relative;
 }
-.users li .username {
+.campsi_user-list .campsi_user-list_user .name {
   font-size: 0.635em;
   position: absolute;
   padding: 0.2em 0.5em 0;
@@ -478,7 +480,7 @@ button:active {
   border-radius: 0.5em;
   text-shadow: 1px -1px 2px #666;
 }
-.users li:hover .username {
+.campsi_user-list .campsi_user-list_user:hover .name {
   display: block;
 }
 .avatar {
@@ -494,28 +496,20 @@ button:active {
   height: 3.5rem;
   width: 3.5rem;
 }
-.avatar::after {
-  z-index: 999;
-  border-radius: 3em;
-  content: '';
-  position: absolute;
-  height: 3.5rem;
-  width: 3.5rem;
-  top: 0;
-  left: 0;
-  display: block;
-  box-shadow: inset -0.2em -0.5em 0.5rem 0 rgba(49,57,60,0.8);
-}
 .control .label {
   font-weight: lighter;
   font-size: 1.5em;
   color: #5d9a9a;
   margin: 1em 0 0.5em;
 }
-#project .collections ul {
-  list-style-type: none;
+#project .component.title {
+  font-size: 2em;
 }
-#project .collections ul li {
+#project .component.title input {
+  font-size: 2em;
+  font-weight: lighter;
+}
+#project .collections .campsi_collection-list_collection {
   background: #fff;
   border: 0.1em solid #e4eeea;
   border-bottom-color: #cadfd7;
@@ -532,4 +526,61 @@ button:active {
 #welcome .scroll {
   background: #93a1a6;
   color: #fff;
+}
+.campsi_collection-designer_field {
+  background: #fff;
+  border: 1px solid #e7eaeb;
+  border-radius: 0.3em;
+  margin-bottom: 1em;
+}
+.campsi_collection-designer_field > .form {
+  padding: 1em;
+}
+.campsi_collection-designer_field > .form .label {
+  display: inline-block;
+}
+#collection-designer .component.title {
+  font-size: 2em;
+}
+#collection-designer .component.title input {
+  font-size: 2em;
+  font-weight: lighter;
+}
+#collection-designer .content {
+  padding: 2rem;
+}
+#components .content {
+  padding: 2rem;
+}
+#components .components {
+  margin-left: -1rem;
+}
+.component.draggable {
+  float: left;
+  margin: 1rem;
+  cursor: all-scroll;
+}
+.component.draggable .icon {
+  background: #1e90ff;
+  color: #fafcfc;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 1rem;
+  border: 1px solid #84c2ff;
+  border-bottom: 3px solid #005db7;
+  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+  line-height: 5rem;
+  text-align: center;
+  font-weight: lighter;
+}
+.component.draggable:hover .icon {
+  background: #51a9ff;
+  border-bottom-color: #0077ea;
+}
+.component.draggable .name {
+  width: 5rem;
+  text-align: center;
+  display: block;
+  font-size: 0.8rem;
 }

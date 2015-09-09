@@ -5,9 +5,7 @@ var schema =  new mongoose.Schema({
     _creator: String,
     name: String,
     date: Date,
-    props: {
-        fields: [mongoose.Schema.Types.Mixed] // todo remplacer par le schema Field
-    }
+    fields: [mongoose.Schema.Types.Mixed] // todo remplacer par le schema Field
 });
 
 module.exports = mongoose.model('Collection', schema);

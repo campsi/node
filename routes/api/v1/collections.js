@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var cheerio = require('cheerio');
+var Campsi = require('campsi');
 
 var User = require('../../../models/user');
 var Project = require('../../../models/project');
@@ -43,7 +45,15 @@ router.delete('/:id', function (req, res, next) {
 router.get('/:id', function (req, res, next) {
 
     Collection.findById(req.params.id, function (err, collection) {
-        res.json(collection);
+        res.json(collection.toObject());
+    });
+});
+
+router.get('/:id/collection-designer-component', function (req, res, next) {
+    Collection.findById(req.params.id, function (err, collection) {
+        Campsi.create('campsi/collection-designer', undefined, collection.toObject(), function (collectionDesignerComponent) {
+            res.send(cheerio.html(collectionDesignerComponent.render()));
+        });
     });
 });
 
@@ -53,8 +63,8 @@ router.get('/:id/items', function (req, res, next) {
         .sort({index: 'asc'})
         .select('data')
         .exec(function (err, items) {
-            res.json(items);
-        });
+                  res.json(items);
+              });
 });
 
 router.post('/:id/items', function (req, res, next) {

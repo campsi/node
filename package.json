@@ -30,12 +30,17 @@
     "equals": "*"
   },
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-uglify": "*",
-    "gulp-sourcemaps": "*",
-    "gulp-util": "*",
     "browserify": "*",
-    "vinyl-source-stream": "*",
-    "vinyl-buffer": "*"
+    "bulk-require": "*",
+    "bulkify": "*",
+    "gulp": "^3.9.0",
+    "gulp-livereload": "^3.8.0",
+    "gulp-nodemon": "^2.0.4",
+    "gulp-sourcemaps": "*",
+    "gulp-stylus": "^2.0.6",
+    "gulp-uglify": "*",
+    "gulp-util": "*",
+    "vinyl-buffer": "*",
+    "vinyl-source-stream": "*"
   }
 }

@@ -1,0 +1,28 @@
+mixin component(name, label, icon)
+  .component.draggable(data-name=name)
+    div.icon=icon
+    span.name=label
+
+.search
+  form
+    input(type="search")
+    button Search
+
+.standard
+  h2 Standard
+  .group
+    h3 Text & Number
+    .components
+      +component('form/text', 'Text Field', 'A')
+      +component('form/text-area', 'Text Area', 'Abc')
+      +component('form/number', 'Number', '0-9')
+      +component('form/checkbox', 'Checkbox', '☑')
+      .clear
+  .group
+    h3 Select & groups
+    .components
+      +component('form/select', 'Dropdown', '')
+      +component('form/select-ajax', 'Ajax Select', '')
+      +component('form/radio-button-group', 'Radio Button Group', '')
+      +component('form/combobox', 'Combo Box', '')
+      .clear
