@@ -93,12 +93,12 @@ $theme = #1e90ff
 $test = #598392
 $brown = #786452
 $contrast = #fdca40
-$light = #eaf2ef
-$white = #fafcfc
+$light = #edeff0
+$nearWhite = #fafcfc
 
 /*@import fonts*/
 
-$fonts = "SanFrancisco", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif
+$fonts = "San Francisco", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif
 
 html, body
   font-family $fonts
@@ -184,7 +184,7 @@ html, body, #app
         .content
           min-height: 100%
 
-panel-duration = .3s
+panel-duration = .5s
 panel-easing = ease-in-out
 
 .panels
@@ -203,22 +203,16 @@ panel-easing = ease-in-out
     transition left panel-duration panel-easing, width panel-duration panel-easing
     transform translate3d(0, 0, 0)
 
-    &.active
-      left 0
-
-    &.next
-      left 100%
-
-    &.prev
-      right -100%
-
     .content
+      border-left: 1px solid darken($light, 3);
       //padding 2rem
     header
       box-sizing border-box
       display flex
-      border: 1px groove alpha(black, 0.2);
-      border-top-color: alpha(white, 0.5);
+      border-bottom: 2px solid darken($theme, 15);
+      border-right: 1px solid lighten($theme, 5);
+      border-left: 1px solid darken($theme, 15);
+      border-top: 1px solid lighten($theme, 20);
 
       h2
         font-size 1em
@@ -227,6 +221,7 @@ panel-easing = ease-in-out
         text-align center
         margin 0 auto
         display inline-block
+        text-shadow 1px 1px 0 darken($theme, 30)
 
       button
         margin auto .5em
@@ -282,21 +277,22 @@ footer.main
 
 .panel
 
-  background: $white
-  box-shadow 0 0 3px rgba($dark, .3)
+  background: $nearWhite
+  //box-shadow 0 0 3px rgba($dark, .3)
 
   header
-    background $theme
+    $headerColor = $theme;
+    background $headerColor
     color $light
-    border-bottom 1px groove darken($theme, 30%)
-    border-top 1px groove lighten($theme, 50%)
+    border-bottom 1px groove darken($headerColor, 30%)
+    border-top 1px groove lighten($headerColor, 50%)
 
     button
       light-button($light)
 
     h2
-      color: $white
-      text-shadow: 0 1px 1px darken($theme, 10);
+      color: $nearWhite
+      //text-shadow: 0 1px 1px darken($theme, 10);
 
   .content
 
@@ -355,7 +351,7 @@ button
 
       background: #FFF
       /*box-shadow -1px 1px 2px rgba($dark, .1)*/
-      border: 2px solid darken($white, 5)
+      border: 2px solid darken($nearWhite, 5)
       border-bottom: 3px solid darken($light, 10)
       width $logoSize
       height $logoSize
@@ -388,7 +384,7 @@ button
     content '✎'
     /*border 1px solid red*/
     /*position absolute*/
-    color darken($white, 20)
+    color darken($nearWhite, 20)
     /*left 0*/
     /*top 0*/
     width 1em
@@ -411,7 +407,7 @@ button
       position absolute
       padding: .2em .5em 0
       background: rgba($dark, .5)
-      color $white
+      color $nearWhite
       bottom -3em
       left 0
       text-align center
@@ -431,16 +427,16 @@ button
   overflow hidden
   float left
   position: relative
-  border: solid .2rem darken($white, 5)
+  border: solid .2rem darken($nearWhite, 5)
   img
     height 3.5rem
     width 3.5rem
 
 .control .label
-  font-weight lighter
-  font-size 1.5em
-  color darken($white, 50)
-  margin: 1em 0 .5em
+  font-weight normal
+  font-size 1em
+  color darken($light, 60)
+  margin: 1em 0 .1em
 
 #project
 
@@ -460,6 +456,7 @@ button
       margin-bottom: 1em
       padding 1em
 
+
 #welcome
   h1
     font-size: 7em
@@ -471,21 +468,76 @@ button
     background: lighten($dark, 40)
     color: white;
 
-.campsi_collection-designer_field
-  background: white;
+.form_array_item[data-item-type='campsi/collection-designer/field']
+  background white
   border 1px solid lighten($dark, 70)
-  border-radius .3em
-  margin-bottom 1em
+  border-bottom 3px solid lighten($dark, 60)
+  border-radius .5rem
+  margin-bottom 1rem
+  position relative
+  overflow hidden
+
+.campsi_collection-designer_field
+  display flex
+
+  > aside
+    width 2rem;
+    display flex
+    flex-direction column
+    border-right lighten($dark, 55) 1px solid
+
+    .drag-handle
+      background lighten($dark, 50)
+      flex 2
+      min-height 4rem
+
+    .type
+      height 2rem
+      width 2rem
+      background: $theme
+      overflow: hidden
+
   > .form
+    flex 1
     padding: 1em
 
+.form-field-label,
+.form-field-name,
+.form-field-required
+  display flex
+  margin-bottom .2em
+
+  .label
+    margin 0
+    margin-right 1rem
+    min-width 5rem
+    align-self center
+    text-align: right
 
 
+  .control
+    flex 1
+    align-self center
+
+    input
+      width 100%
+
+
+.form-field-name
+  font-size: 0.75em
+
+.form-field-name input
+  font-size 1em
 
 #collection-designer
 
+  .cell {
+    background: darken($light, 2)
+  }
+
   .component.title
     font-size 2em
+
     input
       font-size: 2em;
       font-weight lighter
@@ -495,38 +547,66 @@ button
 
 #components
 
+  header {
+    $headerColor = darken($theme, 10);
+    background: $headerColor;
+    border-top-color: lighten($headerColor, 20)
+    border-bottom-color: darken($headerColor, 20)
+  }
+
+  .search
+    display: none
+    input
+
+      font-size: 1.2rem
+      background transparent
+      border 1px solid $theme
+      border-radius 3rem
+      padding .5rem
+      &:focus
+        outline none
+
+
+  .cell
+    background: linear-gradient(darken($theme, 20), darken($theme, 30))
+
   .content
     padding 2rem
+    color white
+
 
   .components {
     margin-left: -1rem;
+    .component {
+      float left
+    }
   }
 
-.component.draggable
+
+.component.icon.draggable
 
   $componentSize = 5rem;
-  float left
   margin: 1rem
   cursor: all-scroll
 
   .icon
-    background $theme
-    color $white
+    background linear-gradient(45deg, black, darken($theme, 40))
+    color $nearWhite
     height $componentSize
     width $componentSize
-    border-radius 1rem
+    border-radius .5rem
     border 1px solid lighten($theme, 20)
-    border-bottom 3px solid darken($theme, 20)
+    border-bottom 3px solid $theme
     //box-shadow rgba($theme, .3) 1px 1px 1rem 0
     margin-bottom .5rem
-    font-size: 2.5rem;
+    font-size: 2rem;
     line-height: $componentSize
     text-align: center
     font-weight lighter
 
   &:hover
     .icon
-      background lighten($theme, 10)
+      background linear-gradient(45deg, black, darken($theme, 20))
       border-bottom-color darken($theme, 10)
 
   .name
@@ -535,3 +615,7 @@ button
     display block
     font-size 0.8rem
 
+#welcome
+
+  .content
+    padding 2em;

@@ -51,7 +51,7 @@ router.get('/:id', function (req, res, next) {
 
 router.get('/:id/collection-designer-component', function (req, res, next) {
     Collection.findById(req.params.id, function (err, collection) {
-        Campsi.create('campsi/collection-designer', undefined, collection.toObject(), function (collectionDesignerComponent) {
+        Campsi.create('campsi/collection-designer', undefined, collection.toObject().fields, function (collectionDesignerComponent) {
             res.send(cheerio.html(collectionDesignerComponent.render()));
         });
     });

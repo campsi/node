@@ -17,14 +17,15 @@ var collectionDesignerComponent;
                 Campsi.wakeUp($collectionDesigner.find('> .component'), function (comp) {
                     collectionDesignerComponent = comp;
                     collectionDesignerComponent.attachEvents();
+                    hola('collection-designer:70+components:30');
                 });
             });
         } else {
             $.getJSON(collectionUrl, function (data) {
-                collectionDesignerComponent.setValue(data);
+                collectionDesignerComponent.setValue(data.fields);
+                hola('collection-designer:70+components:30');
             });
         }
-        hola('collection-designer+components');
     }
 
     function openProject(id) {

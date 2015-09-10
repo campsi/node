@@ -1,18 +1,17 @@
 mixin component(name, label, icon)
-  .component.draggable(data-name=name)
-    div.icon=icon
+  .component.draggable.icon(data-component-type=name)
+    div.icon.drag-handle=icon
     span.name=label
 
 .search
   form
-    input(type="search")
-    button Search
+    input(type="search", placeholder="search")
 
 .standard
-  h2 Standard
+  //h2 Standard
   .group
     h3 Text & Number
-    .components
+    .components.dragzone
       +component('form/text', 'Text Field', 'A')
       +component('form/text-area', 'Text Area', 'Abc')
       +component('form/number', 'Number', '0-9')
@@ -20,9 +19,15 @@ mixin component(name, label, icon)
       .clear
   .group
     h3 Select & groups
-    .components
+    .components.dragzone
       +component('form/select', 'Dropdown', '')
       +component('form/select-ajax', 'Ajax Select', '')
       +component('form/radio-button-group', 'Radio Button Group', '')
       +component('form/combobox', 'Combo Box', '')
+      .clear
+  .group
+    h3 Structure
+    .components.dragzone
+      +component('form/array', 'Array', '')
+      +component('form', 'Form', '')
       .clear

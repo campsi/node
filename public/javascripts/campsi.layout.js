@@ -1,8 +1,8 @@
 function hola(state) {
-    var $panels         = $('.panel'),
-        activePanels    = [],
+    var $panels = $('.panel'),
+        activePanels = [],
         activatedPanels = 0,
-        offset          = 0;
+        offset = 0;
 
     if (state.indexOf('+') > -1) {
         activePanels = state.split('+').map(function (panel) {
@@ -10,15 +10,15 @@ function hola(state) {
 
             if (panel.indexOf(':') > -1) {
                 var components = panel.split(':');
-                panelId        = components[0];
-                width          = components[1];
+                panelId = components[0];
+                width = components[1];
             } else {
                 panelId = panel;
-                width   = 50;
+                width = 50;
             }
 
             return {
-                id:    panelId,
+                id: panelId,
                 width: width
             }
         });
@@ -39,31 +39,35 @@ function hola(state) {
 
     $panels.each(function (i, el) {
 
-        var $panel      = $(el),
-            panelId     = $panel.attr('id'),
+        var $panel = $(el),
+            panelId = $panel.attr('id'),
             activePanel = getActivePanel(panelId);
 
         if (activePanel !== false) {
+            $panel.hide();
+            $panel.css({width: activePanel.width + '%'});
+            $panel.show();
 
             $panel.addClass('active').removeClass('next prev');
             $panel.css({
-                width: activePanel.width + '%',
-                left:  offset + '%'
+                left: offset + '%'
             });
 
             offset += parseInt(activePanel.width);
             activatedPanels++;
+
         } else {
             $panel.removeClass('active');
-            $panel.attr('style',{})
-        }
+            if (activatedPanels === activePanels.length) {
 
-        if (activatedPanels === activePanels.length) {
-            $panel.removeClass('prev');
-            $panel.addClass('next');
-        } else {
-            $panel.addClass('prev');
-            $panel.removeClass('next');
+                $panel.removeClass('prev');
+                $panel.addClass('next');
+                $panel.css({left:'100%', right: ''});
+            } else {
+                $panel.addClass('prev');
+                $panel.removeClass('next');
+                $panel.css({left:'', right: '100%'});
+            }
         }
     });
 

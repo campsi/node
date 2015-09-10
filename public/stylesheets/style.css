@@ -158,14 +158,14 @@ select {
 /*@import fonts*/
 html,
 body {
-  font-family: "SanFrancisco", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "San Francisco", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12pt;
   line-height: 1.45em;
 }
 button,
 input,
 select {
-  font-family: "SanFrancisco", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "San Francisco", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1rem;
   font-size: 1rem;
 }
@@ -259,23 +259,19 @@ body,
   position: absolute;
   top: 0;
   left: 0;
-  transition: left 0.3s ease-in-out, width 0.3s ease-in-out;
+  transition: left 0.5s ease-in-out, width 0.5s ease-in-out;
   transform: translate3d(0, 0, 0);
 }
-.panels .panel.active {
-  left: 0;
-}
-.panels .panel.next {
-  left: 100%;
-}
-.panels .panel.prev {
-  right: -100%;
+.panels .panel .content {
+  border-left: 1px solid #e5e8e9;
 }
 .panels .panel header {
   box-sizing: border-box;
   display: flex;
-  border: 1px groove 1;
-  border-top-color: 1;
+  border-bottom: 2px solid #006ad1;
+  border-right: 1px solid #389dff;
+  border-left: 1px solid #006ad1;
+  border-top: 1px solid #84c2ff;
 }
 .panels .panel header h2 {
   font-size: 1em;
@@ -284,6 +280,7 @@ body,
   text-align: center;
   margin: 0 auto;
   display: inline-block;
+  text-shadow: 1px 1px 0 #004384;
 }
 .panels .panel header button {
   margin: auto 0.5em;
@@ -301,7 +298,7 @@ header.main h1 {
 /*@import style */
 header.main {
   background: #31393c;
-  color: #eaf2ef;
+  color: #edeff0;
   border-bottom: 1px solid #000;
 }
 header.main h1 {
@@ -312,23 +309,22 @@ footer.main {
   padding: 0.5em;
   background: #31393c;
   border-top: 1px solid #67787e;
-  color: #eaf2ef;
+  color: #edeff0;
 }
 .panel {
   background: #fafcfc;
-  box-shadow: 0 0 3px rgba(49,57,60,0.3);
 }
 .panel header {
   background: #1e90ff;
-  color: #eaf2ef;
+  color: #edeff0;
   border-bottom: 1px groove #0065c8;
   border-top: 1px groove #8fc7ff;
 }
 .panel header button {
   display: inline-block;
   background: transparent;
-  border: 1px solid #eaf2ef;
-  color: #eaf2ef;
+  border: 1px solid #edeff0;
+  color: #edeff0;
   outline: none;
 /*font-size 1em*/
   padding: 0.4em 0.5em 0.2em 0.5em;
@@ -343,11 +339,10 @@ footer.main {
 }
 .panel header button:active {
   opacity: 1;
-  background: rgba(234,242,239,0.1);
+  background: rgba(237,239,240,0.1);
 }
 .panel header h2 {
   color: #fafcfc;
-  text-shadow: 0 1px 1px #0077ea;
 }
 .panel .content h1 {
   color: rgba(30,144,255,0.4);
@@ -402,20 +397,20 @@ button:active {
   font-style: italic;
 }
 #projects .project.placeholder .logo {
-  border: 3px dashed #abcbbf;
+  border: 3px dashed #b5bec2;
   box-shadow: none;
   color: #1e90ff;
 /*font-size: em*/
   text-align: center;
 }
 #projects .project:hover .logo {
-  border-bottom-color: #abcbbf;
+  border-bottom-color: #b5bec2;
 }
 #projects .project .logo {
   background: #fff;
 /*box-shadow -1px 1px 2px rgba($dark, .1)*/
   border: 2px solid #eaf2f2;
-  border-bottom: 3px solid #cadfd7;
+  border-bottom: 3px solid #d1d6d9;
   width: 10em;
   height: 10em;
   border-radius: 10px;
@@ -497,10 +492,10 @@ button:active {
   width: 3.5rem;
 }
 .control .label {
-  font-weight: lighter;
-  font-size: 1.5em;
-  color: #5d9a9a;
-  margin: 1em 0 0.5em;
+  font-weight: normal;
+  font-size: 1em;
+  color: #4e585d;
+  margin: 1em 0 0.1em;
 }
 #project .component.title {
   font-size: 2em;
@@ -511,8 +506,8 @@ button:active {
 }
 #project .collections .campsi_collection-list_collection {
   background: #fff;
-  border: 0.1em solid #e4eeea;
-  border-bottom-color: #cadfd7;
+  border: 0.1em solid #e7eaeb;
+  border-bottom-color: #d1d6d9;
   border-radius: 0.5em;
   margin-bottom: 1em;
   padding: 1em;
@@ -527,17 +522,73 @@ button:active {
   background: #93a1a6;
   color: #fff;
 }
-.campsi_collection-designer_field {
+.form_array_item[data-item-type='campsi/collection-designer/field'] {
   background: #fff;
   border: 1px solid #e7eaeb;
-  border-radius: 0.3em;
-  margin-bottom: 1em;
+  border-bottom: 3px solid #cbd2d4;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+.campsi_collection-designer_field {
+  display: flex;
+}
+.campsi_collection-designer_field > aside {
+  width: 2rem;
+  display: flex;
+  flex-direction: column;
+  border-right: #bdc6c9 1px solid;
+}
+.campsi_collection-designer_field > aside .drag-handle {
+  background: #afb9bd;
+  flex: 2;
+  min-height: 4rem;
+}
+.campsi_collection-designer_field > aside .type {
+  height: 2rem;
+  width: 2rem;
+  background: #1e90ff;
+  overflow: hidden;
 }
 .campsi_collection-designer_field > .form {
+  flex: 1;
   padding: 1em;
 }
-.campsi_collection-designer_field > .form .label {
-  display: inline-block;
+.form-field-label,
+.form-field-name,
+.form-field-required {
+  display: flex;
+  margin-bottom: 0.2em;
+}
+.form-field-label .label,
+.form-field-name .label,
+.form-field-required .label {
+  margin: 0;
+  margin-right: 1rem;
+  min-width: 5rem;
+  align-self: center;
+  text-align: right;
+}
+.form-field-label .control,
+.form-field-name .control,
+.form-field-required .control {
+  flex: 1;
+  align-self: center;
+}
+.form-field-label .control input,
+.form-field-name .control input,
+.form-field-required .control input {
+  width: 100%;
+}
+.form-field-name {
+  font-size: 0.75em;
+}
+.form-field-name input {
+  font-size: 1em;
+}
+#collection-designer .cell {
+  background: #e7eaeb;
 }
 #collection-designer .component.title {
   font-size: 2em;
@@ -549,38 +600,65 @@ button:active {
 #collection-designer .content {
   padding: 2rem;
 }
+#components header {
+  background: #0077ea;
+  border-top-color: #51a9ff;
+  border-bottom-color: #004384;
+}
+#components .search {
+  display: none;
+}
+#components .search input {
+  font-size: 1.2rem;
+  background: transparent;
+  border: 1px solid #1e90ff;
+  border-radius: 3rem;
+  padding: 0.5rem;
+}
+#components .search input:focus {
+  outline: none;
+}
+#components .cell {
+  background: linear-gradient(#005db7, #004384);
+}
 #components .content {
   padding: 2rem;
+  color: #fff;
 }
 #components .components {
   margin-left: -1rem;
 }
-.component.draggable {
+#components .components .component {
   float: left;
+}
+.component.icon.draggable {
   margin: 1rem;
   cursor: all-scroll;
 }
-.component.draggable .icon {
-  background: #1e90ff;
+.component.icon.draggable .icon {
+  background: linear-gradient(45deg, #000, #002951);
   color: #fafcfc;
   height: 5rem;
   width: 5rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   border: 1px solid #84c2ff;
-  border-bottom: 3px solid #005db7;
+  border-bottom: 3px solid #1e90ff;
   margin-bottom: 0.5rem;
-  font-size: 2.5rem;
+  font-size: 2rem;
   line-height: 5rem;
   text-align: center;
   font-weight: lighter;
 }
-.component.draggable:hover .icon {
-  background: #51a9ff;
+.component.icon.draggable:hover .icon {
+  background: linear-gradient(45deg, #000, #005db7);
   border-bottom-color: #0077ea;
 }
-.component.draggable .name {
+.component.icon.draggable .name {
   width: 5rem;
   text-align: center;
   display: block;
   font-size: 0.8rem;
+}
+#welcome .content {
+  padding: 2em;
 }
