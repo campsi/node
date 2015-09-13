@@ -206,7 +206,7 @@ html,
 body,
 #app {
   height: 100%;
-  width: 100%;
+  width: calc(100% + 1px);
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -262,13 +262,22 @@ body,
   transition: left 0.5s ease-in-out, width 0.5s ease-in-out;
   transform: translate3d(0, 0, 0);
 }
+.panels .panel.next {
+  left: 100%;
+}
+.panels .panel.w50 {
+  width: calc(50% + 1px);
+}
+.panels .panel.l50 {
+  left: 50%;
+}
 .panels .panel .content {
   border-left: 1px solid #e5e8e9;
 }
 .panels .panel header {
   box-sizing: border-box;
   display: flex;
-  border-bottom: 2px solid #006ad1;
+  border-bottom: 1px solid #006ad1;
   border-right: 1px solid #389dff;
   border-left: 1px solid #006ad1;
   border-top: 1px solid #84c2ff;
@@ -317,14 +326,13 @@ footer.main {
 .panel header {
   background: #1e90ff;
   color: #edeff0;
-  border-bottom: 1px groove #0065c8;
-  border-top: 1px groove #8fc7ff;
+  border-bottom: 1px solid #0065c8;
+  border-top: 1px solid #8fc7ff;
 }
 .panel header button {
-  display: inline-block;
   background: transparent;
-  border: 1px solid #edeff0;
-  color: #edeff0;
+  border: 1px solid #fff;
+  color: #fff;
   outline: none;
 /*font-size 1em*/
   padding: 0.4em 0.5em 0.2em 0.5em;
@@ -332,13 +340,12 @@ footer.main {
   border-radius: 0.5em;
   cursor: pointer;
   font-size: 0.8em;
-  opacity: 0.7;
 }
 .panel header button:hover {
-  opacity: 1;
+  color: #edeff0;
+  border-color: #edeff0;
 }
 .panel header button:active {
-  opacity: 1;
   background: rgba(237,239,240,0.1);
 }
 .panel header h2 {
@@ -352,10 +359,9 @@ footer.main {
   font-weight: lighter;
 }
 button {
-  display: inline-block;
   background: transparent;
-  border: 1px solid #1e90ff;
-  color: #1e90ff;
+  border: 1px solid #b7dbff;
+  color: #84c2ff;
   outline: none;
 /*font-size 1em*/
   padding: 0.4em 0.5em 0.2em 0.5em;
@@ -363,14 +369,16 @@ button {
   border-radius: 0.5em;
   cursor: pointer;
   font-size: 0.8em;
-  opacity: 0.7;
 }
 button:hover {
-  opacity: 1;
+  color: #1e90ff;
+  border-color: #1e90ff;
 }
 button:active {
-  opacity: 1;
   background: rgba(30,144,255,0.1);
+}
+#projects .cell {
+  background-color: #eaedee;
 }
 #projects .content {
   padding: 2em;
@@ -436,6 +444,10 @@ button:active {
   outline: none;
   background: transparent;
   margin-left: 0.5em;
+  box-shadow: none;
+}
+.component.invisible .control input:focus {
+  box-shadow: none;
 }
 .component.invisible .control::before {
   content: '✎';
@@ -512,6 +524,9 @@ button:active {
   margin-bottom: 1em;
   padding: 1em;
 }
+#welcome .desc {
+  background: rgba(30,144,255,0.8);
+}
 #welcome h1 {
   font-size: 7em;
   font-style: italic;
@@ -524,12 +539,58 @@ button:active {
 }
 .form_array_item[data-item-type='campsi/collection-designer/field'] {
   background: #fff;
-  border: 1px solid #e7eaeb;
-  border-bottom: 3px solid #cbd2d4;
-  border-radius: 0.5rem;
+  border: 1px solid #cbd2d4;
   margin-bottom: 1rem;
   position: relative;
+}
+.form_array_item[data-item-type='campsi/collection-designer/field']::after,
+.form_array_item[data-item-type='campsi/collection-designer/field']:after {
+  position: absolute;
+  box-sizing: border-box;
+  content: '';
+  border-top: 0.5rem solid #cbd2d4;
+  border-left: 0.75rem solid transparent;
+  border-right: 0.75rem solid transparent;
+  height: 0;
+  left: -1px;
+  width: calc(100% + 2px);
+}
+.form_array_item[data-item-type='campsi/collection-designer/field'] button.remove {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 1.5rem;
+  content: 'X';
   overflow: hidden;
+  background: #000;
+  color: #fff;
+  border: none;
+  transition: opacity 0.2s linear, visibility 0.2s linear;
+}
+.form_array_item[data-item-type='campsi/collection-designer/field']:hover button.remove {
+  visibility: visible;
+  opacity: 1;
+}
+.form_array_item[data-item-type='campsi/collection-designer/field'] .placeholder {
+  position: absolute;
+  height: 4rem;
+  width: 100%;
+  opacity: 0.5;
+  border: 5px dashed #808080;
+  text-align: center;
+  line-height: 3.5rem;
+}
+.campsi_component-list {
+  position: relative;
+  margin-top: 1rem;
+}
+.campsi_component-list > .control {
+  min-height: 5em;
+  transition: height 0.3s ease-in-out;
 }
 .campsi_collection-designer_field {
   display: flex;
@@ -543,7 +604,7 @@ button:active {
 .campsi_collection-designer_field > aside .drag-handle {
   background: #afb9bd;
   flex: 2;
-  min-height: 4rem;
+  min-height: 3rem;
 }
 .campsi_collection-designer_field > aside .type {
   height: 2rem;
@@ -553,7 +614,7 @@ button:active {
 }
 .campsi_collection-designer_field > .form {
   flex: 1;
-  padding: 1em;
+  padding: 0.5em;
 }
 .form-field-label,
 .form-field-name,
@@ -602,7 +663,7 @@ button:active {
 }
 #components header {
   background: #0077ea;
-  border-top-color: #51a9ff;
+  border-top-color: #1e90ff;
   border-bottom-color: #004384;
 }
 #components .search {
@@ -618,34 +679,43 @@ button:active {
 #components .search input:focus {
   outline: none;
 }
+#components .content h2,
+#components .content h3 {
+  text-shadow: 0 -1px 1px #333;
+}
 #components .cell {
   background: linear-gradient(#005db7, #004384);
+  background: -webkit-radial-gradient(45px 45px, ellipse farthest-corner, #7cedfd, #1681fb);
 }
 #components .content {
   padding: 2rem;
   color: #fff;
+  border-left-color: #0077ea;
 }
 #components .components {
   margin-left: -1rem;
 }
 #components .components .component {
   float: left;
+  margin: 1rem;
+}
+#components .components .component .name {
+  text-shadow: 0 1px 1px #333;
 }
 .component.icon.draggable {
-  margin: 1rem;
   cursor: all-scroll;
 }
 .component.icon.draggable .icon {
   background: linear-gradient(45deg, #000, #002951);
   color: #fafcfc;
-  height: 5rem;
-  width: 5rem;
+  height: 4rem;
+  width: 4rem;
   border-radius: 0.5rem;
   border: 1px solid #84c2ff;
   border-bottom: 3px solid #1e90ff;
   margin-bottom: 0.5rem;
   font-size: 2rem;
-  line-height: 5rem;
+  line-height: 4rem;
   text-align: center;
   font-weight: lighter;
 }
@@ -654,11 +724,32 @@ button:active {
   border-bottom-color: #0077ea;
 }
 .component.icon.draggable .name {
-  width: 5rem;
+  width: 4rem;
   text-align: center;
   display: block;
   font-size: 0.8rem;
 }
-#welcome .content {
+#welcome .cell {
+  background-image: url("https://images.unsplash.com/photo-1429051883746-afd9d56fbdaf?q=80&fm=jpg&s=b5bc5b301b282fd18c85d9bb6ef941e6");
+  background-attachment: fixed;
+  background-size: 100%;
+}
+#welcome .padding {
   padding: 2em;
+}
+.component.form_text input {
+/*width: calc(100% - 0.5em);*/
+  padding: 0.4em 0.4em 0.2em 0.4em;
+  width: 100%;
+  font-family: "Avenir Next";
+  border: #edeff0 solid 1px;
+  box-shadow: inset #ededed 0 1px 1px;
+}
+.component.form_text input:focus {
+  outline: none;
+  border-color: #1e90ff;
+  box-shadow: inset #84c2ff 0 0 2px;
+}
+.component.draggable.gu-mirror {
+  opacity: 1;
 }

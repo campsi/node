@@ -45,7 +45,7 @@ function hola(state) {
 
         if (activePanel !== false) {
             $panel.hide();
-            $panel.css({width: activePanel.width + '%'});
+            $panel.css({width: 'calc(' + activePanel.width + '% + 1px)'});
             $panel.show();
 
             $panel.addClass('active').removeClass('next prev');
@@ -58,6 +58,8 @@ function hola(state) {
 
         } else {
             $panel.removeClass('active');
+            $panel.removeClass('l50');
+            $panel.removeClass('w50');
             if (activatedPanels === activePanels.length) {
 
                 $panel.removeClass('prev');

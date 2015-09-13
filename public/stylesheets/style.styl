@@ -143,7 +143,7 @@ small, .font_small
 
 html, body, #app
   height 100%
-  width 100%
+  width calc(100% + 1px)
   margin 0
   padding 0
   overflow hidden
@@ -203,13 +203,20 @@ panel-easing = ease-in-out
     transition left panel-duration panel-easing, width panel-duration panel-easing
     transform translate3d(0, 0, 0)
 
+    &.next
+      left 100%
+    &.w50
+      width calc(50% + 1px)
+    &.l50
+      left 50%
+
     .content
       border-left: 1px solid darken($light, 3);
-      //padding 2rem
+    //padding 2rem
     header
       box-sizing border-box
       display flex
-      border-bottom: 2px solid darken($theme, 15);
+      border-bottom: 1px solid darken($theme, 15);
       border-right: 1px solid lighten($theme, 5);
       border-left: 1px solid darken($theme, 15);
       border-top: 1px solid lighten($theme, 20);
@@ -238,10 +245,10 @@ header.main
 /*@import ui*/
 
 light-button(color)
-  display inline-block
+  //display inline-block
   background transparent
-  border 1px solid color
-  color color
+  border 1px solid lighten(color, 30)
+  color lighten(color, 20)
   outline none
   /*font-size 1em*/
   padding .4em .5em .2em .5em
@@ -249,13 +256,11 @@ light-button(color)
   border-radius .5em
   cursor pointer
   font-size: 0.8em
-  opacity .7
 
   &:hover
-    opacity 1
-
+    color color
+    border-color color
   &:active
-    opacity 1
     background rgba(color, .1)
 
 /*@import style */
@@ -284,15 +289,15 @@ footer.main
     $headerColor = $theme;
     background $headerColor
     color $light
-    border-bottom 1px groove darken($headerColor, 30%)
-    border-top 1px groove lighten($headerColor, 50%)
+    border-bottom 1px solid darken($headerColor, 30%)
+    border-top 1px solid lighten($headerColor, 50%)
 
     button
       light-button($light)
 
     h2
       color: $nearWhite
-      //text-shadow: 0 1px 1px darken($theme, 10);
+  //text-shadow: 0 1px 1px darken($theme, 10);
 
   .content
 
@@ -307,6 +312,9 @@ button
   light-button($theme)
 
 #projects
+
+  .cell
+    background-color darken($light, 1)
 
   .content
     padding: 2em;
@@ -379,6 +387,9 @@ button
     outline none
     background transparent
     margin-left .5em
+    box-shadow none
+    &:focus
+      box-shadow none;
 
   &::before
     content '✎'
@@ -456,8 +467,11 @@ button
       margin-bottom: 1em
       padding 1em
 
-
 #welcome
+
+  .desc
+    background rgba($theme, .8)
+
   h1
     font-size: 7em
     font-style: italic
@@ -470,12 +484,61 @@ button
 
 .form_array_item[data-item-type='campsi/collection-designer/field']
   background white
-  border 1px solid lighten($dark, 70)
-  border-bottom 3px solid lighten($dark, 60)
-  border-radius .5rem
+  border 1px solid lighten($dark, 60)
+  //border-bottom 3px solid lighten($dark, 60)
+  //border-radius .5rem
   margin-bottom 1rem
   position relative
-  overflow hidden
+
+  &::after, &:after
+    position absolute
+    box-sizing border-box
+    content ''
+    border-top: .5rem solid lighten($dark, 60);
+    border-left: .75rem solid transparent;
+    border-right: .75rem solid transparent;
+    height: 0;
+    left: -1px
+    width: calc(100% + 2px);
+
+
+  button.remove
+    visibility hidden
+    opacity 0
+    $size = 1.5rem
+    position: absolute
+    top: -($size/ 2)
+    right -($size/ 2)
+    height $size
+    width $size
+    border-radius $size
+    content 'X'
+    overflow hidden
+    background: black
+    color white
+    //text-indent: $size
+    border: none
+    transition opacity .2s linear, visibility .2s linear
+
+  &:hover button.remove
+    visibility visible
+    opacity 1
+
+  .placeholder
+    position absolute
+    height 4rem
+    width 100%
+    opacity 0.5
+    border 5px dashed gray
+    text-align center
+    line-height 3.5rem
+
+.campsi_component-list
+  position: relative
+  margin-top 1rem
+  > .control
+    min-height 5em
+    transition height .3s panel-easing
 
 .campsi_collection-designer_field
   display flex
@@ -489,7 +552,7 @@ button
     .drag-handle
       background lighten($dark, 50)
       flex 2
-      min-height 4rem
+      min-height 3rem
 
     .type
       height 2rem
@@ -499,7 +562,7 @@ button
 
   > .form
     flex 1
-    padding: 1em
+    padding: .5em
 
 .form-field-label,
 .form-field-name,
@@ -514,14 +577,12 @@ button
     align-self center
     text-align: right
 
-
   .control
     flex 1
     align-self center
 
     input
       width 100%
-
 
 .form-field-name
   font-size: 0.75em
@@ -550,7 +611,7 @@ button
   header {
     $headerColor = darken($theme, 10);
     background: $headerColor;
-    border-top-color: lighten($headerColor, 20)
+    border-top-color: lighten($headerColor, 10)
     border-bottom-color: darken($headerColor, 20)
   }
 
@@ -566,27 +627,30 @@ button
       &:focus
         outline none
 
+  .content h2, .content h3
+    text-shadow 0 -1px 1px #333
 
   .cell
     background: linear-gradient(darken($theme, 20), darken($theme, 30))
+    background: -webkit-radial-gradient(45px 45px, ellipse farthest-corner, #7cedfd, #1681fb)
 
   .content
     padding 2rem
     color white
+    border-left-color: darken($theme, 10)
 
+  .components
 
-  .components {
     margin-left: -1rem;
-    .component {
+    .component
       float left
-    }
-  }
-
+      margin: 1rem
+      .name
+        text-shadow: 0 1px 1px #333
 
 .component.icon.draggable
 
-  $componentSize = 5rem;
-  margin: 1rem
+  $componentSize = 4rem;
   cursor: all-scroll
 
   .icon
@@ -616,6 +680,28 @@ button
     font-size 0.8rem
 
 #welcome
+  .cell
+    background-image url(https://images.unsplash.com/photo-1429051883746-afd9d56fbdaf?q=80&fm=jpg&s=b5bc5b301b282fd18c85d9bb6ef941e6)
+    background-attachment fixed
+    background-size 100%
 
-  .content
-    padding 2em;
+  .padding
+    padding 2em
+
+
+.component.form_text input
+  /*width: calc(100% - 0.5em);*/
+  padding: 0.4em 0.4em 0.2em 0.4em;
+  width: 100%;
+  font-family: "Avenir Next";
+  border: $light solid 1px;
+  box-shadow: inset #ededed 0 1px 1px;
+
+.component.form_text input:focus
+  outline: none;
+  border-color: $theme
+  box-shadow: inset lighten($theme, 20) 0 0 2px;
+
+
+.component.draggable.gu-mirror
+  opacity 1

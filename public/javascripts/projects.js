@@ -22,7 +22,7 @@ var collectionDesignerComponent;
             });
         } else {
             $.getJSON(collectionUrl, function (data) {
-                collectionDesignerComponent.setValue(data.fields);
+                collectionDesignerComponent.setValue(data);
                 hola('collection-designer:70+components:30');
             });
         }

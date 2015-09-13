@@ -1,7 +1,8 @@
 extends layout
 
 mixin panel(title, id, classes)
-  .panel(class=classes, id=id)
+
+  .panel(class=classes, id=id, style=style)
     .vmax
       .row
         .cell
@@ -17,11 +18,11 @@ mixin panel(title, id, classes)
 
 block content
   .panels
-    +panel('Hello', 'welcome', 'active')
+    +panel('Hello', 'welcome', 'active w50')
       include partials/panels/welcome
-    +panel('My Projects', 'projects', 'active')
+    +panel('My Projects', 'projects', 'active l50 w50')
       include partials/panels/projects
-    +panel('Project Detail', 'project', 'active')
+    +panel('Project Detail', 'project', 'next')
       .component-container
     +panel('Collection Detail', 'collection', 'next')
       .component-container
