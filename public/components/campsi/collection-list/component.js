@@ -20,9 +20,10 @@ Campsi.extend('form/array', 'campsi/collection-list', function($super){
             item.bind('admin', function(id){
                 instance.trigger('admin', id);
             });
+
             item.bind('design', function(id){
                 instance.trigger('design', id);
-            })
+            });
         }
     }
 });

@@ -33,6 +33,7 @@
     "browserify": "*",
     "bulk-require": "*",
     "bulkify": "*",
+    "console.table": "^0.4.0",
     "gulp": "^3.9.0",
     "gulp-livereload": "^3.8.0",
     "gulp-nodemon": "^2.0.4",

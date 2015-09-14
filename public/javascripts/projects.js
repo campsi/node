@@ -22,8 +22,9 @@ var collectionDesignerComponent;
             });
         } else {
             $.getJSON(collectionUrl, function (data) {
-                collectionDesignerComponent.setValue(data);
-                hola('collection-designer:70+components:30');
+                collectionDesignerComponent.setValue(data, function(){
+                    hola('collection-designer:70+components:30');
+                });
             });
         }
     }
@@ -32,7 +33,9 @@ var collectionDesignerComponent;
         var projectUrl = '/api/v1/projects/' + id;
         if (projectComponent) {
             $.getJSON(projectUrl, function (data) {
-                projectComponent.setValue(data);
+                projectComponent.setValue(data, function(){
+                    hola('projects+project')
+                });
             });
         } else {
 
@@ -48,12 +51,11 @@ var collectionDesignerComponent;
                     projectComponent.bind('delete-collection', function () {
 
                     });
+                    hola('projects+project')
                 })
             });
-
-
         }
-        hola('projects+project')
+
     }
 
     $(document).on('click', '.project[data-id]', function () {

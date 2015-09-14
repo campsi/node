@@ -3,7 +3,7 @@ var async = require('async');
 var $ = require('cheerio-or-jquery');
 var isBrowser = require('is-browser');
 
-Campsi.extend('form/field', 'form', function ($super) {
+Campsi.extend('component', 'form', function ($super) {
 
     return {
 
@@ -16,6 +16,7 @@ Campsi.extend('form/field', 'form', function ($super) {
         },
 
         getDesignerFormOptions: function () {
+
             var superOptions = $super.getDesignerFormOptions.call(this);
 
             superOptions.fields = superOptions.fields.concat([{
@@ -31,8 +32,8 @@ Campsi.extend('form/field', 'form', function ($super) {
 
             $super.init.call(this, function () {
                 this.nodes.fields = $('<div class="fields"></div>');
-                this.nodes.control.append(this.nodes.fields);
-                if (next) next.call(this);
+                this.mountNode.append(this.nodes.fields);
+                next.call(this);
             });
         },
 
@@ -42,6 +43,7 @@ Campsi.extend('form/field', 'form', function ($super) {
             var fieldName;
 
             this.fields = {};
+
 
             $super.wakeUp.call(instance, el, function () {
                 async.forEach(instance.nodes.fields.find('> .component'), function (componentEl, cb) {
@@ -53,7 +55,6 @@ Campsi.extend('form/field', 'form', function ($super) {
                         cb.call(null)
                     });
                 }, function () {
-                    //console.info("all fields woken up");
                     next.call(instance);
                 });
 
@@ -68,14 +69,14 @@ Campsi.extend('form/field', 'form', function ($super) {
 
         getNodePaths: function () {
             return $.extend({}, $super.getNodePaths(), {
-                'fields': '> .control > .fields'
+                'fields': '> .fields'
             });
         },
 
 
         eachField: function (fn) {
-            if(this.options === undefined){
-                debugger;
+            if (typeof this.options === 'undefined') {
+                this.options = this.getDefaultOptions();
             }
             this.options.fields.forEach(function (fieldOptions) {
                 fn.call(this, this.fields[fieldOptions.name], fieldOptions.name);
@@ -92,50 +93,53 @@ Campsi.extend('form/field', 'form', function ($super) {
 
         listenToFieldEvent: function (fieldName) {
             var instance = this;
+
+            console.info("FIELD BIND", instance.fields[fieldName])
             instance.fields[fieldName].bind('change', function () {
+                console.info("FIELD CHANGE", fieldName)
                 instance.value[fieldName] = this.value;
                 instance.trigger('change');
             });
         },
 
-        valueDidChange: function (next) {
+        hasFields: function () {
+            return (
+                typeof this.fields === 'undefined' ||
+                typeof this.options === 'undefined' ||
+                this.options.fields.length === 0
+            );
+        },
 
-            if (typeof this.fields === 'undefined' || typeof this.options === 'undefined') {
-                console.info('form.valueDidChange', 'no fields created or no fields in options');
+        valueDidChange: function (next) {
+            if (this.hasFields()) {
+                //console.info('form.valueDidChange', 'no fields created or no fields in options');
                 return next.call(this);
             }
 
             var instance = this;
 
-            var cnt = 0;
-            var fieldValueHasBeenSet = function () {
-                cnt++;
-                if (cnt == instance.options.fields.length) {
-                    if (next) next.call(instance);
-                }
-            };
+            async.eachSeries(instance.options.fields, function (fieldOptions, cb) {
+                var fieldComponent = instance.fields[fieldOptions.name];
 
-            this.eachField(function (fieldComponent, fieldName) {
-                if (fieldComponent) {
-                    fieldComponent.setValue(this.getFieldValue(fieldName), fieldValueHasBeenSet);
+                if (typeof fieldComponent !== 'undefined') {
+                    fieldComponent.setValue(instance.getFieldValue(fieldOptions.name), cb);
                 } else {
-                    console.info("form.valueDidChange", "no component set form field ", fieldName);
+                    cb.call();
                 }
-            });
 
+            }, next);
         },
 
         createField: function (fieldOptions, callback) {
             var instance = this;
 
-            Campsi.create(fieldOptions.type, fieldOptions, instance.getFieldValue(fieldOptions.name), function (component) {
+            Campsi.create('form/field', fieldOptions, instance.getFieldValue(fieldOptions.name), function (component) {
 
                 instance.fields[fieldOptions.name] = component;
 
                 if (isBrowser) {
                     instance.listenToFieldEvent(fieldOptions.name);
                 }
-
 
                 callback.call(instance, component.render());
 
@@ -150,6 +154,12 @@ Campsi.extend('form/field', 'form', function ($super) {
             var fieldsToCreate = fieldOptions.length;
             var fieldsCreated = 0;
             var existingField;
+
+
+            if (fieldsToCreate == 0) {
+                instance.nodes.fields.empty();
+                return next.call(this);
+            }
 
             var allFieldsCreated = function () {
                 instance.nodes.fields.empty();
@@ -175,8 +185,8 @@ Campsi.extend('form/field', 'form', function ($super) {
 
             $super.optionsDidChange.call(this, function () {
 
-                fieldOptions.forEach(function (fieldOption) {
 
+                fieldOptions.forEach(function (fieldOption) {
                     existingField = instance.fields[fieldOptions.name];
 
                     if (existingField && existingField.options.type === fieldOption.type) {
@@ -186,9 +196,10 @@ Campsi.extend('form/field', 'form', function ($super) {
                         instance.createField(fieldOption, function (node) {
                             fieldNodes[fieldOption.name] = node;
                             fieldsCreated++;
+                            if (fieldsCreated == fieldsToCreate) allFieldsCreated();
                         });
                     }
-                    if (fieldsCreated == fieldsToCreate) allFieldsCreated();
+
                 });
             });
 
