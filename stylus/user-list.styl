@@ -1,0 +1,39 @@
+.campsi_user-list
+  .items
+    display flex
+    flex-wrap wrap
+  /*border: 1px solid red*/
+  .campsi_user-list_user
+    list-style-type none
+    margin-right .5rem
+    position relative
+
+    .name
+      font-size: .635em
+      position absolute
+      padding: .2em .5em 0
+      background: rgba($dark, .5)
+      color $nearWhite
+      bottom -3em
+      left 0
+      text-align center
+      white-space nowrap
+      display none
+      min-width 3rem
+      border-radius .5em
+      text-shadow: 1px -1px 2px #666
+
+    &:hover .name
+      display block
+
+.avatar
+  border-radius 3em
+  height 3.5rem
+  width: 3.5rem
+  overflow hidden
+  float left
+  position: relative
+  border: solid .2rem darken($nearWhite, 5)
+  img
+    height 3.5rem
+    width 3.5rem

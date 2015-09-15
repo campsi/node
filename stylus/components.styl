@@ -1,0 +1,77 @@
+$componentSize = 3.5rem;
+
+#components
+
+  header {
+    $headerColor = darken($theme, 10);
+    background: $headerColor;
+    border-top-color: lighten($headerColor, 10)
+    border-bottom-color: darken($headerColor, 20)
+  }
+
+  .search
+    display: none
+    input
+
+      font-size: 1.2rem
+      background transparent
+      border 1px solid $theme
+      border-radius 3rem
+      padding .5rem
+      &:focus
+        outline none
+
+  .content h2, .content h3
+    text-shadow 0 -1px 1px #333
+
+  .cell
+    //background: linear-gradient(darken($theme, 20), darken($theme, 30))
+    //radial-gradient( farthest-side ellipse at top left, red, blue);
+    background: radial-gradient(at top left, #7cedfd, #1681fb)
+
+  .content
+    padding 2rem
+    color white
+    border-left-color: darken($theme, 10)
+
+  .components
+
+    margin-left: -1rem;
+    .component
+      float left
+      margin: 0
+      .name
+        text-shadow: 0 1px 1px #333
+
+.component.icon.draggable
+
+  //border 1px solid red
+  cursor: all-scroll
+
+
+  .icon
+    background linear-gradient(45deg, black, darken($theme, 40))
+    color $nearWhite
+    height $componentSize
+    width $componentSize
+    border-radius .5rem
+    border 1px solid lighten($theme, 20)
+    border-bottom 3px solid $theme
+    //box-shadow rgba($theme, .3) 1px 1px 1rem 0
+    font-size: 1em;
+    line-height: $componentSize
+    text-align: center
+    font-weight lighter
+    margin 0 auto 0.5rem auto
+
+  &:hover
+    .icon
+      background linear-gradient(45deg, black, darken($theme, 20))
+      border-bottom-color darken($theme, 10)
+
+  .name
+    width $componentSize + ($componentSize / 2)
+    //border 1px solid orangered
+    text-align center
+    display block
+    font-size 0.8rem

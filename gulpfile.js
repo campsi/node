@@ -11,6 +11,7 @@ var bulk = require('bulk-require');
 var livereload = require('gulp-livereload');
 var nodemon = require('gulp-nodemon');
 var stylus = require('gulp-stylus');
+var autoprefixer = require('gulp-autoprefixer');
 
 
 var shouldMinify = false;
@@ -23,8 +24,13 @@ gulp.task('serve', function () {
 
 
 gulp.task('stylus', function () {
-    gulp.src('./public/stylesheets/*.styl')
-        .pipe(gulp.dest('./public/stylesheets/'));
+    gulp.src('./stylus/main.styl')
+        .pipe(stylus({compress: true}))
+        .pipe(autoprefixer({
+                  browsers: ['last 2 versions'],
+                  cascade: false
+              }))
+        .pipe(gulp.dest('./public/stylesheets'));
 });
 
 gulp.task('core', function () {
@@ -89,7 +95,7 @@ gulp.task('watch', function () {
     livereload.listen(3001);
     gulp.watch('lib/campsi/lib/*.js', ['core']);
     gulp.watch('lib/components/**/component.js', ['standard-components']);
-    gulp.watch('public/stylesheets/*.styl', ['stylus']);
+    gulp.watch('stylus/*.styl', ['stylus']);
 });
 
 gulp.task('default', ['core', 'stylus', 'standard-components', 'watch', 'serve']);

@@ -1,4 +1,3 @@
-
 var projectComponent;
 var collectionDesignerComponent;
 
@@ -22,20 +21,30 @@ var collectionDesignerComponent;
             });
         } else {
             $.getJSON(collectionUrl, function (data) {
-                collectionDesignerComponent.setValue(data, function(){
+                collectionDesignerComponent.setValue(data, function () {
                     hola('collection-designer:70+components:30');
                 });
             });
         }
     }
 
+    function projectChangeHandler(){
+        $('#project').addClass('modified');
+        console.info("project change", projectComponent.value);
+    }
+
     function openProject(id) {
         var projectUrl = '/api/v1/projects/' + id;
+        var done = function () {
+
+            $('#project').removeClass('modified');
+            $('.project[data-id=' + id + ']').addClass('active');
+            hola('projects+project');
+        };
+
         if (projectComponent) {
             $.getJSON(projectUrl, function (data) {
-                projectComponent.setValue(data, function(){
-                    hola('projects+project')
-                });
+                projectComponent.setValue(data, done);
             });
         } else {
 
@@ -51,7 +60,9 @@ var collectionDesignerComponent;
                     projectComponent.bind('delete-collection', function () {
 
                     });
-                    hola('projects+project')
+
+                    projectComponent.bind('change', projectChangeHandler);
+                    done()
                 })
             });
         }
@@ -59,6 +70,7 @@ var collectionDesignerComponent;
     }
 
     $(document).on('click', '.project[data-id]', function () {
+        $('.project').removeClass('active')
         openProject($(this).data('id'));
     });
     //openCollectionDesigner('55d24a9d7cef40e57bea0c72')
