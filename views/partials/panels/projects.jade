@@ -1,16 +1,16 @@
-mixin project(project)
-  .project(data-id=project.id)
-    .logo(data-state='projects+project')
-      img(src=project.iconURL)
-    span.name= project.title
-
-//h2 Projects
-.projects
-
-  each project in projects
-    +project(project)
-
-  .project.placeholder
-    .logo
-      img(src='images/ui/plus.png')
-    span.name New Project
+//mixin project(project)
+//    .project(data-id=project.id)
+//      .logo(data-state='projects+project')
+//        img(src=project.iconURL)
+//      span.name= project.title
+//
+////h2 Projects
+//.projects
+//
+//  each project in projects
+//    +project(project)
+//
+//  .project.placeholder
+//    .logo
+//      img(src='images/ui/plus.png')
+//    span.name New Project

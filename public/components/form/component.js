@@ -132,15 +132,8 @@ Campsi.extend('component', 'form', function ($super) {
             var instance = this;
 
             Campsi.create('form/field', fieldOptions, instance.getFieldValue(fieldOptions.name), function (component) {
-
                 instance.fields[fieldOptions.name] = component;
-
-                if (isBrowser) {
-                    instance.listenToFieldEvent(fieldOptions.name);
-                }
-
                 callback.call(instance, component.render());
-
             });
         },
 
@@ -182,7 +175,6 @@ Campsi.extend('component', 'form', function ($super) {
             removeObsoleteFields();
 
             $super.optionsDidChange.call(this, function () {
-
 
                 fieldOptions.forEach(function (fieldOption) {
                     existingField = instance.fields[fieldOptions.name];

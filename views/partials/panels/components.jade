@@ -12,22 +12,22 @@ mixin component(name, label, icon)
   .group
     h3 Text & Number
     .components.dragzone
-      +component('form/text', 'Text Field', 'A')
-      +component('form/text-area', 'Text Area', 'Abc')
-      +component('form/number', 'Number', '0-9')
-      +component('form/checkbox', 'Checkbox', '☑')
+      +component('text', 'Text Field', 'A')
+      +component('text-area', 'Text Area', 'Abc')
+      +component('number', 'Number', '0-9')
+      +component('checkbox', 'Checkbox', '☑')
       .clear
   .group
     h3 Select & groups
     .components.dragzone
-      +component('form/select', 'Dropdown', '')
-      +component('form/select-ajax', 'Ajax Select', '')
-      +component('form/radio-button-group', 'Radio Button Group', '')
-      +component('form/combobox', 'Combo Box', '')
+      +component('select', 'Dropdown', '')
+      +component('select-ajax', 'Ajax Select', '')
+      +component('radio-button-group', 'Radio Button Group', '')
+      +component('combobox', 'Combo Box', '')
       .clear
   .group
     h3 Structure
     .components.dragzone
-      +component('form/array', 'Array', '')
+      +component('array', 'Array', '')
       +component('form', 'Form', '')
       .clear

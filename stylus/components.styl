@@ -3,10 +3,10 @@ $componentSize = 3.5rem;
 #components
 
   header {
-    $headerColor = darken($theme, 10);
+    $headerColor = black
     background: $headerColor;
-    border-top-color: lighten($headerColor, 10)
-    border-bottom-color: darken($headerColor, 20)
+    border-top-color: lighten($headerColor, 30)
+    border-bottom-color: darken($theme, 20)
   }
 
   .search
@@ -27,12 +27,12 @@ $componentSize = 3.5rem;
   .cell
     //background: linear-gradient(darken($theme, 20), darken($theme, 30))
     //radial-gradient( farthest-side ellipse at top left, red, blue);
-    background: radial-gradient(at top left, #7cedfd, #1681fb)
+    background: radial-gradient(at top left, $themeHigh, $theme)
 
   .content
     padding 2rem
     color white
-    border-left-color: darken($theme, 10)
+    border-left-color: transparentify($theme, #7cedfd, .2);
 
   .components
 

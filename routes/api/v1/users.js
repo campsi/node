@@ -20,4 +20,9 @@ router.get('/current', function (req, res) {
     res.json(req.user);
 });
 
+router.get('/', function(req, res){
+
+    res.json()
+});
+
 module.exports = router;

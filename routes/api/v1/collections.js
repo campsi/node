@@ -30,10 +30,19 @@ router.post('/', function (req, res, next) {
 });
 
 router.put('/:id', function (req, res, next) {
-    Collection.findOne(req.params.id, function (err, collection) {
-        collection.update(req.body);
-        res.json(collection);
+    Collection.findOne({'_id': req.params.id}, function (err, collection) {
+
+        collection.name = req.body.name || collection.name;
+
+        if (typeof req.body.fields !== 'undefined') {
+            collection.fields = req.body.fields;
+        }
+
+        collection.save(function(err, result){
+            res.json(result);
+        });
     });
+
 });
 
 router.delete('/:id', function (req, res, next) {

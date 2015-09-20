@@ -8,7 +8,7 @@ panel-easing = ease-in-out
   position relative
   overflow: hidden
 
-  .panel
+  > .panel
     height 100%
     width 100%
     position absolute
@@ -16,7 +16,7 @@ panel-easing = ease-in-out
     left 0
     transition left panel-duration panel-easing, width panel-duration panel-easing
     transform translate3d(0, 0, 0)
-    background: $nearWhite
+    background $nearWhite
 
     &.next
       left 100%
@@ -31,7 +31,7 @@ panel-easing = ease-in-out
         color: rgba($theme, .4)
         font-weight: lighter
 
-    header
+    .cell > header
       box-sizing border-box
       display flex
       $headerColor = $theme;
@@ -57,7 +57,19 @@ panel-easing = ease-in-out
         margin auto .5em
         outline none
         light-button($light)
+
+        &.save
+          background $contrast
+          border-color lighten($contrast, 20)
+          color lighten($contrast, 40)
+          display none
+
+
     &.modified
+
       header
         h2::after, h2:after
           content ' *'
+
+        button.save
+          display inherit

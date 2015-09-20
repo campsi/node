@@ -8,6 +8,11 @@ Campsi.drake = dragula({
         return el.classList.contains('draggable') && handle.classList.contains('drag-handle');
     },
     accepts: function (el, target, source, sibling) {
+        var parent = $(target).closest('.dragzone').closest('.draggable');
+
+        if(parent.length > 0 && parent[0] === el){
+            return false;
+        }
         return target.classList.contains('dropzone');
     },
     invalid: function (el, target) { // don't prevent any drags from initiating by default
