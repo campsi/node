@@ -3,7 +3,7 @@ var async = require('async');
 var $ = require('cheerio-or-jquery');
 var isBrowser = require('is-browser');
 
-Campsi.extend('component', 'form', function ($super) {
+module.exports = Campsi.extend('component', 'form', function ($super) {
 
     return {
 
@@ -21,6 +21,7 @@ Campsi.extend('component', 'form', function ($super) {
 
             superOptions.fields = superOptions.fields.concat([{
                 name: 'fields',
+                label: 'fields',
                 type: 'campsi/component-list'
             }]);
             return superOptions;

@@ -1,8 +1,12 @@
 .array_item[data-item-type='campsi/collection-designer/field']
-  //border-bottom 3px solid lighten($dark, 60)
-  //border-radius .5rem
-  margin-bottom 1rem
+  margin-bottom .5em
   position relative
+
+  &:last-child
+    margin-bottom 0
+
+  &:first-child
+    margin-top 1em
 
   > button.remove
     display none
@@ -18,30 +22,40 @@
 
 .campsi_component-list
   position relative
-  margin-top 1rem
-  > .items
-    min-height 4em
+  margin-top .5em
 
 .campsi_collection-designer_field
   background white
-  //border 1px solid lighten($dark, 60)
+  border 1px solid lighten($dark, 60)
+  border-bottom-width 3px
   width 100%
-  //border-radius .5em
+  border-radius .25em
   overflow hidden
 
+  > .items
+    background darken($light, 10)
+    padding .5em
+
+
   header
-    $background= $contrast
+    $background= lighten($dark, 50)
     display flex
     align-items center
     background $background
     padding .25em
 
-    .type
-      //border 1px solid red
+    .type, .identifier
+      line-height 1.5em
+      margin-left .5em
       color $nearWhite
+      font-size 1.2em
+
+    .type
       font-weight lighter
-      font-size 1.5em
-      padding .2em
+
+    .identifier
+      font-weight 500
+      text-shadow lighten($dark, 40) 0 1px 0
 
     .spacer
       flex 1
@@ -49,7 +63,10 @@
 
     .drag-handle
       //border 1px solid blue
-      padding .2em
+      height 1.5em
+      width 1.5em
+      text-align center
+      font-size 0.8em
       color white;
 
     button
@@ -62,28 +79,28 @@
   > .form
     padding .5em
 
-  &.closed > .form
-    display none
+  &.closed
+    border-bottom-width 1px
+    > .form
+      display none
 
-.form-field-label,
-.form-field-name,
-.form-field-required
-  display flex
-  margin-bottom .2em
+  .form_field
+    display flex
+    margin-bottom .2em
 
-  .label
-    margin 0
-    margin-right 1rem
-    min-width 5rem
-    align-self center
-    text-align right
+    .label
+      margin 0
+      margin-right 1rem
+      min-width 5rem
+      align-self center
+      text-align right
 
-  .control
-    flex 1
-    align-self center
+    .control
+      flex 1
+      align-self center
 
-    input
-      width 100%
+      input
+        width 100%
 
 .form-field-name
   font-size 0.75em
@@ -105,3 +122,13 @@
 
   .content
     padding 2rem
+
+
+.component-type
+  display block
+  background $theme
+  color $nearWhite
+  border-radius .5em
+  padding  0.25em .5em
+  border 1px solid darken($theme, 5)
+  border-bottom 3px solid darken($theme, 20)

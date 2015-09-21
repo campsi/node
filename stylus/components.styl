@@ -2,22 +2,22 @@ $componentSize = 3.5rem;
 
 #components
 
-  header {
-    $headerColor = black
-    background: $headerColor;
+  header
+    $headerColor = $dark
+    background: linear-gradient($headerColor, black)
     border-top-color: lighten($headerColor, 30)
     border-bottom-color: darken($theme, 20)
-  }
 
   .search
     display: none
-    input
 
+    input
       font-size: 1.2rem
       background transparent
       border 1px solid $theme
       border-radius 3rem
       padding .5rem
+
       &:focus
         outline none
 
@@ -27,7 +27,9 @@ $componentSize = 3.5rem;
   .cell
     //background: linear-gradient(darken($theme, 20), darken($theme, 30))
     //radial-gradient( farthest-side ellipse at top left, red, blue);
-    background: radial-gradient(at top left, $themeHigh, $theme)
+    background $theme
+    //url("noisy-grid.png"),
+    background: radial-gradient(at bottom right, $themeHigh, $theme)
 
   .content
     padding 2rem

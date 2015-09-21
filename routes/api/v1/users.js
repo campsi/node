@@ -5,7 +5,7 @@ var request = require('request');
 var User = require('../../../models/user');
 var Project = require('../../../models/project');
 var Collection = require('../../../models/collection');
-var Item = require('../../../models/item');
+var Item = require('../../../models/entry');
 
 router.get('/current', function (req, res) {
 

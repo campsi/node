@@ -1,6 +1,8 @@
 var projectComponent;
 var projectListComponent;
 var collectionDesignerComponent;
+var entryListComponent;
+var entryFormComponent;
 
 (function () {
 
@@ -8,8 +10,63 @@ var collectionDesignerComponent;
     var Campsi = require('campsi');
     var $projectDetail = $('#project .component-container');
     var $collectionDesigner = $('#collection-designer .component-container');
+    var $entries = $('#entries .component-container');
+    var $entry = $('#entry .component-container');
     var projectUrl;
     var collectionUrl;
+    var entryListUrl;
+    var entryUrl;
+
+    function openEntryList(id) {
+
+        function done() {
+            hola('entries:30+entry:70');
+        }
+        collectionUrl = '/api/v1/collections/' + id[0];
+        entryListUrl = collectionUrl + '/entries';
+        if (typeof entryListComponent === 'undefined') {
+            $.ajax(entryListUrl + '/list', {dataType: 'html', contentType: 'text/html'}).done(function (html) {
+                $entries.append(html);
+                Campsi.wakeUp($entries.find('> .component'), function (comp) {
+                    entryListComponent = comp;
+                    entryListComponent.attachEvents();
+                    done();
+                })
+            });
+        } else {
+            $.getJSON(entryListUrl, function (data) {
+                entryListComponent.setValue(data, done);
+            });
+        }
+    }
+
+    function openEntryForm(id) {
+
+        entryUrl = entryListUrl + '/' + id;
+
+        console.info("loading", collectionUrl);
+        $.getJSON(collectionUrl).done(function(formOptions){
+            console.info("loading", entryUrl);
+            $.getJSON(entryUrl).done(function(entry){
+                if(typeof entryFormComponent === 'undefined'){
+                    Campsi.create('form', formOptions, entry.data, function(comp){
+                        entryFormComponent = comp;
+                        entryFormComponent.attachEvents();
+                        $entry.append(entryFormComponent.render());
+                    });
+                } else {
+                    entryFormComponent.setOptions(formOptions, function(){
+                        entryFormComponent.setValue(entry.data, function(){
+                            console.info("entry form ready");
+                        });
+                    });
+                }
+            });
+        });
+
+
+
+    }
 
     function openCollectionDesigner(id) {
 
@@ -74,12 +131,7 @@ var collectionDesignerComponent;
         projectComponent = component;
         projectComponent.attachEvents();
         projectComponent.bind('design-collection', openCollectionDesigner);
-        projectComponent.bind('admin-collection', function (id) {
-            alert('admin: ' + id);
-        });
-        projectComponent.bind('delete-collection', function () {
-
-        });
+        projectComponent.bind('admin-collection', openEntryList);
         projectComponent.bind('change', projectChangeHandler);
         callback()
     };
@@ -125,14 +177,14 @@ var collectionDesignerComponent;
             dataType: 'json',
             contentType: 'application/json; charset=UTF-8',
             data: JSON.stringify(value)
-        }).done(function(){
+        }).done(function () {
             $('#project').removeClass('modified');
-            $.getJSON('/api/v1/projects', function(data){
-                projectListComponent.setValue(data, function(){
+            $.getJSON('/api/v1/projects', function (data) {
+                projectListComponent.setValue(data, function () {
                     console.info("projectList updated", data);
                 });
             });
-        }).error(function(){
+        }).error(function () {
             console.error(arguments)
         })
     });
@@ -145,20 +197,22 @@ var collectionDesignerComponent;
             dataType: 'json',
             contentType: 'application/json; charset=UTF-8',
             data: JSON.stringify(value)
-        }).done(function(){
+        }).done(function () {
             $('#collection-designer').removeClass('modified')
-        }).error(function(){
+        }).error(function () {
             console.error(arguments)
         })
     });
 
+    $(document).on('click', '.campsi_entry-list_entry', function(){
+        openEntryForm($(this).data('id'));
+    });
 
-
-    $('#projects .content').load('/api/v1/projects/list', function(){
-        Campsi.wakeUp($('.campsi_project-list')[0], function(comp){
+    $('#projects .content').load('/api/v1/projects/list', function () {
+        Campsi.wakeUp($('.campsi_project-list')[0], function (comp) {
             projectListComponent = comp;
             projectListComponent.attachEvents();
-            projectListComponent.bind('select', function(id){
+            projectListComponent.bind('select', function (id) {
                 openProject(id);
             });
         });

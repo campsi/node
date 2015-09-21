@@ -1,0 +1,76 @@
+#entries
+  header
+    background darken($themeHigh, 20)
+    border-top-color $themeHigh
+    border-bottom-color darken($themeHigh, 40)
+
+  .cell
+    background darken($nearWhite, 5)
+
+.campsi_entry-list
+
+  .array_item
+    margin 0
+
+    > button.remove
+      display none
+
+  .campsi_entry-list_entry
+    background white
+    border-bottom 1px solid lighten($dark, 70)
+    padding .5em
+    cursor pointer
+
+    &:hover
+      background darken($nearWhite, 1)
+
+    .title
+      font-weight 500
+      color black
+      margin 0 0 .2em 0
+
+    .summary
+      display block
+      color lighten($dark, 30)
+      font-weight 300
+      font-size: .85em
+
+#entry
+
+  .cell
+    background white
+
+  .component-container > .component.form
+    padding 1em;
+
+    .form_field
+      padding .5em;
+
+      .label
+        font-weight 200
+        padding .25em
+
+    .array_item, .newItem
+      width 100%
+      padding .5em;
+      display flex
+      align-items: center
+
+      > .component
+        flex 1
+
+      > .container
+        width 100%
+
+      > .drag-handle
+        cursor all-scroll
+        width 1em
+        height 1.5em
+        background darken($nearWhite, 10)
+        margin-right .25em
+
+      > .control
+        flex 1
+
+      > button.remove
+        margin-left .5em

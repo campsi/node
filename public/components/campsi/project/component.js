@@ -1,6 +1,6 @@
 var Campsi = require('campsi');
 
-Campsi.extend('form', 'campsi/project', function($super){
+module.exports = Campsi.extend('form', 'campsi/project', function($super){
 
     return {
 

@@ -6,7 +6,7 @@ var Campsi = require('campsi');
 var User = require('../../../models/user');
 var Project = require('../../../models/project');
 var Collection = require('../../../models/collection');
-var Item = require('../../../models/item');
+var Entry = require('../../../models/entry');
 
 
 /* GET home page. */
@@ -38,7 +38,7 @@ router.put('/:id', function (req, res, next) {
             collection.fields = req.body.fields;
         }
 
-        collection.save(function(err, result){
+        collection.save(function (err, result) {
             res.json(result);
         });
     });
@@ -66,9 +66,8 @@ router.get('/:id/collection-designer-component', function (req, res, next) {
     });
 });
 
-router.get('/:id/items', function (req, res, next) {
-    //Item.find({_collection: req.params.id}).populate('_collection').exec(function(err, items){
-    Item.find({_collection: req.params.id})
+router.get('/:id/entries', function (req, res, next) {
+    Entry.find({_collection: req.params.id})
         .sort({index: 'asc'})
         .select('data')
         .exec(function (err, items) {
@@ -76,50 +75,57 @@ router.get('/:id/items', function (req, res, next) {
               });
 });
 
-router.post('/:id/items', function (req, res, next) {
-    Item.create(req.body, function (err, item) {
+router.post('/:id/entries', function (req, res, next) {
+    Entry.create(req.body, function (err, item) {
         res.json(item);
     });
 });
+/* GET home page. */
+router.get('/:id/entries/list', function (req, res, next) {
+    Entry
+        .find({_collection: req.params.id})
+        .sort({index: 'asc'})
+        .select('data')
+        .exec(function (err, results) {
+                  Campsi.create('campsi/entry-list', undefined, results, function (comp) {
+                      res.send(cheerio.html(comp.render()));
+                  });
+              });
+});
 
-router.get('/:id/items/:itemId', function (req, res, next) {
-    Item.findById(req.params.itemId, function (err, item) {
-        res.json(item);
+router.get('/:id/entries/:entryId', function (req, res, next) {
+    Entry.findById(req.params.entryId, function (err, entry) {
+        res.json(entry);
     });
 });
 
 
-router.put('/:id/items/:itemId', function (req, res, next) {
-
-    var updateItem = function (req, res) {
-        Item.findById(req.params.itemId, function (err, item) {
+router.put('/:id/entries/:entryId', function (req, res, next) {
+    var updateEntry = function (req, res) {
+        Entry.findById(req.params.entryId, function (err, entry) {
             // reorder if isset body.index
             if (req.body.data) {
-                item.markModified('data');
+                entry.markModified('data');
             }
-            item.update(req.body, function (err, item) {
-                if (err) {
-                    res.json(err);
-                } else {
-                    res.json(item);
-                }
+            entry.update(req.body, function (err, result) {
+                res.json(err || result);
             });
         });
 
-    }
+    };
 
     if (req.body.index) {
-        Item.update({
+        Entry.update({
                 _collection: {_id: req.params.id},
                 index: {$gte: req.body.index}
             },
             {$inc: {index: 1}},
             {multi: true},
             function (err, update) {
-                updateItem(req, res);
+                updateEntry(req, res);
             })
     } else {
-        updateItem(req, res);
+        updateEntry(req, res);
     }
 });
 

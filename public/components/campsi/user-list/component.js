@@ -1,6 +1,6 @@
 var Campsi = require('campsi');
 
-Campsi.extend('array', 'campsi/user-list', function ($super) {
+module.exports = Campsi.extend('array', 'campsi/user-list', function ($super) {
 
     return {
         getDefaultOptions: function () {

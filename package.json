@@ -42,7 +42,9 @@
     "gulp-stylus": "^2.0.7",
     "gulp-uglify": "*",
     "gulp-util": "*",
+    "stream-browserify": "^2.0.1",
     "vinyl-buffer": "*",
-    "vinyl-source-stream": "*"
+    "vinyl-source-stream": "*",
+    "vinyl-transform": "^1.0.0"
   }
 }

@@ -4,7 +4,7 @@ var router = express.Router();
 var User = require('../../../models/user');
 var Project = require('../../../models/project');
 var Collection = require('../../../models/collection');
-var Item = require('../../../models/item');
+var Item = require('../../../models/entry');
 
 var Campsi = require('campsi');
 var cheerio = require('cheerio');

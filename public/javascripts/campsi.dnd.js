@@ -10,7 +10,7 @@ Campsi.drake = dragula({
     accepts: function (el, target, source, sibling) {
         var parent = $(target).closest('.dragzone').closest('.draggable');
 
-        if(parent.length > 0 && parent[0] === el){
+        if (parent.length > 0 && parent[0] === el) {
             return false;
         }
         return target.classList.contains('dropzone');
@@ -25,5 +25,6 @@ Campsi.drake = dragula({
     // elements are moved by default, not copied
     revertOnSpill: true,          // spilling will put the element back where it was dragged from, if this is true
     removeOnSpill: false,          // spilling will `.remove` the element, if this is true
-    mirrorContainer: document.body // set the element that gets mirror elements appended
+    mirrorContainer: document.body, // set the element that gets mirror elements appended
+    useTransform: true
 });
