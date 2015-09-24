@@ -3,8 +3,14 @@
 
   .label
     font-weight lighter
-    font-size 0.9em
+    font-size 1.2em
     color $dark
+    margin 0 0 .5em 0
+
+  .form_field.icon
+    padding 1em
+    background white
+    border-bottom 1px solid darken($nearWhite, 10)
 
   .component.title
     padding 2rem
@@ -24,8 +30,6 @@
     border-bottom 1px solid darken($nearWhite, 10)
     border-top 1px solid lighten($nearWhite, 10)
 
-    .label
-      margin 0 0 .5em .5em
 
 .collections
     padding 1.5em
@@ -33,10 +37,19 @@
     .array_item > button.remove
       display none
 
-    .campsi_collection-list_collection
-      background #FFF
-      border .1em solid darken($light, 2)
-      border-bottom-color darken($light, 10)
-      border-radius .5em
-      margin-bottom: 1em
-      padding 1em
+.campsi_collection-list_collection
+  background #FFF
+  border .1em solid darken($light, 2)
+  border-bottom-color darken($light, 10)
+  border-radius .5em
+  margin-bottom: 1em
+  padding 1em
+  display flex
+  align-items center
+
+  .name
+    flex 1
+
+  .buttons button
+    margin-left .5em
+

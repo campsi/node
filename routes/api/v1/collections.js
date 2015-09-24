@@ -71,7 +71,9 @@ router.get('/:id/entries', function (req, res, next) {
         .sort({index: 'asc'})
         .select('data')
         .exec(function (err, items) {
-                  res.json(items);
+                  res.json(items.map(function (item) {
+                      return item.toObject()
+                  }));
               });
 });
 

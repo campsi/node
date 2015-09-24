@@ -8,13 +8,23 @@
     background-size 100%
 
   .desc
-    background rgba($theme, .8)
+    background linear-gradient(rgba($theme, .8), $theme)
 
   h1
-    font-size: 7em
+    font-size: 6vw
+    line-height 1em
     font-style: italic
     margin-top: .3em
     color white;
+
+    span
+      display block
+      text-shadow rgba(black, .8) 1px 2px 4px
+
+      &.dynamic
+        margin-left 1em
+        strong
+          color $contrast
 
 
   .padding

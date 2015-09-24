@@ -19,10 +19,8 @@ light-button(color)
   &:active
     background rgba(color, .1)
 
-
 button
   light-button($theme)
-
 
 .component.invisible .control
   position relative
@@ -43,13 +41,10 @@ button
     width 1em
     align-self: center
 
-
-
 .control .label
   font-weight normal
   font-size 1em
   color darken($light, 60)
-
 
 .component.text input
   /*width: calc(100% - 0.5em);*/
@@ -64,6 +59,36 @@ button
   border-color: $theme
   box-shadow: inset lighten($theme, 20) 0 0 2px;
 
-
 .component.draggable.gu-mirror
   opacity 1
+
+.component.file, .component.file_image
+
+  .file-dropzone
+    border .3em dashed $light
+    border-radius 1em
+    background-position 50% 50%
+    background-repeat no-repeat
+    background-clip padding-box
+    position relative
+    overflow hidden
+
+    input[type=file]
+      display block
+      position absolute
+      width 100%
+      height 100em
+      -webkit-appearance button
+      opacity 0
+
+  &.file_image
+    .file-dropzone
+        width 100%
+        height 10rem
+      .file
+        height 100%
+        width 100%
+        background-repeat no-repeat
+        background-position 50% 50%
+        background-size 10rem
+        background-clip: content-box;

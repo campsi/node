@@ -7,7 +7,8 @@
   "dependencies": {
     "jquery": "*",
     "dragula.js": "*",
-    "auth0-lock": "*"
+    "auth0-lock": "*",
+    "filedrop": "*"
   },
   "license": "MIT",
   "ignore": [

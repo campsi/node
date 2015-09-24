@@ -9,6 +9,9 @@ var Item = require('../../../models/entry');
 var Campsi = require('campsi');
 var cheerio = require('cheerio');
 var mongoose = require('mongoose');
+var ProjectService = require('../../../services/project');
+
+var ObjectId = mongoose.Types.ObjectId;
 
 var getProjectsQuery = function (selector) {
     return Project
@@ -29,54 +32,24 @@ var getProjectsQuery = function (selector) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    getProjectsQuery().exec(function (err, results) {
-        res.json(results);
-    });
+    ProjectService.find({/*userId: sdsg*/}, res.json);
 });
-/* GET home page. */
-router.get('/list', function (req, res, next) {
-    getProjectsQuery().exec(function (err, results) {
-        Campsi.create('campsi/project-list', undefined, results, function (comp) {
-            res.send(cheerio.html(comp.render()));
-        });
-    });
-});
-
 
 router.get('/:id', function (req, res, next) {
-    getProjectsQuery({_id: req.params.id}).exec(function (err, projects) {
-        if (projects) {
-            var project = projects[0];
-            res.json(project.toObject());
+    console.info(req.params.id);
+    ProjectService.find({_id: new ObjectId(req.params.id) }, function(projects){
+        if(typeof projects[0] !== 'undefined'){
+            res.json(projects[0]);
         } else {
             res.status(404).json({});
         }
     });
 });
 
-router.get('/:id/project-component', function (req, res, next) {
-    getProjectsQuery({_id: req.params.id}).exec(function (err, projects) {
-        if (projects) {
-
-            var project = projects[0];
-            Campsi.create('campsi/project', undefined, project.toObject(), function (projectComponent) {
-                res.send(cheerio.html(projectComponent.render()));
-            });
-
-        } else {
-            res.status(404).send('');
-        }
-
-    });
-});
-
-
 router.post('/', function (req, res, next) {
-
     Project.create(req.body, function (err, collection) {
         res.json(collection);
     });
-
 });
 
 router.put('/:id', function (req, res, next) {
@@ -96,6 +69,9 @@ router.put('/:id', function (req, res, next) {
         }
         if (typeof req.body.collections !== 'undefined') {
             project.collections = req.body.collections.map(returnId);
+        }
+        if (typeof req.body.icon !== 'undefined') {
+            project.icon = req.body.icon;
         }
 
         project.save(function (err, result) {

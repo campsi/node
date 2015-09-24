@@ -27,7 +27,8 @@
     "cheerio": "*",
     "async": "*",
     "deepcopy": "*",
-    "equals": "*"
+    "equals": "*",
+    "dropzone": "*"
   },
   "devDependencies": {
     "browserify": "*",

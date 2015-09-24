@@ -1,6 +1,12 @@
 panel-duration = .5s
 panel-easing = ease-in-out
 
+for num in 1..10
+  .w{num*10}
+    width (num*10)%
+  .l{num*10}
+    left (num*10)%
+
 .panels
   width 100%
   height 100%
@@ -14,7 +20,7 @@ panel-easing = ease-in-out
     position absolute
     top 0
     left 0
-    transition left panel-duration panel-easing, width panel-duration panel-easing
+    //transition left panel-duration panel-easing, width panel-duration panel-easing
     transform translate3d(0, 0, 0)
     background $nearWhite
 
@@ -55,8 +61,12 @@ panel-easing = ease-in-out
         text-shadow 1px 1px 0 darken($theme, 30)
         color: $nearWhite
 
-      button
+      .buttons
         margin auto .5em
+        display flex
+
+      button
+        margin .25em
         outline none
         light-button($light)
 

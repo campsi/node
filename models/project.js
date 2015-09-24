@@ -4,10 +4,12 @@ var User = require('./user');
 var Collection = require('./collection');
 
 var schema = new mongoose.Schema({
-    title:        String,
-    iconURL:     String,
-    admins:      [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-    designers:   [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+    title: String,
+    icon: {
+        uri: String
+    },
+    admins: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+    designers: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     collections: [{type: mongoose.Schema.Types.ObjectId, ref: 'Collection'}]
 });
 

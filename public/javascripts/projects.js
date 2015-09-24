@@ -22,6 +22,7 @@ var entryFormComponent;
         function done() {
             hola('entries:30+entry:70');
         }
+
         collectionUrl = '/api/v1/collections/' + id[0];
         entryListUrl = collectionUrl + '/entries';
         if (typeof entryListComponent === 'undefined') {
@@ -45,25 +46,24 @@ var entryFormComponent;
         entryUrl = entryListUrl + '/' + id;
 
         console.info("loading", collectionUrl);
-        $.getJSON(collectionUrl).done(function(formOptions){
+        $.getJSON(collectionUrl).done(function (formOptions) {
             console.info("loading", entryUrl);
-            $.getJSON(entryUrl).done(function(entry){
-                if(typeof entryFormComponent === 'undefined'){
-                    Campsi.create('form', formOptions, entry.data, function(comp){
+            $.getJSON(entryUrl).done(function (entry) {
+                if (typeof entryFormComponent === 'undefined') {
+                    Campsi.create('form', formOptions, entry.data, function (comp) {
                         entryFormComponent = comp;
                         entryFormComponent.attachEvents();
                         $entry.append(entryFormComponent.render());
                     });
                 } else {
-                    entryFormComponent.setOptions(formOptions, function(){
-                        entryFormComponent.setValue(entry.data, function(){
+                    entryFormComponent.setOptions(formOptions, function () {
+                        entryFormComponent.setValue(entry.data, function () {
                             console.info("entry form ready");
                         });
                     });
                 }
             });
         });
-
 
 
     }
@@ -143,6 +143,8 @@ var entryFormComponent;
             hola('projects+project');
         };
 
+        projectUrl = '/api/v1/projects';
+
         if (projectComponent) {
             projectComponent.setValue({}, done);
         } else {
@@ -153,31 +155,28 @@ var entryFormComponent;
         }
     };
 
-    $(document).on('click', '.project[data-id]', function () {
-        $('.project').removeClass('active');
-        openProject($(this).data('id'));
-    });
-
-    $(document).on('click', '.project.placeholder', function () {
-        $('.project').removeClass('active');
-        newProject();
-    });
-
-
     $(document).on('dblclick', '.campsi_collection-designer_field header', function () {
         $(this).closest('.campsi_collection-designer_field').toggleClass('closed');
     });
 
     $(document).on('click', '#project header button.save', function () {
+
+
         var value = projectComponent.value;
 
-        $.ajax({
+        var ajaxOptions = {
             url: projectUrl,
             method: 'PUT',
             dataType: 'json',
             contentType: 'application/json; charset=UTF-8',
             data: JSON.stringify(value)
-        }).done(function () {
+        };
+
+        if(projectUrl === '/api/v1/projects'){
+            ajaxOptions.method = 'POST';
+        }
+
+        $.ajax(ajaxOptions).done(function () {
             $('#project').removeClass('modified');
             $.getJSON('/api/v1/projects', function (data) {
                 projectListComponent.setValue(data, function () {
@@ -204,7 +203,7 @@ var entryFormComponent;
         })
     });
 
-    $(document).on('click', '.campsi_entry-list_entry', function(){
+    $(document).on('click', '.campsi_entry-list_entry', function () {
         openEntryForm($(this).data('id'));
     });
 
@@ -213,7 +212,11 @@ var entryFormComponent;
             projectListComponent = comp;
             projectListComponent.attachEvents();
             projectListComponent.bind('select', function (id) {
-                openProject(id);
+                if (typeof id === 'undefined') {
+                    newProject();
+                } else {
+                    openProject(id);
+                }
             });
         });
     });

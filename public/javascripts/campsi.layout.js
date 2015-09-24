@@ -64,16 +64,13 @@ function hola(state) {
 
                 $panel.removeClass('prev');
                 $panel.addClass('next');
-                $panel.css({left:'100%', right: ''});
+                $panel.css({left: '100%', right: ''});
             } else {
                 $panel.addClass('prev');
                 $panel.removeClass('next');
-                $panel.css({left:'', right: '100%'});
+                $panel.css({left: '', right: '100%'});
             }
         }
     });
 
 }
-$("[data-state]").click(function () {
-    hola($(this).data('state'));
-});

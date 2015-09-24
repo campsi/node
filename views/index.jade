@@ -1,41 +1,56 @@
 extends layout
-
-mixin panel(title, id, classes)
-
-  .panel(class=classes, id=id, style=style)
-    .vmax
-      .row
-        .cell
-          header
-            button.prev(data-state='projects') Prev
-            h2= title
-            button.save Save
-            button.next(data-state='projects+project')  Next
-      .row.hmax
-        .cell.scroll
-          .scrollpane
-            .content
-              block
-
 block content
   .panels
-    +panel('Hello', 'welcome', 'active w50')
-      include partials/panels/welcome
-    +panel('My Projects', 'projects', 'active l50 w50')
-      include partials/panels/projects
-    +panel('Project Detail', 'project', 'next')
-      .component-container
-    +panel('Collection Detail', 'collection', 'next')
-      .component-container
-    +panel('Collection Designer', 'collection-designer', 'next')
-      .component-container
-    +panel('Components', 'components', 'next')
-      include partials/panels/components
-    +panel('Entries', 'entries', 'next')
-      .component-container
-    +panel('Entry', 'entry', 'next')
-      .component-container
 
-
-block scripts
-  script hola('welcome+projects')
+    each panel in panels
+      | !{panel}
+//
+//block content
+//  .panels
+//    +panel('Hello', 'welcome', 'active w50')
+//      block panelContent
+//        include partials/panels/welcome
+//
+//    +panel('My Projects', 'projects', 'active l50 w50')
+//      block panelContent
+//        include partials/panels/projects
+//
+//    +panel('Project Detail', 'project', 'next')
+//      block buttons
+//        button.save Save
+//
+//      block panelContent
+//        .component-container
+//
+//    +panel('Collection Detail', 'collection', 'next')
+//      block buttons
+//        button.save Save
+//
+//      block panelContent
+//        .component-container
+//
+//    +panel('Collection Designer', 'collection-designer', 'next')
+//      block buttons
+//        button.save Save
+//
+//      block panelContent
+//        .component-container
+//
+//    +panel('Components', 'components', 'next')
+//      block panelContent
+//        include partials/panels/components
+//
+//    +panel('Entries', 'entries', 'next')
+//      block buttons
+//        button.newEntry New entry
+//
+//      block panelContent
+//        .component-container
+//
+//    +panel('Entry', 'entry', 'next')
+//      block content
+//        .component-container
+//
+//
+//block scripts
+//  script hola('welcome+projects')
