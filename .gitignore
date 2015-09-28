@@ -1,3 +1,4 @@
 node_modules
 public/lib
 .idea
+lib/auth-strategy/config.js

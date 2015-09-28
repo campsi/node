@@ -1,11 +1,6 @@
-panel-duration = .5s
-panel-easing = ease-in-out
+$duration = .5s
+$easing = ease-in-out
 
-for num in 1..10
-  .w{num*10}
-    width (num*10)%
-  .l{num*10}
-    left (num*10)%
 
 .panels
   width 100%
@@ -20,18 +15,25 @@ for num in 1..10
     position absolute
     top 0
     left 0
-    //transition left panel-duration panel-easing, width panel-duration panel-easing
-    transform translate3d(0, 0, 0)
+    //transform none
+    transition left $duration $easing, right $duration $easing, width $duration $easing, transform $duration $easing
+    //transform translate3d(0, 0, 1px)
     background $nearWhite
+    box-sizing content-box
 
     &.next
       left 100%
+      transform none
     &.prev
-      left -100%
-    &.w50
-      width calc(50% + 1px)
-    &.l50
-      left 50%
+      left 0
+      transform translateX(-100%)
+
+    for num in 1..10
+      &.w{num*10}
+        width (num*10)%
+      &.l{num*10}
+        left (num*10)%
+
 
     .content
       border-left: 1px solid darken($light, 10);
@@ -65,16 +67,16 @@ for num in 1..10
         margin auto .5em
         display flex
 
-      button
-        margin .25em
-        outline none
-        light-button($light)
+        button, a
+          margin .25em
+          outline none
+          light-button($light)
 
-        &.save
-          background $contrast
-          border-color lighten($contrast, 20)
-          color lighten($contrast, 40)
-          display none
+          &.save
+            background $contrast
+            border-color lighten($contrast, 20)
+            color lighten($contrast, 40)
+            display none
 
 
     &.modified
@@ -83,5 +85,5 @@ for num in 1..10
         h2::after, h2:after
           content ' *'
 
-        button.save
+        .buttons button.save
           display inherit

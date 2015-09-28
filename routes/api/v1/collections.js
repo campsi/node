@@ -2,12 +2,15 @@ var express = require('express');
 var router = express.Router();
 var cheerio = require('cheerio');
 var Campsi = require('campsi');
+var mongoose = require('mongoose');
+var ObjectId = mongoose.Types.ObjectId;
 
 var User = require('../../../models/user');
 var Project = require('../../../models/project');
 var Collection = require('../../../models/collection');
 var Entry = require('../../../models/entry');
 
+var CollectionService = require('../../../services/collections');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -30,7 +33,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.put('/:id', function (req, res, next) {
-    Collection.findOne({'_id': req.params.id}, function (err, collection) {
+    Collection.findOne({'_id': new ObjectId(req.params.id)}, function (err, collection) {
 
         collection.name = req.body.name || collection.name;
 
@@ -52,24 +55,18 @@ router.delete('/:id', function (req, res, next) {
 });
 
 router.get('/:id', function (req, res, next) {
-
-    Collection.findById(req.params.id, function (err, collection) {
-        res.json(collection.toObject());
-    });
-});
-
-router.get('/:id/collection-designer-component', function (req, res, next) {
-    Collection.findById(req.params.id, function (err, collection) {
-        Campsi.create('campsi/collection-designer', undefined, collection.toObject(), function (collectionDesignerComponent) {
-            res.send(cheerio.html(collectionDesignerComponent.render()));
-        });
+    CollectionService.find({_id: ObjectId(req.params.id)}, function (collections) {
+        if(collections.length > 0){
+            res.json(collections[0]);
+        } else {
+            res.status(404).json({error: 'no collection found'})
+        }
     });
 });
 
 router.get('/:id/entries', function (req, res, next) {
     Entry.find({_collection: req.params.id})
         .sort({index: 'asc'})
-        .select('data')
         .exec(function (err, items) {
                   res.json(items.map(function (item) {
                       return item.toObject()
@@ -78,21 +75,14 @@ router.get('/:id/entries', function (req, res, next) {
 });
 
 router.post('/:id/entries', function (req, res, next) {
-    Entry.create(req.body, function (err, item) {
-        res.json(item);
+    var entry = new Entry();
+    entry._collection = req.params.id;
+    entry.index = 0;
+    entry.data = req.body.data;
+
+    entry.save(function (err, item) {
+        res.json(err || item);
     });
-});
-/* GET home page. */
-router.get('/:id/entries/list', function (req, res, next) {
-    Entry
-        .find({_collection: req.params.id})
-        .sort({index: 'asc'})
-        .select('data')
-        .exec(function (err, results) {
-                  Campsi.create('campsi/entry-list', undefined, results, function (comp) {
-                      res.send(cheerio.html(comp.render()));
-                  });
-              });
 });
 
 router.get('/:id/entries/:entryId', function (req, res, next) {
@@ -103,32 +93,41 @@ router.get('/:id/entries/:entryId', function (req, res, next) {
 
 
 router.put('/:id/entries/:entryId', function (req, res, next) {
-    var updateEntry = function (req, res) {
-        Entry.findById(req.params.entryId, function (err, entry) {
-            // reorder if isset body.index
+    var exists = true;
+
+    Entry.findById(req.params.entryId, function (err, entry) {
+        if (typeof entry === 'undefined') {
+            exists = false;
+            return res.status(404).json({error: 'entry not found'});
+        }
+
+        var doUpdate = function () {
+
             if (req.body.data) {
                 entry.markModified('data');
+                entry.data = req.body.data;
             }
-            entry.update(req.body, function (err, result) {
-                res.json(err || result);
+
+            entry.save(function (err, result) {
+                entry.updateResult = result;
+                res.json(err || entry);
             });
-        });
+        };
 
-    };
-
-    if (req.body.index) {
-        Entry.update({
-                _collection: {_id: req.params.id},
-                index: {$gte: req.body.index}
-            },
-            {$inc: {index: 1}},
-            {multi: true},
-            function (err, update) {
-                updateEntry(req, res);
-            })
-    } else {
-        updateEntry(req, res);
-    }
+        if (req.body.index) {
+            Entry.update({
+                    _collection: {_id: req.params.id},
+                    index: {$gte: req.body.index}
+                },
+                {$inc: {index: 1}},
+                {multi: true},
+                function (err, update) {
+                    doUpdate(req, res);
+                })
+        } else {
+            doUpdate(req, res);
+        }
+    });
 });
 
 module.exports = router;

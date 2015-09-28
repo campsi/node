@@ -11,7 +11,7 @@ module.exports = Campsi.extend('form', 'campsi/project', function ($super) {
                 fields: [{
                     name: 'title',
                     type: 'text',
-                    additionalClasses: ['invisible', 'title']
+                    additionalClasses: ['invisible', 'big-title']
                 }, {
                     label: 'Icon',
                     name: 'icon',
@@ -52,9 +52,7 @@ module.exports = Campsi.extend('form', 'campsi/project', function ($super) {
         load: function (id, next) {
             var instance = this;
             var projectUrl = '/api/v1/projects/' + id;
-            console.info('load', projectUrl);
             $.getJSON(projectUrl, function (data) {
-                console.info("loaded", data);
                 instance.setValue(data, function () {
                     next();
                 });
@@ -67,8 +65,8 @@ module.exports = Campsi.extend('form', 'campsi/project', function ($super) {
             var projectUrl = '/api/v1/projects';
             var method = 'POST';
 
-            if (instance.value.id) {
-                projectUrl += '/' + instance.value.id;
+            if (instance.value._id) {
+                projectUrl += '/' + instance.value._id;
                 method = 'PUT';
             }
 

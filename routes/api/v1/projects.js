@@ -32,12 +32,13 @@ var getProjectsQuery = function (selector) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    ProjectService.find({/*userId: sdsg*/}, res.json);
+    ProjectService.find({/*userId: sdsg*/}, function(projects){
+        res.json(projects)
+    });
 });
 
 router.get('/:id', function (req, res, next) {
-    console.info(req.params.id);
-    ProjectService.find({_id: new ObjectId(req.params.id) }, function(projects){
+    ProjectService.find({_id: req.params.id }, function(projects){
         if(typeof projects[0] !== 'undefined'){
             res.json(projects[0]);
         } else {

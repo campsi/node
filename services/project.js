@@ -1,5 +1,5 @@
 var Project = require('../models/project');
-
+var utils = require('./utils');
 var getProjectsQuery = function (query) {
     return Project
         .find(query || {})
@@ -17,21 +17,18 @@ var getProjectsQuery = function (query) {
         });
 };
 
-var toObject = function(item){
-    return item.toObject();
-};
 
 module.exports = {
 
     list: function(query, callback){
         Project.find(query).select('_id name icon').exec(function(err, results){
-           callback(results.map(toObject));
+           callback(results.map(utils.toObject));
         });
     },
 
     find: function(query, callback){
         getProjectsQuery(query).exec(function (err, results) {
-            callback(results.map(toObject));
+            callback(results.map(utils.toObject));
         });
     }
 };

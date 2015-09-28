@@ -8,7 +8,11 @@
 
   .array_item button.remove
     display none
-    
+
+
+  form.newItem input[type=submit]
+    display none
+
   .campsi_project-list_project
     float left
     margin 1em
@@ -47,8 +51,8 @@
 
     .logo
 
-      $logoSize = 8em
-      $logoPadding = 1em
+      $logoSize = 9vw // todo responsive
+      $logoPadding = 2vw
       $borderWidth = 3px
 
       box-sizing content-box
@@ -74,8 +78,11 @@
       //transition box-shadow .1s ease-in, transform .1s ease-out
       transition transform .1s ease-out
 
+
     &.active
       .logo
         //box-shadow 2px 5px 10px 0 rgba($dark, .3)
         border-color darken($light, 5)
         transform scaleX(1.05) scaleY(1.05)
+
+
