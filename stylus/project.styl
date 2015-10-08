@@ -1,5 +1,8 @@
 #project
 
+  .cell .scrollpane
+    background white
+
   .label
     font-weight lighter
     font-size 1.2em
@@ -30,9 +33,17 @@
   padding 1.5em
   clear left
 
+.campsi_collection-list
+  .newItem
+    input[type=submit]
+      display inherit
+
 .array_item[data-item-type="campsi/collection-list/collection"]
-  button.remove
+  > button.remove
     display none
+
+  button.remove
+    dark-button(red)
 
 .campsi_collection-list_collection
   background #FFF
@@ -49,6 +60,6 @@
 
   .buttons a, .buttons button
     margin-left .5em
-    dark-button($theme)
+    //dark-button($theme)
 
 

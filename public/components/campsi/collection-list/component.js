@@ -5,6 +5,9 @@ module.exports = Campsi.extend('array', 'campsi/collection-list', function ($sup
 
         getDefaultOptions: function () {
             return {
+                newItem: true,
+                newItemType: 'campsi/collection-list/wizard',
+                newItemLabel: 'createNewCollection',
                 items: {
                     type: 'campsi/collection-list/collection',
                     removeButton: false
@@ -25,6 +28,12 @@ module.exports = Campsi.extend('array', 'campsi/collection-list', function ($sup
             item.bind('design', function (id) {
                 instance.trigger('design', id);
             });
+        },
+
+        newItemSubmitHandler: function(event){
+            this.trigger('create-collection', this.newItem.value);
+            event.preventDefault();
+            return false;
         }
     }
 });

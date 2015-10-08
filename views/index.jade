@@ -4,53 +4,10 @@ block content
 
     each panel in panels
       | !{panel}
-//
-//block content
-//  .panels
-//    +panel('Hello', 'welcome', 'active w50')
-//      block panelContent
-//        include partials/panels/welcome
-//
-//    +panel('My Projects', 'projects', 'active l50 w50')
-//      block panelContent
-//        include partials/panels/projects
-//
-//    +panel('Project Detail', 'project', 'next')
-//      block buttons
-//        button.save Save
-//
-//      block panelContent
-//        .component-container
-//
-//    +panel('Collection Detail', 'collection', 'next')
-//      block buttons
-//        button.save Save
-//
-//      block panelContent
-//        .component-container
-//
-//    +panel('Collection Designer', 'collection-designer', 'next')
-//      block buttons
-//        button.save Save
-//
-//      block panelContent
-//        .component-container
-//
-//    +panel('Components', 'components', 'next')
-//      block panelContent
-//        include partials/panels/components
-//
-//    +panel('Entries', 'entries', 'next')
-//      block buttons
-//        button.newEntry New entry
-//
-//      block panelContent
-//        .component-container
-//
-//    +panel('Entry', 'entry', 'next')
-//      block content
-//        .component-container
-//
-//
-//block scripts
-//  script hola('welcome+projects')
+
+block modal
+  #code-editor-container
+    #code-editor
+    .buttons
+      button.close close
+      button.validate validate

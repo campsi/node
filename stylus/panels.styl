@@ -18,6 +18,8 @@ $easing = ease-in-out
     //transform none
     transition left $duration $easing, right $duration $easing, width $duration $easing, transform $duration $easing
     //transform translate3d(0, 0, 1px)
+
+    border-left: 1px solid darken($light, 20);
     background $nearWhite
     box-sizing content-box
 
@@ -28,54 +30,55 @@ $easing = ease-in-out
       left 0
       transform translateX(-100%)
 
-    for num in 1..10
-      &.w{num*10}
-        width (num*10)%
-      &.l{num*10}
-        left (num*10)%
+    for $num in 1..10
+      $w = $num*10
+      &.w{$w}
+        width: unit($w, '%')
+      &.l{$w}
+        left unit($w, '%')
+        margin-left -1px
 
 
     .content
-      border-left: 1px solid darken($light, 10);
       h1
         color: rgba($theme, .4)
         font-weight: lighter
 
     .cell > header
+      height 2.5rem
       box-sizing border-box
       display flex
-      $headerColor = $theme;
+      align-items center
+      $headerColor = lighten($dark, 30);
       background $headerColor
       color $light
       border 1px solid transparent
-      border-top-color lighten($headerColor, 30%)
-      border-right-color lighten($theme, 5);
-      border-bottom-color darken($headerColor, 30%)
-      border-left-color darken($theme, 15);
+      //border-top-color lighten($headerColor, 30%)
+      //border-right-color lighten($headerColor, 5);
+      //border-bottom-color darken($headerColor, 30%)
+      //border-left-color darken($headerColor, 15);
 
       h2
-        font-size 1em
-        padding 0.5em
+        font-size 1.2em
+        line-height 1.5em
+        padding 0.4em 0 0.3em 0
+        //outline red 1px solid
         font-weight normal
         text-align center
         margin 0 auto
         display inline-block
-        text-shadow 1px 1px 0 darken($theme, 30)
+        text-shadow 1px 1px 0 darken($nearWhite, 40)
         color: $nearWhite
 
       .buttons
-        margin auto .5em
         display flex
 
         button, a
-          margin .25em
-          outline none
-          light-button($light)
+          margin 0 .25rem
+          light-button(lighten($dark, 10))
 
           &.save
-            background $contrast
-            border-color lighten($contrast, 20)
-            color lighten($contrast, 40)
+            dark-button($contrast)
             display none
 
 

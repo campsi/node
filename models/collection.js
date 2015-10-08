@@ -5,7 +5,12 @@ var schema =  new mongoose.Schema({
     _creator: String,
     name: String,
     date: Date,
-    fields: [mongoose.Schema.Types.Mixed] // todo remplacer par le schema Field
+    fields: [mongoose.Schema.Types.Mixed],
+    templates: [{
+        identifier: String,
+        markup: String,
+        scope: String
+    }]
 });
 
 module.exports = mongoose.model('Collection', schema);

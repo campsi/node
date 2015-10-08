@@ -2,8 +2,6 @@
 
   header
     background darken($themeHigh, 20)
-    border-top-color $themeHigh
-    border-bottom-color darken($themeHigh, 40)
 
   .cell
     background darken($nearWhite, 5)
@@ -16,9 +14,9 @@
     > button.remove
       display none
 
-  .campsi_entry-list_entry
+  .array_item
     background white
-    border-bottom 1px solid lighten($dark, 70)
+    border-bottom 1px solid lighten($dark, 60)
     padding .5em
     cursor pointer
 
@@ -36,7 +34,21 @@
       font-weight 300
       font-size: .85em
 
+    $thumbnailSize = 4em
+    .thumbnail
+      height $thumbnailSize
+      width $thumbnailSize
+      float left
+      overflow hidden
+      margin-right 1em
+      img
+        max-height $thumbnailSize
+
 #entry
+
+  header
+    button.remove
+      light-button(#ffa000)
 
   .cell
     background white

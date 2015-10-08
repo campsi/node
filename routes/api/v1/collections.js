@@ -10,6 +10,8 @@ var Project = require('../../../models/project');
 var Collection = require('../../../models/collection');
 var Entry = require('../../../models/entry');
 
+var Handlebars = require('handlebars');
+
 var CollectionService = require('../../../services/collections');
 
 /* GET home page. */
@@ -24,7 +26,6 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     var collection = req.body;
-    collection.user_id = req.user.sub;
 
     Collection.create(collection, function (err, collection) {
         res.json(collection);
@@ -39,6 +40,10 @@ router.put('/:id', function (req, res, next) {
 
         if (typeof req.body.fields !== 'undefined') {
             collection.fields = req.body.fields;
+        }
+
+        if (typeof req.body.templates !== 'undefined') {
+            collection.templates = req.body.templates;
         }
 
         collection.save(function (err, result) {
@@ -56,7 +61,7 @@ router.delete('/:id', function (req, res, next) {
 
 router.get('/:id', function (req, res, next) {
     CollectionService.find({_id: ObjectId(req.params.id)}, function (collections) {
-        if(collections.length > 0){
+        if (collections.length > 0) {
             res.json(collections[0]);
         } else {
             res.status(404).json({error: 'no collection found'})
@@ -65,12 +70,40 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.get('/:id/entries', function (req, res, next) {
+    function sendJson(items) {
+        res.json(items.map(function (item) {
+            return item.toObject()
+        }));
+    }
+
     Entry.find({_collection: req.params.id})
         .sort({index: 'asc'})
         .exec(function (err, items) {
-                  res.json(items.map(function (item) {
-                      return item.toObject()
-                  }));
+                  if (req.query.template) {
+                      CollectionService.find({_id: req.params.id}, function (collections) {
+                          var template;
+
+                          collections[0].templates.forEach(function (tmpl) {
+                              if (tmpl.identifier === req.query.template) {
+                                  template = tmpl;
+                              }
+                          });
+
+
+                          if (typeof template === 'undefined') {
+                              return sendJson(items)
+                          }
+
+                          var compiledTemplate = Handlebars.compile(template.markup);
+                          res.send(compiledTemplate({
+                              entries: items.map(function (i) {
+                                  return i.data
+                              })
+                          }));
+                      });
+                  } else {
+                      sendJson(items)
+                  }
               });
 });
 

@@ -2,13 +2,14 @@
 
 light-button($color)
 
-  background rgba($color, .2)
-  color lighten($color, 10)
-  border-color lighten($color, 5)
+  background $color
+  color lighten($color, 30)
+  border none
+  border-bottom 2px solid darken($color, 20)
 
   &:hover
-    color lighten($color, 30)
-    border-color lighten($color, 30)
+    background lighten($color, 10)
+    border-color $color
 
   &:active
     background rgba($color, .5)
@@ -16,7 +17,7 @@ light-button($color)
 dark-button($color)
 
   background rgba($color, .2)
-  color darken($color, 5)
+  color darken($color, 10)
   border-color $color
 
   &:hover
@@ -26,21 +27,22 @@ dark-button($color)
   &:active
     background rgba($color, .5)
 
-button, a.btn, .buttons > a
+button, a.btn, .buttons > a, input[type=submit]
   display inline-block
   -webkit-appearance none
   text-decoration none
   text-align center
   outline none
-  padding .3em .5em .2em .5em
-  border-radius .5em
+  border-radius .4em
   cursor pointer
   font-size: 0.8em
-  height 2.2em
-  line-height 1.5em
   border-width 1px
-  border-bottom-width 2px
   border-style solid
+  padding 0 0.8em
+  height 1.8rem
+  line-height 1.9rem
+  font-weight 600
+  light-button(lighten($theme, 10))
 
 .component.invisible .control
   position relative
@@ -66,15 +68,19 @@ button, a.btn, .buttons > a
   font-size 1em
   color darken($light, 60)
 
-.component.text input
+input.component.text
   /*width: calc(100% - 0.5em);*/
   padding: 0.4em 0.4em 0.2em 0.4em;
   width: 100%;
   font-family: "Avenir Next";
-  border: darken($light, 5) solid 1px;
-  box-shadow: inset #ededed 0 1px 1px;
+  border: darken($light, 10) solid 1px;
+  //box-shadow: inset #ededed 0 1px 1px;
+input.component.text::placeholder
+  padding-top .2em
+  font-weight 200
+  font-style: italic
 
-.component.text input:focus
+input.component.text:focus
   outline: none;
   border-color: $theme
   box-shadow: inset lighten($theme, 20) 0 0 2px;
@@ -125,3 +131,18 @@ button, a.btn, .buttons > a
   input
     font-size: 1.5em
     font-weight lighter
+
+.component.text_code
+  position relative
+  width 100%
+  height 10rem
+  border darken($light, 10) solid 1px
+  font-size 10px
+
+
+.component.text_area
+  position relative
+  width 100%
+  height 10rem
+  border: darken($light, 10) solid 1px;
+

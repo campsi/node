@@ -24,6 +24,10 @@
   position relative
   margin-top .5em
 
+  > .items.dropzone:empty
+    min-height 5em;
+    border 3px dashed darken($light, 10)
+
 .campsi_collection-designer_field
   background white
   border 1px solid lighten($dark, 40)
@@ -134,3 +138,44 @@
   padding  0.25em .5em
   border 1px solid darken($theme, 5)
   border-bottom 3px solid darken($theme, 20)
+
+.campsi_collection-list_wizard
+  h4
+    font-weight 500
+    color $dark
+    font-size 0.9em
+  p
+    font-size 0.85em
+    color lighten($dark, 20)
+
+.template
+  display block
+  float left
+  margin-right 0.5em
+  input
+    display none
+  .icon
+    border-radius .5em
+    display block
+    height 6em
+    width 6em
+    background white
+    background-size 4em
+    background-clip content-box
+    background-position: 50% 50%
+    background-repeat no-repeat
+    border 1px solid darken($light, 5)
+    border-bottom-color darken($light, 20)
+
+  &.selected
+    .icon
+      background-color $light
+      border-bottom-color darken($light, 5)
+      border-top-color darken($light, 20)
+    .name
+      font-weight 500
+
+  .name
+    text-align center
+    font-size 0.85em
+    display block

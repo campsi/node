@@ -8,7 +8,9 @@
     "jquery": "*",
     "dragula.js": "*",
     "auth0-lock": "*",
-    "filedrop": "*"
+    "filedrop": "*",
+    "ace-builds-bower-patched": "*",
+    "font-awesome": "*"
   },
   "license": "MIT",
   "ignore": [

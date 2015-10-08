@@ -1,13 +1,63 @@
 #collection
 
-    .form_field
+  > .form_field
+    padding 0 1em 1em 1em
+
+  .label
+    padding 0 0 .5em 0
+
+  .form_field[data-name='templates']
+    
+    $templateTheme = darken($light, 20)
+
+    background $templateTheme
+    border-bottom 1px solid darken($templateTheme, 20)
+    border-top 1px solid $templateTheme
+    padding 1em
+    color white
+
+    input[type=submit]
+      display inherit
+
+    > .label
+      text-indent 1em
+      cursor: n-resize
+      text-shadow: 1px 1px 0 darken($templateTheme, 10)
+
+    > .label::before, > .label:before
+      content: '▼'
+      position absolute
+      left 0
+      height 2em
+      width 2em
+      color white
+      font-size 0.6em
+
+    &.closed > .label::before, &.closed > .label:before
+      content: '▶'
+
+    &.closed
+      > .label
+        padding-bottom 0
+        cursor: s-resize
+      > .control
+        display none
+
+    .items:empty
+      padding 0
+
+    .array_item, .newItem
+      display flex
+      position relative
       margin-bottom .5em
-      padding 1em
+      padding .5em
+      border-bottom 1px solid $templateTheme
+      &.newItem
+        background: lighten($templateTheme, 30)
 
-
-    .label
-      font-weight 200
-
-    .form_field[data-name='templates']
-      input[type=submit]
-        display inherit
+      .container
+        flex 1
+        .fields
+          display flex
+          .invisible
+            flex 1

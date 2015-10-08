@@ -52,6 +52,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get('/*', function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,OPTIONS,POST,HEAD');
+    res.header('Access-Control-Allow-Headers', 'origin, x-requested-with, content-type, accept, authorization, cache-control');
+    next();
+});
+
 
 // json web tokens for API
 //var authorization = require('./middleware/authorization');

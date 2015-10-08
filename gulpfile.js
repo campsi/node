@@ -13,17 +13,31 @@ var livereload = require('gulp-livereload');
 var nodemon = require('gulp-nodemon');
 var stylus = require('gulp-stylus');
 var autoprefixer = require('gulp-autoprefixer');
+var streamify = require('gulp-streamify');
 
 
 var shouldMinify = false;
-var coreDependencies = ['campsi', 'async', 'cheerio-or-jquery', 'is-browser', 'deepcopy', 'equals', 'extend', 'page'];
+
+var coreDependencies = [
+    'campsi',
+    'async',
+    'cheerio-or-jquery',
+    'is-browser',
+    'deepcopy',
+    'equals',
+    'extend',
+    'page',
+    'array-diff',
+    'handlebars'
+];
+
 var serverOnlyDependencies = ['cheerio', 'console.table', 'request'];
 
 gulp.task('serve', function () {
 
     nodemon({
         "verbose": false,
-        'ignore': ['**/*.css', '**/*.styl'],
+        'ignore': ['**/*.css', '**/*.styl', 'public/**/*'],
         'script': 'bin/www'
     });
 });
@@ -54,23 +68,14 @@ gulp.task('core', function () {
         b.exclude(dep);
     });
 
-    var bundle = b.bundle().pipe(source('campsi.core.js'));
-
-    if (shouldMinify) {
-        bundle.pipe(buffer())
-            .pipe(sourcemaps.init({loadMaps: true}))
-            .pipe(uglify())
-            .on('error', gutil.log)
-            .pipe(sourcemaps.write('./'))
-    }
-
+    var bundle = b.bundle().pipe(source('campsi.core.js'))//.pipe(streamify(uglify()));
     return bundle.pipe(gulp.dest('./public/javascripts/'));
 });
 
 gulp.task('standard-components', function () {
 
     // set up the browserify instance on a task basis
-    var b = browserify('./lib/components/map.js',{
+    var b = browserify('./lib/components/map.js', {
         bundleExternals: false
     });
 
@@ -84,25 +89,19 @@ gulp.task('standard-components', function () {
         b.ignore(dep);
     });
 
-    var bundle = b.bundle().pipe(source('campsi.components.js'));
-
-    if (shouldMinify) {
-        bundle.pipe(buffer())
-            .pipe(sourcemaps.init({loadMaps: true}))
-            .pipe(uglify())
-            .on('error', gutil.log)
-            .pipe(sourcemaps.write('./'))
-
-    }
+    var bundle = b.bundle().pipe(source('campsi.components.js'))//.pipe(streamify(uglify()));
     return bundle.pipe(gulp.dest('./public/javascripts/'));
 });
 
 
 gulp.task('editor', function () {
+
     // set up the browserify instance on a task basis
-    var b = browserify( './lib/components/campsi/map.js',{
+    var b = browserify('./lib/components/campsi/map.js', {
         bundleExternals: false
     });
+
+    //b.require('brace');
 
     coreDependencies.forEach(function (dep) {
         b.exclude(dep);
@@ -112,18 +111,10 @@ gulp.task('editor', function () {
         b.ignore(dep);
     });
 
-    var bundle = b.bundle().pipe(source('campsi.editor.js'));
-
-    if (shouldMinify) {
-        bundle.pipe(buffer())
-            .pipe(sourcemaps.init({loadMaps: true}))
-            .pipe(uglify())
-            .on('error', gutil.log)
-            .pipe(sourcemaps.write('./'))
-
-    }
+    var bundle = b.bundle().pipe(source('campsi.editor.js'))//.pipe(streamify(uglify()));
     return bundle.pipe(gulp.dest('./public/javascripts/'));
 });
+
 gulp.task('watch', function () {
     livereload.listen(3001);
     gulp.watch('lib/campsi/lib/*.js', ['core']);

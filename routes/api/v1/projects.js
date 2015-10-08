@@ -32,14 +32,14 @@ var getProjectsQuery = function (selector) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    ProjectService.find({/*userId: sdsg*/}, function(projects){
+    ProjectService.find({/*userId: sdsg*/}, function (projects) {
         res.json(projects)
     });
 });
 
 router.get('/:id', function (req, res, next) {
-    ProjectService.find({_id: req.params.id }, function(projects){
-        if(typeof projects[0] !== 'undefined'){
+    ProjectService.find({_id: req.params.id}, function (projects) {
+        if (typeof projects[0] !== 'undefined') {
             res.json(projects[0]);
         } else {
             res.status(404).json({});
@@ -47,9 +47,16 @@ router.get('/:id', function (req, res, next) {
     });
 });
 
-router.post('/', function (req, res, next) {
-    Project.create(req.body, function (err, collection) {
+router.post('/:id/collections', function (req, res, next) {
+    ProjectService.createCollection(req.params.id, function(collection){
         res.json(collection);
+    });
+});
+
+
+router.post('/', function (req, res, next) {
+    ProjectService.create(req.body, function(project){
+       res.json(project);
     });
 });
 
@@ -69,6 +76,7 @@ router.put('/:id', function (req, res, next) {
             project.designers = req.body.designers.map(returnId);
         }
         if (typeof req.body.collections !== 'undefined') {
+            // todo DELETE obsolete collections
             project.collections = req.body.collections.map(returnId);
         }
         if (typeof req.body.icon !== 'undefined') {
