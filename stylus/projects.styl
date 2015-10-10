@@ -10,7 +10,6 @@
   .array_item button.remove
     display none
 
-
   form.newItem input[type=submit]
     display none
 
@@ -18,7 +17,6 @@
     float left
     margin 1em
     cursor pointer
-
 
     .title
       text-align center
@@ -43,7 +41,6 @@
         color $theme
         /*font-size em*/
         text-align center
-
 
     &:hover
       .logo
@@ -79,11 +76,9 @@
       //transition box-shadow .1s ease-in, transform .1s ease-out
       transition transform .1s ease-out
 
+    .logo.active
+      border darken($light, 20) 3px solid
+      transform scaleX(1.1) scaleY(1.1)
 
-    &.active
-      .logo
-        //box-shadow 2px 5px 10px 0 rgba($dark, .3)
-        border-color darken($light, 5)
-        transform scaleX(1.05) scaleY(1.05)
 
 

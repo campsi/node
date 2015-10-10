@@ -13,6 +13,11 @@ module.exports = Campsi.extend('form', 'campsi/project', function ($super) {
                     type: 'text',
                     additionalClasses: ['invisible', 'big-title']
                 }, {
+                    name: 'identifier',
+                    type: 'text',
+                    label: 'identifier',
+                    additionalClasses: ['identifier']
+                },{
                     label: 'Icon',
                     name: 'icon',
                     type: 'file/image',
@@ -33,6 +38,11 @@ module.exports = Campsi.extend('form', 'campsi/project', function ($super) {
                     type: 'campsi/collection-list',
                     additionalClasses: ['collections']
                 }]
+            }
+        },
+        resolveParam: function(param){
+            if(param === 'project') {
+                return this.value.identifier || this.value._id;
             }
         },
         attachEvents: function () {
@@ -59,6 +69,17 @@ module.exports = Campsi.extend('form', 'campsi/project', function ($super) {
                     });
                 });
             });
+        },
+
+        valueDidChange: function(next){
+            var instance = this;
+            this.value.collections.forEach(function(collection){
+                collection.__project = {
+                    _id: instance.value._id,
+                    identifier: instance.value.identifier
+                };
+            });
+            $super.valueDidChange.call(this, next);
         },
 
         load: function (id, next) {

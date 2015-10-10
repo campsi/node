@@ -17,9 +17,9 @@ $easing = ease-in-out
     left 0
     //transform none
     transition left $duration $easing, right $duration $easing, width $duration $easing, transform $duration $easing
-    //transform translate3d(0, 0, 1px)
+    transform translate3d(0, 0, 1px)
 
-    border-left: 1px solid darken($light, 20);
+    border-right: 1px solid darken($light, 20);
     background $nearWhite
     box-sizing content-box
 
@@ -36,7 +36,7 @@ $easing = ease-in-out
         width: unit($w, '%')
       &.l{$w}
         left unit($w, '%')
-        margin-left -1px
+        //margin-left -1px
 
 
     .content

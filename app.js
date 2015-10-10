@@ -10,6 +10,8 @@ var session = require('express-session');
 var strategy = require('./lib/auth-strategy');
 var app = express();
 
+var ProjectService = require('./services/project');
+var CollectionService = require('./services/collections');
 
 // db
 mongoose.connect('mongodb://localhost/campsi');
@@ -71,10 +73,11 @@ app.get('/*', function (req, res, next) {
 //app.use('/api', jwtCheck);
 
 // Routes
+app.use('/api/v1', require('./routes/api/v1/get'));
+app.use('/api/v1', require('./routes/api/v1/put'));
+app.use('/api/v1', require('./routes/api/v1/post'));
+
 app.use('/api/v1/components', require('./routes/api/v1/components'));
-app.use('/api/v1/collections', require('./routes/api/v1/collections'));
-app.use('/api/v1/projects', require('./routes/api/v1/projects'));
-app.use('/api/v1/users', require('./routes/api/v1/users'));
 app.use('/', require('./routes/index'));
 
 // Auth0 callback handler

@@ -6,7 +6,7 @@ var getProjectsQuery = function (query) {
         .find(query || {})
         .populate({
             path: 'collections',
-            select: 'name _id _project'
+            select: 'name _id _project identifier'
         })
         .populate({
             path: 'admins',
@@ -22,7 +22,7 @@ var getProjectsQuery = function (query) {
 module.exports = {
 
     list: function (query, callback) {
-        Project.find(query).select('_id title icon').exec(function (err, results) {
+        Project.find(query).select('_id title icon identifier').exec(function (err, results) {
             if (err !== null) {
                 console.error(err);
                 return callback([]);

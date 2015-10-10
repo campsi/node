@@ -5,7 +5,13 @@ Campsi.drake = dragula({
         return el.classList.contains('dragzone');
     },
     moves: function (el, source, handle) {
-        return el.classList.contains('draggable') && handle.classList.contains('drag-handle');
+
+        if(handle.classList.contains('drag-handle')){
+            return true;
+        }
+        var parent = $(handle).closest('.drag-handle');
+        return (parent.length > 0);
+
     },
     accepts: function (el, target, source, sibling) {
         var parent = $(target).closest('.dragzone').closest('.draggable');

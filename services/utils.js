@@ -11,7 +11,7 @@ module.exports = {
                 if (item.hasOwnProperty(prop)) {
                     val = item[prop];
                     if (prop === '_id') {
-                        item.id = item._id = val.toString();
+                        item._id = val.toString();
                         continue;
                     }
                     if (typeof val === 'array') {

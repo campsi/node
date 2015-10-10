@@ -8,22 +8,31 @@
 
 .campsi_entry-list
 
-  .array_item
-    margin 0
+.array_item[data-item-type='campsi/entry-list/entry']
+  margin 0
 
-    > button.remove
-      display none
+  > button.remove
+    display none
 
-  .array_item
+  a
+    text-decoration none
+    display block
     background white
     border-bottom 1px solid lighten($dark, 60)
     padding .5em
     cursor pointer
+    color $dark
 
     &:hover
       background darken($nearWhite, 1)
 
-    .title
+    &:active
+      background darken($nearWhite, 10)
+
+    &.active
+      background darken($nearWhite, 30)
+
+    h4, .title
       font-weight 500
       color black
       margin 0 0 .2em 0

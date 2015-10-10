@@ -13,6 +13,9 @@ var ProjectService = require('./../services/project');
 var CollectionService = require('./../services/collections');
 var ComponentService = require('./../services/components');
 var jade = require('jade');
+var resources = require('../middleware/resources');
+
+resources(router);
 
 var createPanels = function (panelsOptions, callback) {
     var panels = [];
@@ -33,6 +36,13 @@ var renderPanels = function (panels) {
 };
 
 var send = function (stack, options, request, response) {
+
+    options._data = {
+        project: request.project,
+        collection: request.collection,
+        entry: request.entry
+    };
+
     async.parallel(stack, function () {
         createPanels(options, function (panels) {
             response.render('index', {panels: renderPanels(panels), user: request.user});
@@ -66,7 +76,6 @@ router.get(routes.welcome.path, function (req, res, next) {
         });
     };
 
-
     send([getProjects], options, req, res);
 });
 
@@ -94,17 +103,10 @@ router.get(routes.project.path, function (req, res, next) {
             cb();
         });
     };
-    var getProject = function (cb) {
-        if (req.params.id === 'new') {
-            return cb();
-        }
-        ProjectService.find({_id: req.params.id}, function (results) {
-            options.project.componentValue = results[0];
-            cb();
-        });
-    };
 
-    send([getProjects, getProject], options, req, res);
+    options.project.componentValue = req.project.toObject();
+
+    send([getProjects], options, req, res);
 });
 
 
@@ -112,33 +114,16 @@ router.get(routes.collection.path, function (req, res, next) {
 
     var options = getPanelOptions(routes.collection.layout);
 
-    var getProject = function (cb) {
-        ProjectService.find({_id: req.params._project}, function (results) {
-            options.project.componentValue = results[0];
-            cb();
-        });
-    };
-    var getCollection = function (cb) {
-        CollectionService.find({_id: req.params.id}, function (results) {
-            options.collection.componentValue = results[0];
-            cb();
-        });
-    };
+    options.project.componentValue = req.project.toObject();
+    options.collection.componentValue = req.collection.toObject();
 
-    send([getProject, getCollection], options, req, res);
+    send([], options, req, res);
 });
 
 router.get(routes.designer.path, function (req, res, next) {
-
     var options = getPanelOptions(routes.designer.layout);
-
-    var getCollection = function (cb) {
-        CollectionService.find({_id: req.params.id}, function (results) {
-            options.collection.componentValue = results[0];
-            options.designer.componentValue = results[0];
-            cb();
-        });
-    };
+    options.collection.componentValue = req.collection.toObject();
+    options.designer.componentValue = req.collection.toObject();
 
     var getComponents = function (cb) {
         ComponentService.find({}, function (results) {
@@ -146,83 +131,59 @@ router.get(routes.designer.path, function (req, res, next) {
             cb();
         });
     };
-    send([getCollection, getComponents], options, req, res);
+    send([getComponents], options, req, res);
 });
 
+var getEntries = function (options) {
 
-function entries(options, collectionId) {
-    var getEntryTemplate = function (collection) {
-        if (typeof collection.templates === 'undefined') {
-            return;
+    return function (req, res, next) {
+
+        var getEntryTemplate = function (collection) {
+            if (typeof collection.templates === 'undefined') {
+                return;
+            }
+
+            var template;
+
+            collection.templates.forEach(function (t) {
+                if (t.identifier === 'entry') template = t;
+            });
+            return template;
+        };
+
+        var collection = req.collection.toObject();
+        var project = req.project.toObject();
+        var template = getEntryTemplate(collection);
+
+        options.entries.componentValue = collection;
+        options.entry.componentOptions = collection;
+        options.collection.componentValue = collection;
+
+        if (typeof template !== 'undefined') {
+            if (typeof options.entries.componentOptions === 'undefined') {
+                options.entries.componentOptions = {};
+            }
+            options.entries.componentOptions.template = template.markup;
         }
 
-        var template;
+        options.project.componentValue = project;
 
-        collection.templates.forEach(function (t) {
-            if (t.identifier === 'entry') template = t;
+        CollectionService.listEntries({_collection: collection._id}, function (entries) {
+            options.entries.componentValue.entries = entries;
+            req.options = options;
+            next();
         });
-        return template;
-    };
-
-    return {
-        getCollection: function (cb) {
-            CollectionService.find({_id: collectionId}, function (collections) {
-                var collection = collections[0];
-                var template = getEntryTemplate(collection);
-
-                options.entries.componentValue.projectId = collection._project;
-                options.entries.componentValue.collectionId = collection.id;
-                options.entry.componentOptions = collection;
-                options.collection.componentValue = collection;
-
-                if (typeof template !== 'undefined') {
-                    if(typeof options.entries.componentOptions === 'undefined'){
-                        options.entries.componentOptions = {};
-                    }
-                    options.entries.componentOptions.template = template.markup;
-                }
-
-                ProjectService.find({_id: collection._project}, function (projects) {
-                    options.project.componentValue = projects[0];
-                    cb();
-                });
-            });
-        },
-        getEntries: function (cb) {
-            CollectionService.listEntries({_collection: collectionId}, function (entries) {
-                options.entries.componentValue.entries = entries;
-                cb();
-            });
-        }
     }
+};
 
-}
-
-router.get(routes.entries.path, function (req, res, next) {
-    var options = getPanelOptions(routes.entries.layout);
-    var collectionId = req.params.id;
-    var entriesMethods = entries(options, collectionId);
-    send([entriesMethods.getCollection, entriesMethods.getEntries], options, req, res);
+router.get(routes.entries.path, getEntries(getPanelOptions(routes.entries.layout)), function (req, res, next) {
+    send([], req.options, req, res);
 });
 
-router.get(routes.entry.path, function (req, res, next) {
-
-    var options = getPanelOptions(routes.entry.layout);
-    var collectionId = req.params.collectionId;
-    var entryId = req.params.entryId;
-    var entriesMethods = entries(options, collectionId);
-
-    var getEntry = function (cb) {
-        CollectionService.findEntry({
-            _collection: collectionId,
-            _id: entryId
-        }, function (entries) {
-            options.entry.componentValue = entries[0];
-            options.entries.componentValue.selectedEntry = entryId;
-            cb();
-        });
-    };
-    send([entriesMethods.getCollection, entriesMethods.getEntries, getEntry], options, req, res);
+router.get(routes.entry.path, getEntries(getPanelOptions(routes.entry.layout)), function (req, res, next) {
+    req.options.entry.componentValue = req.entry;
+    req.options.entries.componentValue.selectedEntry = req.entry._id;
+    send([], req.options, req, res);
 });
 
 

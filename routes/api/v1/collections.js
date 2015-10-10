@@ -46,6 +46,10 @@ router.put('/:id', function (req, res, next) {
             collection.templates = req.body.templates;
         }
 
+        if (typeof req.body.identifier !== 'undefined') {
+            collection.identifier = req.body.identifier;
+        }
+
         collection.save(function (err, result) {
             res.json(result);
         });
@@ -59,15 +63,7 @@ router.delete('/:id', function (req, res, next) {
     });
 });
 
-router.get('/:id', function (req, res, next) {
-    CollectionService.find({_id: ObjectId(req.params.id)}, function (collections) {
-        if (collections.length > 0) {
-            res.json(collections[0]);
-        } else {
-            res.status(404).json({error: 'no collection found'})
-        }
-    });
-});
+
 
 router.get('/:id/entries', function (req, res, next) {
     function sendJson(items) {
@@ -115,12 +111,6 @@ router.post('/:id/entries', function (req, res, next) {
 
     entry.save(function (err, item) {
         res.json(err || item);
-    });
-});
-
-router.get('/:id/entries/:entryId', function (req, res, next) {
-    Entry.findById(req.params.entryId, function (err, entry) {
-        res.json(entry);
     });
 });
 

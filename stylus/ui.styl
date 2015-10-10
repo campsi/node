@@ -13,6 +13,9 @@ light-button($color)
 
   &:active
     background rgba($color, .5)
+  &.active
+    box-shadow inset darken($color, 20) 0 2px 2px
+    border-bottom none
 
 dark-button($color)
 
@@ -44,6 +47,26 @@ button, a.btn, .buttons > a, input[type=submit]
   font-weight 600
   light-button(lighten($theme, 10))
 
+.component.form_field.identifier
+  display flex
+  background darken($light, 10)
+  padding 1em
+  align-items baseline
+  .label
+    margin 0 .5em 0 0
+    padding 0
+  .control
+    flex 1
+    input
+      font-family "Consolas", "Menlo", "Courier", monospace
+      background darken($light, 5)
+      color $dark
+      font-size .8em
+      padding .75em
+      padding-bottom .5em
+  .help .errors
+    display none
+
 .component.invisible .control
   position relative
   display: flex
@@ -74,7 +97,8 @@ input.component.text
   width: 100%;
   font-family: "Avenir Next";
   border: darken($light, 10) solid 1px;
-  //box-shadow: inset #ededed 0 1px 1px;
+
+//box-shadow: inset #ededed 0 1px 1px;
 input.component.text::placeholder
   padding-top .2em
   font-weight 200
@@ -138,7 +162,6 @@ input.component.text:focus
   height 10rem
   border darken($light, 10) solid 1px
   font-size 10px
-
 
 .component.text_area
   position relative

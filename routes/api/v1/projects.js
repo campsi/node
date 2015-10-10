@@ -13,37 +13,10 @@ var ProjectService = require('../../../services/project');
 
 var ObjectId = mongoose.Types.ObjectId;
 
-var getProjectsQuery = function (selector) {
-    return Project
-        .find(selector || {})
-        .populate({
-            path: 'collections',
-            select: 'name _id'
-        })
-        .populate({
-            path: 'admins',
-            select: 'name picture nickname _id'
-        })
-        .populate({
-            path: 'designers',
-            select: 'name picture nickname _id'
-        });
-};
-
 /* GET home page. */
 router.get('/', function (req, res, next) {
     ProjectService.find({/*userId: sdsg*/}, function (projects) {
         res.json(projects)
-    });
-});
-
-router.get('/:id', function (req, res, next) {
-    ProjectService.find({_id: req.params.id}, function (projects) {
-        if (typeof projects[0] !== 'undefined') {
-            res.json(projects[0]);
-        } else {
-            res.status(404).json({});
-        }
     });
 });
 
@@ -61,6 +34,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.put('/:id', function (req, res, next) {
+
     Project.findOne({'_id': req.params.id}, function (err, project) {
 
         project.title = req.body.title || project.title;
@@ -81,6 +55,9 @@ router.put('/:id', function (req, res, next) {
         }
         if (typeof req.body.icon !== 'undefined') {
             project.icon = req.body.icon;
+        }
+        if (typeof req.body.identifier !== 'undefined') {
+            project.identifier = req.body.identifier;
         }
 
         project.save(function (err, result) {
