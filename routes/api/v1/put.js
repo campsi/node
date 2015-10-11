@@ -61,6 +61,8 @@ router.put('/projects/:project/collections/:collection', function(req, res, next
         collection.entries = req.body.entries.map(returnId);
     }
 
+    console.info(collection.entries);
+
     collection.save(function (err, result) {
         res.json(result);
     });

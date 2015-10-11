@@ -6,7 +6,7 @@ resources(router);
 router.get('/projects/', function(req, res, next){
     Project.find({}).exec(function(err, projects){
         res.json(projects.map(function(p){
-            return p.toObject();
+            return p.toObject()
         }));
     });
 });

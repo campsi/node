@@ -167,12 +167,8 @@ var getEntries = function (options) {
         }
 
         options.project.componentValue = project;
-
-        CollectionService.listEntries({_collection: collection._id}, function (entries) {
-            options.entries.componentValue.entries = entries;
-            req.options = options;
-            next();
-        });
+        req.options = options;
+        next();
     }
 };
 
