@@ -33,9 +33,7 @@
     "passport-auth0": "*",
     "request": "*",
     "serve-favicon": "*",
-    "stylus": "*"
-  },
-  "devDependencies": {
+    "stylus": "*",
     "browserify": "*",
     "bulk-require": "*",
     "bulkify": "*",
