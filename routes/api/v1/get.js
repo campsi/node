@@ -4,7 +4,7 @@ var Project = require('../../../models/project');
 resources(router);
 
 router.get('/projects/', function(req, res, next){
-    Project.find({}).exec(function(err, projects){
+    Project.list(req.user, function(err, projects){
         res.json(projects.map(function(p){
             return p.toObject()
         }));

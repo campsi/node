@@ -6,6 +6,7 @@ var Collection = require('./collection');
 var schema = new mongoose.Schema({
     title: String,
     identifier: String,
+    demo: Boolean,
     icon: {
         uri: String
     },
@@ -14,12 +15,33 @@ var schema = new mongoose.Schema({
     collections: [{type: mongoose.Schema.Types.ObjectId, ref: 'Collection'}]
 });
 
-schema.methods.identity = function(){
+schema.index({identifier: 1}, {unique: true});
+
+schema.methods.identity = function () {
     return {
         _id: this._id.toString(),
         identifier: this.identifier,
         title: this.title
     }
+};
+
+schema.statics.list = function (user, cb) {
+    var query;
+    if (typeof user === 'undefined') {
+        query = {
+            demo: true
+        }
+    } else {
+        query = {
+            designers: {
+                $elemMatch: {
+                    $eq: user._id
+                }
+            }
+        }
+    }
+
+    this.find(query).select('_id title icon identifier').exec(cb);
 };
 
 schema.set('toObject', {

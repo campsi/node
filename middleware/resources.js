@@ -1,6 +1,7 @@
 var Project = require('../models/project');
 var Collection = require('../models/collection');
 var Entry = require('../models/entry');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = function (router) {
 
@@ -15,7 +16,15 @@ module.exports = function (router) {
     };
 
     router.param('project', function (req, res, next, project) {
-        Project.find(getQueryForObjectIdOrIdentifier(project))
+
+
+        if(project === 'new'){
+            return next();
+        }
+
+        var query = getQueryForObjectIdOrIdentifier(project);
+
+        Project.find(query)
             .populate({
                 path: 'collections',
                 select: 'name _id identifier'
@@ -40,28 +49,9 @@ module.exports = function (router) {
         var query = getQueryForObjectIdOrIdentifier(collection);
         query._project = req.project._id;
 
+
         var find = Collection.find(query);
-/*
-        find.select('_id identifier name');
 
-        var embed = req.query.with;
-
-        if(typeof embed !== 'undefined'){
-
-            if(!Array.isArray(embed)){
-                embed = [embed];
-            }
-
-            if(embed.indexOf('entries') > -1){
-                find.select('entries');
-                find.populate({path: 'entries', select: 'data'});
-            }
-
-            if(embed.indexOf('fields') > -1){
-                find.select('fields');
-            }
-
-        }*/
         find.populate({path: 'entries', select: 'data'});
 
         find.exec(function (err, collections) {

@@ -1,6 +1,7 @@
 var Campsi = require('campsi');
 var async = require('async');
 var $ = require('cheerio-or-jquery');
+var extend = require('extend');
 var isBrowser = require('is-browser');
 
 module.exports = Campsi.extend('component', 'form', function ($super) {
@@ -45,13 +46,21 @@ module.exports = Campsi.extend('component', 'form', function ($super) {
 
             this.fields = {};
 
-
             $super.wakeUp.call(instance, el, function () {
-                async.forEach(instance.nodes.fields.find('> .component'), function (componentEl, cb) {
+                async.forEach(instance.nodes.fields.find('> .component').toArray(), function (componentEl, cb) {
                     Campsi.wakeUp(componentEl, function (componentInstance) {
+                        var fieldExistsInOptions = false;
                         fieldName = componentInstance.options.name;
+                        instance.options.fields.forEach(function (field) {
+                            if (field.name === fieldName) {
+                                fieldExistsInOptions = true;
+                            }
+                        });
+
                         instance.fields[fieldName] = componentInstance;
-                        instance.options.fields.push(componentInstance.options);
+                        if (!fieldExistsInOptions) {
+                            instance.options.fields.push(componentInstance.options);
+                        }
                         instance.value[fieldName] = componentInstance.value;
                         cb.call(null)
                     });

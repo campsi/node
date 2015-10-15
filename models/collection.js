@@ -15,6 +15,8 @@ var schema =  new mongoose.Schema({
     entries: [{type: mongoose.Schema.Types.ObjectId, ref: 'Entry'}]
 });
 
+schema.index({_project:1, identifier: 1}, {unique: true});
+
 schema.methods.identity = function(){
     return {
         _id: this._id.toString(),

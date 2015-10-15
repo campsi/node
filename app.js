@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var strategy = require('./lib/auth-strategy');
 var app = express();
 
@@ -14,7 +15,18 @@ var ProjectService = require('./services/project');
 var CollectionService = require('./services/collections');
 
 // db
-mongoose.connect('mongodb://localhost/campsi');
+//mongoose.connect('mongodb://localhost/campsi');
+mongoose.connect(process.env.MONGOLAB_URI);
+//mongoose.set('debug', true);
+
+app.use(session({
+    secret: 'campsi_is_great',
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,13 +58,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 // auth, session, cookies
 app.use(cookieParser());
 app.set('trust proxy', 1); // trust first proxy
-app.use(session({
-    secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+
 
 app.get('/*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');

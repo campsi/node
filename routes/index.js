@@ -64,49 +64,44 @@ var getPanelOptions = function (layout) {
     return currentPanelOptions;
 };
 
+var getProjects = function (req, res, next) {
+    Project.list(req.user, function (err, results) {
+        req.projects = results;
+        next();
+    });
+};
 
-router.get(routes.welcome.path, function (req, res, next) {
+router.get(routes.welcome.path, getProjects, function (req, res, next) {
 
     var options = getPanelOptions(routes.welcome.layout);
-
-    var getProjects = function (cb) {
-        ProjectService.list({}, function (results) {
-            options.projects.componentValue = results;
-            cb();
-        });
-    };
-
-    send([getProjects], options, req, res);
+    options.projects.componentValue = req.projects;
+    send([], options, req, res);
 });
 
-router.get(routes.projects.path, function (req, res, next) {
+router.get(routes.projects.path, getProjects, function (req, res, next) {
 
     var options = getPanelOptions(routes.projects.layout);
-
-    var getProjects = function (cb) {
-        ProjectService.list({}, function (results) {
-            options.projects.componentValue = results;
-            cb();
-        });
-    };
-
-    send([getProjects], options, req, res);
+    options.projects.componentValue = req.projects;
+    send([], options, req, res);
 });
 
-router.get(routes.project.path, function (req, res, next) {
+router.get(routes.project.path, getProjects, function (req, res, next) {
 
     var options = getPanelOptions(routes.project.layout);
+    options.projects.componentValue = req.projects;
+    if (req.project) {
+        options.project.componentValue = req.project.toObject();
+    }
+    send([], options, req, res);
+});
+router.get(routes.projectUsers.path, function (req, res, next) {
 
-    var getProjects = function (cb) {
-        ProjectService.list({}, function (results) {
-            options.projects.componentValue = results;
-            cb();
-        });
-    };
-
-    options.project.componentValue = req.project.toObject();
-
-    send([getProjects], options, req, res);
+    var options = getPanelOptions(routes.projectUsers.layout);
+    if (req.project) {
+        options.project.componentValue = req.project.toObject();
+        options.users.componentValue = req.project.toObject();
+    }
+    send([], options, req, res);
 });
 
 

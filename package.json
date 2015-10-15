@@ -10,6 +10,7 @@
     "body-parser": "*",
     "brace": "^0.5.1",
     "cheerio": "*",
+    "connect-mongo": "^0.8.2",
     "cookie-parser": "*",
     "debug": "*",
     "deepcopy": "*",

@@ -1,7 +1,5 @@
-$duration = .5s
-$easing = ease-in-out
-
-
+$duration = .6s
+$easing = cubic-bezier(0.29, 0.56, 0.57, 0.9)
 .panels
   width 100%
   height 100%
@@ -10,83 +8,97 @@ $easing = ease-in-out
   overflow: hidden
 
   > .panel
+    display none
     height 100%
     width 100%
     position absolute
     top 0
     left 0
-    //transform none
-    transition left $duration $easing, right $duration $easing, width $duration $easing, transform $duration $easing
-    transform translate3d(0, 0, 1px)
+    transition  width $duration $easing, transform $duration $easing
 
-    border-right: 1px solid darken($light, 20);
+    outline: 1px solid darken($light, 20);
     background $nearWhite
     box-sizing content-box
 
+
     &.next
-      left 100%
-      transform none
+      display block
+      transform: translateX(100%)
+      &.hidden
+        display none
+
     &.prev
-      left 0
-      transform translateX(-100%)
+      display block
+      transform: translateX(-100%)
+      &.hidden
+        display none
 
-    for $num in 1..10
-      $w = $num*10
+    for $i in 1..10
+      $w = $i * 10
+
       &.w{$w}
-        width: unit($w, '%')
-      &.l{$w}
-        left unit($w, '%')
-        //margin-left -1px
+        display block
+        width unit($w, '%')
+        transform translateX(0)
+        &.next
+          transform translateX(unit(100 / $w * 100, '%'))
+        &.prev
+          transform translateX(unit(-100, '%'))
 
+      for $j in 1..10
+        $l = $j * 10
 
-    .content
-      h1
-        color: rgba($theme, .4)
-        font-weight: lighter
+        &.w{$w}.l{$l}
+          transform translateX(unit(floor(100 / $w * $l * 10)/10, '%'));
 
-    .cell > header
-      height 2.5rem
-      box-sizing border-box
-      display flex
-      align-items center
-      $headerColor = lighten($dark, 30);
-      background $headerColor
-      color $light
-      border 1px solid transparent
-      //border-top-color lighten($headerColor, 30%)
-      //border-right-color lighten($headerColor, 5);
-      //border-bottom-color darken($headerColor, 30%)
-      //border-left-color darken($headerColor, 15);
+      .content
+        h1
+          color: rgba($theme, .4)
+          font-weight: lighter
 
-      h2
-        font-size 1.2em
-        line-height 1.5em
-        padding 0.4em 0 0.3em 0
-        //outline red 1px solid
-        font-weight normal
-        text-align center
-        margin 0 auto
-        display inline-block
-        text-shadow 1px 1px 0 darken($nearWhite, 40)
-        color: $nearWhite
-
-      .buttons
+      .cell > header
+        height 2.5rem
+        box-sizing border-box
         display flex
+        align-items center
+        $headerColor = lighten($dark, 30);
+        background $headerColor
+        color $light
+        border 1px solid transparent
+        //border-top-color lighten($headerColor, 30%)
+        //border-right-color lighten($headerColor, 5);
+        //border-bottom-color darken($headerColor, 30%)
+        //border-left-color darken($headerColor, 15);
 
-        button, a
-          margin 0 .25rem
-          light-button(lighten($dark, 10))
+        h2
+          font-size 1.2em
+          line-height 1.5em
+          padding 0.4em 0 0.3em 0
+          //outline red 1px solid
+          font-weight normal
+          text-align center
+          margin 0 auto
+          display inline-block
+          text-shadow 1px 1px 0 darken($nearWhite, 40)
+          color: $nearWhite
 
-          &.save
-            dark-button($contrast)
-            display none
+        .buttons
+          display flex
 
+          button, a
+            margin 0 .25rem
+            light-button(lighten($dark, 10))
 
-    &.modified
+            &.save
+              dark-button($contrast)
+              display none
 
-      header
-        h2::after, h2:after
-          content ' *'
+      &.modified
 
-        .buttons button.save
-          display inherit
+        header
+          h2:
+          :after, h2:after
+            content ' *'
+
+          .buttons button.save
+            display inherit
