@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "postinstall": "ln -s ../lib/array-diff ./node_modules && ln -s ../lib/campsi ./node_modules && ln -s ../lib/cheerio-or-jquery ./node_modules && ./node_modules/bower/bin/bower install && ln -s ../lib/components ./public"
+    "postinstall": "./postinstall.sh"
   },
   "dependencies": {
     "bower": "*",
