@@ -33,10 +33,6 @@ var coreDependencies = [
 
 var serverOnlyDependencies = ['cheerio', 'console.table', 'request'];
 
-gulp.task('bower', function(){
-    return bower().pipe(gulp.dest('public/lib/'))
-});
-
 gulp.task('serve', function () {
     nodemon({
         "verbose": false,
@@ -125,4 +121,4 @@ gulp.task('watch', function () {
     gulp.watch('stylus/*.styl', ['stylus']);
 });
 
-gulp.task('default', ['bower','core', 'stylus', 'standard-components', 'editor', 'watch', 'serve']);
+gulp.task('default', ['core', 'stylus', 'standard-components', 'editor', 'watch', 'serve']);
