@@ -15,8 +15,8 @@ var ProjectService = require('./services/project');
 var CollectionService = require('./services/collections');
 
 // db
-//mongoose.connect('mongodb://localhost/campsi');
-mongoose.connect(process.env.MONGOLAB_URI);
+mongoose.connect('mongodb://localhost/campsi');
+//mongoose.connect(process.env.MONGOLAB_URI);
 //mongoose.set('debug', true);
 
 app.use(session({
