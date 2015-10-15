@@ -14,7 +14,7 @@ var nodemon = require('gulp-nodemon');
 var stylus = require('gulp-stylus');
 var autoprefixer = require('gulp-autoprefixer');
 var streamify = require('gulp-streamify');
-
+var bower = require('gulp-bower');
 
 var shouldMinify = false;
 
@@ -33,8 +33,11 @@ var coreDependencies = [
 
 var serverOnlyDependencies = ['cheerio', 'console.table', 'request'];
 
-gulp.task('serve', function () {
+gulp.task('bower', function(){
+    return bower().pipe(gulp.dest('public/lib/'))
+});
 
+gulp.task('serve', function () {
     nodemon({
         "verbose": false,
         'ignore': ['**/*.css', '**/*.styl', 'public/**/*'],
@@ -122,4 +125,4 @@ gulp.task('watch', function () {
     gulp.watch('stylus/*.styl', ['stylus']);
 });
 
-gulp.task('default', ['core', 'stylus', 'standard-components', 'editor', 'watch', 'serve']);
+gulp.task('default', ['bower','core', 'stylus', 'standard-components', 'editor', 'watch', 'serve']);
