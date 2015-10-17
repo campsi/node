@@ -4,8 +4,7 @@ light-button($color)
 
   background $color
   color lighten($color, 30)
-  border none
-  border-bottom 2px solid darken($color, 20)
+  border-bottom-color darken($color, 20)
 
   &:hover
     background lighten($color, 10)
@@ -39,12 +38,12 @@ button, a.btn, .buttons > a, input[type=submit]
   border-radius .4em
   cursor pointer
   font-size: 0.8em
-  border-width 1px
-  border-style solid
   padding 0 0.8em
-  height 1.8rem
-  line-height 1.9rem
+  height 2.4em
+  line-height 2.5em
   font-weight 600
+  border none
+  border-bottom .15em solid transparent
   light-button(lighten($theme, 10))
 
 .component.form_field.identifier
@@ -148,7 +147,7 @@ input.component.text:focus
 
 #app .form_field.big-title
   padding 2rem
-  background darken($nearWhite, 5)
+  background $nearWhite
   border-bottom 1px solid darken($nearWhite, 10)
   font-size 1.5em
 

@@ -149,6 +149,10 @@
                     closeCodeEditor();
                 });
 
+        $('.cell.scroll').on('scroll', function () {
+            $(this).closest('.panel').toggleClass('scroll', (this.scrollTop > 0));
+        });
+
         async.forEach($('.panel'), function (el, cb) {
             Campsi.wakeUp(el, function (comp) {
                 comp.attachEvents();
@@ -277,7 +281,7 @@ module.exports = {
             project: ['prev'],
             collection: ['prev'],
             designer: ['w70'],
-            components: ['w70', 'l70']
+            components: ['w30', 'l70']
         }
     }
 };
@@ -310,13 +314,9 @@ module.exports = Campsi.extend('form', 'campsi/collection-designer', function ($
             };
         },
 
-        getUrl: function () {
-            return '/api/v1/projects/' + this.value._project + '/collections/' + this.value._id;
-        },
-
         reload: function (next) {
             var instance = this;
-            $.getJSON(instance.getUrl(), function (data) {
+            $.getJSON(Campsi.urlApi(this.value._project, this.value._id), function (data) {
                 instance.setValue(data, function () {
                     instance.trigger('reset');
                     next();
@@ -331,17 +331,20 @@ module.exports = Campsi.extend('form', 'campsi/collection-designer', function ($
 
         save: function () {
 
+            console.info(this.value);
+
             var instance = this;
-            var projectUrl = '/api/v1/collections';
+            var url = Campsi.urlApi(this.value.__project);
+
             var method = 'POST';
 
             if (instance.value._id) {
-                projectUrl += '/' + instance.value._id;
+                url = Campsi.urlApi(this.value.__project, this.value);
                 method = 'PUT';
             }
 
             $.ajax({
-                url: projectUrl,
+                url: url,
                 method: method,
                 dataType: 'json',
                 contentType: 'application/json; charset=UTF-8',
@@ -615,7 +618,13 @@ module.exports = Campsi.extend('form', 'campsi/collection', function ($super) {
                     type: 'text',
                     label: 'identifier',
                     additionalClasses: ['identifier']
-                },{
+                }, {
+                    name: 'uri',
+                    type: 'text',
+                    label: 'uri',
+                    additionalClasses: ['uri'],
+                    disabled: true
+                }, {
                     label: 'templates',
                     name: 'templates',
                     additionalClasses: ['templates', 'closed'],
@@ -627,7 +636,7 @@ module.exports = Campsi.extend('form', 'campsi/collection', function ($super) {
                             placeholder: 'template identifier',
                             type: 'text',
                             additionalClasses: ['invisible']
-                        },{
+                        }, {
                             name: 'markup',
                             type: 'campsi/code-editor',
                             mode: 'ace/mode/handlebars'
@@ -638,11 +647,11 @@ module.exports = Campsi.extend('form', 'campsi/collection', function ($super) {
         },
 
 
-        resolveParam: function(param){
-            if(param === 'project') {
+        resolveParam: function (param) {
+            if (param === 'project') {
                 return this.value.__project.identifier || this.value.__project._id;
             }
-            if(param === 'collection') {
+            if (param === 'collection') {
                 return this.value.identifier || this.value._id;
             }
         },
@@ -693,6 +702,15 @@ module.exports = Campsi.extend('form', 'campsi/collection', function ($super) {
                 __project: this.value.__project,
                 identifier: this.value.identifier
             }
+        },
+
+        valueDidChange: function (next) {
+            var instance = this;
+            $super.valueDidChange.call(this, function () {
+                instance.fields.uri.setValue('http://campsi.io/api/v1' + Campsi.url(instance.value.__project, instance.value), function(){
+                    next();
+                });
+            });
         }
 
     }
@@ -1341,7 +1359,7 @@ module.exports = Campsi.extend('component', 'campsi/panel', function ($super) {
             $super.init.call(this, function () {
                 instance.mountNode.addClass('panel');
                 instance.mountNode.append('<div class="vmax">' +
-                                          '  <div class="row">' +
+                                          '  <div class="row header">' +
                                           '     <div class="cell">' +
                                           '         <header>' +
                                           '            <div class="buttons left"></div>' +
@@ -1538,7 +1556,7 @@ module.exports = Campsi.extend('component', 'campsi/project-list/project', funct
             $super.init.call(this, function () {
 
                 instance.nodes.logo = $('<a href="/projects/new" class="logo drag-handle"></a>');
-                instance.nodes.title = $('<span class="title"></span>');
+                instance.nodes.title = $('<span class="title">New Project</span>');
                 instance.mountNode.append(instance.nodes.logo);
                 instance.mountNode.append(instance.nodes.title);
 

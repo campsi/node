@@ -1159,7 +1159,7 @@ module.exports = Campsi.extend('component', 'text', function ($super) {
             return ''
         },
 
-        getTagName: function(){
+        getTagName: function () {
             return 'input'
         },
 
@@ -1189,10 +1189,11 @@ module.exports = Campsi.extend('component', 'text', function ($super) {
             next.call(this);
         },
 
-        optionsDidChange: function(next){
-            if(this.options.placeholder){
+        optionsDidChange: function (next) {
+            if (this.options.placeholder) {
                 this.mountNode.attr('placeholder', this.options.placeholder);
             }
+            this.mountNode.attr('disabled', (this.options.disabled));
             next();
         }
     }

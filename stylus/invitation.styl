@@ -1,0 +1,59 @@
+@import 'colors'
+@import 'reset'
+@import 'fonts'
+@import 'ui'
+
+html, body
+  overflow auto
+
+body
+  background $light
+
+h1
+  font-weight 200
+  font-size 3em
+  padding 1.5em 1em 0.5em 1em
+  text-align center
+
+#invitations
+  text-align center
+
+.invitation
+  display inline-block
+  width 20em
+  margin 1em
+  background white
+  border-radius .2em
+  border 1px solid darken($light, 20)
+  border-bottom-width 2px
+  padding 1em
+
+h2
+  span.icon
+    display table-cell
+    vertical-align middle
+    width 20em
+    height 8em
+    background-repeat no-repeat
+    background-position 50% 50%
+    position relative
+    padding .5em
+    text-align center
+
+.role
+  padding .2em .5em
+  background lighten($theme, 30)
+  border 1px solid $theme
+  margin 0 0.5em 0.5em 0
+  border-radius .5em
+
+.login-box
+  text-align center
+  padding 1em
+  font-size 1.6em
+  font-weight 300
+
+.inviter .label
+  font-weight 200
+  color darken($light, 30)
+  font-style: italic

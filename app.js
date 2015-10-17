@@ -84,6 +84,8 @@ app.use('/api/v1', require('./routes/api/v1/put'));
 app.use('/api/v1', require('./routes/api/v1/post'));
 
 app.use('/api/v1/components', require('./routes/api/v1/components'));
+app.use('/invitation', require('./routes/invitation'));
+
 app.use('/', require('./routes/index'));
 
 // Auth0 callback handler

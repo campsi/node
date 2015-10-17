@@ -1,0 +1,28 @@
+html
+  head
+    title You're invited
+    link(rel='stylesheet',media='all',href='/stylesheets/invitation.css')
+  body
+    #page
+      h1 Your contribution is wanted!
+      #invitations
+        each invitation in invitations
+          .invitation
+            h2
+              span.icon(style='background-image:url(' + invitation._project.icon.uri + '?w=200&h=200)')
+              span.title=invitation._project.title
+
+            p
+              each role in invitation.roles
+                span.role=role
+
+            p.inviter
+              span.label invited by:
+              span.nickname=invitation._inviter.nickname
+
+      div.login-box
+        button.login Create an account or login
+
+    script(src='/lib/jquery/dist/jquery.min.js')
+    script(src='/lib/auth0-lock/build/auth0-lock.min.js')
+    script(src='/javascripts/campsi.auth.js')

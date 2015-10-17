@@ -50,6 +50,14 @@ gulp.task('stylus', function () {
                   cascade: false
               }))
         .pipe(gulp.dest('./public/stylesheets'));
+
+    gulp.src('./stylus/invitation.styl')
+        .pipe(stylus({compress: true}))
+        .pipe(autoprefixer({
+                  browsers: ['last 2 versions'],
+                  cascade: false
+              }))
+        .pipe(gulp.dest('./public/stylesheets'));
 });
 
 gulp.task('core', function () {

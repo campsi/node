@@ -1,46 +1,40 @@
-$componentSize = 3.5rem;
+$componentSize = 3.5em;
 
 #components
 
-  header
-    $headerColor = $dark
-    background: linear-gradient($headerColor, black)
-    border-top-color: lighten($headerColor, 30)
-    border-bottom-color: darken($theme, 20)
+  .header h2
+    color white
+  &.scroll
+    .row.header
+      header
+        border-bottom-color black
 
-  .search
-    display: none
-
-    input
-      font-size: 1.2rem
-      background transparent
-      border 1px solid $theme
-      border-radius 3rem
-      padding .5rem
-
-      &:focus
-        outline none
+  .content h3
+    font-weight 200
+    padding .2em 1em 0 1em
 
   .content h2, .content h3
-    text-shadow 0 -1px 1px #333
+    text-shadow 0 1px 1px #333
 
   .cell
-    //background: linear-gradient(darken($theme, 20), darken($theme, 30))
-    //radial-gradient( farthest-side ellipse at top left, red, blue);
-    background $theme
-    //url("noisy-grid.png"),
-    background: radial-gradient(at bottom right, $themeHigh, $theme)
+    background $dark
 
   .content
-    padding 2rem
     color white
     border-left-color: transparentify($theme, #7cedfd, .2);
 
+  .group
+    //background-image url(purty_wood.png)
+    h3
+      margin 0
+      padding .5em
+      font-weight 500
   .components
-
-    margin-left: -1rem;
+    background-image: url(dark_geometric.png);
+    box-shadow inset rgba(#000, .3) 0 3px 6px 2px
     .component
-      float left
+      padding 1em
+      display inline-block
       margin: 0
       .name
         text-shadow: 0 1px 1px #333
@@ -52,27 +46,29 @@ $componentSize = 3.5rem;
 
 
   .icon
-    background linear-gradient(45deg, black, darken($theme, 40))
-    color $nearWhite
+    background linear-gradient(45deg, darken($theme, 20), $theme)
     height $componentSize
     width $componentSize
     border-radius .5rem
-    border 1px solid lighten($theme, 20)
-    border-bottom 3px solid $theme
+    border 1px solid darken($theme, 90)
+    border-bottom 3px solid darken($theme, 80)
     //box-shadow rgba($theme, .3) 1px 1px 1rem 0
-    font-size: 1em;
     line-height: $componentSize
     text-align: center
     font-weight lighter
-    margin 0 auto 0.5rem auto
+    font-size 1.6em
+    margin 0 auto
+
+    img
+      height 100%
+      width 100%
 
   &:hover
     .icon
-      background linear-gradient(45deg, black, darken($theme, 20))
-      border-bottom-color darken($theme, 10)
+      background linear-gradient(45deg, darken($theme, 10), $theme)
+      border-bottom-color darken($theme, 70)
 
   .name
-    width $componentSize + ($componentSize / 2)
     //border 1px solid orangered
     text-align center
     display block

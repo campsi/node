@@ -3,7 +3,7 @@ var resources = require('../../../middleware/resources');
 var Project = require('../../../models/project');
 var Collection = require('../../../models/collection');
 var Entry = require('../../../models/entry');
-var Invitation = require('../../../models/invitation');
+var Guest = require('../../../models/guest');
 resources(router);
 
 router.post('/projects', function (req, res, next) {
@@ -29,54 +29,40 @@ router.post('/projects/:project/collections/:collection/entries', function (req,
     Entry.create({
         _collection: req.collection._id,
         data: req.body.data
-    }, function(err, entry){
+    }, function (err, entry) {
         req.collection.entries.push(entry._id);
-        req.collection.save(function(){
+        req.collection.save(function () {
             res.json(entry);
         });
     });
 });
 
-router.post('/projects/:project/invitation', function(req, res, next){
+router.post('/projects/:project/invitation', function (req, res, next) {
 
-    User.findOne({email: req.body.email}, function(err, user){
+    User.findOne({email: req.body.email}, function (err, user) {
 
     });
 
-    Invitation.findOne({email: req.body.email}, function(err, invitation){
-        if(invitation === null){
-            invitation = new Invitation({
+    Guest.findOne({email: req.body.email}, function (err, guest) {
+        if (guest === null) {
+            guest = new Guest({
                 email: req.body.email,
-                projects: [{
-                    _id: req.project._id,
+                invitations: [{
+                    _project: req.project._id,
+                    _inviter: req.user._id,
                     roles: req.body.roles
                 }]
             });
         } else {
-            var projectAlreadyReferenced = false;
-            invitation.projects.forEach(function(p){
-                if(p._id.toString() === req.project._id.toString()){
-                    projectAlreadyReferenced = true;
-                    req.body.roles.forEach(function(role){
-                        if(p.roles.indexOf(role) === -1){
-                            p.roles.push(role);
-                        }
-                    });
-                }
-            });
-
-            if(!projectAlreadyReferenced){
-                invitation.projects.push({
-                    _id: req.project._id,
-                    roles: req.body.roles
-                })
-            }
+            guest.invitations.push({
+                _project: req.project._id,
+                _inviter: req.user._id,
+                roles: req.body.roles
+            })
         }
 
-
-        invitation.save(function(err, invitation){
-            res.json(invitation);
-            //console.info("done", err);
+        guest.save(function (err, guest) {
+            res.json(guest);
         });
     });
 });

@@ -2,7 +2,8 @@
 
   .cell
     background-color darken($light, 1)
-    background-image url(/stylesheets/diagmonds-light.png)
+    //background-image url(/stylesheets/diagmonds-light.png)
+    background url(furley_bg.png)
 
   .content
     padding 2em
@@ -10,18 +11,26 @@
   .array_item button.remove
     display none
 
-  form.newItem input[type=submit]
-    display none
+  form.newItem
+    display inline-block
+    input[type=submit]
+      display none
+
+  .campsi_project-list
+    text-align justify
+
+  .array_item
+    display inline-block
 
   .campsi_project-list_project
-    float left
+    display inline-block
+    text-align: center
     margin 1em
     cursor pointer
 
     .title
       text-align center
-      width 100%
-      display inline-block
+      display block
       margin-top .5em
 
     &.placeholder
@@ -49,8 +58,8 @@
 
     .logo
 
-      $logoSize = 9vw // todo responsive
-      $logoPadding = 2vw
+      $logoSize = 6rem // todo responsive
+      $logoPadding = 2rem
       $borderWidth = 3px
 
       box-sizing content-box
@@ -70,7 +79,7 @@
       border-radius 10px //($logoSize / 6)
       //padding $logoPadding
       overflow hidden
-      display block
+      display inline-block
 
       vertical-align middle
       //transition box-shadow .1s ease-in, transform .1s ease-out
