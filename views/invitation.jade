@@ -25,4 +25,5 @@ html
 
     script(src='/lib/jquery/dist/jquery.min.js')
     script(src='/lib/auth0-lock/build/auth0-lock.min.js')
-    script(src='/javascripts/campsi.auth.js')
+    script window.invitationToken = !{JSON.stringify(_id)};
+    script(src='/javascripts/invitation.js')

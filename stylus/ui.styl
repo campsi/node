@@ -12,6 +12,7 @@ light-button($color)
 
   &:active
     background rgba($color, .5)
+
   &.active
     box-shadow inset darken($color, 20) 0 2px 2px
     border-bottom none
@@ -27,6 +28,9 @@ dark-button($color)
     border-color darken($color, 30)
 
   &:active
+    background rgba($color, .5)
+  &:active
+    box-shadow inset darken($color, 20) 0 2px 2px
     background rgba($color, .5)
 
 button, a.btn, .buttons > a, input[type=submit]
@@ -44,21 +48,27 @@ button, a.btn, .buttons > a, input[type=submit]
   font-weight 600
   border none
   border-bottom .15em solid transparent
-  light-button(lighten($theme, 10))
+  light-button($light)
 
-.component.form_field.identifier
+#app .component.form_field.identifier
   display flex
-  background darken($light, 10)
+  background darken($light, 2)
   padding 1em
+  font-size 1em
   align-items baseline
+
   .label
     margin 0 .5em 0 0
+    font-size 1em
+    font-weight 200
     padding 0
+    color #000
+
   .control
     flex 1
     input
       font-family "Consolas", "Menlo", "Courier", monospace
-      background darken($light, 5)
+      background darken(white, 4)
       color $dark
       font-size .8em
       padding .75em
@@ -107,6 +117,10 @@ input.component.text:focus
   outline: none;
   border-color: $theme
   box-shadow: inset lighten($theme, 20) 0 0 2px;
+
+input.component.text:disabled
+  background darken(white, 5)
+  color lighten($dark, 20)
 
 .component.draggable.gu-mirror
   opacity 1

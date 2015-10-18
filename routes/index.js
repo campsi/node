@@ -20,7 +20,10 @@ resources(router);
 var createPanels = function (panelsOptions, callback) {
     var panels = [];
     async.forEachOf(panelsOptions, function (options, id, cb) {
-        Campsi.create('campsi/panel', options, options.componentValue, function (panel) {
+        if(id === '_context'){
+            return cb();
+        }
+        Campsi.create('campsi/panel', extend(options, {context: panelsOptions._context}), options.componentValue, function (panel) {
             panels.push(panel);
             cb();
         });
@@ -37,10 +40,11 @@ var renderPanels = function (panels) {
 
 var send = function (stack, options, request, response) {
 
-    options._data = {
+    options._context = {
         project: request.project,
         collection: request.collection,
-        entry: request.entry
+        entry: request.entry,
+        user: request.user
     };
 
     async.parallel(stack, function () {

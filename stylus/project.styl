@@ -5,7 +5,7 @@
 
   .label
     font-weight lighter
-    font-size 1.2em
+    //font-size 1.2em
     color $dark
     margin 0 0 .5em 0
 
@@ -65,6 +65,82 @@
 
   .buttons a, .buttons button
     margin-left .5em
-    //dark-button($theme)
+    dark-button($theme)
 
 
+#users
+  background url(low_contrast_linen.png)
+
+  header h2
+    color white
+
+  .cell.scroll
+
+  .label
+    color white
+
+  .campsi_project_users
+    padding 1em
+
+  .label
+    font-weight 200
+
+  .form_field
+    margin-bottom 1em
+
+  input[type=text]
+    background rgba(#FFF, .1);
+    border 1px solid rgba(#FFF, .4);
+    border-radius .2em
+    color white
+
+  form
+    font-size .9em
+  form > .form > .fields > .form_field > .label
+    font-weight 500
+    font-size 1.2em
+    padding .5em 0
+
+  .form_field[data-comp-type='checkbox']
+    .label
+      display none
+    .help
+      font-weight 200
+      font-style italic
+
+#app .campsi_project:not(.designer)
+  .btn.design, .btn.edit, .campsi_collection-list .newItem, .form_field.identifier
+    display none
+
+
+.template
+  display block
+  float left
+  margin-right 0.5em
+  input
+    display none
+  .icon
+    border-radius .5em
+    display block
+    height 6em
+    width 6em
+    background white
+    background-size 4em
+    background-clip content-box
+    background-position: 50% 50%
+    background-repeat no-repeat
+    border 1px solid darken($light, 5)
+    border-bottom-color darken($light, 20)
+    transition background-color .1s ease-out
+  &.selected
+    .icon
+      background-color $light
+      border-bottom-color darken($light, 5)
+      border-top-color darken($light, 20)
+    .name
+      font-weight 500
+
+  .name
+    text-align center
+    font-size 0.85em
+    display block

@@ -887,7 +887,12 @@ module.exports = Campsi.extend('component', 'form/field', function ($super) {
                 instance.nodes.label.text('').css('display', 'none');
             }
 
+            if(instance.options.help){
+                instance.nodes.help.text(instance.options.help);
+            }
+
             instance.mountNode.attr('data-name', instance.options.name);
+            instance.mountNode.attr('data-comp-type', instance.options.type);
 
             if (typeof instance.component !== 'undefined' && instance.component.type === instance.options.type) {
                 instance.component.setOptions(instance.options, function () {
@@ -900,7 +905,7 @@ module.exports = Campsi.extend('component', 'form/field', function ($super) {
 
                 var componentOptions = deepCopy(instance.options);
                 delete componentOptions['name'];
-                delete componentOptions['label'];
+                //delete componentOptions['label'];
                 delete componentOptions['additionalClasses'];
 
                 Campsi.create(instance.options.type, componentOptions, instance.value, function (component) {

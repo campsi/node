@@ -25,6 +25,21 @@ schema.methods.identity = function () {
     }
 };
 
+
+schema.methods.addUser = function (role, userId) {
+
+    var stringId = userId.toString();
+    var exists = false;
+    this[role].forEach(function (a) {
+        if (a.toString() === stringId) {
+            exists = true;
+        }
+    });
+    if (!exists) {
+        this[role].push(userId);
+    }
+};
+
 schema.statics.list = function (user, cb) {
     var query;
     if (typeof user === 'undefined') {
@@ -33,11 +48,20 @@ schema.statics.list = function (user, cb) {
         }
     } else {
         query = {
-            designers: {
-                $elemMatch: {
-                    $eq: user._id
-                }
-            }
+            $or: [
+                {
+                    designers: {
+                        $elemMatch: {
+                            $eq: user._id
+                        }
+                    }
+                }, {
+                    admins: {
+                        $elemMatch: {
+                            $eq: user._id
+                        }
+                    }
+                }]
         }
     }
 

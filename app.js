@@ -10,9 +10,9 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var strategy = require('./lib/auth-strategy');
 var app = express();
-
-var ProjectService = require('./services/project');
-var CollectionService = require('./services/collections');
+var async = require('async');
+var Guest = require('./models/guest');
+var Project = require('./models/project');
 
 // db
 mongoose.connect('mongodb://localhost/campsi');
@@ -23,7 +23,7 @@ app.use(session({
     secret: 'campsi_is_great',
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -60,23 +60,12 @@ app.use(cookieParser());
 app.set('trust proxy', 1); // trust first proxy
 
 
-app.get('/*', function (req, res, next) {
+app.get('/api/v1/*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,OPTIONS,POST,HEAD');
+    res.header('Access-Control-Allow-Methods', 'GET,OPTIONS,HEAD');
     res.header('Access-Control-Allow-Headers', 'origin, x-requested-with, content-type, accept, authorization, cache-control');
     next();
 });
-
-
-// json web tokens for API
-//var authorization = require('./middleware/authorization');
-// var jwt = require('express-jwt');
-// var jwtCheck = jwt({
-// secret: new Buffer('JcxGDNMFtSClr6B_fiQekrHvseS-BLDSIqL16RqV-14ULU1dDYotHQBHi0dTFz6y', 'base64'),
-// audience: 'psmD1OCt9ctb8vQOeyXohon3dUVnOQfT'
-// });
-//app.use(authorization(/^\/components\/.*$/));
-//app.use('/api', jwtCheck);
 
 // Routes
 app.use('/api/v1', require('./routes/api/v1/get'));
@@ -89,18 +78,44 @@ app.use('/invitation', require('./routes/invitation'));
 app.use('/', require('./routes/index'));
 
 // Auth0 callback handler
-app.get(
-    '/callback',
-    passport.authenticate('auth0', {
-        successRedirect: '/#authentification_success',
-        failureRedirect: '/#authentification_error'
-    }),
-    function (req, res) {
-        if (!req.user) {
-            throw new Error('user null');
-        }
-        res.redirect("/");
-    });
+app.get('/callback', passport.authenticate('auth0'), function (req, res) {
+    if (!req.user) {
+        throw new Error('user null');
+    }
+
+    if (req.query.token) {
+
+        Guest.findOne({_id: req.query.token}, function (err, guest) {
+
+            if (guest === null) {
+                res.redirect('/');
+            }
+
+            async.forEach(guest.invitations, function (invitation, cb) {
+
+                Project.findOne({_id: invitation._project}, function (err, project) {
+
+                    if (invitation.roles.indexOf('admin') !== -1) {
+                        project.addUser('admins', req.user._id);
+                    }
+
+                    if (invitation.roles.indexOf('designer') !== -1) {
+                        project.addUser('designers', req.user._id);
+                    }
+
+                    project.save(function () {
+                        cb();
+                    });
+
+                });
+            }, function () {
+                res.redirect('/');
+            });
+        });
+    } else {
+        res.redirect('/');
+    }
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

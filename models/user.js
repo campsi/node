@@ -19,5 +19,17 @@ var schema = new mongoose.Schema({
     }]
 });
 
+schema.statics.findOrCreate = function(profile, cb){
+    var model = this;
+
+    model.find({id: profile.id}).exec(function (err, results) {
+        if (results.length === 0) {
+            model.create(profile, cb);
+        } else {
+            cb(results[0]);
+        }
+    });
+};
+
 module.exports = mongoose.model('User', schema);
 

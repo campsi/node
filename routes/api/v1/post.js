@@ -39,9 +39,9 @@ router.post('/projects/:project/collections/:collection/entries', function (req,
 
 router.post('/projects/:project/invitation', function (req, res, next) {
 
-    User.findOne({email: req.body.email}, function (err, user) {
-
-    });
+    //User.findOne({email: req.body.email}, function (err, user) {
+    //
+    //});
 
     Guest.findOne({email: req.body.email}, function (err, guest) {
         if (guest === null) {

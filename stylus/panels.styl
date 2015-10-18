@@ -1,4 +1,4 @@
-$duration = .6s
+$duration = .4s
 $easing = cubic-bezier(0.29, 0.56, 0.57, 0.9)
 
 .panels
@@ -59,46 +59,51 @@ $easing = cubic-bezier(0.29, 0.56, 0.57, 0.9)
         &.w{$w}.l{$l}
           transform translateX(unit(floor(100 / $w * $l * 10)/10, '%'));
 
-      .content
-        h1
-          color: rgba($theme, .4)
-          font-weight: lighter
+    .content
+      h1
+        color: rgba($theme, .4)
+        font-weight: lighter
 
-      .cell > header
-        height 2.5rem
-        box-sizing border-box
-        display flex
-        align-items center
-        border 1px solid transparent
-        transition background .3s ease-out
+    .cell > header
+      //height 2.5em
+      box-sizing border-box
+      //display flex
+      //align-items center
+      border 1px solid transparent
+      transition background .3s ease-out
+      padding .5em
+      padding-bottom .4em
 
-        h2
-          font-size 1.2em
-          line-height 1.5em
-          padding 0.4em 0 0.3em 0
-          font-weight 200
-          text-align center
-          margin 0 auto
+      .buttons.left
+        float left
+      .buttons.right
+        float right
+
+      h2
+        font-size 1.5em
+        line-height 1.5em
+        font-weight 200
+        text-align center
+        margin 0 auto
+        color $dark
+
+      .buttons
+
+        button, a
           display inline-block
-          color $dark
+          margin 0 .25rem
+          dark-button(darken($light, 20))
 
-        .buttons
-          display flex
+          &.save
+            dark-button($contrast)
+            display none
 
-          button, a
-            margin 0 .25rem
-            dark-button(darken($light, 20))
+    &.modified
 
-            &.save
-              dark-button($contrast)
-              display none
+      header
+        h2:
+        :after, h2:after
+          content ' *'
 
-      &.modified
-
-        header
-          h2:
-          :after, h2:after
-            content ' *'
-
-          .buttons button.save
-            display inherit
+        .buttons button.save
+          display inline-block
