@@ -4,3 +4,4 @@ public/lib
 lib/auth-strategy/config.js
 npm-debug.log
 config.js
+.DS_Store
