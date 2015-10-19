@@ -13,9 +13,9 @@ var app = express();
 var async = require('async');
 var Guest = require('./models/guest');
 var Project = require('./models/project');
-
+var config = require('./config');
 // db
-mongoose.connect('mongodb://localhost/campsi');
+mongoose.connect(config.mongo_uri);
 //mongoose.connect(process.env.MONGOLAB_URI);
 //mongoose.set('debug', true);
 
@@ -37,11 +37,7 @@ app.set('view engine', 'jade');
  * Middleware SETUP
  */
 
-app.use(logger('dev', {
-    skip: function (req, res) {
-        return res.statusCode < 400
-    }
-}));
+app.use(logger('dev'));//, { skip: function (req, res) { return res.statusCode < 400 } }));
 
 // serve static files as is
 app.use(express.static(path.join(__dirname, 'public')));
@@ -74,6 +70,7 @@ app.use('/api/v1', require('./routes/api/v1/post'));
 
 app.use('/api/v1/components', require('./routes/api/v1/components'));
 app.use('/invitation', require('./routes/invitation'));
+app.use('/profile', require('./routes/profile'));
 
 app.use('/', require('./routes/index'));
 

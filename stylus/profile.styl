@@ -1,0 +1,56 @@
+@import 'colors'
+@import 'reset'
+@import 'fonts'
+@import 'ui'
+
+html, body
+  overflow auto
+
+body
+  background $light
+  color $dark
+
+#profile
+
+  button.save
+    light-button($theme)
+
+  #contact, #organizations
+    width 30em
+    float left
+    padding 1em
+    margin 1em
+    margin-right 0
+    background white
+    box-shadow darken($light, 5) 0 1px 2px
+
+    h1
+      font-weight 100
+      color $theme
+      text-align center
+
+  .component.form
+    margin-left 1em
+
+  .form_field[data-comp-type="form"] > .label
+    font-weight 600
+
+  .label
+    font-size .7em
+    padding-top .4em
+    font-weight 400
+    text-transform uppercase
+    color #000
+
+  .help
+    font-style italic
+    font-size .8em
+    font-weight 200
+
+  .form_field
+    border-top 1px solid darken(white, 5)
+    margin-top .5em
+
+  input.component.text
+    font-size 0.8em
+

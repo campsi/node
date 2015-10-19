@@ -6,9 +6,9 @@
     "postinstall": "./postinstall.sh"
   },
   "dependencies": {
-    "bower": "*",
     "async": "*",
     "body-parser": "*",
+    "bower": "*",
     "brace": "^0.5.1",
     "browserify": "*",
     "bulk-require": "*",
@@ -46,6 +46,7 @@
     "passport": "*",
     "passport-auth0": "*",
     "request": "*",
+    "sendgrid": "^1.9.2",
     "serve-favicon": "*",
     "stream-browserify": "*",
     "stylus": "*",

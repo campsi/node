@@ -26,7 +26,7 @@ schema.statics.findOrCreate = function(profile, cb){
         if (results.length === 0) {
             model.create(profile, cb);
         } else {
-            cb(results[0]);
+            cb(err, results[0]);
         }
     });
 };

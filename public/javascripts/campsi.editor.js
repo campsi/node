@@ -19,7 +19,7 @@
         return panelComponents[name].component;
     };
 
-    var classesToRemove = ['next', 'prev', 'hidden'].concat((function () {
+    var classesToRemove = ['next', 'prev', 'hidden', 'main'].concat((function () {
         var i = 1;
         var classes = [];
         for (; i < 11; i++) {
@@ -140,6 +140,7 @@
                 $('.vmax').each(function (i, el) {
                     el.scrollTop = 0;
                 });
+                $('#app > .panels')[0].scrollLeft = 0;
             })
         }).on('dblclick', '.component.campsi_collection-designer_field header', function () {
             $(this).closest('.component').toggleClass('closed');
@@ -206,7 +207,7 @@ module.exports = {
     welcome: {
         path: '/',
         layout: {
-            welcome: ['w80'],
+            welcome: ['w80', 'main'],
             projects: ['w20', 'l80']
         }
     },
@@ -214,7 +215,7 @@ module.exports = {
         path: '/projects',
         layout: {
             welcome: ['prev'],
-            projects: ['w100']
+            projects: ['w100', 'main']
         }
     },
     project: {
@@ -222,7 +223,7 @@ module.exports = {
         layout: {
             welcome: ['prev'],
             projects: ['w30'],
-            project: ['l30', 'w70']
+            project: ['l30', 'w70', 'main']
         }
     },
     projectUsers: {
@@ -231,7 +232,7 @@ module.exports = {
             welcome: ['prev'],
             projects: ['prev'],
             project: ['w70'],
-            users: ['l70', 'w30']
+            users: ['l70', 'w30', 'main']
         }
     },
     newProject: {
@@ -239,7 +240,7 @@ module.exports = {
         layout: {
             welcome: ['prev'],
             projects: ['w30'],
-            project: ['l30', 'w70']
+            project: ['l30', 'w70', 'main']
         }
     },
     collection: {
@@ -248,7 +249,7 @@ module.exports = {
             welcome: ['prev'],
             projects: ['prev'],
             project: ['w50'],
-            collection: ['w50', 'l50']
+            collection: ['w50', 'l50', 'main']
         }
     },
     entries: {
@@ -258,7 +259,7 @@ module.exports = {
             projects: ['prev'],
             project: ['prev'],
             collection: ['prev'],
-            entries: ['w30'],
+            entries: ['w30', 'main'],
             entry: ['w70', 'l30']
         }
     },
@@ -270,7 +271,7 @@ module.exports = {
             project: ['prev'],
             collection: ['prev'],
             entries: ['w30'],
-            entry: ['w70', 'l30']
+            entry: ['w70', 'l30', 'main']
         }
     },
     designer: {
@@ -280,7 +281,7 @@ module.exports = {
             projects: ['prev'],
             project: ['prev'],
             collection: ['prev'],
-            designer: ['w70'],
+            designer: ['w70', 'main'],
             components: ['w30', 'l70']
         }
     }
@@ -354,6 +355,10 @@ module.exports = Campsi.extend('form', 'campsi/collection-designer', function ($
             }).error(function () {
                 instance.trigger('save-error');
             });
+        },
+
+
+        serializeOptions: function () {
         },
 
         serializeValue: function () {
@@ -704,10 +709,13 @@ module.exports = Campsi.extend('form', 'campsi/collection', function ($super) {
             }
         },
 
+        serializeOptions: function () {
+        },
+
         valueDidChange: function (next) {
             var instance = this;
             $super.valueDidChange.call(this, function () {
-                instance.fields.uri.setValue('http://campsi.io/api/v1' + Campsi.url(instance.value.__project, instance.value), function(){
+                instance.fields.uri.setValue('http://campsi.io/api/v1' + Campsi.url(instance.value.__project, instance.value), function () {
                     next();
                 });
             });
@@ -1021,8 +1029,10 @@ Campsi.extend('component', 'campsi/entries', function ($super) {
             }).error(function () {
                 instance.trigger('save-error');
             });
-        }
+        },
 
+        serializeOptions: function () {
+        }
     }
 });
 },{"async":undefined,"campsi":undefined}],12:[function(require,module,exports){
@@ -1171,7 +1181,7 @@ module.exports = Campsi.extend('component', 'campsi/entry', function ($super) {
             this.trigger('change');
         },
         optionsDidChange: function (next) {
-            this.form.setOptions(this.options, next);
+            this.form.setOptions({fields: this.options.fields}, next);
         },
         valueDidChange: function (next) {
             this.form.setValue(this.value.data, next);
@@ -1672,33 +1682,35 @@ module.exports = Campsi.extend('form', 'campsi/project', function ($super) {
                 };
             });
 
-            var userId;
+            var user;
             var isDesigner = false;
             var isAdmin = false;
 
             if (this.value._id) {
 
                 if (isBrowser) {
-                    userId = window.CAMPSI_USER._id.toString();
+                    user = window.CAMPSI_USER;
                 } else {
-                    userId = this.options.context.user._id.toString();
+                    user = this.options.context.user;
                 }
 
-                this.value.admins.forEach(function (admin) {
-                    if (admin._id.toString() === userId) {
-                        isAdmin = true;
-                    }
-                }, this);
+                if (user) {
+                    var userId = user._id.toString();
+                    this.value.admins.forEach(function (admin) {
+                        if (admin._id.toString() === userId) {
+                            isAdmin = true;
+                        }
+                    }, this);
 
-                this.value.designers.forEach(function (designer) {
-                    if (designer._id.toString() === userId) {
-                        isDesigner = true
-                    }
-                }, this);
+                    this.value.designers.forEach(function (designer) {
+                        if (designer._id.toString() === userId) {
+                            isDesigner = true
+                        }
+                    }, this);
 
-                this.mountNode.toggleClass('admin', isAdmin);
-                this.mountNode.toggleClass('admin', isAdmin);
-                this.mountNode.toggleClass('designer', isDesigner);
+                    this.mountNode.toggleClass('admin', isAdmin);
+                    this.mountNode.toggleClass('designer', isDesigner);
+                }
             }
 
             $super.valueDidChange.call(this, next);
@@ -1781,6 +1793,9 @@ module.exports = Campsi.extend('array', 'campsi/user-list', function ($super) {
                 instance.nodes.items.append(instance.nodes.newItemForm);
                 next();
             });
+        },
+
+        serializeOptions: function () {
         }
     }
 });

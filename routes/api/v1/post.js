@@ -4,7 +4,27 @@ var Project = require('../../../models/project');
 var Collection = require('../../../models/collection');
 var Entry = require('../../../models/entry');
 var Guest = require('../../../models/guest');
+var User = require('../../../models/user');
+
+// todo use process.env
+var config = require('../../../config');
+var sendgrid = require('sendgrid')(config.sendgrid_api_key);
+
 resources(router);
+
+var sendInvitationEmail = function (guest) {
+    sendgrid.send({
+        to: guest.email,
+        from: 'invitations@campsi.io',
+        subject: 'Your contribution is wanted',
+        text: 'You\'re invited to contribute. http://campsi.io/invitation/' + guest._id
+    }, function (err, json) {
+        if (err) {
+            return console.error(err);
+        }
+        console.log(json);
+    });
+};
 
 router.post('/projects', function (req, res, next) {
     Project.create(req.body, function (project) {
@@ -39,31 +59,50 @@ router.post('/projects/:project/collections/:collection/entries', function (req,
 
 router.post('/projects/:project/invitation', function (req, res, next) {
 
-    //User.findOne({email: req.body.email}, function (err, user) {
-    //
-    //});
 
-    Guest.findOne({email: req.body.email}, function (err, guest) {
-        if (guest === null) {
-            guest = new Guest({
-                email: req.body.email,
-                invitations: [{
-                    _project: req.project._id,
-                    _inviter: req.user._id,
-                    roles: req.body.roles
-                }]
+    User.findOne({email: req.body.email}, function (err, user) {
+
+        if (user) {
+
+            var roles = req.body.roles;
+
+            if (roles.indexOf('admin') !== -1) {
+                req.project.addUser('admins', req.user._id);
+            }
+
+            if (roles.indexOf('designer') !== -1) {
+                req.project.addUser('designers', req.user._id);
+            }
+
+            req.project.save(function () {
+                res.json(existingUser);
             });
         } else {
-            guest.invitations.push({
-                _project: req.project._id,
-                _inviter: req.user._id,
-                roles: req.body.roles
-            })
+            Guest.findOne({email: req.body.email}, function (err, guest) {
+                if (guest === null) {
+                    guest = new Guest({
+                        email: req.body.email,
+                        invitations: [{
+                            _project: req.project._id,
+                            _inviter: req.user._id,
+                            roles: req.body.roles
+                        }]
+                    });
+                } else {
+                    guest.invitations.push({
+                        _project: req.project._id,
+                        _inviter: req.user._id,
+                        roles: req.body.roles
+                    })
+                }
+
+                guest.save(function (err, guest) {
+                    res.json(guest);
+                    sendInvitationEmail(guest);
+                });
+            });
         }
 
-        guest.save(function (err, guest) {
-            res.json(guest);
-        });
     });
 });
 module.exports = router;

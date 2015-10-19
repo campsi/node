@@ -58,6 +58,14 @@ gulp.task('stylus', function () {
                   cascade: false
               }))
         .pipe(gulp.dest('./public/stylesheets'));
+
+    gulp.src('./stylus/profile.styl')
+        .pipe(stylus({compress: true}))
+        .pipe(autoprefixer({
+                  browsers: ['last 2 versions'],
+                  cascade: false
+              }))
+        .pipe(gulp.dest('./public/stylesheets'));
 });
 
 gulp.task('core', function () {
@@ -123,7 +131,6 @@ gulp.task('editor', function () {
 });
 
 gulp.task('watch', function () {
-    livereload.listen(3001);
     gulp.watch('lib/campsi/lib/*.js', ['core']);
     gulp.watch('lib/components/**/*.js', ['standard-components', 'editor']);
     gulp.watch('stylus/*.styl', ['stylus']);

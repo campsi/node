@@ -16,7 +16,7 @@ $easing = cubic-bezier(0.29, 0.56, 0.57, 0.9)
     top 0
     left 0
     background $nearWhite
-    transition  transform $duration $easing ,width $duration $easing
+    transition  transform $duration $easing //,width $duration $easing
 
     outline: 1px solid darken($light, 10);
     box-sizing content-box
@@ -41,23 +41,30 @@ $easing = cubic-bezier(0.29, 0.56, 0.57, 0.9)
       &.hidden
         display none
 
-    for $i in 1..10
-      $w = $i * 10
-
-      &.w{$w}
+    @media screen and (max-width: 600px)
+      &.main
         display block
-        width unit($w, '%')
         transform translateX(0)
-        &.next
-          transform translateX(unit(100 / $w * 100, '%'))
-        &.prev
-          transform translateX(unit(-100, '%'))
+        width 100%
 
-      for $j in 1..10
-        $l = $j * 10
+    @media screen and (min-width: 600px)
+      for $i in 1..10
+        $w = $i * 10
 
-        &.w{$w}.l{$l}
-          transform translateX(unit(floor(100 / $w * $l * 10)/10, '%'));
+        &.w{$w}
+          display block
+          width unit($w, '%')
+          transform translateX(0)
+          &.next
+            transform translateX(unit(100 / $w * 100, '%'))
+          &.prev
+            transform translateX(unit(-100, '%'))
+
+        for $j in 1..10
+          $l = $j * 10
+
+          &.w{$w}.l{$l}
+            transform translateX(unit(100 / $w * $l, '%'));
 
     .content
       h1

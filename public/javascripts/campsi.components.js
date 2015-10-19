@@ -732,6 +732,10 @@ module.exports = Campsi.extend('component', 'form', function ($super) {
 
             Campsi.create('form/field', fieldOptions, instance.getFieldValue(fieldOptions.name), function (component) {
                 instance.fields[fieldOptions.name] = component;
+                if (isBrowser) {
+                    instance.listenToFieldEvent(fieldOptions.name);
+                    instance.fields[fieldOptions.name].attachEvents();
+                }
                 callback.call(instance, component.render());
             });
         },

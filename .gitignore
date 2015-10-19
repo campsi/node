@@ -3,3 +3,4 @@ public/lib
 .idea
 lib/auth-strategy/config.js
 npm-debug.log
+config.js
