@@ -1,5 +1,6 @@
 node_modules
 public/lib
+public/javascripts
 .idea
 lib/auth-strategy/config.js
 npm-debug.log
