@@ -1,9 +1,12 @@
 #projects
 
-  .cell
-    background-color darken($light, 1)
-    //background-image url(/stylesheets/diagmonds-light.png)
-    background url(furley_bg.png)
+  background url(furley_bg.png)
+
+  & > header a.back
+    display none
+
+  &.main > header a.back
+    display block
 
   .content
     padding 2em

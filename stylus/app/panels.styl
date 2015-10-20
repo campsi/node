@@ -1,33 +1,29 @@
 $duration = .4s
 $easing = cubic-bezier(0.29, 0.56, 0.57, 0.9)
+$headerHeight = 3.2em
 
 .panels
   width 100%
   height 100%
   margin 0
   position relative
-  overflow: hidden
+  //overflow: hidden
 
   > .panel
     display none
     height 100%
     width 100%
     position absolute
-    top 0
-    left 0
+    //top 0
+    //left 0
     background $nearWhite
     transition  transform $duration $easing //,width $duration $easing
+    overflow-y auto
 
     outline: 1px solid darken($light, 10);
     box-sizing content-box
+    -webkit-overflow-scrolling: touch;
 
-    .row.header .cell
-      position relative
-
-    &.scroll
-      .row.header header
-        background rgba(black, .05)
-        //border-bottom: 1px solid darken($light, 20)
 
     &.next
       display block
@@ -68,18 +64,21 @@ $easing = cubic-bezier(0.29, 0.56, 0.57, 0.9)
           &.w{$w}.l{$l}
             transform translateX(unit(100 / $w * $l, '%'));
 
-    .content
+    > .content
+      margin-top $headerHeight
+
       h1
         color: rgba($theme, .4)
         font-weight: lighter
 
-    .cell > header
-      //height 2.5em
-      box-sizing border-box
-      //display flex
-      //align-items center
+    > header
+      transform: translateZ(0);
+      width 100%
+      height $headerHeight
+      position fixed
+      z-index 100
       border 1px solid transparent
-      transition background .3s ease-out
+      transition background .3s ease-out, transform 0 linear .1s
       padding .5em
       padding-bottom .4em
 
@@ -109,6 +108,10 @@ $easing = cubic-bezier(0.29, 0.56, 0.57, 0.9)
 
           &.delete
             dark-button(red)
+
+    &.scroll
+      > header
+        background rgba(darken($light, 5), .8)
 
     &.modified
 
