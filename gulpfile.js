@@ -83,7 +83,7 @@ gulp.task('core', function () {
         b.exclude(dep);
     });
 
-    var bundle = b.bundle().pipe(source('campsi.core.js'))//.pipe(streamify(uglify()));
+    var bundle = b.bundle().pipe(source('campsi.core.js')).pipe(streamify(uglify()));
     return bundle.pipe(gulp.dest('./public/javascripts/'));
 });
 
@@ -104,7 +104,7 @@ gulp.task('app', function () {
         b.ignore(dep);
     });
 
-    var bundle = b.bundle().pipe(source('campsi.app.js'))//.pipe(streamify(uglify()));
+    var bundle = b.bundle().pipe(source('campsi.app.js')).pipe(streamify(uglify()));
     return bundle.pipe(gulp.dest('./public/javascripts/'));
 });
 
@@ -125,7 +125,7 @@ gulp.task('standard-components', function () {
         b.ignore(dep);
     });
 
-    var bundle = b.bundle().pipe(source('campsi.components.js'))//.pipe(streamify(uglify()));
+    var bundle = b.bundle().pipe(source('campsi.components.js')).pipe(streamify(uglify()));
     return bundle.pipe(gulp.dest('./public/javascripts/'));
 });
 
@@ -147,7 +147,7 @@ gulp.task('editor', function () {
         b.ignore(dep);
     });
 
-    var bundle = b.bundle().pipe(source('campsi.editor.js'))//.pipe(streamify(uglify()));
+    var bundle = b.bundle().pipe(source('campsi.editor.js')).pipe(streamify(uglify()));
     return bundle.pipe(gulp.dest('./public/javascripts/'));
 });
 
