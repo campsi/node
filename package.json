@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "async": "*",
+    "aws-sdk": "^2.2.10",
     "body-parser": "*",
     "bower": "*",
     "brace": "^0.5.1",
@@ -23,6 +24,7 @@
     "express": "*",
     "express-jwt": "*",
     "express-session": "*",
+    "express-winston": "^0.4.1",
     "extend": "*",
     "filedrop": "*",
     "gulp": "*",
@@ -45,6 +47,7 @@
     "page": "*",
     "passport": "*",
     "passport-auth0": "*",
+    "raw-body": "^2.1.4",
     "request": "*",
     "sendgrid": "^1.9.2",
     "serve-favicon": "*",
@@ -52,6 +55,7 @@
     "stylus": "*",
     "vinyl-buffer": "*",
     "vinyl-source-stream": "*",
-    "vinyl-transform": "*"
+    "vinyl-transform": "*",
+    "winston-loggly": "^1.1.0"
   }
 }

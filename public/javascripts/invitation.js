@@ -10,4 +10,4 @@ function signin() {
     });
 }
 
-$('button.login').click(signin)
+$('button.login').click(signin);

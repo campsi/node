@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -14,10 +13,9 @@ var async = require('async');
 var Guest = require('./models/guest');
 var Project = require('./models/project');
 var config = require('./config');
+
 // db
 mongoose.connect(config.mongo_uri);
-//mongoose.connect(process.env.MONGOLAB_URI);
-//mongoose.set('debug', true);
 
 app.use(session({
     secret: 'campsi_is_great',
@@ -32,12 +30,26 @@ app.use(passport.session());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-
 /*
  * Middleware SETUP
  */
 
-app.use(logger('dev'));//, { skip: function (req, res) { return res.statusCode < 400 } }));
+var winston = require('winston');
+
+require('winston-loggly');
+
+var expressWinston = require('express-winston');
+
+app.use(expressWinston.logger({
+    transports: [
+        new winston.transports.Loggly({
+            token: config.loggly.token,
+            subdomain: "campsi",
+            tags: ["Winston-NodeJS"],
+            json:true
+        })
+    ]
+}));
 
 // serve static files as is
 app.use(express.static(path.join(__dirname, 'public')));
@@ -67,6 +79,7 @@ app.get('/api/v1/*', function (req, res, next) {
 app.use('/api/v1', require('./routes/api/v1/get'));
 app.use('/api/v1', require('./routes/api/v1/put'));
 app.use('/api/v1', require('./routes/api/v1/post'));
+app.use('/api/v1', require('./routes/api/v1/upload'));
 
 app.use('/api/v1/components', require('./routes/api/v1/components'));
 app.use('/invitation', require('./routes/invitation'));

@@ -504,7 +504,7 @@ module.exports = Campsi.extend('component', 'file', function ($super) {
 
         getFileDropOptions: function () {
             return {
-                url: 'http://files.campsi.io:8080',
+                url: '/api/v1/upload',
                 logging: false
             }
         },
@@ -1043,6 +1043,13 @@ require('./file/component');
 require('./file/image/component');
 require('./handlebars/component');
 require('./select/dropdown/component');
+
+
+console.info("core components finished loading", Campsi.getLoadedComponents());
+
+if (window.onComponentsReady) {
+    window.onComponentsReady();
+}
 },{"./array/component":1,"./array/item/component":2,"./checkbox/component":3,"./file/component":4,"./file/image/component":5,"./form/component":6,"./form/field/component":7,"./handlebars/component":8,"./select/dropdown/component":10,"./text/area/component":11,"./text/code/component":12,"./text/component":13,"campsi":undefined}],10:[function(require,module,exports){
 var Campsi = require('campsi');
 var $ = require('cheerio-or-jquery');

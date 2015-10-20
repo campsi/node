@@ -6,14 +6,15 @@ var async = require('async');
 var cheerio = require('cheerio');
 var deepcopy = require('deepcopy');
 var extend = require('extend');
-var panelOptions = require('./../lib/components/campsi/app/panels');
-var routes = require('./../lib/components/campsi/app/routes');
+var panelOptions = require('./../lib/campsi-app/panels');
+var routes = require('./../lib/campsi-app/routes');
 //todo uniformiser les singuliers /pluriels
 var ProjectService = require('./../services/project');
 var CollectionService = require('./../services/collections');
 var ComponentService = require('./../services/components');
 var jade = require('jade');
 var resources = require('../middleware/resources');
+var config = require('../config');
 
 resources(router);
 
@@ -49,7 +50,16 @@ var send = function (stack, options, request, response) {
 
     async.parallel(stack, function () {
         createPanels(options, function (panels) {
-            response.render('index', {panels: renderPanels(panels), user: request.user});
+            response.render('index', {
+                panels: renderPanels(panels),
+                user: request.user,
+                host: config.host,
+                auth0: {
+                    callbackURL: config.auth0.callbackURL,
+                    clientID: config.auth0.clientID,
+                    domain: config.auth0.domain
+                }
+            });
         });
     });
 };

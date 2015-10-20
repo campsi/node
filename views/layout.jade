@@ -30,18 +30,17 @@ html
     div#modal
       block modal
 
+    if user
+      script window.CAMPSI_USER = !{JSON.stringify(user)};
+    script window.AUTH0 = !{JSON.stringify(auth0)};
+    script window.HOST = !{JSON.stringify(host)};
+
     script(src='/lib/dragula.js/dist/dragula.js')
     script(src='/lib/jquery/dist/jquery.min.js')
+    script(src='/lib/auth0-lock/build/auth0-lock.min.js')
     script(type='application/javascript') window.fd = {logging: false};
     script(src='/lib/filedrop/filedrop.js')
     script(src='/javascripts/campsi.core.js')
-    script(src='/javascripts/campsi.loader.js')
-    script(src='/javascripts/campsi.layout.js')
-    script(src='/javascripts/campsi.dnd.js')
-    script(src='/javascripts/campsi.components.js')
-    script(src='/javascripts/campsi.editor.js')
+    script(src='/javascripts/campsi.app.js')
     block scripts
 
-    script(src='/lib/auth0-lock/build/auth0-lock.min.js')
-    script(src='/javascripts/campsi.auth.js')
-    script window.CAMPSI_USER = !{JSON.stringify(user)};

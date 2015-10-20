@@ -1,292 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-(function () {
-    var Campsi = require('campsi');
-    var $ = require('cheerio-or-jquery');
-    var async = require('async');
-    var page = require('page');
-    var routes = require('./app/routes');
-
-    var panelComponents = {};
-
-    var componentsDidLoad = function () {
-        configureRoutes(page);
-        comp('entry').bind('saved', function () {
-            comp('entries').reload();
-        });
-    };
-
-    var comp = function (name) {
-        return panelComponents[name].component;
-    };
-
-    var classesToRemove = ['next', 'prev', 'hidden', 'main'].concat((function () {
-        var i = 1;
-        var classes = [];
-        for (; i < 11; i++) {
-            //classes.push('w' + i * 10);
-            classes.push('l' + i * 10);
-        }
-        return classes;
-    })()).join(' ');
-
-
-    var layout = function (layout) {
-
-        requestAnimationFrame(function () {
-            var id;
-
-            for (id in panelComponents) {
-                if (panelComponents.hasOwnProperty(id)) {
-                    var $node = panelComponents[id].mountNode;
-                    var layoutClasses = layout[id] || ['next'];
-                    $node.removeClass(classesToRemove);
-
-                    layoutClasses.forEach(function (cls) {
-                        if (cls.substring(0, 1) === 'w') {
-                            $node.removeClass('w10 w20 w30 w40 w50 w60 w70 w80 w90 w100');
-                        }
-                    });
-
-                    $node.addClass(layoutClasses.join(' '));
-                }
-            }
-        })
-
-    };
-
-    var configureRoutes = function (router) {
-
-        router('*', function (ctx, next) {
-            $('[href^="/"]').removeClass('active').filter('[href="' + ctx.path + '"]').addClass('active');
-            next();
-        });
-
-        router(routes.welcome.path, function () {
-            comp('projects').load(function () {
-                layout(routes.welcome.layout);
-            });
-        });
-
-        router(routes.projects.path, function () {
-            comp('projects').load(function () {
-                layout(routes.projects.layout);
-            });
-        });
-
-        router(routes.newProject.path, function () {
-            comp('project').setValue(undefined, function () {
-                layout(routes.newProject.layout);
-            })
-        });
-
-        router(routes.project.path, function (ctx) {
-            comp('project').load(ctx.params.project, function () {
-                layout(routes.project.layout);
-            });
-        });
-
-        router(routes.projectUsers.path, function (ctx) {
-            comp('project').load(ctx.params.project, function () {
-                comp('users').setValue(comp('project').value, function () {
-                    layout(routes.projectUsers.layout);
-                })
-            });
-        });
-
-        router(routes.collection.path, function (ctx) {
-            comp('project').load(ctx.params.project, function () {
-                comp('collection').load(ctx.params.project, ctx.params.collection, function () {
-                    layout(routes.collection.layout);
-                });
-            });
-        });
-
-        router(routes.entries.path, function (ctx) {
-            comp('entries').load(ctx.params.project, ctx.params.collection, function () {
-                comp('entry').loadOptions(ctx.params.project, ctx.params.collection, function () {
-                    comp('entry').setValue(undefined, function () {
-                        layout(routes.entry.layout);
-                    });
-                });
-            });
-        });
-
-        // ATTENTION à l'ordre des routes. Si placé après entry, entry prend le dessus !
-        router(routes.designer.path, function (ctx) {
-            comp('designer').load(ctx.params.project, ctx.params.collection, function () {
-                comp('components').load(function () {
-                    layout(routes.designer.layout);
-                });
-            });
-        });
-
-        router(routes.entry.path, function (ctx) {
-            comp('entry').load(ctx.params.project, ctx.params.collection, ctx.params.entry, function () {
-                layout(routes.entry.layout);
-            });
-        });
-
-
-        router.start({dispatch: false});
-    };
-
-
-    var codeEditor;
-    var codeEditorChangeHandler;
-
-    var domReady = function () {
-        $(document).on('focusout', function (e) {
-            requestAnimationFrame(function () {
-                $('.vmax').each(function (i, el) {
-                    el.scrollTop = 0;
-                });
-                $('#app > .panels')[0].scrollLeft = 0;
-            })
-        }).on('dblclick', '.component.campsi_collection-designer_field header', function () {
-            $(this).closest('.component').toggleClass('closed');
-        }).on('click', '#code-editor-container button.close', closeCodeEditor)
-            .on('click', '#code-editor-container button.validate', function () {
-                    codeEditorChangeHandler(codeEditor.getValue());
-                    closeCodeEditor();
-                });
-
-        $('.cell.scroll').on('scroll', function () {
-            $(this).closest('.panel').toggleClass('scroll', (this.scrollTop > 0));
-        });
-
-        async.forEach($('.panel'), function (el, cb) {
-            Campsi.wakeUp(el, function (comp) {
-                comp.attachEvents();
-                panelComponents[comp.id] = comp;
-                cb();
-            });
-        }, componentsDidLoad);
-    };
-
-    window.panelComponents = panelComponents;
-
-    var closeCodeEditor = function () {
-        $('#modal').hide();
-    };
-
-    Campsi.openCodeEditor = function (options, value, onChange) {
-        $('#modal').show();
-        codeEditorChangeHandler = onChange;
-
-        if (typeof ace === 'undefined') {
-            Campsi.loader.js('/lib/ace-builds-bower-patched/src-min-noconflict/ace.js', function () {
-                var waitForAce = function (ready) {
-
-                    if (typeof ace === 'undefined') {
-                        setTimeout(function () {
-                            waitForAce(ready);
-                        }, 100);
-                    } else {
-                        ready();
-                    }
-                };
-
-                waitForAce(function () {
-                    codeEditor = ace.edit('code-editor');
-                    codeEditor.getSession().setMode(options.mode);
-                    codeEditor.setTheme('ace/theme/monokai');
-                    codeEditor.setValue(value);
-                });
-            });
-        } else {
-            codeEditor.setValue(value);
-        }
-    };
-
-    $(domReady);
-
-})();
-},{"./app/routes":2,"async":undefined,"campsi":undefined,"cheerio-or-jquery":undefined,"page":undefined}],2:[function(require,module,exports){
-module.exports = {
-
-    welcome: {
-        path: '/',
-        layout: {
-            welcome: ['w80', 'main'],
-            projects: ['w20', 'l80']
-        }
-    },
-    projects: {
-        path: '/projects',
-        layout: {
-            welcome: ['prev'],
-            projects: ['w100', 'main']
-        }
-    },
-    project: {
-        path: '/projects/:project',
-        layout: {
-            welcome: ['prev'],
-            projects: ['w30'],
-            project: ['l30', 'w70', 'main']
-        }
-    },
-    projectUsers: {
-        path: '/projects/:project/users',
-        layout: {
-            welcome: ['prev'],
-            projects: ['prev'],
-            project: ['w70'],
-            users: ['l70', 'w30', 'main']
-        }
-    },
-    newProject: {
-        path: '/projects/new',
-        layout: {
-            welcome: ['prev'],
-            projects: ['w30'],
-            project: ['l30', 'w70', 'main']
-        }
-    },
-    collection: {
-        path: '/projects/:project/collections/:collection',
-        layout: {
-            welcome: ['prev'],
-            projects: ['prev'],
-            project: ['w50'],
-            collection: ['w50', 'l50', 'main']
-        }
-    },
-    entries: {
-        path: '/projects/:project/collections/:collection/admin',
-        layout: {
-            welcome: ['prev'],
-            projects: ['prev'],
-            project: ['prev'],
-            collection: ['prev'],
-            entries: ['w30', 'main'],
-            entry: ['w70', 'l30']
-        }
-    },
-    entry: {
-        path: '/projects/:project/collections/:collection/:entry',
-        layout: {
-            welcome: ['prev'],
-            projects: ['prev'],
-            project: ['prev'],
-            collection: ['prev'],
-            entries: ['w30'],
-            entry: ['w70', 'l30', 'main']
-        }
-    },
-    designer: {
-        path: '/projects/:project/collections/:collection/design',
-        layout: {
-            welcome: ['prev'],
-            projects: ['prev'],
-            project: ['prev'],
-            collection: ['prev'],
-            designer: ['w70', 'main'],
-            components: ['w30', 'l70']
-        }
-    }
-};
-},{}],3:[function(require,module,exports){
 var Campsi = require('campsi');
 var extend = require('extend');
 var $ = require('cheerio-or-jquery');
@@ -372,7 +84,7 @@ module.exports = Campsi.extend('form', 'campsi/collection-designer', function ($
 
     }
 });
-},{"campsi":undefined,"cheerio-or-jquery":undefined,"extend":undefined}],4:[function(require,module,exports){
+},{"campsi":undefined,"cheerio-or-jquery":undefined,"extend":undefined}],2:[function(require,module,exports){
 var Campsi = require('campsi');
 var $ = require('cheerio-or-jquery');
 
@@ -502,7 +214,7 @@ module.exports = Campsi.extend('component', 'campsi/collection-designer/field', 
     }
 
 });
-},{"campsi":undefined,"cheerio-or-jquery":undefined}],5:[function(require,module,exports){
+},{"campsi":undefined,"cheerio-or-jquery":undefined}],3:[function(require,module,exports){
 var Campsi = require('campsi');
 var $ = require('cheerio-or-jquery');
 
@@ -565,7 +277,7 @@ module.exports = Campsi.extend('component', 'campsi/collection-list/collection',
         }
     }
 });
-},{"campsi":undefined,"cheerio-or-jquery":undefined}],6:[function(require,module,exports){
+},{"campsi":undefined,"cheerio-or-jquery":undefined}],4:[function(require,module,exports){
 var Campsi = require('campsi');
 
 module.exports = Campsi.extend('array', 'campsi/collection-list', function ($super) {
@@ -605,7 +317,87 @@ module.exports = Campsi.extend('array', 'campsi/collection-list', function ($sup
         }
     }
 });
-},{"campsi":undefined}],7:[function(require,module,exports){
+},{"campsi":undefined}],5:[function(require,module,exports){
+var Campsi = require('campsi');
+var $ = require('cheerio-or-jquery');
+
+module.exports = Campsi.extend('component', 'campsi/collection-list/wizard', function ($super) {
+
+    return {
+        getDefaultOptions: function () {
+            return {
+                templates: [{
+                    name: 'empty',
+                    icon: 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/file-empty-128.png',
+                    selected: true
+                }, {
+                    name: 'news',
+                    icon: 'https://cdn0.iconfinder.com/data/icons/flat-color-icons/504/news-128.png'
+                }]
+            }
+        },
+        init: function (next) {
+            var instance = this;
+            $super.init.call(instance, function () {
+                instance.nodes.title = $('<h4>').text('Create a new collection');
+                instance.nodes.description = $('<p>').text('Create a collection from scratch or select a template');
+                instance.nodes.templates = $('<div class="templates"></div>');
+                instance.mountNode.append(instance.nodes.title);
+                instance.mountNode.append(instance.nodes.description);
+                instance.mountNode.append(instance.nodes.templates);
+                next();
+            });
+        },
+
+        getNodePaths: function () {
+            return {
+                templates: '.templates',
+                title: 'h4',
+                description: 'p'
+            }
+        },
+
+        attachEvents: function () {
+            var instance = this;
+            instance.nodes.templates.on('change', 'input', function () {
+                instance.value = $(this).val();
+                instance.nodes.templates.find('label').removeClass('selected');
+                $(this).closest('label').addClass('selected');
+                instance.trigger('change');
+            });
+        },
+
+        createTemplate: function (template) {
+
+            var $template = $('<label class="template">' +
+                              '     <input type="radio"/>' +
+                              '     <span class="icon"></span>' +
+                              '     <span class="name"></span>' +
+                              '</label>');
+
+            $template.find('input').attr({value: template.name, name: this._id});
+            $template.find('.name').text(template.name);
+            $template.find('.icon').css('background-image', 'url(' + template.icon + ')');
+            if (template.selected) {
+                $template.addClass('selected');
+                $template.find('input').attr('checked', true);
+            }
+            this.nodes.templates.append($template);
+        },
+
+        optionsDidChange: function (next) {
+            this.nodes.templates.empty();
+            this.options.templates.forEach(function (template) {
+                this.createTemplate(template);
+            }, this);
+
+            this.mountNode.append('<div class="clear"></div>');
+
+            next();
+        }
+    }
+});
+},{"campsi":undefined,"cheerio-or-jquery":undefined}],6:[function(require,module,exports){
 var Campsi = require('campsi');
 var $ = require('cheerio-or-jquery');
 
@@ -723,7 +515,7 @@ module.exports = Campsi.extend('form', 'campsi/collection', function ($super) {
 
     }
 });
-},{"campsi":undefined,"cheerio-or-jquery":undefined}],8:[function(require,module,exports){
+},{"campsi":undefined,"cheerio-or-jquery":undefined}],7:[function(require,module,exports){
 var Campsi = require('campsi');
 var $ = require('cheerio-or-jquery');
 
@@ -792,7 +584,7 @@ module.exports = Campsi.extend('component', 'campsi/component-chooser/component-
     }
 });
 
-},{"campsi":undefined,"cheerio-or-jquery":undefined}],9:[function(require,module,exports){
+},{"campsi":undefined,"cheerio-or-jquery":undefined}],8:[function(require,module,exports){
 var Campsi = require('campsi');
 var $ = require('cheerio-or-jquery');
 
@@ -865,7 +657,7 @@ module.exports = Campsi.extend('component', 'campsi/component-chooser', function
     }
 
 });
-},{"campsi":undefined,"cheerio-or-jquery":undefined}],10:[function(require,module,exports){
+},{"campsi":undefined,"cheerio-or-jquery":undefined}],9:[function(require,module,exports){
 var Campsi = require('campsi');
 var extend = require('extend');
 var $ = require('cheerio-or-jquery');
@@ -895,7 +687,7 @@ module.exports = Campsi.extend('array', 'campsi/component-list', function ($supe
         }
     }
 });
-},{"campsi":undefined,"cheerio-or-jquery":undefined,"extend":undefined}],11:[function(require,module,exports){
+},{"campsi":undefined,"cheerio-or-jquery":undefined,"extend":undefined}],10:[function(require,module,exports){
 var Campsi = require('campsi');
 var async = require('async');
 
@@ -1035,7 +827,7 @@ Campsi.extend('component', 'campsi/entries', function ($super) {
         }
     }
 });
-},{"async":undefined,"campsi":undefined}],12:[function(require,module,exports){
+},{"async":undefined,"campsi":undefined}],11:[function(require,module,exports){
 var Campsi = require('campsi');
 var $ = require('cheerio-or-jquery');
 
@@ -1060,7 +852,7 @@ module.exports = Campsi.extend('array', 'campsi/entry-list', function ($super) {
 
 });
 
-},{"campsi":undefined,"cheerio-or-jquery":undefined}],13:[function(require,module,exports){
+},{"campsi":undefined,"cheerio-or-jquery":undefined}],12:[function(require,module,exports){
 var Campsi = require('campsi');
 var $ = require('cheerio-or-jquery');
 
@@ -1119,7 +911,7 @@ module.exports = Campsi.extend('component', 'campsi/entry-list/entry', function 
         }
     }
 });
-},{"campsi":undefined,"cheerio-or-jquery":undefined}],14:[function(require,module,exports){
+},{"campsi":undefined,"cheerio-or-jquery":undefined}],13:[function(require,module,exports){
 var Campsi = require('campsi');
 var $ = require('cheerio-or-jquery');
 var async = require('async');
@@ -1315,13 +1107,14 @@ module.exports = Campsi.extend('component', 'campsi/entry', function ($super) {
     }
 });
 
-},{"async":undefined,"campsi":undefined,"cheerio-or-jquery":undefined}],15:[function(require,module,exports){
+},{"async":undefined,"campsi":undefined,"cheerio-or-jquery":undefined}],14:[function(require,module,exports){
 var Campsi = require('campsi');
 
 require('./collection/component');
 require('./collection-designer/component');
 require('./collection-designer/field/component');
 require('./collection-list/component');
+require('./collection-list/wizard/component');
 require('./collection-list/collection/component');
 require('./component-chooser/component');
 require('./component-chooser/component-options/component');
@@ -1330,13 +1123,18 @@ require('./entries/component');
 require('./entry/component');
 require('./entry-list/component');
 require('./entry-list/entry/component');
-require('./project/component');
-require('./project-list/project/component');
-require('./user-list/component');
-require('./user-list/user/component');
 require('./panel/component');
-require('./app');
-},{"./app":1,"./collection-designer/component":3,"./collection-designer/field/component":4,"./collection-list/collection/component":5,"./collection-list/component":6,"./collection/component":7,"./component-chooser/component":9,"./component-chooser/component-options/component":8,"./component-list/component":10,"./entries/component":11,"./entry-list/component":12,"./entry-list/entry/component":13,"./entry/component":14,"./panel/component":16,"./project-list/project/component":17,"./project/component":18,"./user-list/component":19,"./user-list/user/component":20,"campsi":undefined}],16:[function(require,module,exports){
+require('./project/component');
+require('./project/users/component');
+require('./project/users/user/component');
+require('./project-list/project/component');
+
+console.info("campsi components finished loading", Campsi.getLoadedComponents());
+
+if (window.onCampsiComponentsReady) {
+    window.onCampsiComponentsReady();
+}
+},{"./collection-designer/component":1,"./collection-designer/field/component":2,"./collection-list/collection/component":3,"./collection-list/component":4,"./collection-list/wizard/component":5,"./collection/component":6,"./component-chooser/component":8,"./component-chooser/component-options/component":7,"./component-list/component":9,"./entries/component":10,"./entry-list/component":11,"./entry-list/entry/component":12,"./entry/component":13,"./panel/component":15,"./project-list/project/component":16,"./project/component":17,"./project/users/component":18,"./project/users/user/component":19,"campsi":undefined}],15:[function(require,module,exports){
 var Campsi = require('campsi');
 var $ = require('cheerio-or-jquery');
 var extend = require('extend');
@@ -1551,7 +1349,7 @@ module.exports = Campsi.extend('component', 'campsi/panel', function ($super) {
     }
 
 });
-},{"campsi":undefined,"cheerio-or-jquery":undefined,"extend":undefined}],17:[function(require,module,exports){
+},{"campsi":undefined,"cheerio-or-jquery":undefined,"extend":undefined}],16:[function(require,module,exports){
 var Campsi = require('campsi');
 var $ = require('cheerio-or-jquery');
 
@@ -1599,7 +1397,7 @@ module.exports = Campsi.extend('component', 'campsi/project-list/project', funct
     }
 
 });
-},{"campsi":undefined,"cheerio-or-jquery":undefined}],18:[function(require,module,exports){
+},{"campsi":undefined,"cheerio-or-jquery":undefined}],17:[function(require,module,exports){
 var Campsi = require('campsi');
 var $ = require('cheerio-or-jquery');
 var page = require('page');
@@ -1764,90 +1562,219 @@ module.exports = Campsi.extend('form', 'campsi/project', function ($super) {
     }
 
 });
-},{"campsi":undefined,"cheerio-or-jquery":undefined,"is-browser":undefined,"page":undefined}],19:[function(require,module,exports){
+},{"campsi":undefined,"cheerio-or-jquery":undefined,"is-browser":undefined,"page":undefined}],18:[function(require,module,exports){
 var Campsi = require('campsi');
-
-module.exports = Campsi.extend('array', 'campsi/user-list', function ($super) {
-
+var $ = require('cheerio-or-jquery');
+var async = require('async');
+module.exports = Campsi.extend('component', 'campsi/project/users', function ($super) {
     return {
-        getDefaultOptions: function () {
-            return {
-                removeButton: false,
-                newItem: true,
-                items: {
-                    type: 'campsi/user-list/user'
-                }
-            }
-        },
-
-        getNodePaths: function () {
-            return $.extend({}, $super.getNodePaths(), {
-                'newItemForm': '> .items > .newItem'
-            });
-        },
-
-
-        optionsDidChange: function(next){
+        init: function (next) {
             var instance = this;
-            $super.optionsDidChange.call(this, function(){
-                instance.nodes.items.append(instance.nodes.newItemForm);
-                next();
+            $super.init.call(this, function () {
+                instance.nodes.form = $('<form>');
+
+                async.parallel([
+                    function (cb) {
+                        Campsi.create('array', {
+                            items: {type: 'campsi/project/users/user'},
+                            additionalClasses: ['user-list']
+                        }, undefined, function (comp) {
+                            instance.list = comp;
+                            cb();
+                        })
+                    },
+                    function (cb) {
+                        Campsi.create('form', {
+                            fields: [
+                                {
+                                    type: 'text',
+                                    name: 'email',
+                                    label: 'email'
+                                }, {
+                                    type: 'form',
+                                    name: 'roles',
+                                    label: 'roles',
+                                    fields: [
+                                        {
+                                            type: 'checkbox',
+                                            name: 'admin',
+                                            label: 'admin',
+                                            help: 'user can create and publish content'
+                                        }, {
+                                            type: 'checkbox',
+                                            name: 'designer',
+                                            label: 'designer',
+                                            help: 'user can create collections'
+                                        }
+                                    ]
+                                }
+                            ], additionalClasses: ['invitation']
+                        }, undefined, function (comp) {
+                            instance.invitationForm = comp;
+                            cb();
+                        })
+                    }
+
+                ], function () {
+                    instance.mountNode.append(instance.list.render());
+                    instance.nodes.form.append(instance.invitationForm.render());
+                    instance.nodes.form.append($('<button>').text('invite'));
+                    instance.mountNode.append('<h3>Invite someone</h3>');
+                    instance.mountNode.append(instance.nodes.form);
+                    next();
+                });
+
             });
         },
+
+        valueDidChange: function (next) {
+
+            var users = {};
+            var usersArr = [];
+            var id;
+
+            if (this.value.designers) {
+
+                this.value.designers.forEach(function (u) {
+                    users[u._id.toString()] = u;
+                    users[u._id.toString()].designer = true;
+                });
+            }
+
+            if (this.value.admins) {
+
+                this.value.admins.forEach(function (u) {
+                    if (typeof users[u._id.toString()] === 'undefined') {
+                        users[u._id.toString()] = u;
+                    }
+                    users[u._id.toString()].admin = true;
+                });
+            }
+
+            for (id in users) {
+                usersArr.push(users[id]);
+            }
+
+            this.list.setValue(usersArr, next);
+        },
+        wakeUp: function (el, next) {
+            var instance = this;
+
+            $super.wakeUp.call(this, el, function () {
+                async.parallel([
+                    function (cb) {
+                        Campsi.wakeUp(instance.mountNode.find('.user-list')[0], function (list) {
+                            instance.list = list;
+                            cb();
+                        })
+                    }, function (cb) {
+                        Campsi.wakeUp(instance.mountNode.find('form > .form')[0], function (form) {
+                            instance.invitationForm = form;
+                            cb();
+                        })
+                    }
+                ], next);
+            });
+        },
+
+        attachEvents: function () {
+            this.list.attachEvents();
+            this.invitationForm.attachEvents();
+            this.mountNode.find('form').on('submit', this.sendInvitation.bind(this))
+        },
+
+        sendInvitation: function () {
+
+            var data = {
+                email: this.invitationForm.value.email,
+                roles: []
+            };
+
+            if (this.invitationForm.value.roles.admin) {
+                data.roles.push('admin');
+            }
+            if (this.invitationForm.value.roles.designer) {
+                data.roles.push('designer');
+            }
+
+            $.ajax({
+                url: '/api/v1/projects/' + this.value._id + '/invitation',
+                data: JSON.stringify(data),
+                method: 'POST',
+                contentType: 'application/json'
+            }).done(function (data) {
+                console.info('invitation sent', data)
+            }).error(function () {
+                console.info('invitation error');
+            });
+
+            return false;
+        },
+
 
         serializeOptions: function () {
         }
     }
 });
-},{"campsi":undefined}],20:[function(require,module,exports){
+},{"async":undefined,"campsi":undefined,"cheerio-or-jquery":undefined}],19:[function(require,module,exports){
 var Campsi = require('campsi');
 var $ = require('cheerio-or-jquery');
 
-module.exports = Campsi.extend('component', 'campsi/user-list/user', function ($super) {
+module.exports = Campsi.extend('component', 'campsi/project/users/user', function ($super) {
 
     return {
+        init: function (next) {
+            var instance = this;
+            $super.init.call(this, function () {
+                instance.nodes.avatar = $('<div class="avatar">');
+                instance.nodes.name = $('<span class="name">');
+                instance.nodes.username = $('<span class="username">');
+                instance.nodes.company = $('<span class="company">');
 
-        getDefaultValue: function(){
+                instance.mountNode.append([
+                    instance.nodes.avatar,
+                    instance.nodes.name,
+                    instance.nodes.username,
+                    instance.nodes.company
+                ]);
+                next();
+            });
+        },
+
+        getDefautValue: function () {
             return {
-                name: 'Add user',
-                picture: 'https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/user.png'
+                name: '',
+                username: '',
+                picture: {},
+                company: ''
             }
         },
 
-        init: function (next) {
-
-            var instance = this;
-            var defaultValue = this.getDefaultValue();
-            $super.init.call(this, function () {
-
-                instance.nodes.image = $('<img>').attr('src', defaultValue.picture);
-                instance.nodes.avatar = $('<div class="avatar drag-handle"></div>');
-                instance.nodes.avatar.append(this.nodes.image);
-                instance.nodes.name = $('<div class="name"></div>').text(defaultValue.name);
-                instance.mountNode.append(instance.nodes.avatar);
-                instance.mountNode.append(instance.nodes.name);
-                next.call();
-            });
+        resolveParam: function (param) {
+            if (param === 'project') {
+                return this.value.identifier || this.value._id;
+            }
         },
 
         getNodePaths: function () {
             return {
-                avatar: '> .avatar',
-                image: '> .avatar > img',
-                name: '> .name'
+                avatar: '.avatar',
+                name: '.name',
+                username: '.username',
+                company: 'company'
             }
         },
 
         valueDidChange: function (next) {
+            if (this.value.picture.uri) {
+                this.nodes.avatar.css('background-image', 'url(' + this.value.picture.uri + ')');
+            }
 
-            var instance = this;
-            $super.valueDidChange.call(this, function () {
-                instance.nodes.image.attr('src', instance.value.picture);
-                instance.nodes.name.text(instance.value.name);
-                next.call();
-            });
-
+            this.nodes.name.text(this.value.nickname);
+            this.nodes.username.text(this.value.username);
+            this.nodes.company.text(this.value.company);
+            next();
         }
     }
 });
-},{"campsi":undefined,"cheerio-or-jquery":undefined}]},{},[15]);
+},{"campsi":undefined,"cheerio-or-jquery":undefined}]},{},[14]);
