@@ -20,7 +20,9 @@ var browserConfig = deepcopy(config);
 delete browserConfig['mongo_uri'];
 delete browserConfig['sendgrid_api_key'];
 delete browserConfig['s3'];
-delete browserConfig['auth0']['clientSecret'];
+delete browserConfig.auth0['clientSecret'];
+
+
 
 resources(router);
 

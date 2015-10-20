@@ -11,3 +11,9 @@ block modal
     .buttons
       button.close close
       button.validate validate
+
+block scripts
+  if user
+    script window.CAMPSI_USER = !{JSON.stringify(user)};
+  script window.CONF = !{JSON.stringify(config)};
+  script(src=config.auth0.lockURL)

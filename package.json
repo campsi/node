@@ -53,6 +53,7 @@
     "sendgrid": "^1.9.2",
     "serve-favicon": "*",
     "shortid": "^2.2.4",
+    "slug": "^0.9.1",
     "stream-browserify": "*",
     "stylus": "*",
     "vinyl-buffer": "*",

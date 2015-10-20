@@ -5,6 +5,7 @@ var Collection = require('../../../models/collection');
 var Entry = require('../../../models/entry');
 var Guest = require('../../../models/guest');
 var User = require('../../../models/user');
+var slug = require('slug');
 
 // todo use process.env
 var config = require('../../../config');
@@ -27,9 +28,26 @@ var sendInvitationEmail = function (guest) {
 };
 
 router.post('/projects', function (req, res, next) {
-    Project.create(req.body, function (project) {
-        res.json(project.toObject());
-    });
+    if (req.user) {
+
+        var projectPayload = req.body;
+        projectPayload.admins = [req.user._id];
+        projectPayload.designers = [req.user._id];
+        projectPayload.identifier = slug(projectPayload.title);
+
+        Project.create(projectPayload, function (err, project) {
+            if (err) {
+                res.status(400);
+                res.json(err);
+            } else {
+                res.json(project.toObject());
+            }
+        });
+
+    } else {
+        res.status(401);
+        res.json({});
+    }
 });
 
 router.post('/projects/:project/collections', function (req, res, next) {
@@ -39,8 +57,10 @@ router.post('/projects/:project/collections', function (req, res, next) {
         fields: []
     }, function (err, collection) {
         req.project.collections.push(collection._id);
+        var collectionObject = collection.toObject();
+        collectionObject.__project = req.project.identity();
         req.project.save(function () {
-            res.json(collection);
+            res.json(collectionObject);
         });
     });
 });

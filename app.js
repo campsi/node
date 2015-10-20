@@ -79,6 +79,7 @@ app.get('/api/v1/*', function (req, res, next) {
 app.use('/api/v1', require('./routes/api/v1/get'));
 app.use('/api/v1', require('./routes/api/v1/put'));
 app.use('/api/v1', require('./routes/api/v1/post'));
+app.use('/api/v1', require('./routes/api/v1/delete'));
 app.use('/api/v1', require('./routes/api/v1/upload'));
 
 app.use('/api/v1/components', require('./routes/api/v1/components'));

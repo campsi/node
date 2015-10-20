@@ -2,9 +2,11 @@ var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
     name: String,
-    icon: String,
-    category: String
+    category: String,
+    vendor: String
 });
+
+schema.index({name: 1}, {unique: true});
 
 module.exports = mongoose.model('Component', schema);
 
