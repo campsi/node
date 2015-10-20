@@ -15,7 +15,6 @@ router.post('/upload', function (req, res) {
         var ext = filename.substring(filename.lastIndexOf('.'));
         var id = shortid.generate();
         var s3obj = new AWS.S3({params: {Bucket: 'campsi-eu', Key: id + ext}});
-        var isImage =
             s3obj.upload({Body: buf})
                 .on('httpUploadProgress', function (evt) {
                         console.log(evt);
