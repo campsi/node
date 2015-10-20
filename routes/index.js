@@ -15,6 +15,12 @@ var ComponentService = require('./../services/components');
 var jade = require('jade');
 var resources = require('../middleware/resources');
 var config = require('../config');
+var browserConfig = deepcopy(config);
+
+delete browserConfig['mongo_uri'];
+delete browserConfig['sendgrid_api_key'];
+delete browserConfig['s3'];
+delete browserConfig['auth0']['clientSecret'];
 
 resources(router);
 
@@ -53,12 +59,7 @@ var send = function (stack, options, request, response) {
             response.render('index', {
                 panels: renderPanels(panels),
                 user: request.user,
-                host: config.host,
-                auth0: {
-                    callbackURL: config.auth0.callbackURL,
-                    clientID: config.auth0.clientID,
-                    domain: config.auth0.domain
-                }
+                config: browserConfig
             });
         });
     });

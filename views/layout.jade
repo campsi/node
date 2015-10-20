@@ -32,9 +32,8 @@ html
 
     if user
       script window.CAMPSI_USER = !{JSON.stringify(user)};
-    script window.AUTH0 = !{JSON.stringify(auth0)};
-    script window.HOST = !{JSON.stringify(host)};
 
+    script window.CONF = !{JSON.stringify(config)};
     script(src='/lib/dragula.js/dist/dragula.js')
     script(src='/lib/jquery/dist/jquery.min.js')
     script(src='/lib/auth0-lock/build/auth0-lock.min.js')

@@ -502,12 +502,6 @@ module.exports = Campsi.extend('component', 'file', function ($super) {
 
     return {
 
-        getFileDropOptions: function () {
-            return {
-                url: '/api/v1/upload',
-                logging: false
-            }
-        },
         init: function (next) {
             var instance = this;
             $super.init.call(this, function () {
@@ -524,11 +518,10 @@ module.exports = Campsi.extend('component', 'file', function ($super) {
                 return;
             }
 
-            var options = this.getFileDropOptions();
             var instance = this;
             if (typeof this.dropzone === 'undefined') {
 
-                this.dropzone = new FileDrop(this.nodes.dropzone[0], this.getFileDropOptions());
+                this.dropzone = new FileDrop(this.nodes.dropzone[0], {url: window.CONF.upload_url});
                 this.dropzone.event('send', function (files) {
                     // FileList might contain multiple items.
                     files.each(function (file) {

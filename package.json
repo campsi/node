@@ -51,6 +51,7 @@
     "request": "*",
     "sendgrid": "^1.9.2",
     "serve-favicon": "*",
+    "shortid": "^2.2.4",
     "stream-browserify": "*",
     "stylus": "*",
     "vinyl-buffer": "*",
