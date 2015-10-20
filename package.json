@@ -39,6 +39,7 @@
     "gulp-util": "*",
     "handlebars": "*",
     "is-browser": "*",
+    "is-image": "^1.0.1",
     "jade": "*",
     "jsonwebtoken": "*",
     "microevent": "*",
