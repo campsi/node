@@ -23,7 +23,7 @@ router.post('/upload', function (req, res) {
                       console.log(err);
                       console.dir(data);
                       res.json({
-                          uri: data.Location
+                          uri: config.imgix.host + '/' + id + ext
                       })
                   });
     });

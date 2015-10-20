@@ -530,7 +530,7 @@ module.exports = Campsi.extend('component', 'file', function ($super) {
                                 instance.trigger('change');
                             });
                         });
-                        file.sendTo(options.url);
+                        file.sendTo(window.CONF.upload_url);
                     })
                 });
 
@@ -538,9 +538,7 @@ module.exports = Campsi.extend('component', 'file', function ($super) {
                     instance.setValue(JSON.parse(xhr.response), function () {
                         instance.trigger('change');
                     });
-                })
-
-
+                });
             }
         },
 
