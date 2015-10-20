@@ -36,7 +36,7 @@ html
     script window.CONF = !{JSON.stringify(config)};
     script(src='/lib/dragula.js/dist/dragula.js')
     script(src='/lib/jquery/dist/jquery.min.js')
-    script(src='/lib/auth0-lock/build/auth0-lock.min.js')
+    script(src=config.auth0.lockURL)
     script(type='application/javascript') window.fd = {logging: false};
     script(src='/lib/filedrop/filedrop.js')
     script(src='/javascripts/campsi.core.js')
