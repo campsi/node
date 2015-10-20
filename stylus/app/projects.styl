@@ -2,34 +2,68 @@
 
   background url(furley_bg.png)
 
+  .content
+    padding 2em
+
   & > header a.back
     display none
 
   &.main > header a.back
     display block
 
-  .content
-    padding 2em
-
   .array_item button.remove
     display none
 
   form.newItem
-    display inline-block
     input[type=submit]
       display none
 
   .campsi_project-list
-    text-align justify
+    text-align center
 
-  .array_item
+  .items
     display inline-block
+
+  .array_item, .newItem
+    display inline-block
+    margin 1em
 
   .campsi_project-list_project
     display inline-block
     text-align: center
-    margin 1em
     cursor pointer
+    width 10rem
+    margin 0 auto
+    text-decoration none
+    color $dark
+    position relative
+
+    &.demo .logo::after
+      content: 'demo'
+      background darken(red, 5)
+      box-shadow darken(red, 20) -1px 1px 2px
+      color white
+      font-size .6em
+      font-weight 700
+      //padding .1em
+      position absolute
+      display block
+      width 4em
+      height 4em
+      line-height 4em
+      border-radius 4em
+      top -5px
+      right -5px
+
+
+    &:hover
+      .logo
+        border-color darken($light, 6)
+        transform scaleX(1.05) scaleY(1.05)
+
+    &.active .logo, &.active:hover .logo
+      //border darken($light, 20) 3px solid
+      transform scaleX(1.1) scaleY(1.1)
 
     .title
       text-align center
@@ -54,43 +88,46 @@
         /*font-size em*/
         text-align center
 
-    &:hover
+
+
+    .wrapper
+      display: inline-block;
+      position: relative;
+      width: 100%;
+
+      .spacer
+        margin-top: 100%;
+
       .logo
-        border-color darken($light, 10)
-        transform scaleX(1.1) scaleY(1.1)
+        position absolute
+        top 0
+        bottom 0
+        left 0
+        right 0
 
-    .logo
 
-      $logoSize = 6rem // todo responsive
-      $logoPadding = 2rem
-      $borderWidth = 3px
+        box-sizing content-box
+        background-color #FFF
+        background-size 80%
+        background-clip content-box
+        background-position: 50% 50%
+        background-repeat no-repeat
+        background-image url(/images/ui/plus.png)
+        /*box-shadow -1px 1px 2px rgba($dark, .1)*/
+        border 1px solid darken($light, 5)
+        border-bottom 3px solid darken($light, 7)
 
-      box-sizing content-box
-      background-color #FFF
-      background-size $logoSize - $logoPadding
-      background-clip content-box
-      background-position: 50% 50%
-      background-repeat no-repeat
-      background-image url(/images/ui/plus.png)
-      /*box-shadow -1px 1px 2px rgba($dark, .1)*/
-      border $borderWidth solid darken($light, 5)
-      //border-bottom 3px solid darken($light, 10)
+        //box-shadow 1px 2px 5px 0 rgba($dark, .1)
+        border-radius 10px //($logoSize / 6)
+        //padding $logoPadding
+        overflow visible
+        display inline-block
 
-      //box-shadow 1px 2px 5px 0 rgba($dark, .1)
-      width $logoSize
-      height $logoSize
-      border-radius 10px //($logoSize / 6)
-      //padding $logoPadding
-      overflow hidden
-      display inline-block
+        vertical-align middle
+        //transition box-shadow .1s ease-in, transform .1s ease-out
+        transition transform .1s ease-out
 
-      vertical-align middle
-      //transition box-shadow .1s ease-in, transform .1s ease-out
-      transition transform .1s ease-out
 
-    .logo.active
-      border darken($light, 20) 3px solid
-      transform scaleX(1.1) scaleY(1.1)
 
 
 

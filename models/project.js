@@ -65,7 +65,7 @@ schema.statics.list = function (user, cb) {
         }
     }
 
-    this.find(query).select('_id title icon identifier').exec(cb);
+    this.find(query).select('_id title icon identifier demo').exec(cb);
 };
 
 schema.set('toObject', {
