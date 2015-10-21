@@ -20,7 +20,7 @@ var expressWinston = require('express-winston');
 mongoose.connect(config.mongo_uri);
 
 app.use(session({
-    secret: 'campsi_is_great',
+    secret: config.session_secret,
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({mongooseConnection: mongoose.connection})
