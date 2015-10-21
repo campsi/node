@@ -108,36 +108,15 @@ var packComponents = function(map, dest){
         bundle.pipe(streamify(uglify()));
     }
     return bundle.pipe(gulp.dest('./public/javascripts/'));
-}
+};
 
 gulp.task('app', function () {
-
-    // set up the browserify instance on a task basis
-    var b = browserify('./lib/campsi-app/init.js', {
-        bundleExternals: false
-    });
-
-    //b.require('filedrop');
-
-    coreDependencies.forEach(function (dep) {
-        b.exclude(dep);
-    });
-
-    serverOnlyDependencies.forEach(function (dep) {
-        b.ignore(dep);
-    });
-
-    var bundle = b.bundle().pipe(source('campsi.app.js'));
-    if(config.env !== 'dev'){
-        bundle.pipe(streamify(uglify()));
-    }
-    return bundle.pipe(gulp.dest('./public/javascripts/'));
+    return packComponents('./lib/campsi-app/init.js', 'campsi.app.js');
 });
 
 gulp.task('standard-components', function () {
     return packComponents('./lib/components/map.js', 'campsi.components.js');
 });
-
 
 gulp.task('editor', function () {
     return packComponents('./lib/components/campsi/map.js', 'campsi.editor.js');
@@ -150,4 +129,6 @@ gulp.task('watch', function () {
     gulp.watch('stylus/**/*.styl', ['stylus']);
 });
 
-gulp.task('default', ['core', 'stylus', 'app', 'standard-components', 'editor', 'watch', 'serve']);
+gulp.task('compile', ['core', 'app', 'standard-components', 'editor', 'stylus']);
+
+gulp.task('default', ['compile', 'watch', 'serve']);
