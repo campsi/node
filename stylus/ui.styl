@@ -77,24 +77,39 @@ button, a.btn, .buttons > a, input[type=submit]
   .help .errors
     display none
 
-.component.invisible .control
-  position relative
-  display: flex
+.component.invisible
+  padding 0
+  border-top 1px solid darken($light, 5);
+  .control
+    position relative
+    padding 0
 
-  input
-    border none
-    outline none
-    background transparent
-    margin-left .5em
-    box-shadow none
-    &:focus
-      box-shadow none;
+    &::before
+      content '✎'
+      color $theme
+      width 1.5em
+      height 50%
+      text-align center
+      font-size 1.5em
+      line-height 1.2em
+      position absolute
+      left 0
+      top 25%
 
-  &::before
-    content '✎'
-    color darken($nearWhite, 20)
-    width 1em
-    align-self: center
+    input
+      border none
+      outline none
+      text-indent 1.5em
+      background transparent
+      display block
+      transition background .2s ease-out
+
+      //box-shadow inset
+      &:focus
+        box-shadow none;
+        background: rgba($theme, .1);
+
+        align-self: center
 
 .control .label
   font-weight normal
@@ -140,6 +155,7 @@ input.component.text:disabled
     position relative
     overflow hidden
 
+
     input[type=file]
       display block
       position absolute
@@ -161,7 +177,7 @@ input.component.text:disabled
       background-clip: content-box;
 
 #app .form_field.big-title
-  padding 2rem
+  //padding 2rem
   background $nearWhite
   border-bottom 1px solid darken($nearWhite, 10)
   font-size 1.5em

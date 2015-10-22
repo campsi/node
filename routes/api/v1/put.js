@@ -1,6 +1,8 @@
 var router = require('express').Router();
 var resources = require('../../../middleware/resources');
 var mongoose = require('mongoose');
+var slug = require('slug');
+
 
 resources(router);
 
@@ -12,7 +14,9 @@ router.put('/projects/:project', function(req, res, next){
 
     var project = req.project;
 
-    project.title = req.body.title || project.title;
+    if(typeof req.body.title !== 'undefined'){
+        project.title = req.body.title;
+    }
 
     var returnId = function (item) {
         return mongoose.Types.ObjectId(item._id);
@@ -32,7 +36,7 @@ router.put('/projects/:project', function(req, res, next){
         project.icon = req.body.icon;
     }
     if (typeof req.body.identifier !== 'undefined') {
-        project.identifier = req.body.identifier;
+        project.identifier = slug(req.body.identifier);
     }
 
     project.save(function (err, result) {
@@ -42,6 +46,15 @@ router.put('/projects/:project', function(req, res, next){
 
 router.put('/projects/:project/collections/:collection', function(req, res, next){
     var collection = req.collection;
+
+    if(typeof req.body.name !== 'undefined'){
+        collection.name = req.body.name;
+        if (typeof req.body.identifier !== 'undefined') {
+            collection.identifier = slug(req.body.identifier);
+        } else if(typeof collection.identifier === 'undefined'){
+            collection.identifier = slug(req.body.name);
+        }
+    }
 
     collection.name = req.body.name || collection.name;
 
@@ -53,9 +66,6 @@ router.put('/projects/:project/collections/:collection', function(req, res, next
         collection.templates = req.body.templates;
     }
 
-    if (typeof req.body.identifier !== 'undefined') {
-        collection.identifier = req.body.identifier;
-    }
 
     if (typeof req.body.entries !== 'undefined') {
         collection.entries = req.body.entries.map(returnId);

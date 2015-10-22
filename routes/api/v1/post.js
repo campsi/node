@@ -53,7 +53,6 @@ router.post('/projects', function (req, res, next) {
 router.post('/projects/:project/collections', function (req, res, next) {
     Collection.create({
         _project: req.project._id,
-        name: 'New collection',
         fields: []
     }, function (err, collection) {
         req.project.collections.push(collection._id);
@@ -78,7 +77,6 @@ router.post('/projects/:project/collections/:collection/entries', function (req,
 });
 
 router.post('/projects/:project/invitation', function (req, res, next) {
-
 
     User.findOne({email: req.body.email}, function (err, user) {
 
