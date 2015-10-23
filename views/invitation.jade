@@ -6,7 +6,7 @@ html
     #page
       h1 Your contribution is wanted!
       #invitations
-        each invitation in invitations
+        each invitation in guest.invitations
           .invitation
             h2
               span.icon(style='background-image:url(' + invitation._project.icon.uri + '?w=200&h=200)')
@@ -23,7 +23,11 @@ html
       div.login-box
         button.login Create an account or login
 
+    if user
+      script window.CAMPSI_USER = !{JSON.stringify(user)};
+    script window.CONF = !{JSON.stringify(config)};
+    script(src=config.auth0.lockURL)
     script(src='/lib/jquery/dist/jquery.min.js')
     script(src='/lib/auth0-lock/build/auth0-lock.min.js')
-    script window.invitationToken = !{JSON.stringify(_id)};
+    script window.invitationToken = !{JSON.stringify(guest._id)};
     script(src='/javascripts/invitation.js')

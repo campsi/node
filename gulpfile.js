@@ -114,6 +114,10 @@ gulp.task('app', function () {
     return packComponents('./lib/campsi-app/init.js', 'campsi.app.js');
 });
 
+gulp.task('invitation', function () {
+    return packComponents('./lib/campsi-app/invitation.js', 'invitation.js');
+});
+
 gulp.task('standard-components', function () {
     return packComponents('./lib/components/map.js', 'campsi.components.js');
 });
@@ -129,6 +133,6 @@ gulp.task('watch', function () {
     gulp.watch('stylus/**/*.styl', ['stylus']);
 });
 
-gulp.task('compile', ['core', 'app', 'standard-components', 'editor', 'stylus']);
+gulp.task('compile', ['core', 'app', 'invitation', 'standard-components', 'editor', 'stylus']);
 
 gulp.task('default', ['compile', 'watch', 'serve']);

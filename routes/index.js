@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Project = require('./../models/project');
+var Component = require('./../models/component');
 var Campsi = require('campsi');
 var async = require('async');
 var cheerio = require('cheerio');
@@ -9,28 +10,17 @@ var extend = require('extend');
 var panelOptions = require('./../lib/campsi-app/panels');
 var routes = require('./../lib/campsi-app/routes');
 //todo uniformiser les singuliers /pluriels
-var ProjectService = require('./../services/project');
-var CollectionService = require('./../services/collections');
-var ComponentService = require('./../services/components');
 var jade = require('jade');
 var resources = require('../middleware/resources');
 var config = require('../config');
-var browserConfig = deepcopy(config);
-
-delete browserConfig['mongo_uri'];
-delete browserConfig['session_secret'];
-delete browserConfig['sendgrid_api_key'];
-delete browserConfig['s3'];
-delete browserConfig.auth0['clientSecret'];
-
-
+var browserConfig = require('../browser-config');
 
 resources(router);
 
 var createPanels = function (panelsOptions, callback) {
     var panels = [];
     async.forEachOf(panelsOptions, function (options, id, cb) {
-        if(id === '_context'){
+        if (id === '_context') {
             return cb();
         }
         Campsi.create('campsi/panel', extend(options, {context: panelsOptions._context}), options.componentValue, function (panel) {
@@ -117,9 +107,14 @@ router.get(routes.projectUsers.path, function (req, res, next) {
     var options = getPanelOptions(routes.projectUsers.layout);
     if (req.project) {
         options.project.componentValue = req.project.toObject();
-        options.users.componentValue = req.project.toObject();
+        options.users.componentValue = req.project.identity();
+        req.project.getUsers(function (err, users) {
+            options.users.componentValue.users = users;
+            send([], options, req, res);
+        });
+    } else {
+        send([], options, req, res);
     }
-    send([], options, req, res);
 });
 
 
@@ -149,8 +144,11 @@ router.get(routes.designer.path, function (req, res, next) {
     options.designer.componentValue = req.collection.toObject();
 
     var getComponents = function (cb) {
-        ComponentService.find({}, function (results) {
-            options.components.componentValue = results;
+        Component.find({}, function (err, results) {
+            // todo nettoyer
+            options.components.componentValue = results.map(function (comp) {
+                return comp.toObject()
+            });
             cb();
         });
     };

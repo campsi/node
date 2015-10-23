@@ -29,16 +29,11 @@ module.exports = function (router) {
                 path: 'collections',
                 select: 'name _id identifier'
             })
-            .populate({
-                path: 'admins',
-                select: 'name picture nickname _id'
-            })
-            .populate({
-                path: 'designers',
-                select: 'name picture nickname _id'
-            }).exec(function (err, projects) {
+            .select("title demo icon identifier collections")
+            .exec(function (err, projects) {
                 if (projects.length > 0) {
                     req.project = projects[0];
+                    req.project.roles = req.user.getRolesForProject(projects[0]);
                     return next();
                 }
                 res.status(404);

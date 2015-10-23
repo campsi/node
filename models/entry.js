@@ -1,27 +1,30 @@
 var mongoose = require('mongoose');
 
-var schema =  new mongoose.Schema({
-    _collection: {type: mongoose.Schema.Types.ObjectId, ref: 'Collection'},
-    data: mongoose.Schema.Types.Mixed
-});
+module.exports = (function(){
 
-schema.methods.identity = function(){
-    return {
-        _id: this._id.toString()
-    }
-};
+    var schema =  new mongoose.Schema({
+        _collection: {type: mongoose.Schema.Types.ObjectId, ref: 'Collection'},
+        data: mongoose.Schema.Types.Mixed
+    });
 
-schema.virtual('__collection').get(function() {
-    return this.___collection;
-});
+    schema.methods.identity = function(){
+        return {
+            _id: this._id.toString()
+        }
+    };
 
-schema.virtual('__collection').set(function(collection) {
-    return this.___collection = collection;
-});
+    schema.virtual('__collection').get(function() {
+        return this.___collection;
+    });
 
-schema.set('toObject', {
-    getters: true,
-    virtuals: true
-});
+    schema.virtual('__collection').set(function(collection) {
+        return this.___collection = collection;
+    });
 
-module.exports = mongoose.model('Entry', schema);
+    schema.set('toObject', {
+        getters: true,
+        virtuals: true
+    });
+
+    return mongoose.model('Entry', schema);
+})();

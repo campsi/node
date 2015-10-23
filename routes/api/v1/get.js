@@ -18,6 +18,17 @@ router.get('/projects/:project', function (req, res, next) {
     res.json(req.project.toObject());
 });
 
+router.get('/projects/:project/users', function (req, res, next) {
+    req.project.getUsers(function (err, users) {
+        res.json(users);
+    })
+});
+router.get('/projects/:project/guests', function (req, res, next) {
+    req.project.getGuests(function (err, guests) {
+        res.json(guests);
+    })
+});
+
 router.get('/projects/:project/collections/:collection', function (req, res, next) {
     res.json(req.collection.toObject());
 });

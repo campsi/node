@@ -1,20 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var Invitation = require('../models/guest');
-
-
+var browserConfig = require('../browser-config');
 
 router.get('/:token', function (req, res, next) {
     Invitation.findOne({_id: req.params.token})
         .populate('invitations._project')
         .populate('invitations._inviter')
         .exec(function (err, guest) {
-                  if (guest === null || typeof guest === 'undefined') {
-                      return next();
-                  }
-                  res.render('invitation', guest.toObject());
-              });
-
+            if (guest === null || typeof guest === 'undefined') {
+                return next();
+            }
+            res.render('invitation', {config: browserConfig, guest: guest.toObject(), user: req.user});
+        });
 });
 
 

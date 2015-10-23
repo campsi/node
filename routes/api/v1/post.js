@@ -95,7 +95,7 @@ router.post('/projects/:project/invitation', function (req, res, next) {
             }
 
             req.project.save(function () {
-                res.json(existingUser);
+                res.json(user);
             });
         } else {
             Guest.findOne({email: req.body.email}, function (err, guest) {

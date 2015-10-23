@@ -126,16 +126,24 @@ app.use(function (req, res, next) {
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
+
+    if (err.status === 404){
+        return res.send('404 / NOT FOUND');
+    }
+
     winston.log('error', {
         req: {
             method: req.method,
             headers: req.headers
         },
-        err: err
+        err: {
+            message: err.message,
+            stack: err.stack
+        }
     });
     res.json({
         message: err.message,
-        error: err
+        error: err.stack
     });
 });
 
