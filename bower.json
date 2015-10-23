@@ -10,7 +10,8 @@
     "auth0-lock": "*",
     "filedrop": "*",
     "ace-builds-bower-patched": "*",
-    "font-awesome": "*"
+    "font-awesome": "*",
+    "jquery-circle-progress": "*"
   },
   "license": "MIT",
   "ignore": [

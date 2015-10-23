@@ -161,7 +161,7 @@ input.component.text:disabled
 .component.file, .component.file_image
 
   .file-dropzone
-    border .3em dashed $light
+    border .3em dashed lighten($light, 4)
     border-radius 1em
     background-position 50% 50%
     background-repeat no-repeat
@@ -189,6 +189,14 @@ input.component.text:disabled
       background-position 50% 50%
       background-size 10rem
       background-clip: content-box;
+
+  .progress
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+
 
 #app .form_field.big-title
   //padding 2rem

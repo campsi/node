@@ -104,9 +104,9 @@ var packComponents = function(map, dest){
     });
 
     var bundle = b.bundle().pipe(source(dest));
-    if(config.env !== 'dev'){
+    //if(config.env !== 'dev'){
         bundle.pipe(streamify(uglify()));
-    }
+    //}
     return bundle.pipe(gulp.dest('./public/javascripts/'));
 };
 
