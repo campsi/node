@@ -29,6 +29,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // view engine setup
+app.locals.pretty = true;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -46,7 +47,7 @@ app.use(expressWinston.logger({
             token: config.loggly.token,
             subdomain: "campsi",
             tags: ["Winston-NodeJS"],
-            json:true
+            json: true
         })
     ]
 }));
@@ -87,6 +88,10 @@ app.use('/invitation', require('./routes/invitation'));
 app.use('/profile', require('./routes/profile'));
 
 app.use('/', require('./routes/index'));
+
+app.get('/undefined', function(req, res){
+    res.send('U MAD BRO');
+});
 
 // Auth0 callback handler
 app.get('/callback', passport.authenticate('auth0'), function (req, res) {
@@ -139,7 +144,13 @@ app.use(function (req, res, next) {
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
-    winston.log('error', err);
+    winston.log('error', {
+        req: {
+            method: req.method,
+            headers: req.headers
+        },
+        err: err
+    });
     res.json({
         message: err.message,
         error: err

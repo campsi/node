@@ -122,6 +122,16 @@ router.get(routes.projectUsers.path, function (req, res, next) {
 });
 
 
+router.get(routes.newCollection.path, function (req, res, next) {
+
+    var options = getPanelOptions(routes.collection.layout);
+
+    options.project.componentValue = req.project.toObject();
+    options.collection.componentValue = {__project: req.project.identity()};
+
+    send([], options, req, res);
+});
+
 router.get(routes.collection.path, function (req, res, next) {
 
     var options = getPanelOptions(routes.collection.layout);

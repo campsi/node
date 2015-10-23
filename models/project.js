@@ -2,6 +2,9 @@ var mongoose = require('mongoose');
 
 var User = require('./user');
 var Collection = require('./collection');
+var config = require('../config');
+var Campsi = require('campsi');
+
 
 var schema = new mongoose.Schema({
     title: String,
@@ -71,6 +74,10 @@ schema.statics.list = function (user, cb) {
 schema.set('toObject', {
     getters: true,
     virtuals: true
+});
+
+schema.virtual('url').get(function() {
+    return config.host + '/api/v1' + Campsi.url(this);
 });
 
 module.exports = mongoose.model('Project', schema);

@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var config = require('../config');
+var Campsi = require('campsi');
 
 var schema =  new mongoose.Schema({
     _project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'},
@@ -30,6 +32,13 @@ schema.methods.identity = function(){
 
 schema.virtual('__project').get(function() {
     return this.___project;
+});
+
+schema.virtual('url').get(function() {
+    if(this.___project){
+        return config.host + '/api/v1' + Campsi.url(this.___project, this);
+    }
+    return "/collections/" + this.identifier || this._id.toString()
 });
 
 schema.virtual('__project').set(function(project) {

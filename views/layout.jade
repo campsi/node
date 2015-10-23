@@ -23,21 +23,21 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/main.css')
     link(rel='stylesheet', href='/lib/dragula.js/dist/dragula.css')
+body
+  div#app
+    block content
 
-  body
-    div#app
-      block content
+  div#modal
+    block modal
 
-    div#modal
-      block modal
+  script(src='/lib/dragula.js/dist/dragula.min.js')
+  script(src='/lib/jquery/dist/jquery.min.js')
+  block scripts
 
-    block scripts
+  script(type='application/javascript') window.fd = {logging: false};
+  script(src='/lib/filedrop/filedrop.js')
+  script(src='/javascripts/campsi.core.js')
+  script(src='/javascripts/campsi.app.js')
 
-    script(src='/lib/dragula.js/dist/dragula.js')
-    script(src='/lib/jquery/dist/jquery.min.js')
-    script(type='application/javascript') window.fd = {logging: false};
-    script(src='/lib/filedrop/filedrop.js')
-    script(src='/javascripts/campsi.core.js')
-    script(src='/javascripts/campsi.app.js')
 
 

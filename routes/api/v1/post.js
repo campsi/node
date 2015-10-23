@@ -53,6 +53,8 @@ router.post('/projects', function (req, res, next) {
 router.post('/projects/:project/collections', function (req, res, next) {
     Collection.create({
         _project: req.project._id,
+        name: req.body.name,
+        identifier: (typeof req.body.identifier === 'undefined') ? slug(req.body.name) : slug(req.body.identifier),
         fields: []
     }, function (err, collection) {
         req.project.collections.push(collection._id);
@@ -67,6 +69,7 @@ router.post('/projects/:project/collections', function (req, res, next) {
 router.post('/projects/:project/collections/:collection/entries', function (req, res, next) {
     Entry.create({
         _collection: req.collection._id,
+        name: req.collection.name,
         data: req.body.data
     }, function (err, entry) {
         req.collection.entries.push(entry._id);

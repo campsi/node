@@ -52,11 +52,11 @@ button, a.btn, .buttons > a, input[type=submit]
 
 #app .component.form_field.identifier
   display flex
-  background url(furley_bg.png)
+  background linear-gradient(darken($light, 3), $light);
   padding 1em
   font-size 1em
   align-items baseline
-  border-bottom 1px solid darken($light,5)
+  //border-bottom 1px solid darken($light,5)
 
   .label
     margin 0 .5em 0 0
@@ -79,14 +79,14 @@ button, a.btn, .buttons > a, input[type=submit]
 
 .component.invisible
   padding 0
-  border-top 1px solid darken($light, 5);
+  //border-top 1px solid darken($light, 5);
   .control
     position relative
     padding 0
 
     &::before
       content '✎'
-      color $theme
+      color lighten($theme, 10)
       width 1.5em
       height 50%
       text-align center
@@ -94,7 +94,7 @@ button, a.btn, .buttons > a, input[type=submit]
       line-height 1.2em
       position absolute
       left 0
-      top 25%
+      top .8em
 
     input
       border none
@@ -107,7 +107,7 @@ button, a.btn, .buttons > a, input[type=submit]
       //box-shadow inset
       &:focus
         box-shadow none;
-        background: rgba($theme, .1);
+        background: lighten($light, 2)
 
         align-self: center
 
@@ -183,8 +183,12 @@ input.component.text:disabled
   font-size 1.5em
 
   input
+    padding .75em
     font-size: 1.5em
     font-weight lighter
+
+    &::placeholder
+      padding-top .5em
 
 .component.text_code
   position relative
@@ -199,3 +203,16 @@ input.component.text:disabled
   height 10rem
   border: darken($light, 10) solid 1px;
 
+#app .form_field.url
+  padding .5em 1em
+  .label,.control
+
+    padding 0
+    display inline-block
+    margin 0 1em 0 0
+
+    a
+      font-family Menlo, Monaco, Consolas, "Lucida Console", monospace
+      font-size .7em
+      color $dark
+      font-weight 100
