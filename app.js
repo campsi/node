@@ -143,7 +143,7 @@ app.use(function (err, req, res, next) {
     });
     res.json({
         message: err.message,
-        error: err.stack
+        error: err.stack.split('\n')
     });
 });
 

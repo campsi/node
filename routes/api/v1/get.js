@@ -41,9 +41,11 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
     });
 
 
-    var query = extend(req.query, {_collection: req.collection._id});
+
+    var query = extend({}, req.query, {_collection: req.collection._id});
     delete query['template'];
-    Entry.find(query, function (err, entries) {
+
+    Entry.find(query).select('data').exec(function (err, entries) {
         if (req.query.template && templates[req.query.template]) {
             var template = handlebars.compile(templates[req.query.template]);
             res.send(template({entries: entries}));

@@ -50,10 +50,17 @@ button, a.btn, .buttons > a, input[type=submit]
   border-bottom .15em solid transparent
   light-button($light)
 
+  i
+    opacity .3
+  &:hover i
+    opacity 1
+
   span
     margin-left .25em
 
-  @media screen and (max-width: 600px)
+  @media screen and (max-width: 1000px)
+    i
+      opacity .9
     span
       display none
 
@@ -211,9 +218,9 @@ input.component.text:disabled
   border: darken($light, 10) solid 1px;
 
 #app .form_field.url
-  padding .5em 1em
-  .label,.control
+  padding 1.5em
 
+  .label,.control
     padding 0
     display inline-block
     margin 0 1em 0 0
@@ -221,5 +228,5 @@ input.component.text:disabled
     a
       font-family Menlo, Monaco, Consolas, "Lucida Console", monospace
       font-size .7em
-      color $dark
+      color lighten($dark, 40)
       font-weight 100
