@@ -18,7 +18,7 @@ module.exports = function (router) {
     router.param('project', function (req, res, next, project) {
 
 
-        if(project === 'new'){
+        if (project === 'new') {
             return next();
         }
 
@@ -37,12 +37,13 @@ module.exports = function (router) {
                 path: 'designers',
                 select: 'name picture nickname _id'
             }).exec(function (err, projects) {
-                        if (projects.length > 0) {
-                            req.project = projects[0];
-                            return next();
-                        }
-                        return next();
-                    });
+                if (projects.length > 0) {
+                    req.project = projects[0];
+                    return next();
+                }
+                res.status(404);
+                res.send('');
+            });
     });
 
     router.param('collection', function (req, res, next, collection) {
@@ -60,7 +61,8 @@ module.exports = function (router) {
                 req.collection.__project = req.project.identity();
                 return next();
             }
-            return next();
+            res.status(404);
+            res.send('');
         });
     });
 
@@ -74,7 +76,9 @@ module.exports = function (router) {
                 req.entry.__collection = req.collection.identity();
                 return next();
             }
-            return next();
+
+            res.status(404);
+            res.send('');
         });
     });
 };

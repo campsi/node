@@ -50,6 +50,13 @@ button, a.btn, .buttons > a, input[type=submit]
   border-bottom .15em solid transparent
   light-button($light)
 
+  i.fa
+    margin-right .25em
+
+  @media screen and (max-width: 600px)
+    span
+      display none
+
 #app .component.form_field.identifier
   display flex
   background linear-gradient(darken($light, 3), $light);
