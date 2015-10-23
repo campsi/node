@@ -3,6 +3,7 @@ var resources = require('../../../middleware/resources');
 var Project = require('../../../models/project');
 var Entry = require('../../../models/entry');
 var handlebars = require('handlebars');
+var extend = require('extend');
 
 resources(router);
 
@@ -28,7 +29,10 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
         templates[template.identifier] = template.markup
     });
 
-    Entry.find({_collection: req.collection._id}, function (err, entries) {
+
+    var query = extend(req.query, {_collection: req.collection._id});
+    delete query['template'];
+    Entry.find(query, function (err, entries) {
         if (req.query.template && templates[req.query.template]) {
             var template = handlebars.compile(templates[req.query.template]);
             res.send(template({entries: entries}));

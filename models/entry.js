@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 
 var schema =  new mongoose.Schema({
     _collection: {type: mongoose.Schema.Types.ObjectId, ref: 'Collection'},
-    index: Number,
     data: mongoose.Schema.Types.Mixed
 });
 
