@@ -31,8 +31,6 @@ router.post('/projects', function (req, res, next) {
     if (req.user) {
 
         var projectPayload = req.body;
-        projectPayload.admins = [req.user._id];
-        projectPayload.designers = [req.user._id];
         projectPayload.identifier = slug(projectPayload.title);
 
         Project.create(projectPayload, function (err, project) {
@@ -40,6 +38,7 @@ router.post('/projects', function (req, res, next) {
                 res.status(400);
                 res.json(err);
             } else {
+                req.user.addToProject(project._id, ['admin', 'designer']);
                 res.json(project.toObject());
             }
         });

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var arrayUniq = require('array-uniq');
 
 var schema = new mongoose.Schema({
     provider: String,
@@ -11,6 +12,10 @@ var schema = new mongoose.Schema({
     emails: [{value: String}],
     picture: String,
     nickname: String,
+    projects: [{
+        roles: String,
+        _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'}
+    }],
     identities: [{
         user_id: String,
         provider: String,
@@ -19,7 +24,7 @@ var schema = new mongoose.Schema({
     }]
 });
 
-schema.statics.findOrCreate = function(profile, cb){
+schema.statics.findOrCreate = function (profile, cb) {
     var model = this;
 
     model.find({id: profile.id}).exec(function (err, results) {
@@ -29,6 +34,20 @@ schema.statics.findOrCreate = function(profile, cb){
             cb(err, results[0]);
         }
     });
+};
+
+schema.methods.addToProject = function(projectId, roles){
+    var found = false;
+    this.projects.forEach(function(project){
+        if(project._id.toString() === projectId.toString()){
+            project.roles = arrayUniq(project.roles.concat(roles));
+            found = true;
+        }
+    });
+
+    if(found === false){
+        this.projects.push({_id: projectId, roles: roles});
+    }
 };
 
 module.exports = mongoose.model('User', schema);

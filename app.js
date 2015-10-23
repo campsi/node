@@ -100,33 +100,15 @@ app.get('/callback', passport.authenticate('auth0'), function (req, res) {
     }
 
     if (req.query.token) {
-
         Guest.findOne({_id: req.query.token}, function (err, guest) {
 
             if (guest === null) {
-                res.redirect('/');
+                return res.redirect('/');
             }
 
-            async.forEach(guest.invitations, function (invitation, cb) {
-
-                Project.findOne({_id: invitation._project}, function (err, project) {
-
-                    if (invitation.roles.indexOf('admin') !== -1) {
-                        project.addUser('admins', req.user._id);
-                    }
-
-                    if (invitation.roles.indexOf('designer') !== -1) {
-                        project.addUser('designers', req.user._id);
-                    }
-
-                    project.save(function () {
-                        cb();
-                    });
-
-                });
-            }, function () {
+            guest.turnIntoUser(req.user, function(){
                 res.redirect('/');
-            });
+            })
         });
     } else {
         res.redirect('/');
