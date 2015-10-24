@@ -40,8 +40,6 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
         templates[template.identifier] = template.markup
     });
 
-
-
     var query = extend({}, req.query, {_collection: req.collection._id});
     delete query['template'];
 

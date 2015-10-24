@@ -5,24 +5,25 @@
   &:last-child
     margin-bottom 0
 
-  &:first-child
-    margin-top 1em
 
   > button.remove
     display none
 
   .placeholder
-    padding 1em
-    width 100%
+    padding .5em
+    display inline-block
+    overflow hidden
     color darken($light, 20)
     font-style italic
     border 3px dashed darken($light, 10)
     text-align center
     border-radius .5em
+    float left
+    margin-right 1em
+    background darken($light, 1)
 
 .campsi_component-list
   position relative
-  margin-top .5em
 
   > .items.dropzone:empty
     min-height 5em;
@@ -42,9 +43,8 @@
     background darken($light, 10)
     padding .5em
 
-
   header
-    $background= lighten($dark, 50)
+    $background = lighten($dark, 50)
     display flex
     align-items center
     background $background
@@ -65,7 +65,7 @@
 
     .spacer
       flex 1
-      //border 1px solid greenyellow
+    //border 1px solid greenyellow
 
     .drag-handle
       //border 1px solid blue
@@ -108,11 +108,23 @@
       input
         width 100%
 
+  .form_field[data-comp-type="campsi/component-chooser"]
+    margin-top: .5em
+    .label
+      align-self auto
+
+  .form_field.form_fields
+    //flex-direction column
+    > .label
+      display none
+
+
 .form-field-name
   font-size 0.75em
 
 .form-field-name input
   font-size 1em
+
 
 #designer
 
@@ -128,15 +140,7 @@
   .content
     padding 2rem
 
-
 .component-type
   display block
-  background $theme
-  color $nearWhite
-  border-radius .5em
-  padding  0.25em .5em
-  border 1px solid darken($theme, 5)
-  border-bottom 3px solid darken($theme, 20)
-
 
 

@@ -14,7 +14,7 @@ module.exports = (function () {
         picture: String,
         nickname: String,
         projects: [{
-            roles: String,
+            roles: [String],
             _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'}
         }],
         identities: [{

@@ -14,7 +14,8 @@ var jade = require('jade');
 var resources = require('../middleware/resources');
 var config = require('../config');
 var browserConfig = require('../browser-config');
-
+var path = require('path');
+var fs = require('fs');
 resources(router);
 
 var createPanels = function (panelsOptions, callback) {
@@ -80,10 +81,13 @@ var getProjects = function (req, res, next) {
 };
 
 router.get(routes.welcome.path, getProjects, function (req, res, next) {
-
     var options = getPanelOptions(routes.welcome.layout);
-    options.projects.componentValue = req.projects;
-    send([], options, req, res);
+    var filename = path.join(__dirname, '/../panels/' + options.welcome.contentFile);
+    fs.readFile(filename, function (err, data) {
+        options.welcome.content = data;
+        options.projects.componentValue = req.projects;
+        send([], options, req, res);
+    });
 });
 
 router.get(routes.projects.path, getProjects, function (req, res, next) {

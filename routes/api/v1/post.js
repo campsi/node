@@ -39,7 +39,9 @@ router.post('/projects', function (req, res, next) {
                 res.json(err);
             } else {
                 req.user.addToProject(project._id, ['admin', 'designer']);
-                res.json(project.toObject());
+                req.user.save(function (err, data) {
+                    res.json(project.toObject());
+                });
             }
         });
 
@@ -80,21 +82,11 @@ router.post('/projects/:project/collections/:collection/entries', function (req,
 
 router.post('/projects/:project/invitation', function (req, res, next) {
 
-    User.findOne({email: req.body.email}, function (err, user) {
+    User.findOne({'emails.value': req.body.email}, function (err, user) {
 
         if (user) {
-
-            var roles = req.body.roles;
-
-            if (roles.indexOf('admin') !== -1) {
-                req.project.addUser('admins', req.user._id);
-            }
-
-            if (roles.indexOf('designer') !== -1) {
-                req.project.addUser('designers', req.user._id);
-            }
-
-            req.project.save(function () {
+            user.addToProject(req.project._id, req.body.roles);
+            user.save(function () {
                 res.json(user);
             });
         } else {
