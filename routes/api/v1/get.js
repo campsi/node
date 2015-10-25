@@ -2,6 +2,7 @@ var router = require('express').Router();
 var resources = require('../../../middleware/resources');
 var Project = require('../../../models/project');
 var Entry = require('../../../models/entry');
+var Draft = require('../../../models/draft');
 var handlebars = require('handlebars');
 var extend = require('extend');
 
@@ -53,8 +54,20 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
     });
 });
 
+
+router.get('/projects/:project/collections/:collection/drafts', function (req, res, next) {
+    Draft.findDraftsInCollectionForUser(req.collection, req.user, function(err, drafts){
+        res.json(drafts);
+    })
+});
+
 router.get('/projects/:project/collections/:collection/entries/:entry', function (req, res, next) {
     res.json(req.entry.toObject());
+});
+
+
+router.get('/projects/:project/collections/:collection/drafts/:draft', function (req, res, next) {
+    res.json(req.draft.toObject());
 });
 
 module.exports = router;

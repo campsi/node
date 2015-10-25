@@ -1,6 +1,7 @@
 var Project = require('../models/project');
 var Collection = require('../models/collection');
 var Entry = require('../models/entry');
+var Draft = require('../models/draft');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = function (router) {
@@ -33,7 +34,9 @@ module.exports = function (router) {
             .exec(function (err, projects) {
                 if (projects.length > 0) {
                     req.project = projects[0];
-                    req.project.roles = req.user.getRolesForProject(projects[0]);
+                    if (req.user) {
+                        req.project.roles = req.user.getRolesForProject(projects[0]);
+                    }
                     return next();
                 }
                 res.status(404);
@@ -69,6 +72,22 @@ module.exports = function (router) {
             if (entries.length > 0) {
                 req.entry = entries[0];
                 req.entry.__collection = req.collection.identity();
+                return next();
+            }
+
+            res.status(404);
+            res.send('');
+        });
+    });
+
+    router.param('draft', function (req, res, next, draft) {
+        var query = getQueryForObjectIdOrIdentifier(draft);
+        query._collection = req.collection._id;
+
+        Draft.find(query, function (err, drafts) {
+            if (drafts.length > 0) {
+                req.draft = drafts[0];
+                req.draft.__collection = req.collection.identity();
                 return next();
             }
 

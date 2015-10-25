@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Project = require('./../models/project');
 var Component = require('./../models/component');
+var Draft = require('./../models/draft');
 var Campsi = require('campsi');
 var async = require('async');
 var cheerio = require('cheerio');
@@ -82,7 +83,7 @@ var getProjects = function (req, res, next) {
 
 router.get(routes.welcome.path, getProjects, function (req, res, next) {
     var options = getPanelOptions(routes.welcome.layout);
-    var filename = path.join(__dirname, '/../panels/' + options.welcome.contentFile);
+    var filename = path.join(__dirname, '/../public/panels/' + options.welcome.contentFile);
     fs.readFile(filename, function (err, data) {
         options.welcome.content = data;
         options.projects.componentValue = req.projects;
@@ -180,20 +181,31 @@ var getEntries = function (options) {
         var project = req.project.toObject();
         var template = getEntryTemplate(collection);
 
-        options.entries.componentValue = collection;
-        options.entry.componentOptions = collection;
-        options.collection.componentValue = collection;
+        var draftsLoadedOnNotLoggedIn = function(){
+            options.entries.componentValue = collection;
+            options.entry.componentOptions = collection;
+            options.collection.componentValue = collection;
 
-        if (typeof template !== 'undefined') {
-            if (typeof options.entries.componentOptions === 'undefined') {
-                options.entries.componentOptions = {};
+            if (typeof template !== 'undefined') {
+                if (typeof options.entries.componentOptions === 'undefined') {
+                    options.entries.componentOptions = {};
+                }
+                options.entries.componentOptions.template = template.markup;
             }
-            options.entries.componentOptions.template = template.markup;
+
+            options.project.componentValue = project;
+            req.options = options;
+            next();
         }
 
-        options.project.componentValue = project;
-        req.options = options;
-        next();
+        if(req.user){
+            Draft.findDraftsInCollectionForUser(req.collection, req.user, function(err, drafts){
+                collection.drafts = drafts;
+                draftsLoadedOnNotLoggedIn();
+            });
+        } else {
+            draftsLoadedOnNotLoggedIn();
+        }
     }
 };
 
@@ -204,6 +216,12 @@ router.get(routes.entries.path, getEntries(getPanelOptions(routes.entries.layout
 router.get(routes.entry.path, getEntries(getPanelOptions(routes.entry.layout)), function (req, res, next) {
     req.options.entry.componentValue = req.entry;
     req.options.entries.componentValue.selectedEntry = req.entry._id;
+    send([], req.options, req, res);
+});
+
+router.get(routes.draft.path, getEntries(getPanelOptions(routes.entry.layout)), function (req, res, next) {
+    req.options.entry.componentValue = req.draft;
+    req.options.entries.componentValue.selectedEntry = req.draft._id;
     send([], req.options, req, res);
 });
 

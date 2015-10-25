@@ -33,6 +33,17 @@
     &.active
       background white
 
+    &.draft::before
+      content '•'
+      display inline
+      float left
+      color $theme
+      left 0
+      top 0
+      margin-right .5em
+
+
+
     h4, .title
       font-weight 500
       color black

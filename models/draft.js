@@ -2,12 +2,20 @@ var mongoose = require('mongoose');
 
 module.exports = (function () {
 
-    var Draft = require('./draft');
-
     var schema = new mongoose.Schema({
         _collection: {type: mongoose.Schema.Types.ObjectId, ref: 'Collection'},
+        _entry: {type: mongoose.Schema.Types.ObjectId, ref: 'Entry'},
+        _user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+        date: {type: Date, default: Date.now},
         data: mongoose.Schema.Types.Mixed
     });
+
+    schema.statics.findDraftsInCollectionForUser = function(collection, user, cb){
+        this.find({
+            _collection: collection._id,
+            _user: user._id
+        }).exec(cb);
+    };
 
     schema.methods.identity = function () {
         return {
@@ -28,5 +36,5 @@ module.exports = (function () {
         virtuals: true
     });
 
-    return mongoose.model('Entry', schema);
+    return mongoose.model('Draft', schema);
 })();
