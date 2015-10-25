@@ -28,7 +28,8 @@ var coreDependencies = [
     'extend',
     'page',
     'array-diff',
-    'handlebars'
+    'handlebars',
+    'app-context'
 ];
 
 var serverOnlyDependencies = ['cheerio', 'console.table', 'request', 'jade', 'path'];
@@ -83,7 +84,11 @@ gulp.task('core', function () {
         b.exclude(dep);
     });
 
-    var bundle = b.bundle().pipe(source('campsi.core.js')).pipe(streamify(uglify()));
+    var bundle = b.bundle().pipe(source('campsi.core.js'));
+
+    if(config.env !== 'dev'){
+        bundle.pipe(streamify(uglify()));
+    }
     return bundle.pipe(gulp.dest('./public/javascripts/'));
 });
 
@@ -128,6 +133,7 @@ gulp.task('editor', function () {
 
 gulp.task('watch', function () {
     gulp.watch('lib/campsi/lib/*.js', ['core']);
+    gulp.watch('lib/app-context/**/*.js', ['core']);
     gulp.watch('lib/campsi-app/*.js', ['app']);
     gulp.watch('lib/components/**/*.js', ['standard-components', 'editor']);
     gulp.watch('stylus/**/*.styl', ['stylus']);
