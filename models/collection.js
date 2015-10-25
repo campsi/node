@@ -66,9 +66,7 @@ module.exports = (function () {
                 });
                 drafts.forEach(function (d) {
                     if (d._entry) {
-                        var entryId = d._entry.toString();
-                        entriesById[entryId].drafts = entriesById[entryId].drafts || [];
-                        entriesById[entryId].drafts.push(d);
+                        entriesById[d._entry.toString()].draft = d;
                     } else {
                         items.push(d);
                     }

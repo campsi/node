@@ -20,12 +20,12 @@ module.exports = (function () {
         return this.___collection = collection;
     });
 
-    schema.virtual('drafts').get(function () {
-        return this._drafts;
+    schema.virtual('draft').get(function () {
+        return this._draft;
     });
 
-    schema.virtual('drafts').set(function (drafts) {
-        return this._drafts = drafts;
+    schema.virtual('draft').set(function (draft) {
+        return this._draft = draft;
     });
 
     schema.set('toObject', {
