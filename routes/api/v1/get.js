@@ -24,6 +24,7 @@ router.get('/projects/:project/users', function (req, res, next) {
         res.json(users);
     })
 });
+
 router.get('/projects/:project/guests', function (req, res, next) {
     req.project.getGuests(function (err, guests) {
         res.json(guests);
@@ -32,6 +33,18 @@ router.get('/projects/:project/guests', function (req, res, next) {
 
 router.get('/projects/:project/collections/:collection', function (req, res, next) {
     res.json(req.collection.toObject());
+});
+
+router.get('/projects/:project/collections/:collection/entries-and-drafts', function (req, res, next) {
+    if (typeof req.user === 'undefined') {
+        return next();
+    }
+
+    req.collection.getEntriesAndDrafts(req.user, function (err, items) {
+        res.json(items.map(function (i) {
+            return i.toObject();
+        }));
+    });
 });
 
 router.get('/projects/:project/collections/:collection/entries', function (req, res, next) {
@@ -56,7 +69,7 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
 
 
 router.get('/projects/:project/collections/:collection/drafts', function (req, res, next) {
-    Draft.findDraftsInCollectionForUser(req.collection, req.user, function(err, drafts){
+    Draft.findDraftsInCollectionForUser(req.collection, req.user, function (err, drafts) {
         res.json(drafts);
     })
 });

@@ -66,12 +66,9 @@ router.put('/projects/:project/collections/:collection', function(req, res, next
         collection.templates = req.body.templates;
     }
 
-
     if (typeof req.body.entries !== 'undefined') {
         collection.entries = req.body.entries.map(returnId);
     }
-
-    console.info(collection.entries);
 
     collection.save(function (err, result) {
         res.json(result);

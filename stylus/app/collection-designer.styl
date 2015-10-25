@@ -27,7 +27,18 @@
 
   > .items.dropzone:empty
     min-height 5em;
+    background $light
     border 3px dashed darken($light, 10)
+
+    &::before
+      content: 'drop fields here'
+      position absolute
+      top 50%
+      left 50%
+      height 2em
+      width 10em
+      margin-left -5em
+      margin-top -1em
 
 .campsi_collection-designer_field
   background white
@@ -114,7 +125,7 @@
       align-self auto
 
   .form_field.form_fields
-    //flex-direction column
+    margin-top .75em
     > .label
       display none
 

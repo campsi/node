@@ -2,7 +2,7 @@ var Project = require('../models/project');
 var Collection = require('../models/collection');
 var Entry = require('../models/entry');
 var Draft = require('../models/draft');
-var ObjectId = require('mongoose').Types.ObjectId;
+var Context = require('app-context');
 
 module.exports = function (router) {
 
@@ -16,8 +16,12 @@ module.exports = function (router) {
         return query;
     };
 
-    router.param('project', function (req, res, next, project) {
+    router.use('/*', function(req, res, next){
+        req.context = new Context();
+        next();
+    });
 
+    router.param('project', function (req, res, next, project) {
 
         if (project === 'new') {
             return next();
@@ -37,6 +41,8 @@ module.exports = function (router) {
                     if (req.user) {
                         req.project.roles = req.user.getRolesForProject(projects[0]);
                     }
+
+                    req.context._project = req.project;
                     return next();
                 }
                 res.status(404);
@@ -57,6 +63,7 @@ module.exports = function (router) {
             if (collections.length > 0) {
                 req.collection = collections[0];
                 req.collection.__project = req.project.identity();
+                req.context._collection = req.collection;
                 return next();
             }
             res.status(404);
@@ -72,6 +79,7 @@ module.exports = function (router) {
             if (entries.length > 0) {
                 req.entry = entries[0];
                 req.entry.__collection = req.collection.identity();
+                req.context._entry = req.entry;
                 return next();
             }
 
@@ -88,6 +96,7 @@ module.exports = function (router) {
             if (drafts.length > 0) {
                 req.draft = drafts[0];
                 req.draft.__collection = req.collection.identity();
+                req.context._draft = req.draft;
                 return next();
             }
 

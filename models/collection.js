@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var config = require('../config');
 var Campsi = require('campsi');
+var Draft = require('./draft');
+var Entry = require('./entry');
 
 module.exports = (function () {
 
@@ -30,6 +32,7 @@ module.exports = (function () {
         }
     };
 
+    // todo delete (context)
     schema.virtual('__project').get(function () {
         return this.___project;
     });
@@ -49,6 +52,33 @@ module.exports = (function () {
         getters: true,
         virtuals: true
     });
+
+    schema.methods.getEntriesAndDrafts = function (user, cb) {
+
+        var instance = this;
+        var items = [];
+        Draft.findDraftsInCollectionForUser(this, user, function (err, drafts) {
+
+            instance.populate('entries', function (err, doc) {
+                var entriesById = {};
+                doc.entries.forEach(function (e) {
+                    entriesById[e._id.toString()] = e;
+                });
+                drafts.forEach(function (d) {
+                    if (d._entry) {
+                        var entryId = d._entry.toString();
+                        entriesById[entryId].drafts = entriesById[entryId].drafts || [];
+                        entriesById[entryId].drafts.push(d);
+                    } else {
+                        items.push(d);
+                    }
+                });
+
+                items = items.concat(doc.entries);
+                cb(null, items);
+            });
+        });
+    };
 
     return mongoose.model('Collection', schema);
 

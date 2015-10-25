@@ -1,4 +1,4 @@
-module.exports = (function(){
+module.exports = (function () {
 
     var config = require('../config');
     var mongoose = require('mongoose');
@@ -53,10 +53,12 @@ module.exports = (function(){
             var projectsArray = [];
             User.findOne({_id: user._id}).select('projects').exec(function (err, populatedUser) {
                 async.forEach(populatedUser.projects, function (p, next) {
-                    projectsArray.push(p._id);
                     self.findOne({_id: p._id}).select('_id title icon identifier demo').exec(function (err, project) {
-                        project.roles = p.roles;
-                        projectHash[project._id.toString()] = project;
+                        if (project) {
+                            project.roles = p.roles;
+                            projectsArray.push(p._id);
+                            projectHash[project._id.toString()] = project;
+                        }
                         next();
                     });
                 }, function () {

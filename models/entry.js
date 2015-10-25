@@ -1,9 +1,6 @@
 var mongoose = require('mongoose');
 
 module.exports = (function () {
-
-    var Draft = require('./draft');
-
     var schema = new mongoose.Schema({
         _collection: {type: mongoose.Schema.Types.ObjectId, ref: 'Collection'},
         data: mongoose.Schema.Types.Mixed
@@ -21,6 +18,14 @@ module.exports = (function () {
 
     schema.virtual('__collection').set(function (collection) {
         return this.___collection = collection;
+    });
+
+    schema.virtual('drafts').get(function () {
+        return this._drafts;
+    });
+
+    schema.virtual('drafts').set(function (drafts) {
+        return this._drafts = drafts;
     });
 
     schema.set('toObject', {
