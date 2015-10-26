@@ -5,7 +5,6 @@
   &:last-child
     margin-bottom 0
 
-
   > button.remove
     display none
 
@@ -129,13 +128,11 @@
     > .label
       display none
 
-
 .form-field-name
   font-size 0.75em
 
 .form-field-name input
   font-size 1em
-
 
 #designer
 
@@ -153,5 +150,40 @@
 
 .component-type
   display block
+
+.dropdown-options
+
+  .newItem
+    display flex
+    .form
+      flex 1
+    > input[type=submit]
+      light-button($theme)
+      display inline
+      width auto
+    .fields
+      display flex
+      .form_field
+        margin-right .5em
+
+        &[data-name="value"]
+          width 4em
+        &[data-name="label"]
+          flex 1
+
+  .array_item
+    display flex
+
+    .container
+      flex 1
+
+    .fields
+      display flex
+      .form_field
+        margin-right .5em
+        &[data-name="value"]
+          width 4em
+        &[data-name="label"]
+          flex 1
 
 

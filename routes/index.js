@@ -11,7 +11,6 @@ var deepcopy = require('deepcopy');
 var extend = require('extend');
 var panelOptions = require('./../lib/campsi-app/panels');
 var routes = require('./../lib/campsi-app/routes');
-//todo uniformiser les singuliers /pluriels
 var jade = require('jade');
 var resources = require('../middleware/resources');
 var config = require('../config');
