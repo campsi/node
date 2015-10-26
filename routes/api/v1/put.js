@@ -2,7 +2,7 @@ var router = require('express').Router();
 var resources = require('../../../middleware/resources');
 var mongoose = require('mongoose');
 var slug = require('slug');
-
+var Draft = require('../../../models/draft');
 
 resources(router);
 
@@ -10,11 +10,11 @@ var returnId = function (item) {
     return mongoose.Types.ObjectId(item._id);
 };
 
-router.put('/projects/:project', function(req, res, next){
+router.put('/projects/:project', function (req, res, next) {
 
     var project = req.project;
 
-    if(typeof req.body.title !== 'undefined'){
+    if (typeof req.body.title !== 'undefined') {
         project.title = req.body.title;
     }
 
@@ -44,14 +44,14 @@ router.put('/projects/:project', function(req, res, next){
     });
 });
 
-router.put('/projects/:project/collections/:collection', function(req, res, next){
+router.put('/projects/:project/collections/:collection', function (req, res, next) {
     var collection = req.collection;
 
-    if(typeof req.body.name !== 'undefined'){
+    if (typeof req.body.name !== 'undefined') {
         collection.name = req.body.name;
         if (typeof req.body.identifier !== 'undefined') {
             collection.identifier = slug(req.body.identifier);
-        } else if(typeof collection.identifier === 'undefined'){
+        } else if (typeof collection.identifier === 'undefined') {
             collection.identifier = slug(req.body.name);
         }
     }
@@ -75,7 +75,7 @@ router.put('/projects/:project/collections/:collection', function(req, res, next
     });
 });
 
-router.put('/projects/:project/collections/:collection/entries/:entry', function(req, res, next){
+router.put('/projects/:project/collections/:collection/entries/:entry', function (req, res, next) {
 
     var entry = req.entry;
 
@@ -84,7 +84,27 @@ router.put('/projects/:project/collections/:collection/entries/:entry', function
         entry.data = req.body.data;
     }
 
-    entry.save(function(err, result){
+    entry.save(function (err, result) {
+        if (req.body._draft) {
+            Draft.remove({_id: req.body._draft}, function () {
+                res.json(result);
+            });
+        } else {
+            res.json(result);
+        }
+    });
+});
+
+router.put('/projects/:project/collections/:collection/drafts/:draft', function (req, res, next) {
+
+    var draft = req.draft;
+
+    if (typeof req.body.data !== 'undefined') {
+        draft.markModified('data');
+        draft.data = req.body.data;
+    }
+
+    draft.save(function (err, result) {
         res.json(result);
     });
 });

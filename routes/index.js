@@ -176,16 +176,16 @@ router.get(routes.entries.path, getEntriesAndDrafts, function (req, res, next) {
 router.get(routes.entry.path, getEntriesAndDrafts, function (req, res, next) {
     var options = getPanelOptions(routes.entries.layout);
     options.entries.componentValue = req.entriesAndDrafts;
-    options.entry.componentOptions = req.collection;
-    options.entry.componentValue = req.entry;
+    options.entry.componentOptions = req.collection.toObject();
+    options.entry.componentValue = req.entry.toObject();
     send([], options, req, res);
 });
 
 router.get(routes.draft.path,  getEntriesAndDrafts, function (req, res, next) {
     var options = getPanelOptions(routes.entries.layout);
     options.entries.componentValue = req.entriesAndDrafts;
-    options.entry.componentOptions = req.collection;
-    options.entry.componentValue = req.draft;
+    options.entry.componentOptions = req.collection.toObject();
+    options.entry.componentValue = req.draft.toObject();
     send([], options, req, res);
 });
 

@@ -55,6 +55,9 @@ module.exports = (function () {
 
     schema.methods.getEntriesAndDrafts = function (user, cb) {
 
+        if(typeof user === 'undefined'){
+            return cb(null, this.entries);
+        }
         var instance = this;
         var items = [];
         Draft.findDraftsInCollectionForUser(this, user, function (err, drafts) {

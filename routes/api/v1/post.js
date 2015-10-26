@@ -3,6 +3,7 @@ var resources = require('../../../middleware/resources');
 var Project = require('../../../models/project');
 var Collection = require('../../../models/collection');
 var Entry = require('../../../models/entry');
+var Draft = require('../../../models/draft');
 var Guest = require('../../../models/guest');
 var User = require('../../../models/user');
 var slug = require('slug');
@@ -67,16 +68,39 @@ router.post('/projects/:project/collections', function (req, res, next) {
     });
 });
 
+router.post('/projects/:project/collections/:collection/drafts', function (req, res, next) {
+    console.info(req.body._entry);
+    Draft.create({
+        _collection: req.collection._id,
+        _user: req.user._id,
+        _entry: req.body._entry,
+        data: req.body.data
+    }, function (err, draft) {
+        res.json(draft);
+    });
+});
+
 router.post('/projects/:project/collections/:collection/entries', function (req, res, next) {
     Entry.create({
         _collection: req.collection._id,
-        name: req.collection.name,
         data: req.body.data
     }, function (err, entry) {
-        req.collection.entries.push(entry._id);
-        req.collection.save(function () {
-            res.json(entry);
-        });
+
+        var send = function () {
+            req.collection.entries.push(entry._id);
+            req.collection.save(function () {
+                res.json(entry);
+            });
+        };
+
+        if (req.body._draft) {
+            Draft.remove({_id: req.body._draft}, function (err) {
+                send();
+            });
+        } else {
+            send();
+        }
+
     });
 });
 

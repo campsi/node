@@ -37,7 +37,7 @@ router.get('/projects/:project/collections/:collection', function (req, res, nex
 
 router.get('/projects/:project/collections/:collection/entries-and-drafts', function (req, res, next) {
     if (typeof req.user === 'undefined') {
-        return next();
+        return res.json(req.collection.entries);
     }
 
     req.collection.getEntriesAndDrafts(req.user, function (err, items) {

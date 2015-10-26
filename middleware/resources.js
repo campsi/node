@@ -57,12 +57,9 @@ module.exports = function (router) {
 
         var find = Collection.find(query);
 
-        find.populate({path: 'entries', select: 'data'});
-
         find.exec(function (err, collections) {
             if (collections.length > 0) {
                 req.collection = collections[0];
-                req.collection.__project = req.project.identity();
                 req.context._collection = req.collection;
                 return next();
             }
@@ -78,7 +75,6 @@ module.exports = function (router) {
         Entry.find(query, function (err, entries) {
             if (entries.length > 0) {
                 req.entry = entries[0];
-                req.entry.__collection = req.collection.identity();
                 req.context._entry = req.entry;
                 return next();
             }
@@ -95,7 +91,7 @@ module.exports = function (router) {
         Draft.find(query, function (err, drafts) {
             if (drafts.length > 0) {
                 req.draft = drafts[0];
-                req.draft.__collection = req.collection.identity();
+                req.draft.draft = true;
                 req.context._draft = req.draft;
                 return next();
             }
