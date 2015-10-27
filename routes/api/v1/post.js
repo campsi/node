@@ -19,7 +19,7 @@ var sendInvitationEmail = function (guest) {
         to: guest.email,
         from: 'invitations@campsi.io',
         subject: 'Your contribution is wanted',
-        text: 'You\'re invited to contribute. http://campsi.io/invitation/' + guest._id
+        text: 'You\'re invited to contribute. ' + config.host + '/invitation/' + guest._id
     }, function (err, json) {
         if (err) {
             return console.error(err);
@@ -56,7 +56,7 @@ router.post('/projects/:project/collections', function (req, res, next) {
     Collection.create({
         _project: req.project._id,
         name: req.body.name,
-        identifier: (typeof req.body.identifier === 'undefined' || req.body.identifier === '') ? slug(req.body.name) : slug(req.body.identifier),
+        identifier: (typeof req.body.identifier === 'undefined' || req.body.identifier === '') ? slug(req.body.name) : slug(req.body.identifier),
         fields: []
     }, function (err, collection) {
         req.project.collections.push(collection._id);
