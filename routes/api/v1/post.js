@@ -56,7 +56,7 @@ router.post('/projects/:project/collections', function (req, res, next) {
     Collection.create({
         _project: req.project._id,
         name: req.body.name,
-        identifier: (typeof req.body.identifier === 'undefined') ? slug(req.body.name) : slug(req.body.identifier),
+        identifier: (typeof req.body.identifier === 'undefined' || req.body.identifier === '') ? slug(req.body.name) : slug(req.body.identifier),
         fields: []
     }, function (err, collection) {
         req.project.collections.push(collection._id);

@@ -119,8 +119,8 @@ router.get(routes.project.path, getProjects, function (req, res, next) {
     }
     send([], options, req, res);
 });
-router.get(routes.projectUsers.path, function (req, res, next) {
 
+router.get(routes.projectUsers.path, function (req, res, next) {
     var options = getPanelOptions(routes.projectUsers.layout);
     if (req.project) {
         options.project.componentValue = req.project.toObject();
