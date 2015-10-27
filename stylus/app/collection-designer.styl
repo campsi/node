@@ -151,10 +151,15 @@
 .component-type
   display block
 
-.dropdown-options
+.campsi_collection-designer_field .form_field.dropdown-options
+  margin-top .5em
+  
+  > .label
+    align-self auto
 
   .newItem
     display flex
+    align-items center
     .form
       flex 1
     > input[type=submit]
@@ -173,6 +178,9 @@
 
   .array_item
     display flex
+    align-items center
+    .remove
+      dark-button(red)
 
     .container
       flex 1
