@@ -27,7 +27,10 @@ var createPanels = function (panelsOptions, callback) {
             return cb();
         }
         options.context = panelsOptions.context;
-        Campsi.create('campsi/panel', options, options.componentValue, function (panel) {
+        Campsi.create('campsi/panel', {
+            options: options,
+            value: options.componentValue
+        }, function (panel) {
             panels.push(panel);
             cb();
         });
@@ -86,8 +89,8 @@ var getComponents = function (req, res, next) {
 
 };
 
-var getEntriesAndDrafts = function(req, res, next){
-    req.collection.getEntriesAndDrafts(req.user, function(err, items){
+var getEntriesAndDrafts = function (req, res, next) {
+    req.collection.getEntriesAndDrafts(req.user, function (err, items) {
         req.entriesAndDrafts = items;
         next();
     });
@@ -180,7 +183,7 @@ router.get(routes.entry.path, getEntriesAndDrafts, function (req, res, next) {
     send([], options, req, res);
 });
 
-router.get(routes.draft.path,  getEntriesAndDrafts, function (req, res, next) {
+router.get(routes.draft.path, getEntriesAndDrafts, function (req, res, next) {
     var options = getPanelOptions(routes.entries.layout);
     options.entries.componentValue = req.entriesAndDrafts;
     options.entry.componentOptions = req.collection.toObject();
