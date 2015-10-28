@@ -22,8 +22,6 @@ resources(router);
 var createPanels = function (panelsOptions, context, callback) {
     var panels = [];
 
-    console.info(context);
-
     async.forEachOf(panelsOptions, function (options, id, cb) {
         Campsi.create('campsi/panel', {
             options: options,

@@ -69,7 +69,6 @@ router.post('/projects/:project/collections', function (req, res, next) {
 });
 
 router.post('/projects/:project/collections/:collection/drafts', function (req, res, next) {
-    console.info(req.body._entry);
     Draft.create({
         _collection: req.collection._id,
         _user: req.user._id,
