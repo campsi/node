@@ -26,10 +26,10 @@ var createPanels = function (panelsOptions, callback) {
         if (id === 'context') {
             return cb();
         }
-        options.context = panelsOptions.context;
         Campsi.create('campsi/panel', {
             options: options,
-            value: options.componentValue
+            value: options.componentValue,
+            context: panelsOptions.context
         }, function (panel) {
             panels.push(panel);
             cb();
