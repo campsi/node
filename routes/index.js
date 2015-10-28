@@ -19,17 +19,16 @@ var path = require('path');
 var fs = require('fs');
 resources(router);
 
-var createPanels = function (panelsOptions, callback) {
+var createPanels = function (panelsOptions, context, callback) {
     var panels = [];
 
+    console.info(context);
+
     async.forEachOf(panelsOptions, function (options, id, cb) {
-        if (id === 'context') {
-            return cb();
-        }
         Campsi.create('campsi/panel', {
             options: options,
             value: options.componentValue,
-            context: panelsOptions.context
+            context: context
         }, function (panel) {
             panels.push(panel);
             cb();
@@ -47,10 +46,8 @@ var renderPanels = function (panels) {
 
 var send = function (stack, options, request, response) {
 
-    options.context = request.context;
-
     async.parallel(stack, function () {
-        createPanels(options, function (panels) {
+        createPanels(options, request.context, function (panels) {
             response.render('index', {
                 panels: renderPanels(panels),
                 user: request.user,
