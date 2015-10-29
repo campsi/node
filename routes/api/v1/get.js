@@ -25,6 +25,12 @@ router.get('/projects/:project/users', function (req, res, next) {
     })
 });
 
+router.get('/projects/:project/deployments', function (req, res, next) {
+    Project.findOne({_id: req.project._id}).select('deployments').exec(function (err, project) {
+        res.json(project);
+    });
+});
+
 router.get('/projects/:project/guests', function (req, res, next) {
     req.project.getGuests(function (err, guests) {
         res.json(guests);

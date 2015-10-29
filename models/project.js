@@ -16,7 +16,19 @@ module.exports = (function () {
         icon: {
             uri: String
         },
-        collections: [{type: mongoose.Schema.Types.ObjectId, ref: 'Collection'}]
+        websiteUrl: String,
+        collections: [{type: mongoose.Schema.Types.ObjectId, ref: 'Collection'}],
+        deployments: [{
+            connection: String,
+            ftpConfig: {
+                host: String,
+                port: Number,
+                username: String,
+                password: String,
+                path: String
+            },
+            email: String
+        }]
     });
 
     schema.index({identifier: 1}, {unique: true});

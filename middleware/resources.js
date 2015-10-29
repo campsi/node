@@ -34,7 +34,7 @@ module.exports = function (router) {
                 path: 'collections',
                 select: 'name _id identifier'
             })
-            .select("title demo icon identifier collections")
+            .select("title demo icon identifier collections websiteUrl")
             .exec(function (err, projects) {
                 if (projects.length > 0) {
                     req.project = projects[0];

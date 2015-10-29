@@ -76,6 +76,14 @@ var getProjects = function (req, res, next) {
         next();
     });
 };
+
+var getProjectDeployments = function (req, res, next) {
+
+    Project.findOne({_id: req.project._id}).select('deployments').exec(function (err, project) {
+        req.project.deployments = project.deployments;
+        next();
+    });
+};
 var getComponents = function (req, res, next) {
     Component.find({}, function (err, results) {
         req.components = results;
@@ -131,6 +139,16 @@ router.get(routes.projectUsers.path, function (req, res, next) {
         send([], options, req, res);
     }
 });
+router.get(routes.projectDeployments.path, getProjectDeployments, function (req, res, next) {
+    var options = getPanelOptions(routes.projectDeployments.layout);
+    if (req.project) {
+        options.project.componentValue = req.project.toObject();
+        options.projectDeployments.componentValue = req.project.toObject();
+        send([], options, req, res);
+    } else {
+        send([], options, req, res);
+    }
+});
 
 
 router.get(routes.newCollection.path, function (req, res, next) {
@@ -163,7 +181,6 @@ router.get(routes.designer.path, getComponents, function (req, res, next) {
 });
 
 router.get(routes.entries.path, getEntriesAndDrafts, function (req, res, next) {
-
     var options = getPanelOptions(routes.entries.layout);
     options.entries.componentValue = req.entriesAndDrafts;
     options.entry.componentOptions = req.collection;

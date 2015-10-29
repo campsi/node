@@ -61,8 +61,19 @@ button, a.btn, .buttons > a, input[type=submit]
   @media screen and (max-width: 1000px)
     i
       opacity .9
+
     span
       display none
+
+.form_field.horizontal
+  display flex
+  align-items center
+  .label
+    margin-right .5em
+    min-width 5em
+  .control
+    flex 1
+
 
 #app .component.form_field.identifier
   display flex
@@ -133,9 +144,11 @@ button, a.btn, .buttons > a, input[type=submit]
 input.component.text
   /*width: calc(100% - 0.5em);*/
   padding: 0.4em 0.4em 0.2em 0.4em;
+  font-size 0.94em
   width: 100%;
   font-family: "Avenir Next";
   border: darken($light, 10) solid 1px;
+  transition box-shadow .3s ease-in, box-color .3s ease-in
 
 //box-shadow: inset #ededed 0 1px 1px;
 input.component.text::placeholder
@@ -169,7 +182,6 @@ input.component.text:disabled
     position relative
     overflow hidden
 
-
     input[type=file]
       display block
       position absolute
@@ -189,7 +201,7 @@ input.component.text:disabled
       background-position 50% 50%
       background-size 13rem
       background-clip: content-box;
-      //transition: background-image .5s ease-in
+  //transition: background-image .5s ease-in
 
   .progress
     position: absolute;
@@ -197,7 +209,6 @@ input.component.text:disabled
     left: 50%;
     margin-left: -50px;
     margin-top: -50px;
-
 
 #app .form_field.big-title
   //padding 2rem
@@ -227,9 +238,8 @@ input.component.text:disabled
   border: darken($light, 10) solid 1px;
 
 #app .form_field.url
-  padding 1.5em
 
-  .label,.control
+  .label, .control
     padding 0
     display inline-block
     margin 0 1em 0 0

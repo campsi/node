@@ -1,29 +1,30 @@
 #project
   background white
 
-.label
-  font-weight lighter
-  //font-size 1.2em
-  color $dark
-  margin 0 0 .5em 0
+  .label
+    font-weight lighter
+    //font-size 1.2em
+    color $dark
 
-.form_field.icon
-  padding 1em
-  background white
+  .form_field
+    padding 1em
 
-//border-bottom 1px solid darken($nearWhite, 10)
+  .form_field.big-title
+    padding 0
 
-.project-name
-  font-size: 2em
+  .form_field.icon
+    background white
 
-.collections
-  padding 2em
-  clear left
+  .project-name
+    font-size: 2em
 
-.campsi_collection-list
-  .newItem
-    input[type=submit]
-      display inherit
+  .collections
+    clear left
+
+  .campsi_collection-list
+    .newItem
+      input[type=submit]
+        display inherit
 
 .array_item[data-item-type="campsi/collection-list/collection"]
   > button.remove
@@ -53,12 +54,15 @@
     margin-left .5em
     dark-button($theme)
 
-#projectUsers
+#projectUsers, #projectDeployments
   color white
   background url(low_contrast_linen.png)
 
-  header h2
-    color white
+  header
+    a
+      light-button(black)
+    h2
+      color white
 
   .label
     color white
@@ -72,7 +76,7 @@
   .form_field
     margin-bottom 1em
 
-  input[type=text]
+  input.text
     background rgba(#FFF, .1);
     border 1px solid rgba(#FFF, .4);
     border-radius .5em
@@ -91,6 +95,29 @@
     .help
       font-weight 200
       font-style italic
+
+  .array_item, .newItem
+    color black
+    background linear-gradient(rgba(#FFF, .2), rgba(#FFF, .3))
+    padding 1em
+    margin-bottom 1em
+    border-radius .5em
+    border-bottom 4px solid rgba(black, .7)
+    position relative
+    .remove
+      position absolute
+      top 1em
+      right 1em
+      dark-button(black)
+
+#projectDeployments
+
+  > .content
+    padding 1em
+
+  input[type=submit]
+    display block
+    light-button($theme)
 
 #app .campsi_project:not(.designer)
   .btn.design, .btn.edit, .campsi_collection-list .newItem, .form_field.identifier
