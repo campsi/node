@@ -1,4 +1,4 @@
-#modal
+#modal, #loading
   background rgba(black, .8)
   position fixed
   top 0
@@ -7,6 +7,7 @@
   width 100%
   z-index 9000
   display none
+
 
 #code-editor-container
   position relative
@@ -17,3 +18,20 @@
   position relative
   height calc(100% - 2rem)
   width 100%
+
+@keyframes fadeIn
+  0%
+    opacity 0
+  100%
+    opacity 1
+
+#loading
+  background rgba(white, .5)
+  display none
+  opacity 0
+
+  &.visible
+    display block
+    animation-name fadeIn
+    animation-duration .5s
+    opacity 1
