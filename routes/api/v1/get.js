@@ -94,7 +94,24 @@ router.get('/projects/:project/collections/:collection/drafts', function (req, r
 });
 
 router.get('/projects/:project/collections/:collection/entries/:entry', function (req, res, next) {
-    res.json(req.entry.toObject());
+    if (typeof req.query.template === 'undefined') {
+        return res.json(req.entry.toObject());
+    }
+    var templateObj;
+
+    req.collection.templates.forEach(function (t) {
+        if (t.identifier === req.query.template) {
+            templateObj = t;
+        }
+    });
+
+    if (typeof templateObj !== 'undefined') {
+        var template = handlebars.compile(templateObj.markup);
+        return res.send(template(req.entry.toObject()));
+    }
+
+    return res.json(req.entry.toObject());
+
 });
 
 
