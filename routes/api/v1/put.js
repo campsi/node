@@ -8,6 +8,9 @@ var extend = require('extend');
 resources(router);
 
 var returnId = function (item) {
+    if(typeof item === 'string'){
+        return item;
+    }
     return mongoose.Types.ObjectId(item._id);
 };
 

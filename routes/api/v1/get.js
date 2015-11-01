@@ -61,14 +61,27 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
     });
 
     var query = extend({}, req.query, {_collection: req.collection._id});
+
     delete query['template'];
 
     Entry.find(query).select('data').exec(function (err, entries) {
+        var sortedEntries = {};
+        entries.forEach(function (e) {
+            sortedEntries[e._id.toString()] = e;
+        });
+
+        var result = [];
+        req.collection.entries.forEach(function (id) {
+            if (typeof sortedEntries[id] !== 'undefined') {
+                result.push(sortedEntries[id]);
+            }
+        });
+
         if (req.query.template && templates[req.query.template]) {
             var template = handlebars.compile(templates[req.query.template]);
-            res.send(template({entries: entries}));
+            res.send(template({entries: result}));
         } else {
-            res.json(entries);
+            res.json(result);
         }
     });
 });
