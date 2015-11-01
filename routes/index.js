@@ -99,6 +99,10 @@ var getEntriesAndDrafts = function (req, res, next) {
     });
 };
 
+router.get('/editor', function(req, res){
+     res.render('editor');
+});
+
 router.get(routes.welcome.path, getProjects, function (req, res, next) {
     var options = getPanelOptions(routes.welcome.layout);
     var filename = path.join(__dirname, '/../public/panels/' + options.welcome.contentFile);

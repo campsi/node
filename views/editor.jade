@@ -1,0 +1,29 @@
+html
+   head
+      title Campsi Editor
+      link(rel='stylesheet',media='all',href='/stylesheets/editor.css')
+      link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.min.css')
+   body
+      #editor
+
+         #templates
+
+         form#properties
+            div.control
+               label identifier
+               input(name='identifier')
+            div.control
+               label scope
+               select(name='scope')
+                  option(value='entry') entry
+                  option(value='collection') collection
+
+         #wrapper
+            #bar
+               button.save.close save and close
+               button.save save
+               h1 project/collection
+            #ace
+
+      script(src='/lib/jquery/dist/jquery.min.js')
+      script(src='/javascripts/editor.js')

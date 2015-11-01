@@ -1,0 +1,111 @@
+@import 'colors'
+@import 'reset'
+
+$editorDark = #232323
+$leftSidebarWidth = 20rem
+$propertiesHeight = 30rem
+
+body
+  font-family "Helvetica Neue", "Lucida Grande", "Arial"
+
+#templates, #help
+  position fixed
+  left 0
+  top 0
+  z-index 2
+  width $leftSidebarWidth
+  height 100%
+  background lighten($editorDark, 5)
+
+#templates, #properties
+  border-right 1px solid lighten(black, 5)
+#templates
+  padding-bottom $propertiesHeight
+  border-bottom 1px solid lighten(black, 10)
+  .template
+    display block
+    text-decoration: none
+    padding .5em
+    border-bottom 1px solid transparent
+    border-top 1px solid transparent
+    i
+      color white
+      margin-right .5em
+      width 1em
+      display inline-block
+      text-align center
+    span
+      color darken(white, 20)
+      text-shadow 1px 1px #000
+    &:hover
+      background rgba(#fff, .07)
+      border-color $editorDark
+    &.active
+      background rgba(#fff, .1)
+  &.new
+    font-style italic
+
+#properties
+  border-top 1px solid lighten(black, 5)
+  background $editorDark
+  position absolute
+  bottom 0
+  left 0
+  height $propertiesHeight
+  width $leftSidebarWidth
+  z-index 10
+  .control
+    margin-bottom .5em
+    padding .5em
+    color darken(white, 20)
+    label
+      color darken(white, 50)
+      display block
+      font-weight 200
+      text-transform uppercase
+      font-size .7em
+      text-shadow 1px 1px #000
+      margin-bottom 1em
+      padding .5em 0
+      border-bottom 1px solid darken(white, 80)
+
+    input, select, button
+      width 100%
+      color white
+      background rgba(white, .1)
+      padding .5em
+      border darken($editorDark, 10) 1px solid
+      font-size 14px
+      outline none
+      &:focus
+        border-color rgba(lighten(blue, 20),.5)
+
+    button
+      border-radius 2em
+      width 6em
+
+#wrapper
+  height 100%
+  width 100%
+  padding-left $leftSidebarWidth
+  padding-top 4em
+  position relative
+
+  #bar
+    height 4em
+    background linear-gradient(lighten(black, 5), lighten(black, 10))
+    border-bottom 1px solid black
+    margin-top -4em
+    position relative
+    padding 1em
+    h1
+      color white
+      font-size 1.5em
+
+    button
+      //position absolute
+      //right 1em
+      //top 1em
+      float right
+  #ace
+    height 100%
