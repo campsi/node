@@ -3,6 +3,10 @@ var arrayUniq = require('array-uniq');
 
 module.exports = (function () {
     var schema = new mongoose.Schema({
+        fullname: String,
+        avatar: {
+            uri: String
+        },
         provider: String,
         displayName: String,
         id: String,

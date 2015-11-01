@@ -89,7 +89,7 @@ module.exports = (function () {
                     _id: this._id
                 }
             }
-        }).select("displayName _id email picture nickname").exec(cb);
+        }).select("displayName _id email picture nickname avatar fullname").exec(cb);
     };
 
     schema.methods.getGuests = function (cb) {

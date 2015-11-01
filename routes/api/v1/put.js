@@ -3,6 +3,7 @@ var resources = require('../../../middleware/resources');
 var mongoose = require('mongoose');
 var slug = require('slug');
 var Draft = require('../../../models/draft');
+var extend = require('extend');
 
 resources(router);
 
@@ -112,6 +113,13 @@ router.put('/projects/:project/collections/:collection/drafts/:draft', function 
 
     draft.save(function (err, result) {
         res.json(result);
+    });
+});
+
+router.put('/users/me', function (req, res) {
+    extend(req.user, req.body);
+    req.user.save(function () {
+        res.json(req.user);
     });
 });
 

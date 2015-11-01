@@ -52,7 +52,7 @@ module.exports = (function () {
                     entriesById[e._id.toString()] = e;
                 });
                 drafts.forEach(function (d) {
-                    if (d._entry) {
+                    if (d._entry && typeof  entriesById[d._entry.toString()] !== 'undefined') {
                         entriesById[d._entry.toString()].draft = d;
                     } else {
                         items.push(d);

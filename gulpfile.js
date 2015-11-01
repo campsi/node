@@ -131,6 +131,10 @@ gulp.task('invitation', function () {
     return packComponents('./lib/campsi-app/invitation.js', 'invitation.js');
 });
 
+gulp.task('profile', function () {
+    return packComponents('./lib/campsi-app/profile.js', 'profile.js');
+});
+
 gulp.task('standard-components', function () {
     return packComponents('./lib/components/map.js', 'campsi.components.js');
 });
@@ -139,6 +143,7 @@ gulp.task('editor', function () {
     return packComponents('./lib/components/campsi/map.js', 'campsi.editor.js');
 });
 
+
 gulp.task('codeEditor', function () {
     return packComponents('./lib/campsi-app/editor.js', 'editor.js');
 });
@@ -146,12 +151,12 @@ gulp.task('codeEditor', function () {
 gulp.task('watch', function () {
     gulp.watch('lib/campsi/lib/*.js', ['core']);
     gulp.watch('lib/app-context/**/*.js', ['core']);
-    gulp.watch('lib/campsi-app/*.js', ['app']);
+    gulp.watch('lib/campsi-app/*.js', ['app', 'profile']);
     gulp.watch('lib/campsi-app/editor.js', ['codeEditor']);
     gulp.watch('lib/components/**/*.js', ['standard-components', 'editor']);
     gulp.watch('stylus/**/*.styl', ['stylus']);
 });
 
-gulp.task('compile', ['core', 'app', 'invitation', 'standard-components', 'editor', 'codeEditor', 'stylus']);
+gulp.task('compile', ['core', 'app', 'invitation', 'standard-components', 'editor', 'codeEditor', 'stylus', 'profile']);
 
 gulp.task('default', ['compile', 'watch', 'serve']);
