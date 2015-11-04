@@ -249,3 +249,24 @@ input.component.text:disabled
       font-size .7em
       color lighten($dark, 40)
       font-weight 100
+
+
+.number_rating
+  user-select none
+  span
+    user-select none
+    display inline-block
+    height 1.5em
+    width 1.5em
+    opacity .3
+    text-align center
+    cursor pointer
+
+    &:last-child
+      margin 0
+
+    &.checked
+      opacity 1
+
+
+
