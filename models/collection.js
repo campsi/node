@@ -38,15 +38,15 @@ module.exports = (function () {
     });
 
     schema.methods.getEntriesAndDrafts = function (user, cb) {
-
-        if(typeof user === 'undefined'){
-            return cb(null, this.entries);
-        }
         var instance = this;
         var items = [];
-        Draft.findDraftsInCollectionForUser(this, user, function (err, drafts) {
+        instance.populate('entries', function (err, doc) {
+            if (typeof user === 'undefined') {
+                return cb(null, doc.entries);
+            }
 
-            instance.populate('entries', function (err, doc) {
+            Draft.findDraftsInCollectionForUser(this, user, function (err, drafts) {
+
                 var entriesById = {};
                 doc.entries.forEach(function (e) {
                     entriesById[e._id.toString()] = e;
