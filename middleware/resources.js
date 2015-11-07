@@ -32,7 +32,7 @@ module.exports = function (router) {
         Project.find(query)
             .populate({
                 path: 'collections',
-                select: 'name _id identifier'
+                select: 'name _id identifier hasFields'
             })
             .select("title demo icon identifier collections websiteUrl")
             .exec(function (err, projects) {
@@ -42,7 +42,7 @@ module.exports = function (router) {
                         req.project.roles = req.user.getRolesForProject(projects[0]);
                     }
 
-                    req.context._project = req.project;
+                    req.context.set('project', req.project);
                     return next();
                 }
                 res.status(404);
@@ -54,13 +54,12 @@ module.exports = function (router) {
         var query = getQueryForObjectIdOrIdentifier(collection);
         query._project = req.project._id;
 
-
         var find = Collection.find(query);
 
         find.exec(function (err, collections) {
             if (collections.length > 0) {
                 req.collection = collections[0];
-                req.context._collection = req.collection;
+                req.context.set('collection', req.collection);
                 return next();
             }
             res.status(404);
@@ -75,7 +74,7 @@ module.exports = function (router) {
         Entry.find(query, function (err, entries) {
             if (entries.length > 0) {
                 req.entry = entries[0];
-                req.context._entry = req.entry;
+                req.context.set('entry', req.entry);
                 return next();
             }
 
@@ -92,7 +91,7 @@ module.exports = function (router) {
             if (drafts.length > 0) {
                 req.draft = drafts[0];
                 req.draft.draft = true;
-                req.context._draft = req.draft;
+                req.context.set('draft', req.draft);
                 return next();
             }
 

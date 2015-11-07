@@ -26,6 +26,40 @@
       input[type=submit]
         display inherit
 
+  .template
+    display block
+    float left
+    margin-right 0.5em
+
+    input
+      display none
+    .icon
+      border-radius .5em
+      display block
+      height 6em
+      width 6em
+      background white
+      background-size 4em
+      background-clip content-box
+      background-position: 50% 50%
+      background-repeat no-repeat
+      border 1px solid darken($light, 5)
+      border-bottom-color darken($light, 20)
+      transition background-color .1s ease-out
+    &.selected
+      .icon
+        background-color $light
+        border-bottom-color darken($light, 5)
+        border-top-color darken($light, 20)
+      .name
+        font-weight 500
+
+    .name
+      text-align center
+      font-size 0.85em
+      display block
+
+
 .array_item[data-item-type="campsi/collection-list/collection"]
   > button.remove
     display none
@@ -133,38 +167,6 @@
   .btn.design, .btn.edit, .campsi_collection-list .newItem, .form_field.identifier
     display none
 
-.template
-  display block
-  float left
-  margin-right 0.5em
-
-  input
-    display none
-  .icon
-    border-radius .5em
-    display block
-    height 6em
-    width 6em
-    background white
-    background-size 4em
-    background-clip content-box
-    background-position: 50% 50%
-    background-repeat no-repeat
-    border 1px solid darken($light, 5)
-    border-bottom-color darken($light, 20)
-    transition background-color .1s ease-out
-  &.selected
-    .icon
-      background-color $light
-      border-bottom-color darken($light, 5)
-      border-top-color darken($light, 20)
-    .name
-      font-weight 500
-
-  .name
-    text-align center
-    font-size 0.85em
-    display block
 
 .campsi_collection-list_wizard
   margin-top 3em

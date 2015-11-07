@@ -18,6 +18,7 @@ module.exports = (function () {
             markup: String,
             scope: String
         }],
+        hasFields: Boolean,
         entries: [{type: mongoose.Schema.Types.ObjectId, ref: 'Entry'}]
     });
 
@@ -39,28 +40,24 @@ module.exports = (function () {
 
     schema.methods.getEntriesAndDrafts = function (user, cb) {
         var instance = this;
-        var items = [];
         instance.populate('entries', function (err, doc) {
+
             if (typeof user === 'undefined') {
-                return cb(null, doc.entries);
+                return cb(null, {entries: doc.entries, drafts: []});
             }
 
-            Draft.findDraftsInCollectionForUser(this, user, function (err, drafts) {
-
+            Draft.findDraftsInCollectionForUser(instance, user, function (err, drafts) {
                 var entriesById = {};
                 doc.entries.forEach(function (e) {
                     entriesById[e._id.toString()] = e;
                 });
                 drafts.forEach(function (d) {
                     if (d._entry && typeof  entriesById[d._entry.toString()] !== 'undefined') {
-                        entriesById[d._entry.toString()].draft = d;
-                    } else {
-                        items.push(d);
+                        entriesById[d._entry.toString()].draft = d._id.toString();
                     }
                 });
 
-                items = items.concat(doc.entries);
-                cb(null, items);
+                cb(null, {entries: doc.entries, drafts: drafts});
             });
         });
     };

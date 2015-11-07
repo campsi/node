@@ -107,10 +107,6 @@ module.exports = (function () {
         virtuals: true
     });
 
-    schema.virtual('url').get(function () {
-        return config.host + '/api/v1' + Campsi.url(this);
-    });
-
     schema.virtual('roles').set(function (roles) {
         this.__roles = roles;
     });

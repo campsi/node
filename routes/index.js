@@ -126,6 +126,7 @@ router.get(routes.project.path, getProjects, function (req, res, next) {
     options.projects.componentValue = req.projects;
     if (req.project) {
         options.project.componentValue = req.project.toObject();
+        console.dir(req.project.toObject());
     }
     send([], options, req, res);
 });

@@ -70,6 +70,7 @@ router.put('/projects/:project/collections/:collection', function (req, res, nex
 
     if (typeof req.body.fields !== 'undefined') {
         collection.fields = req.body.fields;
+        collection.hasFields = req.body.fields.length > 0;
     }
 
     if (typeof req.body.templates !== 'undefined') {
