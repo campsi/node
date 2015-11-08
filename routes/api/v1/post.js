@@ -84,7 +84,7 @@ router.post('/projects/:project/collections/:collection/drafts', function (req, 
         _entry: req.body._entry,
         data: req.body.data
     }, function (err, draft) {
-        res.json(draft);
+        res.json(draft.toObject());
     });
 });
 

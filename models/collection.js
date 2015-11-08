@@ -11,6 +11,9 @@ module.exports = (function () {
         _creator: String,
         name: String,
         identifier: String,
+        icon: {
+            uri: String,
+        },
         date: Date,
         fields: [mongoose.Schema.Types.Mixed],
         templates: [{

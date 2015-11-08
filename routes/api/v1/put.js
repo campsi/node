@@ -8,7 +8,7 @@ var extend = require('extend');
 resources(router);
 
 var returnId = function (item) {
-    if(typeof item === 'string'){
+    if (typeof item === 'string') {
         return item;
     }
     return mongoose.Types.ObjectId(item._id);
@@ -72,6 +72,9 @@ router.put('/projects/:project/collections/:collection', function (req, res, nex
         collection.fields = req.body.fields;
         collection.hasFields = req.body.fields.length > 0;
     }
+    if (typeof req.body.icon !== 'undefined') {
+        collection.icon = req.body.icon;
+    }
 
     if (typeof req.body.templates !== 'undefined') {
         collection.templates = req.body.templates;
@@ -98,10 +101,10 @@ router.put('/projects/:project/collections/:collection/entries/:entry', function
     entry.save(function (err, result) {
         if (req.body._draft) {
             Draft.remove({_id: req.body._draft}, function () {
-                res.json(result);
+                res.json(result.toObject());
             });
         } else {
-            res.json(result);
+            res.json(result.toObject());
         }
     });
 });
@@ -116,7 +119,7 @@ router.put('/projects/:project/collections/:collection/drafts/:draft', function 
     }
 
     draft.save(function (err, result) {
-        res.json(result);
+        res.json(result.toObject());
     });
 });
 

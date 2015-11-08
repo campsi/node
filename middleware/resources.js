@@ -32,7 +32,7 @@ module.exports = function (router) {
         Project.find(query)
             .populate({
                 path: 'collections',
-                select: 'name _id identifier hasFields'
+                select: 'name _id identifier hasFields icon'
             })
             .select("title demo icon identifier collections websiteUrl")
             .exec(function (err, projects) {
