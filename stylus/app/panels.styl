@@ -18,12 +18,17 @@ $headerHeight = 3.2em
     //left 0
     background $nearWhite
     transition  transform $duration $easing//, width $duration $easing
-    overflow-y auto
+    overflow none
 
     outline: 1px solid darken($light, 10);
     box-sizing content-box
-    -webkit-overflow-scrolling: touch;
 
+
+    > .content
+      padding-top $headerHeight
+      overflow-y auto
+      height 100%
+      -webkit-overflow-scrolling touch
 
     &.next
       display none
@@ -63,9 +68,6 @@ $headerHeight = 3.2em
 
           &.w{$w}.l{$l}
             transform translateX(unit(100 / $w * $l, '%'));
-
-    > .content
-      margin-top $headerHeight
 
     > header
       transform: translateZ(0);
@@ -107,7 +109,7 @@ $headerHeight = 3.2em
 
     &.scroll
       > header
-        background rgba(darken($light, 5), .8)
+        background rgba(darken($light, 5), .9)
 
     &.modified
 
