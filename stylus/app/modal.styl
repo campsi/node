@@ -25,6 +25,13 @@
   100%
     opacity 1
 
+#app
+  transition filter .2s ease-out
+
+#app.loading
+  filter blur(2px)
+
+
 #loading
   background rgba(white, .5)
   display none
@@ -35,3 +42,4 @@
     animation-name fadeIn
     animation-duration .5s
     opacity 1
+

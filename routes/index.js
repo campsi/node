@@ -215,6 +215,13 @@ router.get(routes.entries.path, getEntriesAndDrafts, function (req, res, next) {
     send([], options, req, res);
 });
 
+router.get(routes.newEntry.path, getEntriesAndDrafts, function (req, res, next) {
+    var options = getPanelOptions(routes.entries.layout);
+    options.entries.componentValue = req.entriesAndDrafts;
+    options.entry.componentOptions = req.collection;
+    send([], options, req, res);
+});
+
 router.get(routes.entry.path, getEntriesAndDrafts, function (req, res, next) {
     var options = getPanelOptions(routes.entries.layout);
     options.entries.componentValue = req.entriesAndDrafts;
