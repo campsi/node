@@ -3,6 +3,7 @@ var resources = require('../../../middleware/resources');
 var Project = require('../../../models/project');
 var Entry = require('../../../models/entry');
 var Draft = require('../../../models/draft');
+var Template = require('../../../models/template');
 var handlebars = require('handlebars');
 var extend = require('extend');
 
@@ -117,6 +118,14 @@ router.get('/projects/:project/collections/:collection/entries/:entry', function
 
 router.get('/projects/:project/collections/:collection/drafts/:draft', function (req, res, next) {
     res.json(req.draft.toObject());
+});
+
+router.get('/templates', function (req, res) {
+    Template.find({}).select('name icon tags identifier').exec(function (err, templates) {
+        res.json(templates.map(function (t) {
+            return t.toObject()
+        }));
+    });
 });
 
 module.exports = router;

@@ -8,6 +8,7 @@ module.exports = (function () {
     var User = require('./user');
     var Guest = require('./guest');
     var Collection = require('./collection');
+    var Template = require('./template');
 
     var schema = new mongoose.Schema({
         title: String,
@@ -39,6 +40,13 @@ module.exports = (function () {
             identifier: this.identifier,
             title: this.title
         }
+    };
+
+    schema.methods.createCollectionFromTemplate = function (templateIdentifier, cb) {
+        var project = this;
+        Template.findOne({identifier: templateIdentifier}).exec(function (err, template) {
+            template.createCollection(project, cb);
+        });
     };
 
     schema.methods.addUser = function (role, userId) {

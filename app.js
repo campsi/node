@@ -83,6 +83,9 @@ app.use('/api/v1', require('./routes/api/v1/post'));
 app.use('/api/v1', require('./routes/api/v1/delete'));
 app.use('/api/v1', require('./routes/api/v1/upload'));
 
+app.use('/export', require('./routes/export'));
+app.use('/import', require('./routes/import'));
+
 app.use('/api/v1/components', require('./routes/api/v1/components'));
 app.use('/invitation', require('./routes/invitation'));
 app.use('/profile', require('./routes/profile'));

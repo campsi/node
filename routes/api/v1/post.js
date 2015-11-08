@@ -53,6 +53,15 @@ router.post('/projects', function (req, res, next) {
 });
 
 router.post('/projects/:project/collections', function (req, res, next) {
+
+    if(req.query.template){
+        console.info("create collection from template", req.query.template);
+        req.project.createCollectionFromTemplate(req.query.template, function(err, collection){
+            res.json(collection);
+        });
+        return;
+    }
+
     Collection.create({
         _project: req.project._id,
         name: req.body.name,

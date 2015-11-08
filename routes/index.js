@@ -1,22 +1,31 @@
 var express = require('express');
 var router = express.Router();
+
+// models
 var Project = require('./../models/project');
 var Collection = require('./../models/collection');
 var Component = require('./../models/component');
 var Draft = require('./../models/draft');
+var Template = require('./../models/template');
+
+//lib
 var Campsi = require('campsi');
 var async = require('async');
 var cheerio = require('cheerio');
 var deepcopy = require('deepcopy');
 var extend = require('extend');
-var panelOptions = require('./../lib/campsi-app/panels');
-var routes = require('./../lib/campsi-app/routes');
 var jade = require('jade');
-var resources = require('../middleware/resources');
-var config = require('../config');
-var browserConfig = require('../browser-config');
 var path = require('path');
 var fs = require('fs');
+
+//conf
+var config = require('../config');
+var browserConfig = require('../browser-config');
+var panelOptions = require('./../lib/campsi-app/panels');
+var routes = require('./../lib/campsi-app/routes');
+
+//middleware
+var resources = require('../middleware/resources');
 resources(router);
 
 var createPanels = function (panelsOptions, context, callback) {
@@ -78,7 +87,6 @@ var getProjects = function (req, res, next) {
 };
 
 var getProjectDeployments = function (req, res, next) {
-
     Project.findOne({_id: req.project._id}).select('deployments').exec(function (err, project) {
         req.project.deployments = project.deployments;
         next();
@@ -87,9 +95,16 @@ var getProjectDeployments = function (req, res, next) {
 var getComponents = function (req, res, next) {
     Component.find({}, function (err, results) {
         req.components = results;
+        req.context.set('components', req.components);
         next()
     });
-
+};
+var getTemplates = function (req, res, next) {
+    Template.find({}).select('identifier name icon tags').exec(function (err, results) {
+        req.templates = results;
+        req.context.set('templates', req.templates);
+        next()
+    });
 };
 
 var getEntriesAndDrafts = function (req, res, next) {
@@ -99,8 +114,8 @@ var getEntriesAndDrafts = function (req, res, next) {
     });
 };
 
-router.get('/editor', function(req, res){
-     res.render('editor');
+router.get('/editor', function (req, res) {
+    res.render('editor');
 });
 
 router.get(routes.welcome.path, getProjects, function (req, res, next) {
@@ -120,21 +135,22 @@ router.get(routes.projects.path, getProjects, function (req, res, next) {
     send([], options, req, res);
 });
 
-router.get(routes.project.path, getProjects, function (req, res, next) {
+router.get(routes.project.path, getProjects, getTemplates, function (req, res, next) {
 
     var options = getPanelOptions(routes.project.layout);
     options.projects.componentValue = req.projects;
     if (req.project) {
         options.project.componentValue = req.project.toObject();
-        console.dir(req.project.toObject());
+        options.project.componentOptions = {templates: req.templates};
     }
     send([], options, req, res);
 });
 
-router.get(routes.projectUsers.path, function (req, res, next) {
+router.get(routes.projectUsers.path, getTemplates, function (req, res, next) {
     var options = getPanelOptions(routes.projectUsers.layout);
     if (req.project) {
         options.project.componentValue = req.project.toObject();
+        options.project.componentOptions = {templates: req.templates};
         options.projectUsers.componentValue = req.project.identity();
         req.project.getUsers(function (err, users) {
             options.projectUsers.componentValue.users = users;
@@ -144,10 +160,11 @@ router.get(routes.projectUsers.path, function (req, res, next) {
         send([], options, req, res);
     }
 });
-router.get(routes.projectDeployments.path, getProjectDeployments, function (req, res, next) {
+router.get(routes.projectDeployments.path, getTemplates, getProjectDeployments, function (req, res, next) {
     var options = getPanelOptions(routes.projectDeployments.layout);
     if (req.project) {
         options.project.componentValue = req.project.toObject();
+        options.project.componentOptions = {templates: req.templates};
         options.projectDeployments.componentValue = req.project.toObject();
         send([], options, req, res);
     } else {
@@ -156,21 +173,23 @@ router.get(routes.projectDeployments.path, getProjectDeployments, function (req,
 });
 
 
-router.get(routes.newCollection.path, function (req, res, next) {
+router.get(routes.newCollection.path, getTemplates, function (req, res, next) {
 
     var options = getPanelOptions(routes.collection.layout);
 
     options.project.componentValue = req.project.toObject();
+    options.project.componentOptions = {templates: req.templates};
     options.collection.componentValue = {__project: req.project.identity()};
 
     send([], options, req, res);
 });
 
-router.get(routes.collection.path, function (req, res, next) {
+router.get(routes.collection.path, getTemplates, function (req, res, next) {
 
     var options = getPanelOptions(routes.collection.layout);
 
     options.project.componentValue = req.project.toObject();
+    options.project.componentOptions = {templates: req.templates};
     options.collection.componentValue = req.collection.toObject();
 
     send([], options, req, res);
