@@ -86,6 +86,14 @@ var getProjects = function (req, res, next) {
     });
 };
 
+var getLanding = function (req, res, next) {
+    var filename = path.join(__dirname, '/../public/panels/welcome.html');
+    fs.readFile(filename, function (err, data) {
+        req.welcome = data;
+        next();
+    });
+};
+
 var getProjectDeployments = function (req, res, next) {
     Project.findOne({_id: req.project._id}).select('deployments').exec(function (err, project) {
         req.project.deployments = project.deployments;
@@ -118,18 +126,14 @@ router.get('/editor', function (req, res) {
     res.render('editor');
 });
 
-router.get(routes.welcome.path, getProjects, function (req, res, next) {
+router.get(routes.welcome.path, getLanding, getProjects, function (req, res, next) {
     var options = getPanelOptions(routes.welcome.layout);
-    var filename = path.join(__dirname, '/../public/panels/' + options.welcome.contentFile);
-    fs.readFile(filename, function (err, data) {
-        options.welcome.content = data;
-        options.projects.componentValue = req.projects;
-        send([], options, req, res);
-    });
+    options.welcome.componentValue = req.welcome;
+    options.projects.componentValue = req.projects;
+    send([], options, req, res);
 });
 
 router.get(routes.projects.path, getProjects, function (req, res, next) {
-
     var options = getPanelOptions(routes.projects.layout);
     options.projects.componentValue = req.projects;
     send([], options, req, res);
