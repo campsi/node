@@ -65,11 +65,35 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
         templates[template.identifier] = template.markup
     });
 
-    var query = extend({}, req.query, {_collection: req.collection._id});
+    var queryParameters = {};
+    var param;
+    for (param in req.query) {
+        if (req.query.hasOwnProperty(param) && param.indexOf('data.') === 0) {
+            queryParameters[param] = req.query[param];
+        }
+    }
 
-    delete query['template'];
+    var params = extend({}, queryParameters, {_collection: req.collection._id});
 
-    Entry.find(query).select('data').exec(function (err, entries) {
+    var query = Entry.find(params).select('data');
+
+    if (req.query.sort)
+        query.sort(req.query.sort);
+
+    if (req.query.limit)
+        query.limit(req.query.limit);
+
+    if (req.query.skip)
+        query.limit(req.query.skip);
+
+    query.exec(function (err, entries) {
+
+        if (req.query.sort) {
+            return res.json(entries.map(function (e) {
+                return e.toObject();
+            }))
+        }
+
         var sortedEntries = {};
         entries.forEach(function (e) {
             sortedEntries[e._id.toString()] = e;
@@ -78,7 +102,7 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
         var result = [];
         req.collection.entries.forEach(function (id) {
             if (typeof sortedEntries[id] !== 'undefined') {
-                result.push(sortedEntries[id]);
+                result.push(sortedEntries[id].toObject());
             }
         });
 

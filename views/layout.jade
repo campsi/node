@@ -30,7 +30,7 @@ html
     link(rel='stylesheet', href='/lib/dragula.js/dist/dragula.css')
     link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.min.css')
 body
-  div#app
+  div#app(class = user ? 'logged-in' : 'visitor')
     block content
 
   div#loading

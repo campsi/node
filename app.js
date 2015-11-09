@@ -118,6 +118,11 @@ app.get('/callback', passport.authenticate('auth0'), function (req, res) {
     }
 });
 
+app.get('/logout', function(req, res){
+    req.session.destroy();
+    res.redirect('/');
+});
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
