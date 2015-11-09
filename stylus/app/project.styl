@@ -136,20 +136,65 @@
       font-weight 200
       font-style italic
 
+  h3
+    margin-top 2em
+
   .array_item, .newItem
     color white
     background linear-gradient(rgba(#FFF, .2), rgba(#FFF, .3))
-    padding 1em
+    padding .5em
     margin-bottom 1em
     border-radius .5em
-    border-bottom 4px solid rgba(black, .7)
+    border-bottom 4px solid rgba(black, .5)
     position relative
     vertical-align middle
-    img
-      border 1px solid black
-      border-radius .5em
-      border-bottom 2px solid #000
+    min-height 6.5em
+
+    .roles
+      margin-bottom 0
+
+      span
+        margin-right .5em
+        display inline-block
+        background $theme
+        border-radius .3em
+        border 1px solid darken($theme, 5)
+        padding 0 .5em
+        box-shadow 0 1px 2px darken($theme, 30)
+    .name
+      text-shadow 0 1px 1px #000
+      font-size 1.2em
+      margin-bottom 0
+
+    .username
+      text-shadow 0 1px 1px #000
+      font-size .9em
+      color darken(white, 10)
+
+    .avatar
+      position relative
+      display inline-block
+      border-radius 4em
       margin-right 1em
+      overflow hidden
+      width 4em
+      height 4em
+      float left
+      &::before
+        content ''
+        box-shadow inset 1px -1px 4px #000
+        position absolute
+        border-radius 4em
+        top 0
+        left 0
+        right 0
+        bottom 0
+      img
+        margin-top -1%
+        margin-left -1%
+        height 103%
+        width 103%
+
 
     .remove
       position absolute

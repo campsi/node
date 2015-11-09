@@ -157,7 +157,11 @@ router.get(routes.projectUsers.path, getTemplates, function (req, res, next) {
         options.project.componentOptions = {templates: req.templates};
         options.projectUsers.componentValue = req.project.identity();
         req.project.getUsers(function (err, users) {
-            options.projectUsers.componentValue.users = users;
+            options.projectUsers.componentValue.users = users.map(function (u) {
+                var obj = u.toObject();
+                delete obj.projects;
+                return obj;
+            });
             send([], options, req, res);
         });
     } else {

@@ -22,7 +22,11 @@ router.get('/projects/:project', function (req, res, next) {
 
 router.get('/projects/:project/users', function (req, res, next) {
     req.project.getUsers(function (err, users) {
-        res.json(users);
+        res.json(users.map(function (u) {
+            var obj = u.toObject();
+            delete obj.projects;
+            return obj;
+        }));
     })
 });
 

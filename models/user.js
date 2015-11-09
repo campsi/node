@@ -66,6 +66,20 @@ module.exports = (function () {
         return roles;
     };
 
+
+    schema.set('toObject', {
+        getters: true,
+        virtuals: true
+    });
+
+    schema.virtual('projectRoles').get(function () {
+        return this._projectRoles;
+    });
+
+    schema.virtual('projectRoles').set(function(roles){
+        this._projectRoles = roles;
+    });
+
     return mongoose.model('User', schema);
 
 })();

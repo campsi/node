@@ -91,13 +91,15 @@ module.exports = (function () {
     };
 
     schema.methods.getUsers = function (cb) {
-        User.find({
-            projects: {
-                $elemMatch: {
-                    _id: this._id
-                }
-            }
-        }).select("displayName _id email picture nickname avatar fullname").exec(cb);
+        var project = this;
+        User.find({projects: {$elemMatch: {_id: project._id}}})
+            .select("displayName _id email picture nickname avatar fullname projects")
+            .exec(function (err, users) {
+                users.forEach(function(u){
+                    u.projectRoles = u.getRolesForProject(project);
+                });
+                cb(err, users);
+            });
     };
 
     schema.methods.getGuests = function (cb) {
