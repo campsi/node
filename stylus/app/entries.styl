@@ -13,70 +13,83 @@
     padding-top .8em
     margin 0
 
-  .array_item
+
+.array_item[data-item-type='campsi/entries-and-drafts/item']
+  position relative
+  border-bottom 1px solid $light
+
+  button.remove
+    display none
+
+  a
     position relative
-    border-bottom 1px solid darken($light, 10)
-    a
-      position relative
-      text-decoration none
-      display block
-      color $dark
-      background rgba($light, .5)
-      padding .5em
-      transition background .1s ease-out
+    text-decoration none
+    display block
+    color $dark
+    background white
+    padding .5em
 
-      &:hover
-        background rgba(lighten($theme, 40), .8)
+    &:hover
+      background darken($light, 5)
 
-      img
-        max-width 5em
-        max-height 5em
-      span.id
-        display none
-        top 0
-        right .5em
-        z-index 100
-        text-transform uppercase
-        font-size .7em
-        color lighten($dark, 40)
-        &::before
-          content: '#'
-
-      &.hidden
-        display none
-      &.active, &:active
-        background white
-
-      &.rel
-        font-style italic
-        font-size: .8em
-        padding 0 .5em
-        border-top 1px dashed darken($light, 10)
-
-      .template
-        h4, .title
-          font-weight 600
-          color black
-          margin 0 0 .2em 0
-
-        .summary
-          display block
-          color lighten($dark, 40)
-          font-weight 300
-          font-size: .85em
-
-        $thumbnailSize = 4em
-        .thumbnail
-          height $thumbnailSize
-          width $thumbnailSize
-          float left
-          overflow hidden
-          margin-right 1em
-          img
-            max-height $thumbnailSize
-
-    button.remove
+    img
+      max-width 5em
+      max-height 5em
+    span.id
       display none
+      top 0
+      right .5em
+      z-index 100
+      text-transform uppercase
+      font-size .7em
+      color lighten($dark, 40)
+      &::before
+        content: '#'
+
+    &.hidden
+      display none
+    &.active, &:active
+      background $light
+
+    &.rel
+      font-style italic
+      font-size: .8em
+      padding 0 .5em
+      border-top 1px dashed darken($light, 10)
+
+    .template
+      h4, .title
+        font-weight 600
+        color black
+        margin 0 0 .2em 0
+
+      .summary
+        display block
+        color lighten($dark, 40)
+        font-weight 300
+        font-size: .85em
+
+      $thumbnailSize = 4em
+      .thumbnail
+        height $thumbnailSize
+        width $thumbnailSize
+        float left
+        overflow hidden
+        margin-right 1em
+        img
+          max-height $thumbnailSize
+
+  &.gu-mirror
+    border none
+    background white
+    border-radius .4em
+    box-shadow 0 3px 3px rgba(black, .3)
+    a
+      background transparent
+      &.rel
+        display none
+
+
 
 #entry
   background white
