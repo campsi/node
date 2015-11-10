@@ -115,6 +115,9 @@
 
   .form_field
     margin-bottom 1em
+    &:last-child
+      margin-bottom 0
+
   .component.form .component.form
     padding 0
     padding-left 1em
@@ -127,37 +130,59 @@
         color black
 
 
-    .array_item, .newItem
-      border 1px solid darken($light, 1)
+  .array_item, .newItem
+    box-shadow 0 1px 1px rgba(black, .1)
+    border 1px solid darken($light, 1)
+    width 100%
+    padding 1em
+    border-radius .2em
+    margin-bottom .5em
+    display flex
+    align-items: center
+    position relative
+
+
+    > .container > .component.form, > .component.form
+      border-left none
+
+    &.newItem
+      margin-bottom 0
+      background rgba(darken(white, 5), .5)
+
+      input[type=submit]
+        align-self flex-start
+        light-button($theme)
+
+    input[type=submit]
+      margin .5em
+
+    > .form
+      border-left 0
+      margin-left 0
+
+
+    > .component
+      flex 1
+
+    > .container
       width 100%
-      padding .5em;
-      border-radius .5em
-      margin-bottom .5em
-      display flex
-      align-items: center
 
-      > .form
-        border-left 0
-        margin-left 0
+    > .drag-handle
+      cursor all-scroll
+      width 1em
+      height 1.5em
+      background darken($nearWhite, 10)
+      margin-right .25em
+
+    > .control
+      flex 1
 
 
-      > .component
-        flex 1
+    button.remove
+      align-self flex-start
+      margin-left 1em
+      dark-button(red)
 
-      > .container
-        width 100%
-
-      > .drag-handle
-        cursor all-scroll
-        width 1em
-        height 1.5em
-        background darken($nearWhite, 10)
-        margin-right .25em
-
-      > .control
-        flex 1
-
+    &[data-item-type="form"]
       > button.remove
-        margin .5em
-        align-self top
-        dark-button(red)
+        margin -.5em -.5em 0 0
