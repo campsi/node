@@ -229,3 +229,29 @@
 .campsi_collection-list
   input[type=submit]
     light-button($theme)
+
+#projectUsers .pane.confirmation, #projectUsers .pane.error
+  position absolute
+  top 0
+  left 0
+  right 0
+  bottom 0
+  background rgba(black, .8);
+  padding-top 20em
+  text-align center
+  display none
+
+  opacity 0
+
+  i
+    display block
+
+  &.confirmation
+    i
+      color lighten(forestgreen, 20)
+
+  &.visible
+    display block
+    animation fadeIn .5s
+    opacity 1
+
