@@ -12,7 +12,7 @@ var slug = require('slug');
 var config = require('../../../config');
 var sendgrid = require('sendgrid')(config.sendgrid_api_key);
 
-resources(router);
+resources.patchRouter(router);
 
 var sendInvitationEmail = function (guest) {
     sendgrid.send({

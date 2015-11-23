@@ -1,12 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-// models
-var Project = require('./../models/project');
-var Collection = require('./../models/collection');
-var Component = require('./../models/component');
-var Draft = require('./../models/draft');
-var Template = require('./../models/template');
 
 //lib
 var Campsi = require('campsi');
@@ -26,7 +20,7 @@ var routes = require('./../lib/campsi-app/routes');
 
 //middleware
 var resources = require('../middleware/resources');
-resources(router);
+resources.patchRouter(router);
 
 var createPanels = function (panelsOptions, context, callback) {
     var panels = [];
@@ -45,23 +39,19 @@ var createPanels = function (panelsOptions, context, callback) {
     });
 };
 
-var renderPanels = function (panels) {
-    return panels.map(function (panel) {
-        return cheerio.html(panel.render());
+
+var getLanding= function (req, res, next) {
+    var filename = path.join(__dirname, '/../public/panels/welcome.html');
+    fs.readFile(filename, function (err, data) {
+        req.welcome = data;
+        next();
     });
 };
 
-var send = function (stack, options, request, response) {
 
-    async.parallel(stack, function () {
-        createPanels(options, request.context, function (panels) {
-            response.render('index', {
-                panels: renderPanels(panels),
-                user: request.user,
-                config: browserConfig,
-                context: request.context
-            });
-        });
+var renderPanels = function (panels) {
+    return panels.map(function (panel) {
+        return cheerio.html(panel.render());
     });
 };
 
@@ -79,168 +69,102 @@ var getPanelOptions = function (layout) {
     return currentPanelOptions;
 };
 
-var getProjects = function (req, res, next) {
-    Project.list(req.user, function (err, results) {
-        req.projects = results;
-        next();
-    });
-};
-
-var getLanding = function (req, res, next) {
-    var filename = path.join(__dirname, '/../public/panels/welcome.html');
-    fs.readFile(filename, function (err, data) {
-        req.welcome = data;
-        next();
-    });
-};
-
-var getProjectDeployments = function (req, res, next) {
-    Project.findOne({_id: req.project._id}).select('deployments').exec(function (err, project) {
-        req.project.deployments = project.deployments;
-        next();
-    });
-};
-var getComponents = function (req, res, next) {
-    Component.find({}, function (err, results) {
-        req.components = results;
-        req.context.set('components', req.components);
-        next()
-    });
-};
-var getTemplates = function (req, res, next) {
-    Template.find({}).select('identifier name icon tags').exec(function (err, results) {
-        req.templates = results;
-        req.context.set('templates', req.templates);
-        next()
-    });
-};
-
-var getEntriesAndDrafts = function (req, res, next) {
-    req.collection.getEntriesAndDrafts(req.user, function (err, items) {
-        req.entriesAndDrafts = items;
-        next();
-    });
-};
 
 router.get('/editor', function (req, res) {
-    res.render('editor');
+    res.render('editor', {
+        user: req.user,
+        config: browserConfig,
+        context: req.context
+    });
 });
 
-router.get(routes.welcome.path, getLanding, getProjects, function (req, res, next) {
-    var options = getPanelOptions(routes.welcome.layout);
-    options.welcome.componentValue = req.welcome;
-    options.projects.componentValue = req.projects;
-    send([], options, req, res);
-});
 
-router.get(routes.projects.path, getProjects, function (req, res, next) {
-    var options = getPanelOptions(routes.projects.layout);
-    options.projects.componentValue = req.projects;
-    send([], options, req, res);
-});
+var createOptions = function (layout) {
 
-router.get(routes.project.path, getProjects, getTemplates, function (req, res, next) {
+    var toObj = function (arr) {
+        return arr.map(function (item) {
+            return item.toObject();
+        })
+    };
 
-    var options = getPanelOptions(routes.project.layout);
-    options.projects.componentValue = req.projects;
-    if (req.project) {
-        options.project.componentValue = req.project.toObject();
-        options.project.componentOptions = {templates: req.templates};
+    var options = getPanelOptions(layout);
+    return function (req, res, next) {
+        if (req.welcome)
+            options.welcome.componentValue = req.welcome;
+
+        if (req.projects)
+            options.projects.componentValue = toObj(req.projects);
+
+        if (req.project)
+            options.project.componentValue = req.project.toObject();
+
+        if (req.templates)
+            options.project.componentOptions = {templates: toObj(req.templates)};
+
+        if (req.projectUsers) {
+            options.projectUsers.componentValue = req.project.identity();
+            options.projectUsers.componentValue.users = req.projectUsers;
+        }
+
+        if (req.projectDeployments) {
+            options.projectDeployments.componentValue = req.project.identity();
+            options.projectDeployments.componentValue.deployments = toObj(req.projectDeployments);
+        }
+
+        if (req.collection) {
+            var collectionObj = req.collection.toObject();
+            options.collection.componentValue = collectionObj;
+            options.designer.componentValue = collectionObj;
+            options.entry.componentOptions = collectionObj;
+        }
+
+        if (req.entriesAndDrafts) {
+            options.entries.componentValue = {
+                entries: toObj(req.entriesAndDrafts.entries),
+                drafts: toObj(req.entriesAndDrafts.drafts)
+            };
+        }
+
+        if (req.entry) {
+            options.entry.componentValue = req.entry.toObject();
+        }
+
+        if (req.draft) {
+            options.entry.componentValue = req.draft.toObject();
+        }
+
+        if (req.components) {
+            options.components.componentValue = toObj(req.components);
+        }
+
+        req.panelsOptions = options;
+        next();
+
     }
-    send([], options, req, res);
-});
+};
 
-router.get(routes.projectUsers.path, getTemplates, function (req, res, next) {
-    var options = getPanelOptions(routes.projectUsers.layout);
-    if (req.project) {
-        options.project.componentValue = req.project.toObject();
-        options.project.componentOptions = {templates: req.templates};
-        options.projectUsers.componentValue = req.project.identity();
-        req.project.getUsers(function (err, users) {
-            options.projectUsers.componentValue.users = users.map(function (u) {
-                var obj = u.toObject();
-                delete obj.projects;
-                return obj;
-            });
-            send([], options, req, res);
+router.get(routes.welcome.path, getLanding, resources.getProjects, createOptions(routes.welcome.layout));
+router.get(routes.projects.path, resources.getProjects, createOptions(routes.projects.layout));
+router.get(routes.project.path, resources.getProjects, resources.getTemplates, createOptions(routes.project.layout));
+router.get(routes.projectUsers.path, resources.getTemplates, resources.getProjectUsers, createOptions(routes.projectUsers.layout));
+router.get(routes.projectDeployments.path, resources.getTemplates, resources.getProjectDeployments, createOptions(routes.projectDeployments.layout));
+router.get(routes.newCollection.path, resources.getTemplates, createOptions(routes.newCollection.path));
+router.get(routes.collection.path, resources.getTemplates, createOptions(routes.collection.layout));
+router.get(routes.designer.path, resources.getComponents, createOptions(routes.designer.layout));
+router.get(routes.entries.path, resources.getEntriesAndDrafts, createOptions(routes.entries.layout));
+router.get(routes.newEntry.path, resources.getEntriesAndDrafts, createOptions(routes.entries.layout));
+router.get(routes.entry.path, resources.getEntriesAndDrafts, createOptions(routes.entry.layout));
+router.get(routes.draft.path, resources.getEntriesAndDrafts, createOptions(routes.draft.layout));
+
+router.get('*', function (req, res) {
+    createPanels(req.panelsOptions, req.context, function (panels) {
+        res.render('index', {
+            panels: renderPanels(panels),
+            user: req.user,
+            config: browserConfig,
+            context: req.context
         });
-    } else {
-        send([], options, req, res);
-    }
+    });
 });
-router.get(routes.projectDeployments.path, getTemplates, getProjectDeployments, function (req, res, next) {
-    var options = getPanelOptions(routes.projectDeployments.layout);
-    if (req.project) {
-        options.project.componentValue = req.project.toObject();
-        options.project.componentOptions = {templates: req.templates};
-        options.projectDeployments.componentValue = req.project.toObject();
-        send([], options, req, res);
-    } else {
-        send([], options, req, res);
-    }
-});
-
-
-router.get(routes.newCollection.path, getTemplates, function (req, res, next) {
-
-    var options = getPanelOptions(routes.collection.layout);
-
-    options.project.componentValue = req.project.toObject();
-    options.project.componentOptions = {templates: req.templates};
-    options.collection.componentValue = {__project: req.project.identity()};
-
-    send([], options, req, res);
-});
-
-router.get(routes.collection.path, getTemplates, function (req, res, next) {
-
-    var options = getPanelOptions(routes.collection.layout);
-
-    options.project.componentValue = req.project.toObject();
-    options.project.componentOptions = {templates: req.templates};
-    options.collection.componentValue = req.collection.toObject();
-
-    send([], options, req, res);
-});
-
-router.get(routes.designer.path, getComponents, function (req, res, next) {
-    var options = getPanelOptions(routes.designer.layout);
-    options.collection.componentValue = req.collection.toObject();
-    options.designer.componentValue = req.collection.toObject();
-    options.components.componentValue = req.components;
-
-    send([], options, req, res);
-});
-
-router.get(routes.entries.path, getEntriesAndDrafts, function (req, res, next) {
-    var options = getPanelOptions(routes.entries.layout);
-    options.entries.componentValue = req.entriesAndDrafts;
-    options.entry.componentOptions = req.collection;
-    send([], options, req, res);
-});
-
-router.get(routes.newEntry.path, getEntriesAndDrafts, function (req, res, next) {
-    var options = getPanelOptions(routes.entries.layout);
-    options.entries.componentValue = req.entriesAndDrafts;
-    options.entry.componentOptions = req.collection;
-    send([], options, req, res);
-});
-
-router.get(routes.entry.path, getEntriesAndDrafts, function (req, res, next) {
-    var options = getPanelOptions(routes.entries.layout);
-    options.entries.componentValue = req.entriesAndDrafts;
-    options.entry.componentOptions = req.collection.toObject();
-    options.entry.componentValue = req.entry.toObject();
-    send([], options, req, res);
-});
-
-router.get(routes.draft.path, getEntriesAndDrafts, function (req, res, next) {
-    var options = getPanelOptions(routes.entries.layout);
-    options.entries.componentValue = req.entriesAndDrafts;
-    options.entry.componentOptions = req.collection.toObject();
-    options.entry.componentValue = req.draft.toObject();
-    send([], options, req, res);
-});
-
 
 module.exports = router;

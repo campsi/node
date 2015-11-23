@@ -9,6 +9,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var strategy = require('./lib/auth-strategy');
 var app = express();
+
 var async = require('async');
 var Guest = require('./models/guest');
 var Project = require('./models/project');
@@ -76,25 +77,6 @@ app.get('/api/v1/*', function (req, res, next) {
     next();
 });
 
-// Routes
-app.use('/api/v1', require('./routes/api/v1/get'));
-app.use('/api/v1', require('./routes/api/v1/put'));
-app.use('/api/v1', require('./routes/api/v1/post'));
-app.use('/api/v1', require('./routes/api/v1/delete'));
-app.use('/api/v1', require('./routes/api/v1/upload'));
-
-app.use('/export', require('./routes/export'));
-app.use('/import', require('./routes/import'));
-
-app.use('/api/v1/components', require('./routes/api/v1/components'));
-app.use('/invitation', require('./routes/invitation'));
-app.use('/profile', require('./routes/profile'));
-
-app.use('/', require('./routes/index'));
-
-app.get('/undefined', function(req, res){
-    res.send('U MAD BRO');
-});
 
 // Auth0 callback handler
 app.get('/callback', passport.authenticate('auth0'), function (req, res) {
@@ -114,6 +96,7 @@ app.get('/callback', passport.authenticate('auth0'), function (req, res) {
             })
         });
     } else {
+        console.info("should redirect");
         res.redirect('/projects');
     }
 });
@@ -121,6 +104,26 @@ app.get('/callback', passport.authenticate('auth0'), function (req, res) {
 app.get('/logout', function(req, res){
     req.session.destroy();
     res.redirect('/');
+});
+
+// Routes
+app.use('/api/v1', require('./routes/api/v1/get'));
+app.use('/api/v1', require('./routes/api/v1/put'));
+app.use('/api/v1', require('./routes/api/v1/post'));
+app.use('/api/v1', require('./routes/api/v1/delete'));
+app.use('/api/v1', require('./routes/api/v1/upload'));
+
+app.use('/export', require('./routes/export'));
+app.use('/import', require('./routes/import'));
+
+app.use('/api/v1/components', require('./routes/api/v1/components'));
+app.use('/invitation', require('./routes/invitation'));
+app.use('/profile', require('./routes/profile'));
+
+app.use('/', require('./routes/index'));
+
+app.get('/undefined', function(req, res){
+    res.send('U MAD BRO');
 });
 
 // catch 404 and forward to error handler

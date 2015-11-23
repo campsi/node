@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var resources = require('../middleware/resources');
-resources(router);
+resources.patchRouter(router);
 
 router.get('/projects/:project/collections/:collection', function (req, res, next) {
     req.collection.populate('entries', function (err, populated) {

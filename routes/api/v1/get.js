@@ -7,7 +7,7 @@ var Template = require('../../../models/template');
 var handlebars = require('handlebars');
 var extend = require('extend');
 
-resources(router);
+resources.patchRouter(router);
 
 router.get('/projects/', function (req, res, next) {
     Project.list(req.user, function (err, projects) {

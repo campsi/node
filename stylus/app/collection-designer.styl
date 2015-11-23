@@ -195,4 +195,62 @@
         &[data-name="label"]
           flex 1
 
+@keyframes slideToTop
+  from
+    transform translateY(2000px)
+  to
+    transform translateY(0)
 
+#designer
+  .modal
+    position absolute
+    top 0
+    left 0
+    right 0
+    bottom 0
+    background rgba(white, .8)
+    padding 5em
+    display none
+
+    &.visible
+      display block
+
+      .advanced-form
+        animation slideToTop .5s
+
+    .advanced-form
+      background white
+      border-radius .5em
+      overflow hidden
+      box-shadow 0 10px 30px rgba(black, .3)
+
+      header, footer
+        text-align center
+        padding .5em
+        position relative
+        height 2.9em
+        span
+          color white
+          flex 1
+        button
+          position absolute
+          right .5em
+          light-button($theme)
+
+      header
+        background black
+
+      .form
+        padding 1em
+
+        .form_field
+          margin-bottom 1em
+
+          .label
+            font-size .85em
+            color lighten($dark, 20)
+
+      footer
+        background gray
+        button
+          light-button($contrast)
