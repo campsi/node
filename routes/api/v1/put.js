@@ -5,7 +5,7 @@ var slug = require('slug');
 var Draft = require('../../../models/draft');
 var extend = require('extend');
 
-resources(router);
+resources.patchRouter(router);
 
 var returnId = function (item) {
     if (typeof item === 'string') {
