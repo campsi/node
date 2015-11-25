@@ -17,6 +17,7 @@ var config = require('../config');
 var browserConfig = require('../browser-config');
 var panelOptions = require('./../lib/campsi-app/panels');
 var routes = require('./../lib/campsi-app/routes');
+var translations = require('./../lib/campsi-app/translations');
 
 //middleware
 var resources = require('../middleware/resources');
@@ -169,7 +170,8 @@ router.get('*', function (req, res) {
             panels: renderPanels(panels),
             user: req.user,
             config: browserConfig,
-            context: req.context
+            context: req.context,
+            translations: translations[req.locale]
         });
     });
 });

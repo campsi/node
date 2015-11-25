@@ -1,15 +1,14 @@
 doctype html
 html
   head
-    title Campsi, the API-first CMS Platform
+    title=__("app.title")
     meta(name="theme-color", content="#ffffff")
     meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0")
-    meta(property='og:title', content='The API-driven CMS Platform')
+    meta(property='og:title', content=__("app.og.title"))
     meta(property='og:site_name', content='Campsi.io')
     meta(property='og:url', content='http://www.campsi.io')
     meta(property='og:image', content='http://campsi.imgix.net/56261291c0e9425a0b9404d8-VkTqdHYze.png')
-    meta(property='og:description', content="Campsi is a CMS platform built for webdesign professionals. " +
-    "It takes care of your database, your uploads, and everything that's dynamic and provides a state-of-the art backoffice for your clients.")
+    meta(property='og:description', content=__("app.og.description"))
 
     link(rel="apple-touch-icon",sizes="57x57", href="/favicon.ico/apple-icon-57x57.png")
     link(rel="apple-touch-icon",sizes="60x60", href="/favicon.ico/apple-icon-60x60.png")
@@ -46,6 +45,8 @@ body
   script(src='/lib/jquery/dist/jquery.min.js')
   block scripts
 
+
+  script(type='application/javascript') window.I18N = !{JSON.stringify(translations)};
   script(type='application/javascript') window.fd = {logging: false};
   script(src='/lib/filedrop/filedrop.js')
   script(src='/lib/jquery-circle-progress/dist/circle-progress.js')

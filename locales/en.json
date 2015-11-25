@@ -56,7 +56,10 @@
 	"panels.projectUsers.invite.result.error": "An error occurred, please try again later.",
 	"panels.project.collectionList.editBtn": "Edit",
 	"panels.project.collectionList.adminBtn": "Admin",
-	"panels.project.collectionList.designBtn": "design",
-	"panels.project.collectionList.removeBtn": "delete",
-	"panels.project.newCollectionBtn": "Create new collection"
+	"panels.project.collectionList.designBtn": "Design",
+	"panels.project.collectionList.removeBtn": "Delete",
+	"panels.project.newCollectionBtn": "Create new collection",
+	"app.title": "Campsi, the API driven CMS",
+	"app.og.title": "The API driven CMS",
+	"app.og.description": "Campsi is a CMS platform built for webdesign professionals. It takes care of your database, your uploads, and everything that's dynamic and provides a state-of-the art backoffice for your clients."
 }

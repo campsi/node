@@ -13,7 +13,7 @@
 	"btns.logout": "déconnexion",
 	"btns.delete": "supprimer",
 	"btns.projectUsers": "utilisateurs",
-	"btns.projectDeployments": "deployments",
+	"btns.projectDeployments": "déploiements",
 	"btns.admin": "admin",
 	"btns.design": "design",
 	"btns.newEntry": "nouvelle entrée",
@@ -57,5 +57,8 @@
 	"panels.project.collectionList.editBtn": "Modifier",
 	"panels.project.collectionList.adminBtn": "Administrer",
 	"panels.project.collectionList.designBtn": "Designer",
-	"panels.project.collectionList.removeBtn": "Supprimer"
+	"panels.project.collectionList.removeBtn": "Supprimer",
+	"app.title": "Campsi, l'API au ♥ du CMS",
+	"app.og.title": "l'API au ♥ du CMS",
+	"app.og.description": "Campsi est une nouvelle plateforme de gestion de contenu web pour les pros de la création de site internet."
 }
