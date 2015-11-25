@@ -44,6 +44,7 @@
     "is-image": "^1.0.1",
     "jade": "*",
     "jsonwebtoken": "*",
+    "kerberos": "0.0.17",
     "microevent": "*",
     "mongoose": "*",
     "morgan": "*",
