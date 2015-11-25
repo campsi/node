@@ -58,5 +58,5 @@
 	"panels.project.collectionList.adminBtn": "Admin",
 	"panels.project.collectionList.designBtn": "design",
 	"panels.project.collectionList.removeBtn": "delete",
-	"panels.project.newCollectionBtn": "panels.project.newCollectionBtn"
+	"panels.project.newCollectionBtn": "Create new collection"
 }
