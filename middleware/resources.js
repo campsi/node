@@ -4,7 +4,8 @@ var Entry = require('../models/entry');
 var Draft = require('../models/draft');
 var Template = require('./../models/template');
 var Component = require('../models/component');
-var Context = require('app-context');
+var Context = require('../lib/campsi-app/context');
+
 module.exports = {
 
     getProjects: function (req, res, next) {

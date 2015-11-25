@@ -22,6 +22,7 @@ var routes = require('./../lib/campsi-app/routes');
 var resources = require('../middleware/resources');
 resources.patchRouter(router);
 
+
 var createPanels = function (panelsOptions, context, callback) {
     var panels = [];
 
@@ -55,12 +56,13 @@ var renderPanels = function (panels) {
     });
 };
 
-var getPanelOptions = function (layout) {
+var getPanelOptions = function (layout, ctx) {
     var id;
     var currentPanelOptions = {};
-    for (id in panelOptions) {
-        if (panelOptions.hasOwnProperty(id)) {
-            currentPanelOptions[id] = deepcopy(panelOptions[id]);
+    var localizedPanelOptions = panelOptions(ctx);
+    for (id in localizedPanelOptions) {
+        if (localizedPanelOptions.hasOwnProperty(id)) {
+            currentPanelOptions[id] = deepcopy(localizedPanelOptions[id]);
             if (layout[id] !== undefined) {
                 currentPanelOptions[id].classList = layout[id];
             }
@@ -87,8 +89,13 @@ var createOptions = function (layout) {
         })
     };
 
-    var options = getPanelOptions(layout);
+
     return function (req, res, next) {
+
+        req.context.setLocale(req.locale);
+
+        var options = getPanelOptions(layout, req.context);
+
         if (req.welcome)
             options.welcome.componentValue = req.welcome;
 

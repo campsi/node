@@ -39,6 +39,7 @@
     "gulp-uglify": "*",
     "gulp-util": "*",
     "handlebars": "*",
+    "i18n": "^0.5.0",
     "is-browser": "*",
     "is-image": "^1.0.1",
     "jade": "*",

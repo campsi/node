@@ -62,6 +62,12 @@
       font-size 0.85em
       display block
 
+  [data-comp-type="campsi/collection-list"]
+    > .label
+      font-size 2em
+      font-weight 500
+      color black
+      margin 1em 0
 
 .array_item[data-item-type="campsi/collection-list/collection"]
   > button.remove
@@ -91,9 +97,13 @@
     margin-left .5em
     dark-button($theme)
 
+
 #projectUsers, #projectDeployments
   color white
   background url(low_contrast_linen.png)
+
+  > .content
+    padding 1em
 
   header
     a

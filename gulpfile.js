@@ -18,6 +18,14 @@ var bower = require('gulp-bower');
 var config = require('./config');
 var shouldMinify = false;
 
+var i18n = require('i18n');
+var locales = ['en', 'fr'];
+
+i18n.configure({
+    locales: locales,
+    directory: './locales'
+});
+
 var coreDependencies = [
     'campsi',
     'async',
@@ -28,11 +36,10 @@ var coreDependencies = [
     'extend',
     'page',
     'array-diff',
-    'handlebars',
-    'app-context'
+    'handlebars'
 ];
 
-var serverOnlyDependencies = ['cheerio', 'console.table', 'request', 'jade', 'path'];
+var serverOnlyDependencies = ['cheerio', 'console.table', 'request', 'jade', 'path', 'i18n'];
 
 gulp.task('serve', function () {
     nodemon({
@@ -150,7 +157,6 @@ gulp.task('codeEditor', function () {
 
 gulp.task('watch', function () {
     gulp.watch('lib/campsi/lib/*.js', ['core']);
-    gulp.watch('lib/app-context/**/*.js', ['core']);
     gulp.watch('lib/campsi-app/*.js', ['app', 'profile']);
     gulp.watch('lib/campsi-app/editor.js', ['codeEditor']);
     gulp.watch('lib/components/**/*.js', ['standard-components', 'editor']);
