@@ -24,7 +24,7 @@ var i18n = require('i18n');
 i18n.configure({
     locales: ['en', 'fr'],
     cookie: 'campsi-app-locale',
-    directory: './locales'
+    directory: __dirname + '/locales'
 });
 
 // db
