@@ -10,28 +10,17 @@ html
     meta(property='og:image', content='http://campsi.imgix.net/56261291c0e9425a0b9404d8-VkTqdHYze.png')
     meta(property='og:description', content=__("app.og.description"))
 
-    link(rel="apple-touch-icon",sizes="57x57", href="/favicon.ico/apple-icon-57x57.png")
-    link(rel="apple-touch-icon",sizes="60x60", href="/favicon.ico/apple-icon-60x60.png")
-    link(rel="apple-touch-icon",sizes="72x72", href="/favicon.ico/apple-icon-72x72.png")
-    link(rel="apple-touch-icon",sizes="76x76", href="/favicon.ico/apple-icon-76x76.png")
-    link(rel="apple-touch-icon",sizes="114x114", href="/favicon.ico/apple-icon-114x114.png")
-    link(rel="apple-touch-icon",sizes="120x120", href="/favicon.ico/apple-icon-120x120.png")
-    link(rel="apple-touch-icon",sizes="144x144", href="/favicon.ico/apple-icon-144x144.png")
-    link(rel="apple-touch-icon",sizes="152x152", href="/favicon.ico/apple-icon-152x152.png")
     link(rel="apple-touch-icon",sizes="180x180", href="/favicon.ico/apple-icon-180x180.png")
     link(rel="icon", type="image/png", sizes="192x192" , href="/favicon.ico/android-icon-192x192.png")
-    link(rel="icon", type="image/png", sizes="32x32", href="/favicon.ico/favicon-32x32.png")
     link(rel="icon", type="image/png", sizes="96x96", href="/favicon.ico/favicon-96x96.png")
-    link(rel="icon", type="image/png", sizes="16x16", href="/favicon.ico/favicon-16x16.png")
-    link(rel="manifest", href="/favicon.ico/manifest.json")
     meta(name="msapplication-TileColor", content="#ffffff")
     meta(name="msapplication-TileImage", content="/favicon.ico/ms-icon-144x144.png")
 
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Raleway:400,200,700,900', type='text/css')
-    link(rel='stylesheet', href='/stylesheets/main.css')
-    link(rel='stylesheet', href='/lib/dragula.js/dist/dragula.css')
-    link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.min.css')
 
+    link(rel='stylesheet', href='/stylesheets/main.css')
+    //link(rel='stylesheet', href='/lib/dragula.js/dist/dragula.css')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Raleway:400,200,700,900', type='text/css')
+    link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.min.css')
 body
   div#app(class = user ? 'logged-in' : 'visitor')
     block content
@@ -41,15 +30,12 @@ body
   div#modal
     block modal
 
-  script(src='/lib/dragula.js/dist/dragula.min.js')
   script(src='/lib/jquery/dist/jquery.min.js')
   block scripts
 
 
   script(type='application/javascript') window.I18N = !{JSON.stringify(translations)};
   script(type='application/javascript') window.fd = {logging: false};
-  script(src='/lib/filedrop/filedrop.js')
-  script(src='/lib/jquery-circle-progress/dist/circle-progress.js')
   script(src='/javascripts/campsi.core.js')
   script(src='/javascripts/campsi.app.js')
 

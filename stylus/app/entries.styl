@@ -122,10 +122,8 @@
       margin-bottom 0
 
   .component.form .component.form
-    padding 0
-    padding-left 1em
+    padding 1em
     border-left 1px solid $light
-
     .form_field
       .label
         font-weight 200
@@ -133,51 +131,60 @@
         color black
 
 
-  .array_item, .newItem
-    box-shadow 0 1px 1px rgba(black, .1)
-    border 1px solid darken($light, 1)
-    width 100%
-    padding 1em
-    border-radius .2em
-    margin-bottom .5em
-    display flex
-    align-items: center
-    position relative
+#entry .array_item, #entry .newItem, .array_item[data-panel='entry']
+  background white
+  box-shadow 0 1px 2px rgba(black, .2)
+  //border 1px solid darken($light, 1)
+  width 100%
+  padding 0.5em
+  border-radius .2em
+  margin-bottom .5em
+  display flex
+  align-items: center
+  position relative
 
 
-    > .container > .component.form, > .component.form
-      border-left none
+  > .container > .component.form, > .component.form
+    border-left none
 
-    &.newItem
-      margin-bottom 0
-      background rgba(darken(white, 5), .5)
-
-      input[type=submit]
-        align-self flex-start
-        light-button($theme)
+  &.newItem
+    margin-bottom 0
+    background rgba(darken(white, 5), .5)
 
     input[type=submit]
-      margin .5em
+      align-self flex-start
+      light-button($theme)
 
-    > .form
-      border-left 0
-      margin-left 0
+  input[type=submit]
+    margin .5em
+
+  > .form
+    border-left 0
+    margin-left 0
 
 
-    > .component
-      flex 1
+  > .component
+    flex 1
 
-    > .container
-      width 100%
+  > .container
+    width 100%
 
-    > .drag-handle
-      cursor all-scroll
-      width 1em
-      height 1.5em
-      background darken($nearWhite, 10)
-      margin-right .25em
+  > .drag-handle
+    position relative
+    cursor all-scroll
+    width 1em
+    height 20px
+    //outline 1px solid red
+    margin-right .25em
+    display block
+    opacity 0.3
+    background url('../images/ui/drag-handle.png') repeat-y
+    background-size: contain;
+    transition opacity .2s ease-out
+    &:hover
+      opacity 1
 
-    > .control
+> .control
       flex 1
 
 

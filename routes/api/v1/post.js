@@ -31,8 +31,15 @@ var sendInvitationEmail = function (guest) {
 router.post('/projects', function (req, res, next) {
     if (req.user) {
 
-        var projectPayload = req.body;
-        projectPayload.identifier = slug(projectPayload.title);
+        var projectPayload = {
+            title: req.body.title || req.context.translate('api.projects.defaultTitle'),
+            identifier: req.body.identifier,
+            icon: req.body.icon || {}
+        };
+
+        if(typeof projectPayload.identifier === 'undefined'){
+            projectPayload.identifier = slug(String(projectPayload.title));
+        }
 
         Project.create(projectPayload, function (err, project) {
             if (err) {

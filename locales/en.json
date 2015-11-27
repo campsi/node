@@ -58,6 +58,7 @@
 	"panels.project.collectionList.adminBtn": "Admin",
 	"panels.project.collectionList.designBtn": "Design",
 	"panels.project.collectionList.removeBtn": "Delete",
+	"panels.projects.newProjectLabel": "New Project",
 	"panels.project.newCollectionBtn": "Create new collection",
 	"app.title": "Campsi, the API driven CMS",
 	"app.og.title": "The API driven CMS",

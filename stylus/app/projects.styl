@@ -1,6 +1,8 @@
 #projects
+  text-align center
 
   background url(furley_bg.png)
+  //background #92b1d6
 
   .content
     padding auto 2em
@@ -27,6 +29,7 @@
   .array_item, .newItem
     display inline-block
     margin 1em
+
 
   .campsi_project-list_project
     display inline-block
@@ -112,7 +115,7 @@
         background-clip content-box
         background-position: 50% 50%
         background-repeat no-repeat
-        background-image url(/images/ui/plus.png)
+        background-image url(/images/ui/new-project.png)
         /*box-shadow -1px 1px 2px rgba($dark, .1)*/
         border 1px solid darken($light, 5)
         border-bottom 3px solid darken($light, 7)
@@ -127,7 +130,14 @@
         //transition box-shadow .1s ease-in, transform .1s ease-out
         transition transform .1s ease-out
 
-
-
+  .items
+    display inline
+  .newItem
+    display inline-block
+    .campsi_project-list_project
+      opacity 0.5
+      transition opacity .3s ease-out
+      &:hover
+        opacity 1
 
 

@@ -50,7 +50,7 @@ router.put('/projects/:project', function (req, res, next) {
     }
 
     project.save(function (err, result) {
-        res.json(result);
+        res.json(result.toObject());
     });
 });
 
@@ -85,7 +85,7 @@ router.put('/projects/:project/collections/:collection', function (req, res, nex
     }
 
     collection.save(function (err, result) {
-        res.json(result);
+        res.json(result.toObject());
     });
 });
 

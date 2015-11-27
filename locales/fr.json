@@ -58,7 +58,11 @@
 	"panels.project.collectionList.adminBtn": "Administrer",
 	"panels.project.collectionList.designBtn": "Designer",
 	"panels.project.collectionList.removeBtn": "Supprimer",
+	"panels.projects.newProjectLabel": "Nouveau Projet",
+	"panels.projects.help.message": "<p>Retrouvez ici tous vos projets.</p><p>Un projet peut être un site internet, une application mobile ou les deux à la fois.</p>",
 	"app.title": "Campsi, l'API au ♥ du CMS",
 	"app.og.title": "l'API au ♥ du CMS",
-	"app.og.description": "Campsi est une nouvelle plateforme de gestion de contenu web pour les pros de la création de site internet."
+	"app.og.description": "Campsi est une nouvelle plateforme de gestion de contenu web pour les pros de la création de site internet.",
+	"panels.projectUsers.invite.button": "Envoyer l'invitation",
+	"panels.projectUsers.invite.title": "Invitez quelqu'un à participer !"
 }
