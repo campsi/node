@@ -160,8 +160,9 @@ input.component.text
   font-size 0.94em
   width: 100%;
   font-family: "Avenir Next";
-  border: darken($light, 10) solid 1px;
-  transition box-shadow .3s ease-in, box-color .3s ease-in
+  border: darken($light, 0) solid 1px
+  box-shadow: inset lighten($light, 4) 0 2px 10px
+  transition box-shadow .1s ease-in, border-color .1s ease-in
 
 //box-shadow: inset #ededed 0 1px 1px;
 input.component.text::placeholder
@@ -171,7 +172,7 @@ input.component.text::placeholder
 
 input.component.text:focus
   outline: none;
-  border-color: $theme
+  border-color: lighten($theme, 20)
   box-shadow: inset lighten($theme, 20) 0 0 2px;
 
 input.component.text:disabled
@@ -324,6 +325,5 @@ input.component.text:disabled
   .message
     padding 1em 2em 1em 1em
     text-align left
-    text-shadow 0 -1px #FFF
     p:last-child
       margin-bottom 0
