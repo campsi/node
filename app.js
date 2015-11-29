@@ -15,8 +15,7 @@ var Project = require('./models/project');
 var winston = require('winston');
 var config = require('./config');
 var expressWinston = require('express-winston');
-
-
+var Campsi = require('campsi');
 //i18n
 var i18n = require('i18n');
 
@@ -104,7 +103,7 @@ app.get('/callback', passport.authenticate('auth0'), function (req, res) {
                 return res.redirect('/');
             }
 
-            guest.turnIntoUser(req.user, function(){
+            guest.turnIntoUser(req.user, function () {
                 res.redirect('/projects');
             })
         });
@@ -114,7 +113,7 @@ app.get('/callback', passport.authenticate('auth0'), function (req, res) {
     }
 });
 
-app.get('/logout', function(req, res){
+app.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect('/');
 });
@@ -135,7 +134,7 @@ app.use('/profile', require('./routes/profile'));
 
 app.use('/', require('./routes/index'));
 
-app.get('/undefined', function(req, res){
+app.get('/undefined', function (req, res) {
     res.send('U MAD BRO');
 });
 
@@ -151,7 +150,7 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
 
-    if (err.status === 404){
+    if (err.status === 404) {
         return res.send('404 / NOT FOUND');
     }
 

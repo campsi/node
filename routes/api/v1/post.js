@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var resources = require('../../../middleware/resources');
+
 var Project = require('../../../models/project');
 var Collection = require('../../../models/collection');
 var Entry = require('../../../models/entry');
@@ -7,6 +8,8 @@ var Draft = require('../../../models/draft');
 var Guest = require('../../../models/guest');
 var User = require('../../../models/user');
 var slug = require('slug');
+
+var Campsi = require('campsi');
 
 // todo use process.env
 var config = require('../../../config');
@@ -37,7 +40,7 @@ router.post('/projects', function (req, res, next) {
             icon: req.body.icon || {}
         };
 
-        if(typeof projectPayload.identifier === 'undefined'){
+        if (typeof projectPayload.identifier === 'undefined') {
             projectPayload.identifier = slug(String(projectPayload.title));
         }
 
@@ -47,8 +50,9 @@ router.post('/projects', function (req, res, next) {
                 res.json(err);
             } else {
                 req.user.addToProject(project._id, ['admin', 'designer']);
-                req.user.save(function (err, data) {
+                req.user.save(function (/*err, data*/) {
                     res.json(project.toObject());
+                    Campsi.eventbus.emit('project:create', {project: project, user: req.user});
                 });
             }
         });
@@ -61,10 +65,11 @@ router.post('/projects', function (req, res, next) {
 
 router.post('/projects/:project/collections', function (req, res, next) {
 
-    if(req.query.template){
+    if (req.query.template) {
         console.info("create collection from template", req.query.template);
-        req.project.createCollectionFromTemplate(req.query.template, function(err, collection){
+        req.project.createCollectionFromTemplate(req.query.template, function (err, collection) {
             res.json(collection);
+            Campsi.eventbus.emit('collection:create', {project: req.project, collection: collection, user: req.user});
         });
         return;
     }

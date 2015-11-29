@@ -1,7 +1,8 @@
 #projects
   text-align center
 
-  background url(../images/ui/furley_bg.png)
+  //background url(../images/ui/furley_bg.png)
+  background url(../images/ui/low_contrast_linen_@2X.png)
   //background #92b1d6
 
   .content
@@ -38,7 +39,8 @@
     width 10rem
     margin 0 auto
     text-decoration none
-    color $dark
+    color white
+    text-shadow 0 1px 1px #000
     position relative
 
     &.demo .logo::after
@@ -110,15 +112,15 @@
 
 
         box-sizing content-box
-        background-color #FFF
+        background-color rgba(#FFF, 0.4)
         background-size 80%
         background-clip content-box
         background-position: 50% 50%
         background-repeat no-repeat
         background-image url(/images/ui/new-project.png)
         /*box-shadow -1px 1px 2px rgba($dark, .1)*/
-        border 1px solid darken($light, 5)
-        border-bottom 3px solid darken($light, 7)
+        border 1px solid rgba(darken($light, 5), 0.4)
+        border-bottom 3px solid rgba(darken($light, 7), 0.4)
 
         //box-shadow 1px 2px 5px 0 rgba($dark, .1)
         border-radius 10px //($logoSize / 6)

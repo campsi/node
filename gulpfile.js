@@ -35,7 +35,7 @@ var coreDependencies = [
     'handlebars'
 ];
 
-var serverOnlyDependencies = ['cheerio', 'console.table', 'request', 'jade', 'path', 'i18n'];
+var serverOnlyDependencies = ['cheerio', 'console.table', 'request', 'jade', 'path', 'i18n', 'node-redis-pubsub'];
 
 gulp.task('serve', function () {
     nodemon({

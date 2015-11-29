@@ -159,9 +159,11 @@ input.component.text
   padding: 0.4em 0.4em 0.2em 0.4em;
   font-size 0.94em
   width: 100%;
+  border-radius 4px
   font-family: "Avenir Next";
-  border: darken($light, 0) solid 1px
-  box-shadow: inset lighten($light, 4) 0 2px 10px
+  border: darken($light, 15) solid 1px
+  //border: none
+  box-shadow: inset rgba(black, .1) 0 1px 1px 1px
   transition box-shadow .1s ease-in, border-color .1s ease-in
 
 //box-shadow: inset #ededed 0 1px 1px;
@@ -188,9 +190,10 @@ input.component.text:disabled
 .component.file, .component.file_image
 
   .file-dropzone
-    border .3em dashed $light
-    background lighten($light, 2)
-    border-radius 1em
+    border 1px solid darken($light, 5)
+    background darken($light, 2)
+    box-shadow: inset darken($light, 5) 0 1px 5px 1px
+    border-radius 4px
     position relative
     overflow hidden
 
@@ -251,8 +254,18 @@ input.component.text:disabled
 .component.text_area
   position relative
   width 100%
-  height 4rem
+  min-height 5rem
   border: darken($light, 10) solid 1px;
+  box-shadow: inset rgba(black, .1) 0 1px 1px 1px
+  border-radius 4px
+  padding .5em
+  font-size .90em
+  margin 0
+
+  &:focus
+    outline: none;
+    border-color: lighten($theme, 20)
+    box-shadow: inset lighten($theme, 20) 0 0 2px;
 
 
 #app .form_field.url
