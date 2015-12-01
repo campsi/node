@@ -52,7 +52,7 @@ router.post('/projects', function (req, res, next) {
                 req.user.addToProject(project._id, ['admin', 'designer']);
                 req.user.save(function (/*err, data*/) {
                     res.json(project.toObject());
-                    Campsi.eventbus.emit('project:create', {project: project, user: req.user});
+                    //Campsi.eventbus.emit('project:create', {project: project, user: req.user});
                 });
             }
         });
@@ -69,7 +69,7 @@ router.post('/projects/:project/collections', function (req, res, next) {
         console.info("create collection from template", req.query.template);
         req.project.createCollectionFromTemplate(req.query.template, function (err, collection) {
             res.json(collection);
-            Campsi.eventbus.emit('collection:create', {project: req.project, collection: collection, user: req.user});
+            //Campsi.eventbus.emit('collection:create', {project: req.project, collection: collection, user: req.user});
         });
         return;
     }
