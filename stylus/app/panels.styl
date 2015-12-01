@@ -24,11 +24,13 @@ $headerHeight = 3.2em
     box-sizing content-box
 
 
+
     > .content
       padding-top $headerHeight + 1em
       overflow-y auto
       height 100%
       -webkit-overflow-scrolling touch
+      background-size 100%
 
     &.next
       display none
@@ -42,6 +44,29 @@ $headerHeight = 3.2em
       &.hidden
         display none
 
+    &.light
+      background url(/images/ui/whitey_@2X.png)
+      background url(/images/ui/subtle_grunge.png)
+      //background-size 20%
+
+    &.dark
+      color white
+      background url(../images/ui/low_contrast_linen_@2X.png)
+      background url(/images/ui/irongrip.png)
+      //background-size 20%
+      box-shadow inset -10px 0 20px rgba(black, .5)
+
+      > header
+        background linear-gradient(black, lighten(black, 10))
+        border-bottom-color black
+        h2
+          color white
+        .buttons
+          a, button
+            light-button(black)
+
+      &.scroll > header
+        background rgba(black, .7)
 
 
     @media screen and (max-width: 600px)
@@ -98,7 +123,7 @@ $headerHeight = 3.2em
         button, a
           display inline-block
           margin 0 .25rem
-          dark-button(darken($light, 20))
+          light-button(darken($light, 30))
 
           &.save
             dark-button($contrast)

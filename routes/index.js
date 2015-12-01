@@ -103,9 +103,13 @@ var createOptions = function (layout) {
         if (req.projects)
             options.projects.componentValue = toObj(req.projects);
 
-        if (req.project)
-            options.project.componentValue = req.project.toObject();
-
+        if (req.project){
+            var projectObj = req.project.toObject();
+            projectObj.collections.forEach(function(collection){
+                delete collection['id'];
+            });
+            options.project.componentValue = projectObj;
+        }
         if (req.templates)
             options.project.componentOptions = {templates: toObj(req.templates)};
 

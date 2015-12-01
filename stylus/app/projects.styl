@@ -1,9 +1,7 @@
 #projects
+
   text-align center
 
-  //background url(../images/ui/furley_bg.png)
-  background url(../images/ui/low_contrast_linen_@2X.png)
-  //background #92b1d6
 
   .content
     padding auto 2em
@@ -66,8 +64,9 @@
         border-color darken($light, 6)
         transform scaleX(1.05) scaleY(1.05)
 
-    &.active .logo, &.active:hover .logo
+    &.active .wrapper .logo, &.active:hover .wrapper .logo
       //border darken($light, 20) 3px solid
+      background-color rgba(#FFF, 0.3)
       transform scaleX(1.1) scaleY(1.1)
 
     .title
@@ -112,15 +111,14 @@
 
 
         box-sizing content-box
-        background-color rgba(#FFF, 0.4)
+        background-color rgba(#000, 0.4)
         background-size 80%
         background-clip content-box
         background-position: 50% 50%
         background-repeat no-repeat
         background-image url(/images/ui/new-project.png)
         /*box-shadow -1px 1px 2px rgba($dark, .1)*/
-        border 1px solid rgba(darken($light, 5), 0.4)
-        border-bottom 3px solid rgba(darken($light, 7), 0.4)
+        border 1px solid $dark
 
         //box-shadow 1px 2px 5px 0 rgba($dark, .1)
         border-radius 10px //($logoSize / 6)
@@ -130,7 +128,7 @@
 
         vertical-align middle
         //transition box-shadow .1s ease-in, transform .1s ease-out
-        transition transform .1s ease-out
+        transition transform .1s ease-out, background-color .1s ease-out
 
   .items
     display inline

@@ -1,6 +1,4 @@
 #entries
-  background url(../images/ui/low_contrast_linen_@2X.png)
-
   > .content
     padding-top $headerHeight
 
@@ -10,16 +8,18 @@
     text-transform: uppercase
     text-shadow 0 1px 1px $dark
     color white
-    background linear-gradient(lighten($dark, 20), lighten($dark, 15))
-    border-bottom 1px solid $dark
+    background linear-gradient(lighten(black, 13), lighten(black, 5))
+    border-bottom 1px solid black
     padding .5em
     padding-top .8em
     margin 0
 
+    i
+      margin 0 1em
 
 .array_item[data-item-type='campsi/entries-and-drafts/item']
   position relative
-  border-bottom 1px solid $light
+  border-bottom 1px solid lighten(black, 20)
 
   button.remove
     display none
@@ -28,18 +28,19 @@
     position relative
     text-decoration none
     display block
-    color $dark
-    background white
+    color white
+    background linear-gradient(160deg, rgba(white, .2), rgba(white, 0))
+    transition background .1s ease-out
     padding .5em
 
     &:hover
-      background darken($light, 5)
+      background rgba(white, .2)
 
     img
       max-width 5em
       max-height 5em
     span.id
-      //display none
+      display none
       top 0
       right .5em
       z-index 100
@@ -52,23 +53,33 @@
     &.hidden
       display none
     &.active, &:active
-      background $light
+      background linear-gradient(45deg, rgba(white, .1), rgba(white, .3))
 
     &.rel
+      height 0
+      overflow hidden
       font-style italic
       font-size: .8em
       padding 0 .5em
-      border-top 1px dashed darken($light, 10)
+      transition height .2s ease-out
+
+
+    &.active + .rel {
+      border-top 1px solid $dark
+      height 2em
+    }
 
     .template
+      padding .5em 0
       h4, .title
         font-weight 600
-        color black
+        color white
+        text-shadow 0 1px 1px #000
         margin 0 0 .2em 0
 
       .summary
         display block
-        color lighten($dark, 40)
+        color white
         font-weight 300
         font-size: .85em
 
@@ -79,6 +90,7 @@
         float left
         overflow hidden
         margin-right 1em
+        box-shadow 1px 1px 1px #000
         img
           max-height $thumbnailSize
 
@@ -95,7 +107,6 @@
 
 
 #entry
-  background url(../images/ui/furley_bg.png)
 
   header
     button.remove
@@ -111,10 +122,10 @@
 
 
     .label
-      font-weight 400
+      font-weight 200
       color lighten($dark, 10)
-      font-size 1.2em
-      margin-bottom .25em
+      font-size 1.6em
+      margin-bottom .5em
 
   .form_field
     margin-bottom 2em
@@ -172,26 +183,26 @@
     position relative
     cursor all-scroll
     width 1em
-    height 20px
+    height 1.5em
     //outline 1px solid red
     margin-right .25em
     display block
     opacity 0.3
-    background url('../images/ui/drag-handle.png') repeat-y
-    background-size: contain;
+    background url('../images/ui/drag-handle-3.png') no-repeat
+    background-size: 100% 100%;
     transition opacity .2s ease-out
     &:hover
       opacity 1
 
-> .control
-      flex 1
+  > .control
+        flex 1
 
 
-    button.remove
-      align-self flex-start
-      margin-left 1em
-      dark-button(red)
+      button.remove
+        align-self flex-start
+        margin-left 1em
+        dark-button(red)
 
-    &[data-item-type="form"]
-      > button.remove
-        margin -.5em -.5em 0 0
+      &[data-item-type="form"]
+        > button.remove
+          margin -.5em -.5em 0 0

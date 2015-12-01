@@ -2,36 +2,31 @@
 
 light-button($color)
 
-  background $color
-  color lighten($color, 30)
+  background linear-gradient(rgba($color, .5), rgba($color, .7))
+  color lighten($color, 50)
   border-bottom-color darken($color, 20)
+  text-shadow 0 1px 1px darken($color, 20)
+  box-shadow 0 1px 1px 0 rgba(darken($color, 30), .9)
 
   &:hover
     background lighten($color, 10)
-    border-color $color
 
-  &:active
-    background rgba($color, .5)
-
-  &.active
-    box-shadow inset darken($color, 20) 0 2px 2px
+  &:active, &.active
+    box-shadow inset darken($color, 20) 0 1px 2px
     border-bottom none
 
 dark-button($color)
 
-  background rgba($color, .2)
-  color darken($color, 10)
-  border-color $color
+  background linear-gradient($color, darken($color, 10))
+  color lighten($color, 40)
+  box-shadow 0 1px 1px 0 rgba(darken($color, 50), .5)
 
   &:hover
-    color darken($color, 30)
-    border-color darken($color, 30)
+    color lighten($color, 50)
+    border-color darken($color, 10)
 
-  &:active
-    background rgba($color, .5)
-  &:active
-    box-shadow inset darken($color, 20) 0 2px 2px
-    background rgba($color, .5)
+  &:active, &.active
+    box-shadow inset darken($color, 30) 0 2px 2px
 
 button, a.btn, .buttons > a, input[type=submit]
   display inline-block
@@ -39,21 +34,22 @@ button, a.btn, .buttons > a, input[type=submit]
   text-decoration none
   text-align center
   outline none
-  border-radius .4em
+  border-radius 4px
   cursor pointer
-  font-size: 0.8em
+  font-size: 0.9em
   padding 0 0.8em
   height 2.4em
   line-height 2.5em
-  font-weight 600
+  font-weight 400
   border none
-  border-bottom .15em solid transparent
   light-button($light)
 
-  i
-    opacity .3
-  &:hover i
-    opacity 1
+  //&:active, &.active
+  //  line-height 2.3em
+  //i
+  //  opacity .3
+  //&:hover i
+  //  opacity 1
 
   span
     margin-left .25em
@@ -90,7 +86,7 @@ button, a.btn, .buttons > a, input[type=submit]
 
 #app .component.form_field.identifier
   display flex
-  background linear-gradient(darken($light, 3), $light);
+  background rgba(black, 0.1)
   padding 1em
   font-size 1em
   align-items baseline
@@ -116,6 +112,7 @@ button, a.btn, .buttons > a, input[type=submit]
     display none
 
 .component.invisible
+
   padding 0
   //border-top 1px solid darken($light, 5);
   .control
@@ -156,14 +153,14 @@ button, a.btn, .buttons > a, input[type=submit]
 
 input.component.text
   /*width: calc(100% - 0.5em);*/
-  padding: 0.4em 0.4em 0.2em 0.4em;
+  padding: 0.5em 0.5em 0.4em 0.5em;
   font-size 0.94em
   width: 100%;
   border-radius 4px
-  font-family: "Avenir Next";
-  border: darken($light, 15) solid 1px
+  font-family: BlinkMacSystemFont, "Avenir Next";
+  border: darken($light, 10) solid 1px
   //border: none
-  box-shadow: inset rgba(black, .1) 0 1px 1px 1px
+  box-shadow: inset rgba(black, .07) 0 1px 4px 1px
   transition box-shadow .1s ease-in, border-color .1s ease-in
 
 //box-shadow: inset #ededed 0 1px 1px;
@@ -231,15 +228,17 @@ input.component.text:disabled
     margin-top: -50px;
 
 #app .form_field.big-title
-  //padding 2rem
   background $nearWhite
   border-bottom 1px solid darken($nearWhite, 10)
+  border-top 1px solid darken($nearWhite, 10)
   font-size 1.5em
 
   input
     padding .75em
     font-size: 1.5em
     font-weight lighter
+    box-shadow none
+    border-radius 0
 
     &::placeholder
       padding-top .5em
@@ -304,7 +303,8 @@ input.component.text:disabled
 .campsi_help-tour-step
   display inline-block
   background rgba($theme, 0.2)
-  color $theme
+  color white
+  text-shadow 0 1px 1px $theme
   margin 1.5em
   border-radius .5em
   border 1px solid rgba($theme, 0.4)

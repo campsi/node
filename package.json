@@ -26,6 +26,7 @@
     "express-winston": "*",
     "extend": "*",
     "filedrop": "*",
+    "ga-browser": "^1.0.0",
     "gulp": "*",
     "gulp-autoprefixer": "*",
     "gulp-bower": "*",

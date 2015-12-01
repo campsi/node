@@ -1,5 +1,11 @@
 #project
-  background white
+
+  &.new
+    > header .buttons.right
+      button, a
+        display none
+      .save
+        display inherit
 
   > .content
     padding-top $headerHeight
@@ -15,8 +21,8 @@
   .form_field.big-title
     padding 0
 
-  .form_field.icon
-    background white
+  //.form_field.icon
+  //  background white
 
   .project-name
     font-size: 2em
@@ -70,48 +76,76 @@
       margin 1em 0
 
 .array_item[data-item-type="campsi/collection-list/collection"]
-  > button.remove
-    display none
 
-  button.remove
-    dark-button(red)
-
-.campsi_collection-list_collection
   background #FFF
-  border .1em solid darken($light, 2)
-  border-bottom-color darken($light, 10)
+  //border .1em solid darken($light, 2)
+  //border-bottom-color darken($light, 10)
+  box-shadow 0 1px 2px rgba(black, .2)
   border-radius .5em
   margin-bottom: 1em
   padding 1em
   display flex
   align-items center
 
+  > button.remove
+    display none
+
+  > .container
+    flex 1
+
+  > .drag-handle
+    position relative
+    cursor all-scroll
+    width 1em
+    height 1.5em
+    //outline 1px solid red
+    margin-right .25em
+    display block
+    opacity 0.3
+    background url('../images/ui/drag-handle-3.png') no-repeat
+    background-size: 100% 100%;
+    transition opacity .2s ease-out
+
+    &:hover
+      opacity 1
+
   &.active
     background darken(#FFF, 5)
     border .1em solid darken($light, 2)
     border-top-color darken($light, 10)
-  .name
+
+  .campsi_collection-list_collection
+    //background red
     flex 1
+    width 100%
+    .icon
+      float left
+      margin 0 1em
+      height 2em
+      width 2em
+      border none
+    .name
+      line-height 2em
+      display inline
+    .buttons
+      float right
 
   .buttons a, .buttons button
     margin-left .5em
-    dark-button($theme)
+    light-button($theme)
+
+    &:hover
+      opacity 1
+
+  button.remove
+    dark-button(red)
+
 
 
 #projectUsers, #projectDeployments
-  color white
-  background url(../images/ui/low_contrast_linen_@2X.png)
-
   > .content
     padding 1em
     padding-top $headerHeight + 1em
-
-
-  header
-    a
-      light-button(black)
-    h2
-      color white
 
   .label
     color white

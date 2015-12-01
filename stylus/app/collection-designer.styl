@@ -41,9 +41,9 @@
 
 .campsi_collection-designer_field
   background white
-  border 1px solid lighten($dark, 40)
+  border 1px solid lighten($dark, 50)
   border-bottom-width 3px
-  border-bottom-color lighten($dark, 40)
+  border-bottom-color lighten($dark, 50)
 
   width 100%
   border-radius .25em
@@ -161,10 +161,12 @@
   .newItem
     display flex
     align-items center
+    margin-top .5em
     .form
       flex 1
     input[type=submit]
       light-button($theme)
+      margin-top -4px
       display inline
       width auto
     .fields
@@ -180,7 +182,9 @@
   .array_item
     display flex
     align-items center
+    margin-bottom .2em
     .remove
+      margin-top -2px
       dark-button(red)
 
     .container
