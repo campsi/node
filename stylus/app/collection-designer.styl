@@ -84,6 +84,14 @@
       text-align center
       font-size 0.8em
       color white;
+      background url(/images/ui/drag-handle-3.png) no-repeat
+      cursor all-scroll
+      background-size: 100% 100%;
+      transition opacity .2s ease-out
+      opacity 0.5
+
+      &:hover
+        opacity 1
 
     button
       background darken($background, 5)

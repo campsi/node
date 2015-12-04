@@ -10,16 +10,12 @@
   > .content
     padding-top $headerHeight
 
-  .label
-    font-weight lighter
-    //font-size 1.2em
-    color $dark
 
   .form_field
-    padding 1em
+    padding 1em 1.5em 0 1.5em
 
-  .form_field.big-title
-    padding 0
+    &.big-title
+      padding 0
 
   //.form_field.icon
   //  background white
@@ -87,6 +83,9 @@
   display flex
   align-items center
 
+  img
+    display none
+
   > button.remove
     display none
 
@@ -99,7 +98,7 @@
     width 1em
     height 1.5em
     //outline 1px solid red
-    margin-right .25em
+    margin-right .5em
     display block
     opacity 0.3
     background url('../images/ui/drag-handle-3.png') no-repeat
@@ -116,6 +115,9 @@
 
   .campsi_collection-list_collection
     //background red
+
+    display: flex;
+    align-items: center;
     flex 1
     width 100%
     .icon
@@ -127,12 +129,19 @@
     .name
       line-height 2em
       display inline
+      flex 1
+      padding 0 1em
     .buttons
       float right
 
   .buttons a, .buttons button
     margin-left .5em
-    light-button($theme)
+    //text-shadow rgba(black, .5) 0 1px 1px
+    light-button(#CCC)
+    font-size 1.1em
+    span
+      display none
+
 
     &:hover
       opacity 1

@@ -29,7 +29,6 @@
     display inline-block
     margin 1em
 
-
   .campsi_project-list_project
     display inline-block
     text-align: center
@@ -60,8 +59,9 @@
       border 1px solid #C30000
 
     &:hover
-      .logo
-        border-color darken($light, 6)
+      .wrapper .logo
+        //border-color darken($dark, 6)
+        background-color rgba(#FFF, .2)
         transform scaleX(1.05) scaleY(1.05)
 
     &.active .wrapper .logo, &.active:hover .wrapper .logo
@@ -128,7 +128,7 @@
 
         vertical-align middle
         //transition box-shadow .1s ease-in, transform .1s ease-out
-        transition transform .1s ease-out, background-color .1s ease-out
+        transition transform .1s ease-out, background-color .3s ease-out, box-shadow .1s ease-out
 
   .items
     display inline
