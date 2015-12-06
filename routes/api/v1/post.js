@@ -52,7 +52,7 @@ router.post('/projects', function (req, res, next) {
                 req.user.addToProject(project._id, ['admin', 'designer']);
                 req.user.save(function (/*err, data*/) {
                     res.json(project.toObject());
-                    //Campsi.eventbus.emit('project:create', {project: project, user: req.user});
+                    Campsi.eventbus.emit('project:create', {project: project, user: req.user});
                 });
             }
         });
@@ -69,7 +69,12 @@ router.post('/projects/:project/collections', function (req, res, next) {
         console.info("create collection from template", req.query.template);
         req.project.createCollectionFromTemplate(req.query.template, function (err, collection) {
             res.json(collection);
-            //Campsi.eventbus.emit('collection:create', {project: req.project, collection: collection, user: req.user});
+            Campsi.eventbus.emit('collection:create:fromTemplate', {
+                project: req.project,
+                collection: collection,
+                user: req.user,
+                template: req.query.template
+            });
         });
         return;
     }
@@ -85,6 +90,11 @@ router.post('/projects/:project/collections', function (req, res, next) {
         collectionObject.__project = req.project.identity();
         req.project.save(function () {
             res.json(collectionObject);
+            Campsi.eventbus.emit('collection:create', {
+                project: req.project,
+                collection: collection,
+                user: req.user
+            });
         });
     });
 });
@@ -97,6 +107,12 @@ router.post('/projects/:project/collections/:collection/drafts', function (req, 
         data: req.body.data
     }, function (err, draft) {
         res.json(draft.toObject());
+        Campsi.eventbus.emit('draft:create', {
+            project: req.project,
+            collection: req.collection,
+            draft: draft,
+            user: req.user
+        });
     });
 });
 
@@ -110,6 +126,12 @@ router.post('/projects/:project/collections/:collection/entries', function (req,
             req.collection.entries.push(entry._id);
             req.collection.save(function () {
                 res.json(entry);
+                Campsi.eventbus.emit('entry:create', {
+                    project: req.project,
+                    collection: req.collection,
+                    entry: entry,
+                    user: req.user
+                });
             });
         };
 
@@ -132,6 +154,11 @@ router.post('/projects/:project/invitation', function (req, res, next) {
             user.addToProject(req.project._id, req.body.roles);
             user.save(function () {
                 res.json(user);
+
+                Campsi.eventbus.emit('user:addedToProject', {
+                    project: req.project,
+                    user: req.user
+                });
             });
         } else {
             Guest.findOne({email: req.body.email}, function (err, guest) {
@@ -155,10 +182,15 @@ router.post('/projects/:project/invitation', function (req, res, next) {
                 guest.save(function (err, guest) {
                     res.json(guest);
                     sendInvitationEmail(guest);
+                    Campsi.eventbus.emit('guest:invitedToProject', {
+                        project: req.project,
+                        guest: guest
+                    });
                 });
             });
         }
 
     });
 });
+
 module.exports = router;

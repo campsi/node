@@ -16,6 +16,8 @@ var winston = require('winston');
 var config = require('./config');
 var expressWinston = require('express-winston');
 var Campsi = require('campsi');
+
+
 //i18n
 var i18n = require('i18n');
 
@@ -117,6 +119,8 @@ app.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect('/');
 });
+
+//require('./middleware/deployments');
 
 // Routes
 app.use('/api/v1', require('./routes/api/v1/get'));

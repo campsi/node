@@ -65,6 +65,33 @@ module.exports = (function () {
         });
     };
 
+
+    schema.methods.export = function (cb) {
+        this.populate('entries', function (err, populated) {
+            var collection = populated.toObject();
+            collection.entries = collection.entries.map(function (e) {
+                return {data: e.data};
+            });
+
+            collection.templates = collection.templates.map(function (t) {
+                return {
+                    markup: t.markup,
+                    scope: t.scope,
+                    identifier: t.identifier
+                }
+            });
+
+            delete collection._id;
+            delete collection.id;
+            delete collection._project;
+            delete collection.__v;
+            delete collection.hasFields;
+
+            cb(collection);
+        })
+
+    };
+
     return mongoose.model('Collection', schema);
 
 })();

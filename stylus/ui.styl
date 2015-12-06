@@ -11,9 +11,13 @@ light-button($color)
   &:hover
     background linear-gradient(tint($color, 70), tint($color, 30))
 
+  &:focus
+    box-shadow 0 1px 2px 2px rgba(darken($color, 30), .9)
+
   &:active, &.active
     box-shadow inset darken($color, 20) 0 1px 2px
     border-bottom none
+
 
 dark-button($color)
 
@@ -25,8 +29,12 @@ dark-button($color)
     border-color darken($color, 10)
     background linear-gradient(tint($color, 40), tint($color, 10))
 
+  &:focus
+    box-shadow 0 1px 2px 1px rgba(darken($color, 50), .7)
+
   &:active, &.active
     box-shadow inset darken($color, 30) 0 2px 2px
+
 
 button, a.btn, .buttons > a, input[type=submit]
   &:not(.link)
@@ -45,6 +53,7 @@ button, a.btn, .buttons > a, input[type=submit]
     border none
     color white
     light-button($light)
+
 
   //&:active, &.active
   //  line-height 2.3em
