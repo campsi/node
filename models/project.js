@@ -28,7 +28,10 @@ module.exports = (function () {
                 password: String,
                 path: String
             },
-            email: String
+            email: {
+                value: String,
+                frequency: String
+            }
         }]
     });
 

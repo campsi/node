@@ -126,7 +126,6 @@ var createOptions = function (layout) {
         if (req.collection) {
             var collectionObj = req.collection.toObject();
             options.collection.componentValue = collectionObj;
-            options.designer.componentValue = collectionObj;
             options.entry.componentOptions = collectionObj;
         }
 
@@ -161,8 +160,7 @@ router.get(routes.project.path, resources.getProjects, resources.getTemplates, c
 router.get(routes.projectUsers.path, resources.getTemplates, resources.getProjectUsers, createOptions(routes.projectUsers.layout));
 router.get(routes.projectDeployments.path, resources.getTemplates, resources.getProjectDeployments, createOptions(routes.projectDeployments.layout));
 router.get(routes.newCollection.path, resources.getTemplates, createOptions(routes.newCollection.path));
-router.get(routes.collection.path, resources.getTemplates, createOptions(routes.collection.layout));
-router.get(routes.designer.path, resources.getComponents, createOptions(routes.designer.layout));
+router.get(routes.collection.path, resources.getTemplates, resources.getComponents, createOptions(routes.collection.layout));
 router.get(routes.entries.path, resources.getEntriesAndDrafts, createOptions(routes.entries.layout));
 router.get(routes.newEntry.path, resources.getEntriesAndDrafts, createOptions(routes.entries.layout));
 router.get(routes.entry.path, resources.getEntriesAndDrafts, createOptions(routes.entry.layout));

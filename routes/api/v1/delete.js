@@ -4,6 +4,7 @@ var Project = require('../../../models/project');
 var Collection = require('../../../models/collection');
 var Entry = require('../../../models/entry');
 var Draft = require('../../../models/draft');
+var Campsi = require('campsi');
 
 resources.patchRouter(router);
 
@@ -16,6 +17,11 @@ router.delete('/projects/:project', function(req, res, next){
         }
 
         res.json({});
+
+        Campsi.eventbus.emit('project:delete', {
+            project: req.project,
+            user: req.user
+        });
     });
 });
 
@@ -27,6 +33,12 @@ router.delete('/projects/:project/collections/:collection', function(req, res, n
         }
 
         res.json({});
+
+        Campsi.eventbus.emit('collection:delete', {
+            project: req.project,
+            collection: req.collection,
+            user: req.user
+        });
     });
 });
 
@@ -38,6 +50,13 @@ router.delete('/projects/:project/collections/:collection/entries/:entry', funct
         }
 
         res.json({});
+
+        Campsi.eventbus.emit('entry:delete', {
+            project: req.project,
+            collection: req.collection,
+            entry: req.entry,
+            user: req.user
+        });
     });
 });
 
@@ -50,6 +69,13 @@ router.delete('/projects/:project/collections/:collection/drafts/:draft', functi
         }
 
         res.json({});
+
+        Campsi.eventbus.emit('drafts:delete', {
+            project: req.project,
+            collection: req.collection,
+            draft: req.draft,
+            user: req.user
+        });
     });
 });
 

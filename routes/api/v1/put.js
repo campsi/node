@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var slug = require('slug');
 var Draft = require('../../../models/draft');
 var extend = require('extend');
+var Campsi = require('campsi');
 
 resources.patchRouter(router);
 
@@ -50,7 +51,12 @@ router.put('/projects/:project', function (req, res, next) {
     }
 
     project.save(function (err, result) {
+        if(err){
+            res.status(500);
+            return res.json(err);
+        }
         res.json(result.toObject());
+        Campsi.eventbus.emit('project:update', {project: project, user: req.user});
     });
 });
 
@@ -86,6 +92,7 @@ router.put('/projects/:project/collections/:collection', function (req, res, nex
 
     collection.save(function (err, result) {
         res.json(result.toObject());
+        Campsi.eventbus.emit('collection:update', {project: req.project, collection: result, user: req.user});
     });
 });
 
@@ -105,6 +112,12 @@ router.put('/projects/:project/collections/:collection/entries/:entry', function
             });
         } else {
             res.json(result.toObject());
+            Campsi.eventbus.emit('entry:update', {
+                project: req.project,
+                collection: req.collection,
+                entry: result,
+                user: req.user
+            });
         }
     });
 });
@@ -120,6 +133,12 @@ router.put('/projects/:project/collections/:collection/drafts/:draft', function 
 
     draft.save(function (err, result) {
         res.json(result.toObject());
+        Campsi.eventbus.emit('draft:update', {
+            project: req.project,
+            collection: req.collection,
+            draft: result,
+            user: req.user
+        });
     });
 });
 
@@ -127,6 +146,9 @@ router.put('/users/me', function (req, res) {
     extend(req.user, req.body);
     req.user.save(function () {
         res.json(req.user);
+        Campsi.eventbus.emit('user:update', {
+            user: req.user
+        });
     });
 });
 

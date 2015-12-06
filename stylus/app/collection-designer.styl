@@ -24,10 +24,14 @@
 .campsi_component-list
   position relative
 
+  > .items.dropzone
+    padding-bottom 10em
+
   > .items.dropzone:empty
     min-height 5em;
     background $light
     border 3px dashed darken($light, 10)
+
 
     &::before
       content: 'drop fields here'
@@ -213,7 +217,7 @@
   to
     transform translateY(0)
 
-#designer
+#collection
   .modal
     position absolute
     top 0
