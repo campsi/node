@@ -53,7 +53,7 @@
 	"panels.designer.advancedForm.close": "Fermer",
 	"panels.designer.advancedForm.save": "Enregistrer",
 	"panels.projectUsers.invite.result.success": "Invitation envoyée !",
-	"panels.projectUsers.invite.result.error": "Un problème est survenu lors de l'envoi, veuillez vérifier le mail saisi.",
+	"panels.projectUsers.invite.result.error": "Un problème est survenu lors de l'envoi, veuillez vérifier l'adresse e-mail saisie.",
 	"panels.project.collectionList.editBtn": "Modifier",
 	"panels.project.collectionList.adminBtn": "Administrer",
 	"panels.project.collectionList.designBtn": "Designer",
@@ -66,5 +66,6 @@
 	"panels.projectUsers.invite.button": "Envoyer l'invitation",
 	"panels.projectUsers.invite.title": "Invitez quelqu'un à participer !",
 	"panels.project.fields.title.help": "panels.project.fields.title.help",
-	"panels.collection.fields.fields": "Champs de la collection"
+	"panels.collection.fields.fields": "Champs de la collection",
+	"panels.project.noCollectionYet": "<p>Votre projet ne contient pour l'instant aucune collection.</p>"
 }

@@ -137,6 +137,7 @@ button, a.btn, .buttons > a, input[type=submit]
       font-size .8em
       padding .75em
       padding-bottom .5em
+
   .help .errors
     display none
 
@@ -334,8 +335,8 @@ input.component.text:disabled
 .campsi_help-tour-step
   display inline-block
   background rgba($theme, 0.2)
-  color white
-  text-shadow 0 1px 1px $theme
+  color lighten($theme, 20)
+  //text-shadow 0 1px 1px $theme
   margin 1.5em
   border-radius .5em
   border 1px solid rgba($theme, 0.4)
@@ -358,6 +359,7 @@ input.component.text:disabled
     font-weight bold
     font-size 1.5em
   button
+    box-shadow none
     background transparent
     border none
     position absolute

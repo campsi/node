@@ -2,6 +2,31 @@
 
   text-align center
 
+  .filter
+    display inline-block
+    width 90%
+    margin-bottom 1em
+    position relative
+    i
+      position absolute
+      top 50%
+      left 1em
+      height 1em
+      margin-top -.5em
+    input
+      width 100%
+      padding .5em
+      border-radius 2em
+      text-indent 1.5em
+      color white
+      border 1px solid rgba(black, .4)
+      background rgba(black, .2)
+      box-shadow inset 0 1px 3px 0 rgba(black, .6)
+
+      &:focus
+        outline none
+        background rgba($theme, .1)
+
 
   .content
     padding auto 2em

@@ -42,7 +42,7 @@ var createPanels = function (panelsOptions, context, callback) {
 };
 
 
-var getLanding= function (req, res, next) {
+var getLanding = function (req, res, next) {
     var filename = path.join(__dirname, '/../public/panels/welcome.html');
     fs.readFile(filename, function (err, data) {
         req.welcome = data;
@@ -97,21 +97,24 @@ var createOptions = function (layout) {
 
         var options = getPanelOptions(layout, req.context);
 
-        if (req.welcome)
+        if (req.welcome) {
             options.welcome.componentValue = req.welcome;
+        }
 
-        if (req.projects)
+        if (req.projects) {
             options.projects.componentValue = toObj(req.projects);
+        }
 
-        if (req.project){
+        if (req.project) {
             var projectObj = req.project.toObject();
-            projectObj.collections.forEach(function(collection){
+            projectObj.collections.forEach(function (collection) {
                 delete collection['id'];
             });
             options.project.componentValue = projectObj;
         }
-        if (req.templates)
+        if (req.templates) {
             options.project.componentOptions = {templates: toObj(req.templates)};
+        }
 
         if (req.projectUsers) {
             options.projectUsers.componentValue = req.project.identity();

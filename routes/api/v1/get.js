@@ -77,14 +77,17 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
 
     var query = Entry.find(params).select('data');
 
-    if (req.query.sort)
+    if (req.query.sort) {
         query.sort(req.query.sort);
+    }
 
-    if (req.query.limit)
+    if (req.query.limit) {
         query.limit(req.query.limit);
+    }
 
-    if (req.query.skip)
+    if (req.query.skip) {
         query.limit(req.query.skip);
+    }
 
     query.exec(function (err, entries) {
 
