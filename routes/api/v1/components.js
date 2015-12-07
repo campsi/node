@@ -5,7 +5,7 @@ var Component = require('../../../models/component');
 var mongoose = require('mongoose');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     Component.find({/*userId: sdsg*/}, function(err, components){
         res.json(components);
     });

@@ -31,7 +31,7 @@ var sendInvitationEmail = function (guest) {
     });
 };
 
-router.post('/projects', function (req, res, next) {
+router.post('/projects', function (req, res) {
     if (req.user) {
 
         var projectPayload = {
@@ -63,7 +63,7 @@ router.post('/projects', function (req, res, next) {
     }
 });
 
-router.post('/projects/:project/collections', function (req, res, next) {
+router.post('/projects/:project/collections', function (req, res) {
 
     if (req.query.template) {
         console.info("create collection from template", req.query.template);
@@ -99,7 +99,7 @@ router.post('/projects/:project/collections', function (req, res, next) {
     });
 });
 
-router.post('/projects/:project/collections/:collection/drafts', function (req, res, next) {
+router.post('/projects/:project/collections/:collection/drafts', function (req, res) {
     Draft.create({
         _collection: req.collection._id,
         _user: req.user._id,
@@ -116,7 +116,7 @@ router.post('/projects/:project/collections/:collection/drafts', function (req, 
     });
 });
 
-router.post('/projects/:project/collections/:collection/entries', function (req, res, next) {
+router.post('/projects/:project/collections/:collection/entries', function (req, res) {
     Entry.create({
         _collection: req.collection._id,
         data: req.body.data
@@ -136,7 +136,7 @@ router.post('/projects/:project/collections/:collection/entries', function (req,
         };
 
         if (req.body._draft) {
-            Draft.remove({_id: req.body._draft}, function (err) {
+            Draft.remove({_id: req.body._draft}, function (/* err */) {
                 send();
             });
         } else {
@@ -146,7 +146,7 @@ router.post('/projects/:project/collections/:collection/entries', function (req,
     });
 });
 
-router.post('/projects/:project/invitation', function (req, res, next) {
+router.post('/projects/:project/invitation', function (req, res) {
 
     User.findOne({'emails.value': req.body.email}, function (err, user) {
 

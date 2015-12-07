@@ -5,7 +5,7 @@ var browserConfig = require('../browser-config');
 
 
 
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     Campsi.create('campsi/profile/contact', {value: req.user}, function (contactForm) {
         Campsi.create('campsi/profile/organization', function (organizationForm) {
             res.render('profile', {

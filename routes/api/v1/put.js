@@ -15,7 +15,7 @@ var returnId = function (item) {
     return mongoose.Types.ObjectId(item._id);
 };
 
-router.put('/projects/:project', function (req, res, next) {
+router.put('/projects/:project', function (req, res) {
 
     var project = req.project;
 
@@ -60,7 +60,7 @@ router.put('/projects/:project', function (req, res, next) {
     });
 });
 
-router.put('/projects/:project/collections/:collection', function (req, res, next) {
+router.put('/projects/:project/collections/:collection', function (req, res) {
     var collection = req.collection;
 
     if (typeof req.body.name !== 'undefined') {
@@ -96,7 +96,7 @@ router.put('/projects/:project/collections/:collection', function (req, res, nex
     });
 });
 
-router.put('/projects/:project/collections/:collection/entries/:entry', function (req, res, next) {
+router.put('/projects/:project/collections/:collection/entries/:entry', function (req, res) {
 
     var entry = req.entry;
 
@@ -122,7 +122,7 @@ router.put('/projects/:project/collections/:collection/entries/:entry', function
     });
 });
 
-router.put('/projects/:project/collections/:collection/drafts/:draft', function (req, res, next) {
+router.put('/projects/:project/collections/:collection/drafts/:draft', function (req, res) {
 
     var draft = req.draft;
 

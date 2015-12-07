@@ -9,7 +9,7 @@ var Campsi = require('campsi');
 resources.patchRouter(router);
 
 
-router.delete('/projects/:project', function(req, res, next){
+router.delete('/projects/:project', function(req, res){
     Project.remove({_id: req.project._id}, function(err){
         if(err){
             res.status(500);
@@ -25,7 +25,7 @@ router.delete('/projects/:project', function(req, res, next){
     });
 });
 
-router.delete('/projects/:project/collections/:collection', function(req, res, next){
+router.delete('/projects/:project/collections/:collection', function(req, res){
     Collection.remove({_id: req.collection._id}, function(err){
         if(err){
             res.status(500);
@@ -42,7 +42,7 @@ router.delete('/projects/:project/collections/:collection', function(req, res, n
     });
 });
 
-router.delete('/projects/:project/collections/:collection/entries/:entry', function(req, res, next){
+router.delete('/projects/:project/collections/:collection/entries/:entry', function(req, res){
     Entry.remove({_id: req.entry._id}, function(err){
         if(err){
             res.status(500);
@@ -61,7 +61,7 @@ router.delete('/projects/:project/collections/:collection/entries/:entry', funct
 });
 
 
-router.delete('/projects/:project/collections/:collection/drafts/:draft', function(req, res, next){
+router.delete('/projects/:project/collections/:collection/drafts/:draft', function(req, res){
     Draft.remove({_id: req.draft._id}, function(err){
         if(err){
             res.status(500);

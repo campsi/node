@@ -9,18 +9,18 @@ var extend = require('extend');
 
 resources.patchRouter(router);
 
-router.get('/projects/', function (req, res, next) {
+router.get('/projects/', function (req, res) {
     Project.list(req.user, function (err, projects) {
         res.json(projects.map(function (p) {
             return p.toObject()
         }));
     });
 });
-router.get('/projects/:project', function (req, res, next) {
+router.get('/projects/:project', function (req, res) {
     res.json(req.project.toObject());
 });
 
-router.get('/projects/:project/users', function (req, res, next) {
+router.get('/projects/:project/users', function (req, res) {
     req.project.getUsers(function (err, users) {
         res.json(users.map(function (u) {
             var obj = u.toObject();
@@ -30,23 +30,23 @@ router.get('/projects/:project/users', function (req, res, next) {
     })
 });
 
-router.get('/projects/:project/deployments', function (req, res, next) {
+router.get('/projects/:project/deployments', function (req, res) {
     Project.findOne({_id: req.project._id}).select('deployments').exec(function (err, project) {
         res.json(project);
     });
 });
 
-router.get('/projects/:project/guests', function (req, res, next) {
+router.get('/projects/:project/guests', function (req, res) {
     req.project.getGuests(function (err, guests) {
         res.json(guests);
     })
 });
 
-router.get('/projects/:project/collections/:collection', function (req, res, next) {
+router.get('/projects/:project/collections/:collection', function (req, res) {
     res.json(req.collection.toObject());
 });
 
-router.get('/projects/:project/collections/:collection/entries-and-drafts', function (req, res, next) {
+router.get('/projects/:project/collections/:collection/entries-and-drafts', function (req, res) {
     req.collection.getEntriesAndDrafts(req.user, function (err, items) {
         var drafts = items.drafts.map(function (i) {
             return i.toObject();
@@ -58,7 +58,7 @@ router.get('/projects/:project/collections/:collection/entries-and-drafts', func
     });
 });
 
-router.get('/projects/:project/collections/:collection/entries', function (req, res, next) {
+router.get('/projects/:project/collections/:collection/entries', function (req, res) {
 
     var templates = {};
     req.collection.templates.map(function (template) {
@@ -119,13 +119,13 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
 });
 
 
-router.get('/projects/:project/collections/:collection/drafts', function (req, res, next) {
+router.get('/projects/:project/collections/:collection/drafts', function (req, res) {
     Draft.findDraftsInCollectionForUser(req.collection, req.user, function (err, drafts) {
         res.json(drafts);
     })
 });
 
-router.get('/projects/:project/collections/:collection/entries/:entry', function (req, res, next) {
+router.get('/projects/:project/collections/:collection/entries/:entry', function (req, res) {
     if (typeof req.query.template === 'undefined') {
         return res.json(req.entry.toObject());
     }
@@ -147,7 +147,7 @@ router.get('/projects/:project/collections/:collection/entries/:entry', function
 });
 
 
-router.get('/projects/:project/collections/:collection/drafts/:draft', function (req, res, next) {
+router.get('/projects/:project/collections/:collection/drafts/:draft', function (req, res) {
     res.json(req.draft.toObject());
 });
 
