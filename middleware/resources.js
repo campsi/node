@@ -5,6 +5,7 @@ var Draft = require('../models/draft');
 var Template = require('./../models/template');
 var Component = require('../models/component');
 var Context = require('../lib/campsi-app/context');
+var browserConfig = require('../browser-config');
 
 module.exports = {
 
@@ -68,6 +69,7 @@ module.exports = {
 
         router.use('/*', function (req, res, next) {
             req.context = new Context();
+            req.context.config = browserConfig;
             next();
         });
 

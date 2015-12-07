@@ -19,14 +19,14 @@
 	"btns.newEntry": "nouvelle entrée",
 	"btns.publish": "publier",
 	"btns.close": "fermer",
-	"panels.collection.fields.identifier": "identifiant",
+	"panels.collection.fields.identifier": "Identifiant",
 	"panels.collection.fields.templates": "squelette HTML",
 	"panels.collection.fields.templates.btn": "éditer les sources",
 	"panels.collection.fields.URL": "URL",
 	"panels.project.fields.title": "Titre du projet",
-	"panels.project.fields.identifier": "identifiant",
+	"panels.project.fields.identifier": "Identifiant",
 	"panels.project.fields.website": "URL du projet",
-	"panels.project.fields.collections": "collections",
+	"panels.project.fields.collections": "Collections du projet",
 	"panels.projectUsers.invite.roles.admin.label": "Administrateur",
 	"panels.projectUsers.invite.roles.admin.help": "L'administrateur peut éditer et publier du contenu au sein des collections du projet",
 	"panels.projectUsers.invite.roles.designer.label": "Designer",
@@ -67,5 +67,6 @@
 	"panels.projectUsers.invite.title": "Invitez quelqu'un à participer !",
 	"panels.project.fields.title.help": "panels.project.fields.title.help",
 	"panels.collection.fields.fields": "Champs de la collection",
-	"panels.project.noCollectionYet": "<p>Votre projet ne contient pour l'instant aucune collection.</p>"
+	"panels.project.noCollectionYet": "<p>Votre projet ne contient pour l'instant aucune collection.</p>",
+	"panels.project.fields.icon": "Icône"
 }
