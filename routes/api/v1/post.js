@@ -83,7 +83,7 @@ router.post('/projects/:project/collections', function (req, res) {
         _project: req.project._id,
         name: req.body.name,
         identifier: (typeof req.body.identifier === 'undefined' || req.body.identifier === '') ? slug(req.body.name) : slug(req.body.identifier),
-        fields: []
+        fields: req.body.fields || []
     }, function (err, collection) {
         req.project.collections.push(collection._id);
         var collectionObject = collection.toObject();

@@ -66,7 +66,8 @@
 	"panels.projectUsers.invite.button": "Envoyer l'invitation",
 	"panels.projectUsers.invite.title": "Invitez quelqu'un à participer !",
 	"panels.project.fields.title.help": "panels.project.fields.title.help",
-	"panels.collection.fields.fields": "Champs de la collection",
+	"panels.collection.fields.fields": "Liste des champs",
 	"panels.project.noCollectionYet": "<p>Votre projet ne contient pour l'instant aucune collection.</p>",
-	"panels.project.fields.icon": "Icône"
+	"panels.project.fields.icon": "Icône",
+	"panels.collection.fieldsPlaceholder": "Glissez-déposez des composants depuis le panneau à droite pour ajouter des champs"
 }

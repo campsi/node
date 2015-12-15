@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 var config = require('../config');
-var Campsi = require('campsi');
 var Draft = require('./draft');
-var Entry = require('./entry');
 
 module.exports = (function () {
 

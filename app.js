@@ -15,7 +15,7 @@ var Project = require('./models/project');
 var winston = require('winston');
 var config = require('./config');
 var expressWinston = require('express-winston');
-var Campsi = require('campsi');
+//var Campsi = require('campsi');
 
 
 //i18n
@@ -151,7 +151,7 @@ app.use(function (req, res, next) {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
     res.status(err.status || 500);
 
     if (err.status === 404) {

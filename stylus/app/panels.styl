@@ -19,7 +19,7 @@ $headerHeight = 3.2em
     background $nearWhite
     transition  transform $duration $easing//, width $duration $easing
     overflow none
-
+    transform: translateZ(0);
     outline: 1px solid darken($light, 5);
     box-sizing content-box
 
@@ -44,8 +44,27 @@ $headerHeight = 3.2em
       &.hidden
         display none
 
+
+    .filter
+      display inline-block
+      width 100%
+      padding 1em
+      position relative
+      i
+        position absolute
+        top 50%
+        left 2em
+        height 1em
+        margin-top -.5em
+      input
+        width 100%
+        padding .5em
+        border-radius 2em
+        text-indent 1.5em
+
     &.light
-      background-image linear-gradient(200deg, rgba(#FFF, .1), rgba(darken(#FFF, 10), .6)), url(/images/ui/furley_bg.png)
+      //background-image linear-gradient(200deg, rgba(#FFF, .1), rgba(darken(#FFF, 10), .6)), url(/images/ui/furley_bg.png)
+      background #f5f7f7
       //background url(/images/ui/subtle_grunge.png)
       //background url(/images/ui/white_bed_sheet_@2X.png)
       //background url(/images/ui/bedge_grunge.png)
@@ -78,6 +97,15 @@ $headerHeight = 3.2em
       &.scroll > header
         background rgba(black, .7)
 
+      .filter input
+        color white
+        border 1px solid rgba(black, .4)
+        background rgba(black, .2)
+        box-shadow inset 0 1px 3px 0 rgba(black, .6)
+
+        &:focus
+          outline none
+          background rgba($theme, .1)
 
     @media screen and (max-width: 600px)
       &.main
@@ -111,7 +139,7 @@ $headerHeight = 3.2em
       position fixed
       z-index 100
       border 1px solid transparent
-      transition background .3s ease-out//, transform 0 linear .1s
+      //transition background .3s ease-out//, transform 0 linear .1s
       padding .5em
       padding-bottom .4em
 

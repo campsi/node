@@ -2,17 +2,20 @@
 
 light-button($color)
 
-  background linear-gradient(tint($color, 60), tint($color, 30))
+  background linear-gradient(tint($color, 50), tint($color, 30))
   color white
   border-bottom-color darken($color, 20)
   text-shadow 0 1px 1px darken($color, 20)
-  box-shadow 0 1px 1px 0 rgba(darken($color, 30), .9)
+  //box-shadow 0 1px 1px 0 rgba(darken($color, 30), .9)
+  border 1px solid tint($color, 20)
 
   &:hover
-    background linear-gradient(tint($color, 70), tint($color, 30))
+    background linear-gradient(tint($color, 60), tint($color, 50))
+    border 1px solid tint($color, 50)
 
   &:focus
-    box-shadow 0 1px 2px 2px rgba(darken($color, 30), .9)
+    box-shadow 0 1px 2px 0 rgba(darken($color, 30), .4)
+    background linear-gradient(tint($color, 60), tint($color, 50))
 
   &:active, &.active
     box-shadow inset darken($color, 20) 0 1px 2px
@@ -22,7 +25,8 @@ light-button($color)
 dark-button($color)
 
   background linear-gradient(tint($color, 30), tint($color, 10))
-  box-shadow 0 1px 1px 0 rgba(darken($color, 50), .5)
+  //box-shadow 0 1px 1px 0 rgba(darken($color, 50), .5)
+  border 1px solid $color
 
   &:hover
     color lighten($color, 50)
@@ -30,7 +34,8 @@ dark-button($color)
     background linear-gradient(tint($color, 40), tint($color, 10))
 
   &:focus
-    box-shadow 0 1px 2px 1px rgba(darken($color, 50), .7)
+    box-shadow 0 1px 2px 0 rgba(darken($color, 30), .4)
+    background linear-gradient(tint($color, 40), tint($color, 10))
 
   &:active, &.active
     box-shadow inset darken($color, 30) 0 2px 2px
@@ -48,7 +53,7 @@ button, a.btn, .buttons > a, input[type=submit]
     font-size: 0.9em
     padding 0 0.8em
     height 2.4em
-    line-height 2.5em
+    line-height 2.4em
     font-weight 400
     border none
     color white
@@ -305,11 +310,13 @@ input.component.text:disabled
     padding 0
     display inline-block
     margin 0 1em 0 0
-
+    text-overflow ellipsis
+    white-space: nowrap;
+    overflow: hidden;
     a
       font-family Menlo, Monaco, Consolas, "Lucida Console", monospace
-      font-size .7em
-      color lighten($dark, 40)
+      font-size .8em
+      color lighten($dark, 10)
       font-weight 100
 
 

@@ -24,24 +24,14 @@
 .campsi_component-list
   position relative
 
-  > .items.dropzone
-    padding-bottom 10em
+  > .placeholder
+    text-align center
+    padding-bottom 1em
 
   > .items.dropzone:empty
-    min-height 5em;
+    height 10em;
     background $light
     border 3px dashed darken($light, 10)
-
-
-    &::before
-      content: 'drop fields here'
-      position absolute
-      top 50%
-      left 50%
-      height 2em
-      width 10em
-      margin-left -5em
-      margin-top -1em
 
 .campsi_collection-designer_field
   background white

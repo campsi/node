@@ -13,7 +13,6 @@ var path = require('path');
 var fs = require('fs');
 
 //conf
-var config = require('../config');
 var browserConfig = require('../browser-config');
 var panelOptions = require('./../lib/campsi-app/panels');
 var routes = require('./../lib/campsi-app/routes');
