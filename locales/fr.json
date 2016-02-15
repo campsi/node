@@ -83,5 +83,11 @@
 	"address.postalCode": "Code Postal",
 	"address.region": "Région",
 	"address.city": "Ville",
-	"address.country": "Pays"
+	"address.country": "Pays",
+	"comp.text.beginsWith.label": "Commence par",
+	"comp.text.contains.label": "Contient",
+	"comp.text.endsWith.label": "Finit par",
+	"comp.text.matches.label": "Expressions régulières",
+	"panels.designer.advancedForm.fields.includeInRender": "Afficher",
+	"panels.designer.advancedForm.fields.includeInRender.checkboxText": "inclure le champ à l'affichage"
 }
