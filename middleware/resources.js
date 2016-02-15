@@ -1,3 +1,4 @@
+var Organization = require('../models/organization');
 var Project = require('../models/project');
 var Collection = require('../models/collection');
 var Entry = require('../models/entry');
@@ -69,8 +70,24 @@ module.exports = {
 
         router.use('/*', function (req, res, next) {
             req.context = new Context();
+            req.context.user = req.user;
             req.context.config = browserConfig;
             next();
+        });
+
+        router.param('organization', function (req, res, next, organization) {
+
+            var query = getQueryForObjectIdOrIdentifier(organization);
+
+            Organization.find(query).exec(function (err, organizations) {
+                if (organizations.length > 0) {
+                    req.organization = organizations[0];
+                    req.context.set('organization', req.organization);
+                    return next();
+                }
+                res.status(404);
+                res.send('');
+            });
         });
 
         router.param('project', function (req, res, next, project) {

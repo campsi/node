@@ -161,6 +161,7 @@ router.get(routes.projects.path, resources.getProjects, createOptions(routes.pro
 router.get(routes.project.path, resources.getProjects, resources.getTemplates, createOptions(routes.project.layout));
 router.get(routes.projectUsers.path, resources.getTemplates, resources.getProjectUsers, createOptions(routes.projectUsers.layout));
 router.get(routes.projectDeployments.path, resources.getTemplates, resources.getProjectDeployments, createOptions(routes.projectDeployments.layout));
+router.get(routes.billing.path, createOptions(routes.billing.layout));
 router.get(routes.newCollection.path, resources.getTemplates, createOptions(routes.newCollection.path));
 router.get(routes.collection.path, resources.getTemplates, resources.getComponents, createOptions(routes.collection.layout));
 router.get(routes.entries.path, resources.getEntriesAndDrafts, createOptions(routes.entries.layout));

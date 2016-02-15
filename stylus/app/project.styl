@@ -150,7 +150,7 @@
   button.remove
     dark-button(red)
 
-#projectUsers, #projectDeployments
+#projectUsers, #projectDeployments, #billing
   > .content
     padding 1em
     padding-top $headerHeight + 1em
@@ -169,10 +169,11 @@
 
   input.text
     background rgba(#FFF, .1);
-    border 1px solid rgba(#FFF, .4);
+    border 1px solid rgba(#FFF, .2);
     border-radius .5em
     color white
-
+    &:focus
+      border 1px solid rgba(#FFF, .4);
   form
     font-size .9em
     button

@@ -69,5 +69,19 @@
 	"panels.collection.fields.fields": "Liste des champs",
 	"panels.project.noCollectionYet": "<p>Votre projet ne contient pour l'instant aucune collection.</p>",
 	"panels.project.fields.icon": "Icône",
-	"panels.collection.fieldsPlaceholder": "Glissez-déposez des composants depuis le panneau à droite pour ajouter des champs"
+	"panels.collection.fieldsPlaceholder": "Glissez-déposez des composants depuis le panneau à droite pour ajouter des champs",
+	"dashboard.greeting": "dashboard.greeting",
+	"btns.billing": "facturation",
+	"panels.billing.header.title": "Facturation",
+	"panels.billing.companyName.label": "Société",
+	"panels.billing.phone.label": "Téléphone",
+	"panels.billing.vatNumber.label": "Numéro de T.V.A.",
+	"panels.billing.address.label": "Adresse postale",
+	"address.line1": "Ligne 1",
+	"address.line2": "Ligne 2",
+	"address.line3": "Ligne 3",
+	"address.postalCode": "Code Postal",
+	"address.region": "Région",
+	"address.city": "Ville",
+	"address.country": "Pays"
 }
