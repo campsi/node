@@ -7,7 +7,6 @@ var Campsi = require('campsi');
 var async = require('async');
 var cheerio = require('cheerio');
 var deepcopy = require('deepcopy');
-var extend = require('extend');
 var jade = require('jade');
 var path = require('path');
 var fs = require('fs');
