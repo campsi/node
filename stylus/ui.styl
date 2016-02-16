@@ -78,6 +78,7 @@ button, a.btn, .buttons > a, input[type=submit]
 
 
 .form_field
+  position relative
   .label
     font-size .9em
     line-height 1.8em
@@ -85,6 +86,38 @@ button, a.btn, .buttons > a, input[type=submit]
 
     text-shadow 0 1px 0px #FFF
 
+  .help
+    position relative
+    border 1px solid rgba($theme, .1)
+    border-top-width 2px
+    background rgba($theme, .2)
+    color $theme
+    font-style italic
+    padding .25em .5em
+    margin-top .8em
+    border-radius .5em
+    font-size .8em
+    text-indent 3em
+
+    &::before
+      text-indent 0
+      position absolute
+      top -1px
+      left -1px
+      background rgba($theme, .5)
+      content: '?'
+      color white
+      display inline-block
+      width 2.5em
+      height 2.4em
+      text-align center
+      line-height 2.5em
+      font-weight bold
+      border-radius .5em 0 .5em 0
+      margin-right 1em
+
+    &:empty
+      display none
 
   &.horizontal
     display flex
