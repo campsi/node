@@ -89,5 +89,6 @@
 	"comp.text.endsWith.label": "Finit par",
 	"comp.text.matches.label": "Expressions régulières",
 	"panels.designer.advancedForm.fields.includeInRender": "Afficher",
-	"panels.designer.advancedForm.fields.includeInRender.checkboxText": "inclure le champ à l'affichage"
+	"panels.designer.advancedForm.fields.includeInRender.checkboxText": "inclure le champ à l'affichage",
+	"panels.designer.advancedForm.fields.help": "Aide"
 }
