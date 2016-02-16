@@ -2,6 +2,7 @@ node_modules
 public/lib
 public/javascripts
 public/components
+public/stylesheets/*.css
 public/stylesheets/**/*.css
 .idea
 lib/auth-strategy/config.js
