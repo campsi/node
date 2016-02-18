@@ -82,10 +82,12 @@ router.get('/editor', function (req, res) {
 
 var createOptions = function (layout) {
 
-    var toObj = function (arr) {
-        return arr.map(function (item) {
-            return item.toObject();
-        })
+    var docsToObj = function (arr) {
+        var ret = [];
+        arr.forEach(function (item) {
+            ret.push(item.toObject());
+        });
+        return ret;
     };
 
 
@@ -100,7 +102,7 @@ var createOptions = function (layout) {
         }
 
         if (req.projects) {
-            options.projects.componentValue = toObj(req.projects);
+            options.projects.componentValue = docsToObj(req.projects);
         }
 
         if (req.project) {
@@ -111,7 +113,7 @@ var createOptions = function (layout) {
             options.project.componentValue = projectObj;
         }
         if (req.templates) {
-            options.project.componentOptions = {templates: toObj(req.templates)};
+            options.project.componentOptions = {templates: docsToObj(req.templates)};
         }
 
         if (req.projectUsers) {
@@ -121,7 +123,7 @@ var createOptions = function (layout) {
 
         if (req.projectDeployments) {
             options.projectDeployments.componentValue = req.project.identity();
-            options.projectDeployments.componentValue.deployments = toObj(req.projectDeployments);
+            options.projectDeployments.componentValue.deployments = docsToObj(req.projectDeployments);
         }
 
         if (req.collection) {
@@ -132,8 +134,8 @@ var createOptions = function (layout) {
 
         if (req.entriesAndDrafts) {
             options.entries.componentValue = {
-                entries: toObj(req.entriesAndDrafts.entries),
-                drafts: toObj(req.entriesAndDrafts.drafts)
+                entries: docsToObj(req.entriesAndDrafts.entries),
+                drafts: docsToObj(req.entriesAndDrafts.drafts)
             };
         }
 
@@ -146,7 +148,7 @@ var createOptions = function (layout) {
         }
 
         if (req.components) {
-            options.components.componentValue = toObj(req.components);
+            options.components.componentValue = docsToObj(req.components);
         }
 
         req.panelsOptions = options;
@@ -164,7 +166,7 @@ router.get(routes.billing.path, createOptions(routes.billing.layout));
 router.get(routes.newCollection.path, resources.getTemplates, createOptions(routes.newCollection.path));
 router.get(routes.collection.path, resources.getTemplates, resources.getComponents, createOptions(routes.collection.layout));
 router.get(routes.entries.path, resources.getEntriesAndDrafts, createOptions(routes.entries.layout));
-router.get(routes.newEntry.path, resources.getEntriesAndDrafts, createOptions(routes.entries.layout));
+router.get(routes.newEntry.path, resources.getEntriesAndDrafts, createOptions(routes.newEntry.layout));
 router.get(routes.entry.path, resources.getEntriesAndDrafts, createOptions(routes.entry.layout));
 router.get(routes.draft.path, resources.getEntriesAndDrafts, createOptions(routes.draft.layout));
 
