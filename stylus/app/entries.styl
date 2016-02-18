@@ -147,13 +147,18 @@
     margin 0
     border-left none
 
-
-    .label
-      font-weight 200
-      color lighten($dark, 10)
-      font-size 1.6em
-      margin-bottom .5em
-      border-bottom 1px solid #dddddd
+    .form_field
+      .label
+        font-weight 200
+        color lighten($dark, 10)
+        font-size 1.6em
+        margin-bottom .5em
+        border-bottom 1px solid #dddddd
+      &.horizontal
+        .label
+          border none
+          min-width 0
+          margin-bottom 0
 
   .form_field
     margin-bottom 2em
@@ -182,6 +187,10 @@
   align-items: center
   position relative
 
+  .form_field
+    margin-bottom .5em
+    &:last-child
+      margin-bottom 0
   > .container > .component.form, > .component.form
     border-left none
 
@@ -231,6 +240,6 @@
         margin-left 1em
         dark-button(red)
 
-      &[data-item-type="form"]
-        > button.remove
-          margin -.5em -.5em 0 0
+      //&[data-item-type="form"]
+      //  > button.remove
+      //    margin -.5em -.5em 0 0
