@@ -2,7 +2,8 @@
 
 light-button($color)
 
-  background linear-gradient(tint($color, 50), tint($color, 30))
+  //background linear-gradient(tint($color, 50), tint($color, 30))
+  background tint($color, 50)
   color white
   border-bottom-color darken($color, 20)
   text-shadow 0 1px 1px darken($color, 20)
@@ -10,12 +11,14 @@ light-button($color)
   border 1px solid tint($color, 20)
 
   &:hover
-    background linear-gradient(tint($color, 60), tint($color, 50))
+    //background linear-gradient(tint($color, 60), tint($color, 50))
+    background tint($color, 60)
     border 1px solid tint($color, 50)
 
   &:focus
     box-shadow 0 1px 2px 0 rgba(darken($color, 30), .4)
-    background linear-gradient(tint($color, 60), tint($color, 50))
+    //background linear-gradient(tint($color, 60), tint($color, 50))
+    background tint($color, 60)
 
   &:active, &.active
     box-shadow inset darken($color, 20) 0 1px 2px
@@ -24,21 +27,24 @@ light-button($color)
 
 dark-button($color)
 
-  background linear-gradient(tint($color, 30), tint($color, 10))
+  //background linear-gradient(tint($color, 30), tint($color, 10))
+  background $color
   //box-shadow 0 1px 1px 0 rgba(darken($color, 50), .5)
   border 1px solid $color
 
   &:hover
     color lighten($color, 50)
     border-color darken($color, 10)
-    background linear-gradient(tint($color, 40), tint($color, 10))
-
+    //background linear-gradient(tint($color, 40), tint($color, 10))
+    background tint($color, 10)
   &:focus
     box-shadow 0 1px 2px 0 rgba(darken($color, 30), .4)
-    background linear-gradient(tint($color, 40), tint($color, 10))
+    //background linear-gradient(tint($color, 40), tint($color, 10))
+    background tint($color, 10)
 
   &:active, &.active
-    box-shadow inset darken($color, 30) 0 2px 2px
+    //box-shadow inset darken($color, 30) 0 2px 2px
+    background tint($color, 20)
 
 
 button, a.btn, .buttons > a, input[type=submit]
@@ -88,7 +94,7 @@ button, a.btn, .buttons > a, input[type=submit]
 
   .help, .errors
     position relative
-    background rgba($theme, .2)
+    background tint($theme, 80)
     color $theme
     font-style italic
     padding .25em .5em .25em 3em
@@ -116,9 +122,9 @@ button, a.btn, .buttons > a, input[type=submit]
       margin-right 1em
 
     &.errors
-      background rgba(red, .2)
-      border-color rgba(red, .1)
-      color red
+      background rgba($red, .2)
+      border-color rgba($red, .1)
+      color $red
 
       &::before
         background rgba(red, .5)
@@ -139,11 +145,6 @@ button, a.btn, .buttons > a, input[type=submit]
     .help, .errors
       width 100%
 
-
-
-
-
-
 .control .label
   font-weight normal
   color darken($light, 60)
@@ -154,7 +155,6 @@ button, a.btn, .buttons > a, input[type=submit]
   padding 1em
   font-size 1em
   align-items baseline
-  //border-bottom 1px solid darken($light,5)
 
   .label
     margin 0 .5em 0 0
@@ -178,26 +178,27 @@ button, a.btn, .buttons > a, input[type=submit]
 
 input.component.text
   /*width: calc(100% - 0.5em);*/
+  //margin-top -1px
   padding: 0.5em 0.5em 0.4em 0.5em;
   font-size 0.94em
   width: 100%;
   border-radius 4px
-  font-family: BlinkMacSystemFont, "Avenir Next";
-  border: darken($light, 14) solid 1px
-  border-bottom-color: darken($light, 6)
-  box-shadow: inset rgba(black, .07) 0 1px 4px 1px
+  //font-family: BlinkMacSystemFont, "Avenir Next";
+  border: $light solid 1px
+  border-bottom-color: darken($light, 2)
+  //box-shadow: inset rgba(black, .07) 0 1px 4px 1px
   transition box-shadow .1s ease-in
 
 //box-shadow: inset #ededed 0 1px 1px;
 input.component.text::placeholder
-  padding-top .2em
+  padding-top 0
   font-weight 200
   font-style: italic
 
 input.component.text:focus
   outline: none;
-  border-color: lighten($theme, 20)
-  box-shadow: inset rgba($theme, .2) 0 1px 4px 1px;
+  border-color: lighten($dark, 60)
+  box-shadow: inset rgba($dark, .1) 0 1px 5px 1px;
 
 input.component.text:disabled
   background darken(white, 5)
@@ -260,7 +261,8 @@ input.component.text:disabled
     margin-top: -50px;
 
 #app .form_field.big-title
-  background linear-gradient(45deg, #FFF, darken(#FFF, 2))
+  //background linear-gradient(45deg, #FFF, darken(#FFF, 2))
+  background tint($light, 60)
   //border-bottom 1px solid darken($nearWhite, 14)
   //border-top 1px solid darken($nearWhite, 10)
   font-size 1.5em
@@ -349,6 +351,8 @@ input.component.text:disabled
       color lighten($dark, 10)
       font-weight 100
 
+select.select_dropdown
+  width 100%
 
 .number_rating
   user-select none

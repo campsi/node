@@ -3,7 +3,7 @@ $componentSize = 3.5em;
 #components
 
   box-shadow none
-  background $dark url(../images/ui/dark_geometric.png)
+  //background $dark url(../images/ui/dark_geometric.png)
 
   > .content
     padding-top $headerHeight
@@ -18,15 +18,16 @@ $componentSize = 3.5em;
   .group
     h3
       margin 0
-      padding .5em .5em .4em .5em
+      padding .2em .5em .1em .5em
       font-weight 200
       color white
-      background linear-gradient(#666, 5%, #222)
+      //background linear-gradient($theme, 5%, darken($dark, 5))
+      background darken($dark, 10)
       text-align left
 
   .components
     text-align left
-    box-shadow inset rgba(#000, .3) 0 3px 6px 2px
+    //box-shadow inset rgba(#000, .3) 0 3px 6px 2px
     .component
       padding 1em
       display inline-block
@@ -41,6 +42,7 @@ $componentSize = 3.5em;
 
   .icon
     background url(../images/ui/component-icon-bg.png) repeat, linear-gradient(45deg, darken($theme, 20), $theme)
+    background lighten($dark, 10)
     height $componentSize
     width $componentSize
     border-radius .5rem
@@ -52,10 +54,15 @@ $componentSize = 3.5em;
     font-weight lighter
     font-size 1.6em
     margin 0 auto
+    display flex
+    align-items center
 
     img
-      height 100%
-      width 100%
+      //height 100%
+      max-width 80%
+      max-height 80%
+      margin 0 auto
+
 
   &:hover
     .icon

@@ -1,5 +1,5 @@
 .array_item[data-item-type='campsi/collection-designer/field']
-  margin-bottom .5em
+  margin-bottom 1em
   position relative
 
   &:last-child
@@ -17,7 +17,7 @@
     border 3px dashed darken($light, 10)
     text-align center
     border-radius .5em
-    float left
+    //float left
     margin-right 1em
     background darken($light, 1)
 
@@ -35,24 +35,28 @@
 
 .campsi_collection-designer_field
   background white
-  border 1px solid lighten($dark, 50)
-  border-bottom-width 3px
-  border-bottom-color lighten($dark, 50)
-
+  //border 1px solid tint($dark, 50)
+  //box-shadow 0 2px 25px tint($dark, 60)
+  //border-bottom-width 3px
+  //border-bottom-color lighten($dark, 50)
   width 100%
-  border-radius .25em
+  border-radius .5em
   overflow hidden
+
+  .campsi_collection-designer_field
+    border 1px solid $light
 
   > .items
     background darken($light, 10)
     padding .5em
 
   header
-    $background = lighten($dark, 50)
+    $background = darken($light, 20)
     display flex
     align-items center
     background $background
-    padding .25em
+    padding .2em .5em
+    font-size .9em
 
     .type, .identifier
       line-height 1.5em
@@ -88,9 +92,10 @@
         opacity 1
 
     button
-      background darken($background, 5)
+      dark-button $background
       margin-left .2em
       color white
+
       border none
       overflow hidden
 
@@ -103,16 +108,18 @@
       display none
 
   .form_field
-    display flex
-    margin-bottom .2em
+    //display flex
+    //margin-bottom .2em
 
     .label
-      display none
-      margin 0
-      margin-right 1rem
-      min-width 5rem
-      align-self center
-      text-align right
+      text-align left
+      font-size .9em
+      font-weight 900
+      padding .5em
+
+    &.form-field-label
+      .label
+        display none
 
     .control
       flex 1
@@ -122,9 +129,22 @@
         width 100%
 
   .form_field[data-comp-type="campsi/component-chooser"]
-    margin-top: .5em
+    margin-top .5em
+
+    .campsi_component-chooser
+      padding .5em
+      background $light
+      border 1px solid darken($light, 5)
+      border-radius .5em
+      display flex
+      .placeholder
+        align-self center
+
+      .form
+        flex 1
+
     .label
-      align-self auto
+      display none
 
   .form_field.form_fields
     margin-top .75em
@@ -157,20 +177,26 @@
 
 .campsi_collection-designer_field .form_field.dropdown-options
   margin-top .5em
-  
+
+  .placeholder
+    display none
+
   > .label
     align-self auto
 
   .newItem
+    background #f9f9f9
+    border-radius .3em
+    box-shadow 0 1px 3px rgba(black, .3)
+    padding .5em
     display flex
     align-items center
     margin-top .5em
     .form
       flex 1
     input[type=submit]
-      light-button($theme)
-      margin-top -4px
-      display inline
+      dark-button($theme)
+      display inline-block
       width auto
     .fields
       display flex
@@ -185,10 +211,10 @@
   .array_item
     display flex
     align-items center
-    margin-bottom .2em
+    margin-bottom .4em
     .remove
-      margin-top -2px
-      dark-button(red)
+      //margin-top -2px
+      dark-button($red)
 
     .container
       flex 1
