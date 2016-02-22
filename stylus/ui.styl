@@ -21,7 +21,7 @@ light-button($color)
     background tint($color, 60)
 
   &:active, &.active
-    box-shadow inset darken($color, 20) 0 1px 2px
+    box-shadow inset darken($color, 20) 0 1px 1px
     border-bottom none
 
 
@@ -60,7 +60,7 @@ button, a.btn, .buttons > a, input[type=submit]
     padding 0 0.8em
     height 2.4em
     line-height 2.4em
-    font-weight 400
+    font-weight 500
     border none
     color white
     light-button($light)
@@ -93,6 +93,7 @@ button, a.btn, .buttons > a, input[type=submit]
     text-shadow 0 1px 0px #FFF
 
   .help, .errors
+    opacity .2
     position relative
     background tint($theme, 80)
     color $theme
@@ -143,7 +144,12 @@ button, a.btn, .buttons > a, input[type=submit]
     .control
       flex 1
     .help, .errors
-      width 100%
+      flex 100%
+
+.form_field.focus .help, .form_field.focus .errors
+  opacity 1
+  &:empty
+    display none
 
 .control .label
   font-weight normal
@@ -213,7 +219,7 @@ input.component.text:disabled
 .component.file, .component.file_image
 
   .file-dropzone
-    border darken($light, 14) solid 1px
+    border darken($light, 5) solid 1px
     background #FFF
     border-bottom-color: darken($light, 6)
     box-shadow: inset rgba(black, .07) 0 1px 4px 1px
@@ -375,6 +381,7 @@ select.select_dropdown
 
 .campsi_help-tour-step
   display inline-block
+  display none
   background rgba($theme, 0.2)
   color lighten($theme, 20)
   //text-shadow 0 1px 1px $theme
@@ -414,3 +421,58 @@ select.select_dropdown
     text-align left
     p:last-child
       margin-bottom 0
+
+
+.panel.dark > .content .fields
+  .label
+    color #eaeaea
+    font-weight 200
+    margin-bottom .3em
+
+  form > .form > .fields > .form_field > .label
+    font-weight 500
+    font-size 1.2em
+    padding .5em 0
+
+  input.text, textarea
+    background rgba(#FFF, .1);
+    border 1px solid rgba(#FFF, .2);
+    border-radius .5em
+    color white
+    &:focus
+      border 1px solid rgba(#FFF, .6);
+      box-shadow none
+
+
+
+  .form_field
+    margin-bottom 1em
+
+  form
+    font-size .9em
+    button
+      dark-button $theme
+
+
+  .form_field[data-comp-type='checkbox']
+    .label
+      display none
+    .help
+      font-weight 200
+      font-style italic
+
+  h3
+    margin-top 2em
+    font-style italic
+    font-weight 200
+
+  .array_item, .newItem
+    color white
+    background-color $dark
+    border 1px solid lighten($dark, 30)
+    padding .5em
+    margin-bottom 1em
+    border-radius .5em
+    position relative
+    vertical-align middle
+    min-height 6.5em

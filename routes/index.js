@@ -41,11 +41,12 @@ var createPanels = function (panelsOptions, context, callback) {
 
 
 var getLanding = function (req, res, next) {
-    var filename = path.join(__dirname, '/../public/panels/welcome.html');
-    fs.readFile(filename, function (err, data) {
-        req.welcome = data;
-        next();
-    });
+    //var filename = path.join(__dirname, '/../public/panels/welcome.html');
+    //fs.readFile(filename, function (err, data) {
+    //    req.welcome = data;
+    //    next();
+    //});
+    next();
 };
 
 
@@ -96,9 +97,16 @@ var createOptions = function (layout) {
         req.context.setLocale(req.locale);
 
         var options = getPanelOptions(layout, req.context);
-
         if (req.welcome) {
             options.welcome.componentValue = req.welcome;
+        }
+
+        if (req.user) {
+            options.dashboard.componentValue = {};
+            options.dashboard.componentValue.user = req.user;
+            if (req.projects) {
+                options.dashboard.componentValue.projects = docsToObj(req.projects);
+            }
         }
 
         if (req.projects) {
@@ -158,6 +166,7 @@ var createOptions = function (layout) {
 };
 
 router.get(routes.welcome.path, getLanding, resources.getProjects, createOptions(routes.welcome.layout));
+router.get(routes.dashboard.path, resources.getProjects, createOptions(routes.dashboard.layout));
 router.get(routes.projects.path, resources.getProjects, createOptions(routes.projects.layout));
 router.get(routes.project.path, resources.getProjects, resources.getTemplates, createOptions(routes.project.layout));
 router.get(routes.projectUsers.path, resources.getTemplates, resources.getProjectUsers, createOptions(routes.projectUsers.layout));
@@ -165,6 +174,7 @@ router.get(routes.projectDeployments.path, resources.getTemplates, resources.get
 router.get(routes.billing.path, createOptions(routes.billing.layout));
 router.get(routes.newCollection.path, resources.getTemplates, createOptions(routes.newCollection.path));
 router.get(routes.collection.path, resources.getTemplates, resources.getComponents, createOptions(routes.collection.layout));
+router.get(routes.collectionFieldProperties.path, resources.getTemplates, resources.getComponents, createOptions(routes.collectionFieldProperties.layout));
 router.get(routes.entries.path, resources.getEntriesAndDrafts, createOptions(routes.entries.layout));
 router.get(routes.newEntry.path, resources.getEntriesAndDrafts, createOptions(routes.newEntry.layout));
 router.get(routes.entry.path, resources.getEntriesAndDrafts, createOptions(routes.entry.layout));

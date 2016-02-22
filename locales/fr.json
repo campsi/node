@@ -7,13 +7,13 @@
 	"panels.entries.header.title": "Entrées",
 	"panels.entry.header.title": "Entrée",
 	"panels.projectUsers.header.title": "Utilisateurs",
-	"panels.projectDeployments.header.title": "Déploiements",
+	"panels.projectDeployments.header.title": "Sauvegardes",
 	"btns.save": "enregistrer",
 	"btns.back": "retour",
 	"btns.logout": "déconnexion",
 	"btns.delete": "supprimer",
 	"btns.projectUsers": "utilisateurs",
-	"btns.projectDeployments": "déploiements",
+	"btns.projectDeployments": "sauvegardes",
 	"btns.admin": "admin",
 	"btns.design": "design",
 	"btns.newEntry": "nouvelle entrée",
@@ -91,5 +91,6 @@
 	"panels.designer.advancedForm.fields.includeInRender": "Afficher",
 	"panels.designer.advancedForm.fields.includeInRender.checkboxText": "inclure le champ à l'affichage",
 	"panels.designer.advancedForm.fields.help": "Aide",
-	"panels.designer.advancedForm.fields.additionalClasses": "Style"
+	"panels.designer.advancedForm.fields.additionalClasses": "Style",
+	"panels.fieldProperties.header.title": "Propriétés"
 }

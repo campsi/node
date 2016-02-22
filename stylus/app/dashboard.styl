@@ -1,0 +1,65 @@
+.campsi_dashboard
+  display flex
+  flex-wrap wrap
+  padding .5em
+  &::before, &::after
+    content: '';
+    width: 100%;
+    order: 1;
+  a
+    text-decoration none
+    font-weight 600
+
+.campsi_dashboard_widget
+  background white
+  padding 1.5em
+  margin 1em
+  border-radius .3em
+  flex 1
+  font-size .90em
+  //float left
+  header
+    img
+      width 1.5em
+      float left
+      margin-right 1em
+  h2
+    color $darkText
+    margin-top 0
+    margin-bottom 1em
+    padding .2em 0
+    //background $light
+    font-weight 600
+    font-size 1.2em
+
+  .form_field
+    margin-top 1em
+    .label
+      margin-bottom .2em
+      color #b1b1b1
+
+  button.save
+    display none
+    margin-top 1em
+    dark-button $theme
+    width 100%
+
+  &.modified button.save
+    display inline-block
+
+
+.campsi_dashboard_widget_profile
+  //width 100%
+
+.campsi_dashboard_widget_favorites
+  order 2
+.campsi_dashboard_widget_news
+  order 2
+
+.campsi_dashboard_widget_activity
+  flex 2
+  table
+    width 100%
+  td
+    padding .5em 0
+    border-bottom 1px solid $light
