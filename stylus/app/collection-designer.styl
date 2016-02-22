@@ -1,3 +1,12 @@
+.campsi_collection
+  &.highlighted
+    .campsi_collection-designer_field
+      > header
+        background darken($light, 10)
+      &.highlight
+        > header
+          background darken($light, 30)
+
 .array_item[data-item-type='campsi/collection-designer/field']
   margin-bottom 1em
   position relative
@@ -33,6 +42,7 @@
     background $light
     border 3px dashed darken($light, 10)
 
+
 .campsi_collection-designer_field
   background white
   //border 1px solid tint($dark, 50)
@@ -42,6 +52,8 @@
   width 100%
   border-radius .5em
   overflow hidden
+
+
 
   .campsi_collection-designer_field
     border 1px solid $light
@@ -55,8 +67,9 @@
     display flex
     align-items center
     background $background
-    padding .2em .5em
+    padding .25em .5em .3em .5em
     font-size .9em
+    transition background .2s linear
 
     .type, .identifier
       line-height 1.5em
@@ -230,5 +243,4 @@
 
 #fieldProperties
   > .content
-    padding 1em
-    padding-top $headerHeight + 1em
+    padding-top $headerHeight

@@ -313,10 +313,11 @@ input.component.text:disabled
         //box-shadow none;
         background: white
         align-self: center
-
-
-    &::placeholder
-      padding-top .5em
+      //box-shadow: inset #ededed 0 1px 1px;
+      &.component.text::placeholder
+        padding-top .35em
+        font-weight 200
+        font-style: italic
 
 .component.text_code
   position relative
@@ -424,10 +425,17 @@ select.select_dropdown
 
 
 .panel.dark > .content .fields
+
+
+  .form_field
+    padding 1em
+    border-bottom 1px solid darken($dark, 5)
+
   .label
-    color #eaeaea
+    color transparentify(white, $dark, .7)
     font-weight 200
     margin-bottom .3em
+    font-size 1.1em
 
   form > .form > .fields > .form_field > .label
     font-weight 500
@@ -445,9 +453,6 @@ select.select_dropdown
 
 
 
-  .form_field
-    margin-bottom 1em
-
   form
     font-size .9em
     button
@@ -457,9 +462,10 @@ select.select_dropdown
   .form_field[data-comp-type='checkbox']
     .label
       display none
-    .help
-      font-weight 200
-      font-style italic
+
+    .checkbox label
+    span
+      color transparentify(white, $dark, .7)
 
   h3
     margin-top 2em
