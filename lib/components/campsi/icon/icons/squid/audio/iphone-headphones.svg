@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="64px" height="63.992px" viewBox="0 0 64 63.992" style="enable-background:new 0 0 64 63.992;" xml:space="preserve">
+<g id="Box_8_">
+	<g>
+		<path style="fill:#E6E6E6;" d="M56,0H8C3.581,0,0,3.582,0,8v47.993c0,4.418,3.581,7.999,8,7.999h48c4.418,0,8-3.581,8-7.999V8
+			C64,3.582,60.418,0,56,0z"/>
+	</g>
+</g>
+<g id="Box_2_">
+	<g>
+		<path style="fill:#FFFFFF;" d="M56,4H8C5.791,4,4,5.791,4,8v47.993c0,2.209,1.791,3.999,4,3.999h48c2.209,0,4-1.79,4-3.999V8
+			C60,5.791,58.209,4,56,4z"/>
+	</g>
+</g>
+<g id="Spacer">
+	<g>
+		<rect x="30" style="fill:#E6E6E6;" width="4" height="63.992"/>
+	</g>
+</g>
+<g id="Volume_5_">
+	<g>
+		<path style="fill:#CCCCCC;" d="M34,11.999h-4c-1.104,0-2,0.895-2,2v35.995c0,1.104,0.896,2,2,2h4c1.104,0,2-0.896,2-2V13.999
+			C36,12.894,35.104,11.999,34,11.999z"/>
+	</g>
+</g>
+<g id="Volume_2_">
+	<g>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#B3B3B3;" d="M34,11.999h-4c-1.104,0-2,0.895-2,2v1.999v2v2h2h4h2v-2v-2
+			v-1.999C36,12.894,35.104,11.999,34,11.999z"/>
+	</g>
+</g>
+<g id="Volume_3_">
+	<g>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#B3B3B3;" d="M34,43.994h-4h-2v2v2v2c0,1.104,0.896,2,2,2h4
+			c1.104,0,2-0.896,2-2v-2v-2v-2H34z"/>
+	</g>
+</g>
+<g id="Cable_Protection">
+	<g>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CCCCCC;" d="M20.025,39.995v8.999v1.5c0,0.828,0.669,1.5,1.493,1.5h2.987
+			c0.825,0,1.494-0.672,1.494-1.5v-1.5v-8.999H20.025z"/>
+	</g>
+</g>
+<g id="Cable_4_">
+	<g>
+		<rect x="22.027" y="51.994" style="fill:#B3B3B3;" width="1.961" height="7.998"/>
+	</g>
+</g>
+<g id="Cable_5_">
+	<g>
+		<rect x="40.011" y="51.994" style="fill:#B3B3B3;" width="1.962" height="7.998"/>
+	</g>
+</g>
+<g id="Case">
+	<g>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CCCCCC;" d="M20,29.996l0.025,9.999H26v-9.999H20z M26,29.996
+			c0-7.336-7.857-17.997-14.144-17.997C7.201,11.999,4,17.261,4,22.001c0,5.43,2.387,10.002,7.856,10.002
+			c3.162,0,4.147-4.287,6.286-4.287c1.545,0,1.857,2.28,1.857,2.28S26,29.979,26,29.996z"/>
+	</g>
+</g>
+<g id="Cable_Protection_1_">
+	<g>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CCCCCC;" d="M38,39.995v8.999v1.5c0,0.828,0.669,1.5,1.493,1.5h2.987
+			c0.825,0,1.494-0.672,1.494-1.5v-1.5v-8.999H38z"/>
+	</g>
+</g>
+<g id="Case_1_">
+	<g>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CCCCCC;" d="M52.143,11.999C45.857,11.999,38,22.66,38,29.996
+			c0-0.017,6,0,6,0s0.313-2.28,1.857-2.28c2.139,0,3.124,4.287,6.285,4.287c5.47,0,7.857-4.572,7.857-10.002
+			C60,17.261,56.798,11.999,52.143,11.999z M38,39.995h5.975L44,29.996h-6V39.995z"/>
+	</g>
+</g>
+<g id="Sound_Plug">
+	<g>
+		<path style="fill:#999999;" d="M6.012,17.998C4.9,17.998,4,19.117,4,20.498v5c0,1.38,0.9,2.499,2.012,2.499
+			c1.11,0,2.011-1.119,2.011-2.499v-5C8.022,19.117,7.122,17.998,6.012,17.998z"/>
+	</g>
+</g>
+<g id="Sound_Plug_1_">
+	<g>
+		<path style="fill:#999999;" d="M57.988,17.998c-1.111,0-2.012,1.119-2.012,2.5v4.999c0,1.381,0.9,2.499,2.012,2.499
+			S60,26.878,60,25.497v-4.999C60,19.117,59.1,17.998,57.988,17.998z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>

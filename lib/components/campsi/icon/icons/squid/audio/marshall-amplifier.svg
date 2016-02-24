@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="64px" height="59.882px" viewBox="0 0 64 59.882" style="enable-background:new 0 0 64 59.882;" xml:space="preserve">
+<g id="Handle_6_">
+	<g>
+		<path style="fill:#4D4A4A;" d="M48,0h-2c0,0-7.007,0-14,0c-7.008,0-14,0-14,0h-2c-1.104,0-2,0.895-2,1.996v1.996h36V1.996
+			C50,0.895,49.104,0,48,0z"/>
+	</g>
+</g>
+<g id="Base_36_">
+	<g>
+		<path style="fill:#666666;" d="M58,3.992H6c-3.313,0-6,2.681-6,5.988v43.914c0,3.307,2.687,5.987,6,5.987h52
+			c3.313,0,6-2.681,6-5.987V9.98C64,6.673,61.314,3.992,58,3.992z"/>
+	</g>
+</g>
+<g id="Shape_49_">
+	<g>
+		<rect x="6" y="9.98" style="fill-rule:evenodd;clip-rule:evenodd;fill:#4D4D4D;" width="52" height="43.913"/>
+	</g>
+</g>
+<g id="Corners">
+	<g>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;" d="M0,7.984V9.98h6V3.992H4C1.791,3.992,0,5.779,0,7.984z M0,55.89
+			c0,2.205,1.791,3.992,4,3.992h2v-5.988H0V55.89z M58,59.882h2c2.209,0,4-1.787,4-3.992v-1.996h-6V59.882z M60,3.992h-2V9.98h6
+			V7.984C64,5.779,62.209,3.992,60,3.992z"/>
+	</g>
+</g>
+<g id="Bar_3_">
+	<g>
+		<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFCC66;" points="56,9.98 8,9.98 6,9.98 6,11.977 6,19.961 6,21.957 
+			8,21.957 56,21.957 58,21.957 58,19.961 58,11.977 58,9.98 		"/>
+	</g>
+</g>
+<g id="Rec_Btn">
+	<g>
+		<circle style="fill:#ED7161;" cx="12" cy="15.969" r="1.996"/>
+	</g>
+</g>
+<g id="Btns_14_">
+	<g>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;" d="M36,13.973c-1.104,0-2,0.894-2,1.996s0.896,1.996,2,1.996
+			s2-0.894,2-1.996S37.104,13.973,36,13.973z M44,13.973c-1.105,0-2,0.894-2,1.996s0.896,1.996,2,1.996c1.104,0,2-0.894,2-1.996
+			S45.105,13.973,44,13.973z M52,13.973c-1.104,0-2,0.894-2,1.996s0.896,1.996,2,1.996c1.105,0,2-0.894,2-1.996
+			S53.105,13.973,52,13.973z M28,13.973c-1.104,0-2,0.894-2,1.996s0.896,1.996,2,1.996s2-0.894,2-1.996S29.104,13.973,28,13.973z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>

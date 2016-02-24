@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="64px" height="64px" viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
+<g id="Lid">
+	<g>
+		<path style="fill:#666666;" d="M56,0H8C5.791,0,4,1.791,4,4v48c0,2.209,1.791,4,4,4h48c2.209,0,4-1.791,4-4V4
+			C60,1.791,58.209,0,56,0z"/>
+	</g>
+</g>
+<g id="Interior_4_">
+	<g>
+		<path style="fill:#FFFFFF;" d="M54,4H10C8.895,4,8,4.895,8,6v44c0,1.104,0.895,2,2,2h44c1.105,0,2-0.896,2-2V6
+			C56,4.895,55.105,4,54,4z"/>
+	</g>
+</g>
+<g id="Ring_2_">
+	<g>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFCC66;" d="M32,20c-6.627,0-12,5.373-12,12s5.373,12,12,12
+			s12-5.373,12-12S38.627,20,32,20z M32,40c-4.418,0-8-3.582-8-8s3.582-8,8-8s8,3.582,8,8S36.418,40,32,40z"/>
+	</g>
+</g>
+<g id="Rock">
+	<g>
+		<circle style="fill:#CCCCCC;" cx="32" cy="18" r="4"/>
+	</g>
+</g>
+<g id="Pillow">
+	<g>
+		<path style="fill:#ED7161;" d="M32,32c-12.15,0-26,1.371-26,8v8h52v-8C58,33.371,44.15,32,32,32z"/>
+	</g>
+</g>
+<g id="Interior_5_">
+	<g>
+		<path style="fill:#999999;" d="M62,40H2c-1.105,0-2,0.895-2,2v10c0,1.105,0.895,2,2,2h60c1.105,0,2-0.895,2-2V42
+			C64,40.895,63.105,40,62,40z"/>
+	</g>
+</g>
+<g id="Box">
+	<g>
+		<path style="fill:#666666;" d="M0,44v16c0,2.209,1.791,4,4,4h56c2.209,0,4-1.791,4-4V44H0z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
