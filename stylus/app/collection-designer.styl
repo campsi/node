@@ -36,11 +36,12 @@
   > .placeholder
     text-align center
     padding-bottom 1em
-
-  > .items.dropzone:empty
-    height 10em;
-    background $light
-    border 3px dashed darken($light, 10)
+  >.items.dropzone
+    padding-bottom 4em
+    &:empty
+      height 10em;
+      background $light
+      border 3px dashed darken($light, 10)
 
 
 .campsi_collection-designer_field

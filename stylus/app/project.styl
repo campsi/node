@@ -10,7 +10,6 @@
   > .content
     padding-top $headerHeight
 
-
   .form_field
     padding 1em 1.5em 0 1.5em
 
@@ -145,7 +144,6 @@
     light-button $theme
     font-size 1.1em
 
-
     &:hover
       opacity 1
 
@@ -215,7 +213,6 @@
         height 103%
         width 103%
 
-
     .remove
       position absolute
       top .5em
@@ -228,10 +225,13 @@
     display block
     light-button($theme)
 
-#app .campsi_project:not(.designer)
-  .btn.design, .btn.edit, .campsi_collection-list .newItem, .form_field.identifier
+#project.empty
+  .btn.design,
+  .btn.edit,
+  .form_field.identifier,
+  .form_field.icon,
+  .form_field.collections
     display none
-
 
 .campsi_collection-list_wizard
   margin-top 3em
@@ -272,3 +272,7 @@
     animation fadeIn .5s
     opacity 1
 
+
+
+.campsi_project_intro
+  intro()

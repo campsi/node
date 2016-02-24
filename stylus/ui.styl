@@ -155,9 +155,9 @@ button, a.btn, .buttons > a, input[type=submit]
   font-weight normal
   color darken($light, 60)
 
-#app .component.form_field.identifier
+/*#app .component.form_field.identifier
   display flex
-  background rgba(black, 0.1)
+  background darken($light, 20)
   padding 1em
   font-size 1em
   align-items baseline
@@ -173,14 +173,12 @@ button, a.btn, .buttons > a, input[type=submit]
     flex 1
     input
       font-family "Consolas", "Menlo", "Courier", monospace
-      background darken(white, 4)
-      color $dark
       font-size .8em
       padding .75em
       padding-bottom .5em
 
   .help .errors
-    display none
+    display none*/
 
 input.component.text
   /*width: calc(100% - 0.5em);*/
@@ -268,7 +266,7 @@ input.component.text:disabled
 
 #app .form_field.big-title
   //background linear-gradient(45deg, #FFF, darken(#FFF, 2))
-  background tint($light, 60)
+  //background tint($light, 60)
   //border-bottom 1px solid darken($nearWhite, 14)
   //border-top 1px solid darken($nearWhite, 10)
   font-size 1.5em
@@ -279,6 +277,13 @@ input.component.text:disabled
 
   padding 0
   //border-top 1px solid darken($light, 5);
+
+  .label
+    font-weight 600
+    font-size 1.2em
+    padding 1em
+    //text-indent 1.5em
+    //text-align center
   .control
     position relative
     padding 0
@@ -296,10 +301,10 @@ input.component.text:disabled
       top .8em
 
     input
+      background tint($light, 60)
       border none
       outline none
       text-indent 1.5em
-      background transparent
       display block
       transition background .2s ease-out
       padding .75em
@@ -482,3 +487,24 @@ select.select_dropdown
     position relative
     vertical-align middle
     min-height 6.5em
+
+
+intro()
+
+  padding 1em
+  margin 1em 0
+  display block
+  background white
+  font-size 1.2em
+  font-weight 200
+  line-height 1.5em
+  color lighten($dark, 30)
+
+  &.hidden
+    display none
+
+  ul
+    margin-left 1em
+
+  a
+    font-weight 600

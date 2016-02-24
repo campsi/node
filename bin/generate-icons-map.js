@@ -1,3 +1,2 @@
-/**
- * Created by romain on 24/02/2016.
- */
+var fs = require('fs');
+

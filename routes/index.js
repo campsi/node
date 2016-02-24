@@ -138,6 +138,17 @@ var createOptions = function (layout) {
             var collectionObj = req.collection.toObject();
             options.collection.componentValue = collectionObj;
             options.entry.componentOptions = collectionObj;
+            if (req.params.fieldName) {
+
+                options.collection.componentOptions = {
+                    hightlightedField: req.params.fieldName
+                };
+
+                options.fieldProperties.componentValue = {
+                    fieldName: req.params.fieldName,
+                    collection: collectionObj
+                };
+            }
         }
 
         if (req.entriesAndDrafts) {
@@ -172,9 +183,9 @@ router.get(routes.project.path, resources.getProjects, resources.getTemplates, c
 router.get(routes.projectUsers.path, resources.getTemplates, resources.getProjectUsers, createOptions(routes.projectUsers.layout));
 router.get(routes.projectDeployments.path, resources.getTemplates, resources.getProjectDeployments, createOptions(routes.projectDeployments.layout));
 router.get(routes.billing.path, createOptions(routes.billing.layout));
-router.get(routes.newCollection.path, resources.getTemplates, createOptions(routes.newCollection.path));
-router.get(routes.collection.path, resources.getTemplates, resources.getComponents, createOptions(routes.collection.layout));
-router.get(routes.collectionFieldProperties.path, resources.getTemplates, resources.getComponents, createOptions(routes.collectionFieldProperties.layout));
+router.get(routes.newCollection.path, createOptions(routes.newCollection.path));
+router.get(routes.collection.path, resources.getComponents, createOptions(routes.collection.layout));
+router.get(routes.collectionFieldProperties.path, createOptions(routes.collectionFieldProperties.layout));
 router.get(routes.entries.path, resources.getEntriesAndDrafts, createOptions(routes.entries.layout));
 router.get(routes.newEntry.path, resources.getEntriesAndDrafts, createOptions(routes.newEntry.layout));
 router.get(routes.entry.path, resources.getEntriesAndDrafts, createOptions(routes.entry.layout));
