@@ -159,6 +159,6 @@ gulp.task('watch', function () {
     gulp.watch('stylus/**/*.styl', ['stylus']);
 });
 
-gulp.task('compile', ['core', 'app', 'invitation', 'standard-components', 'editor', 'codeEditor', 'stylus', 'profile']);
+gulp.task('compile', ['core', 'app', 'editor', 'standard-components', 'stylus']);
 
 gulp.task('default', ['compile', 'watch', 'serve']);
