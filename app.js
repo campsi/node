@@ -111,7 +111,7 @@ app.get('/callback', passport.authenticate('auth0'), function (req, res) {
         });
     } else {
         console.info("should redirect");
-        res.redirect('/projects');
+        res.redirect('/dashboard');
     }
 });
 

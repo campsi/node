@@ -14,7 +14,7 @@
 	"btns.delete": "supprimer",
 	"btns.projectUsers": "utilisateurs",
 	"btns.projectDeployments": "sauvegardes",
-	"btns.admin": "admin",
+	"btns.admin": "éditer les contenus",
 	"btns.design": "design",
 	"btns.newEntry": "nouvelle entrée",
 	"btns.publish": "publier",
@@ -98,5 +98,9 @@
 	"panels.project.fields.title.placeholder": "Titre du projet",
 	"panels.collection.fields.name.label": "Quel est le nom de la liste ?",
 	"panels.collection.fields.name.placeholder": "actus, produits, carrousel, événements, etc.",
-	"panels.collection.intro": "<p>Pour créer le <strong>formulaire de saisie</strong> de la liste, glissez-déposez des composants depuis le <b>panneau à droite</b>. Dans le champ texte, écrivez le libellé du champ, qui deviendra également le nom de la propriété dans l'objet JSON.</p><p>Vous pouvez ajouter des composants simples, comme un champ <a href=''>texte</a>, un <a href=''>nombre</a>, une <a href=''>date</a>, mais également créer des listes imbriquées (<a href=''>composant liste</a>) ou des sous-objets (<a>composant formulaire</a>).</p>"
+	"panels.collection.intro": "<h3>Comment gérer les listes ?</h3><p>Pour créer le <strong>formulaire de saisie</strong> de la liste, glissez-déposez des composants depuis le <b>panneau à droite</b>. Dans le champ texte, écrivez le libellé du champ, qui deviendra également le nom de la propriété dans l'objet JSON.</p><p>Vous pouvez ajouter des composants simples, comme un champ <a href=''>texte</a>, un <a href=''>nombre</a>, une <a href=''>date</a>, mais également créer des listes imbriquées (<a href=''>composant liste</a>) ou des sous-objets (<a>composant formulaire</a>).</p>",
+	"panels.collection.api-doc.title": "Comment appeler l'API ?",
+	"panels.collection.api-doc.content": "<p>Pour récupérer l'intégralité des entrées publiées dans la liste, il vous suffit d'appeler l'URL suivante :</p>",
+	"panels.collection.api-doc.content.after": "<p>Vous pouvez également <strong>filtrer</strong> les résultats en ajoutant des <a href='#'>variables</a> à cette URL.</p>",
+	"btns.projects": "mes projets"
 }

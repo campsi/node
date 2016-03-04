@@ -97,6 +97,7 @@ var createOptions = function (layout) {
         req.context.setLocale(req.locale);
 
         var options = getPanelOptions(layout, req.context);
+
         if (req.welcome) {
             options.welcome.componentValue = req.welcome;
         }
@@ -119,7 +120,11 @@ var createOptions = function (layout) {
                 delete collection['id'];
             });
             options.project.componentValue = projectObj;
+        } else {
+            options.project.additionalClasses = ['new'];
+            options.project.componentValue = {};
         }
+
         if (req.templates) {
             options.project.componentOptions = {templates: docsToObj(req.templates)};
         }
@@ -149,6 +154,8 @@ var createOptions = function (layout) {
                     collection: collectionObj
                 };
             }
+        } else {
+            options.collection.additionalClasses = ['new'];
         }
 
         if (req.entriesAndDrafts) {
@@ -171,19 +178,23 @@ var createOptions = function (layout) {
         }
 
         req.panelsOptions = options;
+
         next();
 
     }
 };
 
-router.get(routes.welcome.path, getLanding, resources.getProjects, createOptions(routes.welcome.layout));
+var redirectToDashboardIfLoggedIn = function (req, res, next) {
+    return (req.user) ? res.redirect('/dashboard') : next();
+};
+
+router.get(routes.welcome.path, redirectToDashboardIfLoggedIn, getLanding, resources.getProjects, createOptions(routes.welcome.layout));
 router.get(routes.dashboard.path, resources.getProjects, createOptions(routes.dashboard.layout));
 router.get(routes.projects.path, resources.getProjects, createOptions(routes.projects.layout));
 router.get(routes.project.path, resources.getProjects, resources.getTemplates, createOptions(routes.project.layout));
 router.get(routes.projectUsers.path, resources.getTemplates, resources.getProjectUsers, createOptions(routes.projectUsers.layout));
 router.get(routes.projectDeployments.path, resources.getTemplates, resources.getProjectDeployments, createOptions(routes.projectDeployments.layout));
 router.get(routes.billing.path, createOptions(routes.billing.layout));
-router.get(routes.newCollection.path, createOptions(routes.newCollection.path));
 router.get(routes.collection.path, resources.getComponents, createOptions(routes.collection.layout));
 router.get(routes.collectionFieldProperties.path, createOptions(routes.collectionFieldProperties.layout));
 router.get(routes.entries.path, resources.getEntriesAndDrafts, createOptions(routes.entries.layout));
@@ -192,6 +203,7 @@ router.get(routes.entry.path, resources.getEntriesAndDrafts, createOptions(route
 router.get(routes.draft.path, resources.getEntriesAndDrafts, createOptions(routes.draft.layout));
 
 router.get('*', function (req, res) {
+    console.info(req.panelsOptions);
     createPanels(req.panelsOptions, req.context, function (panels) {
         res.render('index', {
             panels: renderPanels(panels),

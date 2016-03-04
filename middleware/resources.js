@@ -120,6 +120,10 @@ module.exports = {
         });
 
         router.param('collection', function (req, res, next, collection) {
+            if(collection === 'new'){
+                return next();
+            }
+
             var query = getQueryForObjectIdOrIdentifier(collection);
             query._project = req.project._id;
 

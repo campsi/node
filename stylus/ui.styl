@@ -1,5 +1,3 @@
-/*@import ui*/
-
 light-button($color)
 
   //background linear-gradient(tint($color, 50), tint($color, 30))
@@ -181,19 +179,15 @@ button, a.btn, .buttons > a, input[type=submit]
     display none*/
 
 input.component.text
-  /*width: calc(100% - 0.5em);*/
-  //margin-top -1px
   padding: 0.5em 0.5em 0.4em 0.5em;
   font-size 0.94em
   width: 100%;
   border-radius 4px
-  //font-family: BlinkMacSystemFont, "Avenir Next";
-  border: $light solid 1px
-  border-bottom-color: darken($light, 2)
-  //box-shadow: inset rgba(black, .07) 0 1px 4px 1px
-  transition box-shadow .1s ease-in
+  border: darken($light, 6) solid 1px
+  border-bottom-color: darken($light, 10)
+  box-shadow: inset transparent 0 1px 5px 1px
+  transition box-shadow .2s
 
-//box-shadow: inset #ededed 0 1px 1px;
 input.component.text::placeholder
   padding-top 0
   font-weight 200
@@ -201,8 +195,8 @@ input.component.text::placeholder
 
 input.component.text:focus
   outline: none;
-  border-color: lighten($dark, 60)
-  box-shadow: inset rgba($dark, .1) 0 1px 5px 1px;
+  border-color: darken($light, 12)
+  box-shadow: inset tint($light, 50%) 0 1px 5px 1px
 
 input.component.text:disabled
   background darken(white, 5)
@@ -490,16 +484,19 @@ select.select_dropdown
 
 
 intro()
-
-  padding 1em
-  margin 1em 0
+  border-radius .3em
+  box-shadow 0 0 30px lighten($dark, 70)
+  padding 1.5em
+  margin 1em .5em
   display block
   background white
   font-size 1.2em
   font-weight 200
-  line-height 1.5em
+  line-height 1.8em
   color lighten($dark, 30)
 
+  h3
+    margin-top 0
   &.hidden
     display none
 

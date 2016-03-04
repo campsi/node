@@ -31,18 +31,32 @@
     background darken($light, 1)
 
 .campsi_component-list
+
   position relative
+  padding-bottom 1em
 
   > .placeholder
+    color $light
+    font-size 1.5em
+    position absolute
+    top 50%
+    margin-top -.75em
+    font-weight 100
     text-align center
     padding-bottom 1em
-  >.items.dropzone
-    padding-bottom 4em
-    &:empty
-      height 10em;
-      background $light
-      border 3px dashed darken($light, 10)
+    width 100%
 
+  >.items.dropzone
+    padding-bottom 1em
+    border-radius 1em
+    transition padding-bottom .5s ease-in
+
+    &:empty
+      height 300px
+      border 6px dashed lighten($dark, 10)
+
+body.dragging .campsi_component-list > .items.dropzone.hovered
+  padding-bottom 6em
 
 .campsi_collection-designer_field
   background white
@@ -57,14 +71,14 @@
 
 
   .campsi_collection-designer_field
-    border 1px solid $light
+    border 1px solid darken($light, 10)
 
   > .items
     background darken($light, 10)
     padding .5em
 
   header
-    $background = darken($light, 20)
+    $background = darken($light, 30)
     display flex
     align-items center
     background $background
@@ -115,6 +129,7 @@
 
   > .form
     padding .5em
+    background $light
 
   &.closed
     border-bottom-width 1px
@@ -218,7 +233,7 @@
         margin-right .5em
 
         &[data-name="value"]
-          width 4em
+          width 6em
         &[data-name="label"]
           flex 1
 
@@ -238,7 +253,7 @@
       .form_field
         margin-right .5em
         &[data-name="value"]
-          width 4em
+          width 6em
         &[data-name="label"]
           flex 1
 

@@ -19,7 +19,6 @@
 
 .array_item[data-item-type='campsi/entries-and-drafts/item']
   position relative
-  border-bottom 1px solid lighten(black, 20)
 
   .form-field
     margin-left 1em
@@ -48,13 +47,15 @@
     display none
 
   a
+    //border-bottom 2px solid lighten($dark, 20)
     position relative
     text-decoration none
     display block
     color white
-    background rgba(white, .1)
+    //background rgba(white, .1)
     transition background .1s ease-out
     padding .5em
+    padding-bottom 1.5em
 
     &:hover
       background tint($dark, 10)
@@ -136,11 +137,15 @@
 #entry
 
   header
+    a.back
+      @media screen and (min-width: 600px)
+        display none
+
     button.remove
       light-button($red)
 
-  button.publish
-    dark-button($green)
+    button.publish
+      dark-button($green)
 
   .campsi_entry
     padding 1em
