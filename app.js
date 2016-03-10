@@ -9,11 +9,8 @@ var MongoStore = require('connect-mongo')(session);
 var strategy = require('./lib/auth-strategy');
 var app = express();
 
-var async = require('async');
 var Guest = require('./models/guest');
-var winston = require('winston');
 var config = require('./config');
-var expressWinston = require('express-winston');
 
 //i18n
 var i18n = require('i18n');
@@ -45,27 +42,8 @@ app.set('view engine', 'jade');
  * Middleware SETUP
  */
 
-
-//require('winston-loggly');
-
-
-//app.use(expressWinston.logger({
-//    transports: [
-//        new winston.transports.Loggly({
-//            token: config.loggly.token,
-//            subdomain: "campsi",
-//            tags: ["Winston-NodeJS"],
-//            json: true
-//        })
-//    ]
-//}));
-
 // serve static files as is
 app.use(express.static(path.join(__dirname, 'public')));
-
-// serve favicon too
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
 
 // will parse body to JSON when content-type is passed
 app.use(bodyParser.json());
@@ -117,6 +95,9 @@ app.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect('/');
 });
+
+require('./lib/components');
+require('./lib/components/campsi');
 
 //require('./middleware/deployments');
 

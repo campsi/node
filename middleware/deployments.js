@@ -3,7 +3,7 @@ var sendgrid  = require('sendgrid')(config.sendgrid_api_key);
 
 
 
-var Campsi = require('campsi');
+var Campsi = require('campsi-core');
 var Project = require('../models/project');
 
 var sendBackupByEmail = function(address, filename, payload){

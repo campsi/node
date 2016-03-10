@@ -3,7 +3,7 @@ var router = express.Router();
 
 
 //lib
-var Campsi = require('campsi');
+var Campsi = require('campsi-core');
 var async = require('async');
 var cheerio = require('cheerio');
 var deepcopy = require('deepcopy');

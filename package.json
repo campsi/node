@@ -7,13 +7,17 @@
   },
   "dependencies": {
     "array-swap": "0.0.4",
+    "array-uniq": "*",
     "async": "*",
     "auth0-lock": "*",
     "aws-sdk": "*",
     "body-parser": "*",
     "brace": "*",
     "browserify": "*",
+    "campsi-array-diff": "*",
+    "campsi-core": "*",
     "cheerio": "*",
+    "cheerio-or-jquery": "*",
     "connect-mongo": "*",
     "cookie-parser": "*",
     "debug": "^2.2.0",
@@ -22,7 +26,6 @@
     "equals": "*",
     "express": "*",
     "express-session": "*",
-    "express-winston": "*",
     "extend": "*",
     "gulp": "*",
     "gulp-autoprefixer": "*",
@@ -48,8 +51,6 @@
     "stylus": "*",
     "vinyl-buffer": "*",
     "vinyl-source-stream": "*",
-    "vinyl-transform": "*",
-    "winston": "*",
-    "array-uniq": "latest"
+    "vinyl-transform": "*"
   }
 }

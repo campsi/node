@@ -9,7 +9,7 @@ var Guest = require('../../../models/guest');
 var User = require('../../../models/user');
 var slug = require('slug');
 
-var Campsi = require('campsi');
+var Campsi = require('campsi-core');
 
 // todo use process.env
 var config = require('../../../config');

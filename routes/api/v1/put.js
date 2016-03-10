@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var slug = require('slug');
 var Draft = require('../../../models/draft');
 var extend = require('extend');
-var Campsi = require('campsi');
+var Campsi = require('campsi-core');
 
 resources.patchRouter(router);
 

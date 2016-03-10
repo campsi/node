@@ -23,7 +23,7 @@ i18n.configure({
 });
 
 var coreDependencies = [
-    'campsi',
+    'campsi-core',
     'async',
     'cheerio-or-jquery',
     'is-browser',
@@ -31,7 +31,6 @@ var coreDependencies = [
     'equals',
     'extend',
     'page',
-    'array-diff',
     'handlebars'
 ];
 
@@ -63,21 +62,6 @@ gulp.task('stylus', function () {
               }))
         .pipe(gulp.dest('./public/stylesheets'));
 
-    gulp.src('./stylus/profile.styl')
-        .pipe(stylus({compress: true}))
-        .pipe(autoprefixer({
-                  browsers: ['last 2 versions'],
-                  cascade: false
-              }))
-        .pipe(gulp.dest('./public/stylesheets'));
-
-    gulp.src('./stylus/editor.styl')
-        .pipe(stylus({compress: true}))
-        .pipe(autoprefixer({
-                  browsers: ['last 2 versions'],
-                  cascade: false
-              }))
-        .pipe(gulp.dest('./public/stylesheets'));
 });
 
 gulp.task('core', function () {
@@ -134,10 +118,6 @@ gulp.task('invitation', function () {
     return packComponents('./lib/campsi-app/invitation.js', 'invitation.js');
 });
 
-gulp.task('profile', function () {
-    return packComponents('./lib/campsi-app/profile.js', 'profile.js');
-});
-
 gulp.task('standard-components', function () {
     return packComponents('./lib/components/map.js', 'campsi.components.js');
 });
@@ -147,8 +127,7 @@ gulp.task('editor', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('lib/campsi/lib/*.js', ['core']);
-    gulp.watch('lib/campsi-app/*.js', ['app', 'profile']);
+    gulp.watch('lib/campsi-app/*.js', ['app']);
     gulp.watch('lib/components/**/*.js', ['standard-components', 'editor']);
     gulp.watch('**/*.styl', ['stylus']);
 });

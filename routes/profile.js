@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Campsi = require('campsi');
+var Campsi = require('campsi-core');
 var browserConfig = require('../browser-config');
 
 
