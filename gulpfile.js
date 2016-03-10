@@ -146,15 +146,9 @@ gulp.task('editor', function () {
     return packComponents('./lib/components/campsi/map.js', 'campsi.editor.js');
 });
 
-
-gulp.task('codeEditor', function () {
-    return packComponents('./lib/campsi-app/editor.js', 'editor.js');
-});
-
 gulp.task('watch', function () {
     gulp.watch('lib/campsi/lib/*.js', ['core']);
     gulp.watch('lib/campsi-app/*.js', ['app', 'profile']);
-    gulp.watch('lib/campsi-app/editor.js', ['codeEditor']);
     gulp.watch('lib/components/**/*.js', ['standard-components', 'editor']);
     gulp.watch('**/*.styl', ['stylus']);
 });

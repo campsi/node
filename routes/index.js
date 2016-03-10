@@ -70,16 +70,6 @@ var getPanelOptions = function (layout, ctx) {
     return currentPanelOptions;
 };
 
-
-router.get('/editor', function (req, res) {
-    res.render('editor', {
-        user: req.user,
-        config: browserConfig,
-        context: req.context
-    });
-});
-
-
 var createOptions = function (layout) {
 
     var docsToObj = function (arr) {
