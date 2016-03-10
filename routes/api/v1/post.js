@@ -23,11 +23,10 @@ var sendInvitationEmail = function (guest) {
         from: 'invitations@campsi.io',
         subject: 'Your contribution is wanted',
         text: 'You\'re invited to contribute. ' + config.host + '/invitation/' + guest._id
-    }, function (err, json) {
+    }, function (err) {
         if (err) {
             return console.error(err);
         }
-        console.log(json);
     });
 };
 

@@ -6,6 +6,10 @@ var AWS = require('aws-sdk');
 var isImage = require('is-image');
 //AWS.config.update(config.s3);
 
+AWS.config.update({
+    accessKeyId: config.s3.accessKeyId,
+    secretAccessKey: config.s3.secretAccessKey
+});
 
 router.post('/upload', function (req, res) {
 
@@ -21,11 +25,10 @@ router.post('/upload', function (req, res) {
 
         s3obj.upload({Body: part})
             .on('httpUploadProgress', function (evt) {
-                console.log(evt);
+                // todo : try to find a way to inform the client
             })
             .send(function (err, data) {
-                console.log(err);
-                console.dir(data);
+                console.error(err);
                 res.json({
                     uri: isImage(id + ext) ? config.imgix.host + '/' + key : data.Location
                 });

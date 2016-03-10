@@ -49,6 +49,7 @@
     "vinyl-buffer": "*",
     "vinyl-source-stream": "*",
     "vinyl-transform": "*",
-    "winston": "*"
+    "winston": "*",
+    "array-uniq": "latest"
   }
 }

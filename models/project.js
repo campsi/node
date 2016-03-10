@@ -2,7 +2,6 @@ module.exports = (function () {
 
     var config = require('../config');
     var mongoose = require('mongoose');
-    var Campsi = require('campsi');
     var async = require('async');
 
     var User = require('./user');
