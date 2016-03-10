@@ -119,11 +119,11 @@ gulp.task('invitation', function () {
 });
 
 gulp.task('standard-components', function () {
-    return packComponents('./lib/components/map.js', 'campsi.components.js');
+    return packComponents('./lib/components/index.js', 'campsi.components.js');
 });
 
 gulp.task('editor', function () {
-    return packComponents('./lib/components/campsi/map.js', 'campsi.editor.js');
+    return packComponents('./lib/components/campsi/index.js', 'campsi.editor.js');
 });
 
 gulp.task('watch', function () {
