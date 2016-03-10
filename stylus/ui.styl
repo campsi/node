@@ -210,48 +210,48 @@ input.component.text:disabled
 
 .component.file, .component.file_image
 
-  .file-dropzone
-    border darken($light, 5) solid 1px
-    background #FFF
-    border-bottom-color: darken($light, 6)
-    box-shadow: inset rgba(black, .07) 0 1px 4px 1px
-    border-radius .4em
-    position relative
-    overflow hidden
-    transition background .2s ease-out
-    cursor pointer
+  width 100%
+  border darken($light, 5) solid 1px
+  background #FFF
+  border-bottom-color: darken($light, 6)
+  box-shadow: inset rgba(black, .07) 0 1px 4px 1px
+  border-radius .4em
+  position relative
+  overflow hidden
+  transition background .2s ease-out
 
-    //&:hover
-      //background rgba($dark, .3)
+  input[type=submit]
+    visibility hidden
+
+  &.has-files
+    input[type=submit]
+      visibility visible
+
+  .control
+    display flex
+    align-items center
+    padding .5em
+    background rgba($dark, .8)
 
     input[type=file]
-      display block
-      position absolute
-      width 100%
-      height 20em
-      -webkit-appearance button
-      opacity 0
-      cursor copy
+      flex 1
+      color white
+      font-size .9em
 
-  &.file_image
-    .file-dropzone
-      width 100%
-      min-height 10rem
-      max-height 15rem
+  .value
+    text-align center
+    img
+      margin 1em
+      max-height 200px
+  &.is-dragover
+    background $theme
 
-    .file
-      min-height 10rem
-      max-height 15rem
-      width 100%
-      text-align center
-      padding .5em
-      vertical-align middle
-      img
-        vertical-align middle
-        max-width 100%
-        max-height 14rem
+
+  input[type=submit]
+    dark-button $theme
 
   .progress
+    background red
     position: absolute;
     top: 50%;
     left: 50%;

@@ -102,5 +102,7 @@
 	"panels.collection.api-doc.title": "Comment appeler l'API ?",
 	"panels.collection.api-doc.content": "<p>Pour récupérer l'intégralité des entrées publiées dans la liste, il vous suffit d'appeler l'URL suivante :</p>",
 	"panels.collection.api-doc.content.after": "<p>Vous pouvez également <strong>filtrer</strong> les résultats en ajoutant des <a href='#'>variables</a> à cette URL.</p>",
-	"btns.projects": "mes projets"
+	"btns.projects": "mes projets",
+	"panels.billing.email.label": "Email de facturation",
+	"panels.billing.cc.label": "Carte bancaire"
 }

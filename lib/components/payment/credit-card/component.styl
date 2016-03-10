@@ -1,0 +1,38 @@
+.payment_credit-card
+
+  .new-card
+    background linear-gradient($theme, darken($theme, 20))
+    border 1px solid lighten($theme, 2)
+    border-top-color lighten($theme, 10)
+    border-radius .5em
+    padding 2em 1em
+    box-shadow 0 2px 5px black
+
+    label
+      font-size .9em
+      font-weight 600
+      text-transform uppercase
+      display block
+      color lighten($theme, 40)
+      text-shadow 0 1px 1px darken($theme, 20)
+
+    input
+      background rgba(white, .1)
+      border 1px solid rgba(white, .1)
+      padding .5em
+      color #fff
+      text-shadow -1px -1px 1px rgba(white, .5), 1px 1px 1px rgba(black, .5)
+      outline none
+
+      &:focus
+        background rgba(white, .2)
+    .line
+      display flex
+      margin-top 2em
+
+    .control.expiration
+      flex 1
+
+    .control.number
+      input
+        width 100%

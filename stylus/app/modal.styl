@@ -1,5 +1,5 @@
 #modal, #loading
-  background rgba(black, .8)
+  background rgba(black, .3)
   position fixed
   top 0
   left 0
@@ -23,7 +23,9 @@
   transition filter .2s ease-out
 
 #app.loading
-  filter grayscale(100%) blur(10%)
+  //filter grayscale(100%) blur(10%)
+#loading.visible
+  display block
 
 //
 //#loading

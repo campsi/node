@@ -156,7 +156,7 @@ gulp.task('watch', function () {
     gulp.watch('lib/campsi-app/*.js', ['app', 'profile']);
     gulp.watch('lib/campsi-app/editor.js', ['codeEditor']);
     gulp.watch('lib/components/**/*.js', ['standard-components', 'editor']);
-    gulp.watch('stylus/**/*.styl', ['stylus']);
+    gulp.watch('**/*.styl', ['stylus']);
 });
 
 gulp.task('compile', ['core', 'app', 'editor', 'standard-components', 'stylus']);

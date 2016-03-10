@@ -1,10 +1,19 @@
 #collection
 
+  .campsi_collection_intro
+    display none
+
   &.new
-    header .buttons.right
-      display none
+    > header .buttons.right
+      button, a
+        display none
+    &.modified
+      > header button.save
+          display inherit
     .campsi_collection_api-doc
       display none
+    .campsi_collection_intro
+      display block
 
   .buttons .admin
     dark-button($green)

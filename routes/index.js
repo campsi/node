@@ -28,11 +28,10 @@ var createPanels = function (panelsOptions, context, callback) {
     async.forEachOf(panelsOptions, function (options, id, cb) {
         Campsi.create('campsi/panel', {
             options: options,
-            value: options.componentValue,
             context: context
         }, function (panel) {
             panels.push(panel);
-            cb();
+            panel.setSavedValue(options.componentValue, cb);
         });
     }, function () {
         callback(panels);
@@ -104,7 +103,7 @@ var createOptions = function (layout) {
 
         if (req.user) {
             options.dashboard.componentValue = {};
-            options.dashboard.componentValue.user = req.user;
+            options.dashboard.componentValue.user = req.user.toObject();
             if (req.projects) {
                 options.dashboard.componentValue.projects = docsToObj(req.projects);
             }
@@ -203,7 +202,6 @@ router.get(routes.entry.path, resources.getEntriesAndDrafts, createOptions(route
 router.get(routes.draft.path, resources.getEntriesAndDrafts, createOptions(routes.draft.layout));
 
 router.get('*', function (req, res) {
-    console.info(req.panelsOptions);
     createPanels(req.panelsOptions, req.context, function (panels) {
         res.render('index', {
             panels: renderPanels(panels),

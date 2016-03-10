@@ -1,22 +1,25 @@
 var router = require('express').Router();
-var getRawBody = require('raw-body');
 var config = require('../../../config');
-var AWS = require('aws-sdk');
 var shortid = require('shortid');
+var multiparty = require('multiparty');
+var AWS = require('aws-sdk');
 var isImage = require('is-image');
-
-AWS.config.update(config.s3);
+//AWS.config.update(config.s3);
 
 
 router.post('/upload', function (req, res) {
-    getRawBody(req).then(function (buf) {
 
-        var filename = req.headers['x-file-name'];
-        var ext = filename.substring(filename.lastIndexOf('.'));
+    console.info("upload start");
+    var form = new multiparty.Form();
+
+    form.on('part', function (part) {
+        var ext = part.filename.substring(part.filename.lastIndexOf('.'));
         var id = shortid.generate();
         var key = req.user._id.toString() + '-' + id + ext;
+
         var s3obj = new AWS.S3({params: {Bucket: 'campsi-eu', Key: key}});
-        s3obj.upload({Body: buf})
+
+        s3obj.upload({Body: part})
             .on('httpUploadProgress', function (evt) {
                 console.log(evt);
             })
@@ -28,6 +31,8 @@ router.post('/upload', function (req, res) {
                 });
             });
     });
+
+    form.parse(req);
 });
 /*
  router.post('/upload-multipart', function (req, res) {
