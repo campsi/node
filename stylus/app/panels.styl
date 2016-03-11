@@ -1,4 +1,4 @@
-$duration = .4s
+$duration = .3s
 $easing = cubic-bezier(0.29, 0.56, 0.57, 0.9)
 $headerHeight = 3.2em
 
@@ -95,6 +95,10 @@ $headerHeight = 3.2em
         .buttons
           a, button
             dark-button($dark)
+
+      > .content
+        input[type=submit], button
+          dark-button($theme)
 
       &.scroll > header
         background rgba(black, .7)

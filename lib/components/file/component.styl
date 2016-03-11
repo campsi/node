@@ -1,0 +1,53 @@
+.component.file, .component.file_image
+
+  width 100%
+  border darken($light, 5) solid 1px
+  background #FFF
+  border-bottom-color: darken($light, 6)
+  box-shadow: inset rgba(black, .07) 0 1px 4px 1px
+  border-radius .4em
+  position relative
+  overflow hidden
+  z-index 100
+  transition background .2s ease-out
+
+  input[type=submit]
+    visibility hidden
+
+  &.has-files
+    input[type=submit]
+      visibility visible
+
+  .control
+    display flex
+    align-items center
+    padding .5em
+    background rgba($dark, .8)
+
+    input[type=file]
+      flex 1
+      color white
+      font-size .9em
+
+  .value
+    text-align center
+    img
+      margin 1em
+      max-height 200px
+  &.is-dragover
+    background $theme
+
+
+  input[type=submit]
+    dark-button $theme
+
+  .progress
+    background linear-gradient(rgba($theme, .8), $theme)
+    position: absolute;
+    top 0
+    left 0
+    height 100%
+    width 0
+    display none
+    box-shadow 1px 1px 30px $theme
+    transition width .1s linear
