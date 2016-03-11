@@ -104,5 +104,7 @@
 	"panels.collection.api-doc.content.after": "<p>Vous pouvez également <strong>filtrer</strong> les résultats en ajoutant des <a href='#'>variables</a> à cette URL.</p>",
 	"btns.projects": "mes projets",
 	"panels.billing.email.label": "Email de facturation",
-	"panels.billing.cc.label": "Carte bancaire"
+	"panels.billing.cc.label": "Carte bancaire",
+	"panels.designer.advancedForm.fields.hide": "Affichage dans la liste des entrées",
+	"panels.designer.advancedForm.fields.hide.checkboxText": "Masquer"
 }
