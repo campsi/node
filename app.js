@@ -97,7 +97,7 @@ app.get('/logout', function (req, res) {
 });
 
 require('./lib/components');
-require('./lib/components/campsi');
+require('./lib/campsi-components');
 
 //require('./middleware/deployments');
 

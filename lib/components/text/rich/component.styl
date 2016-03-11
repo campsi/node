@@ -1,0 +1,26 @@
+.text_rich
+
+  .toolbar
+    border-radius .5em .5em 0 0
+    background lighten($dark, 20)
+    border 1px solid darken($light, 10)
+    border-bottom 0
+    padding .5em
+    button
+      dark-button lighten($dark, 25)
+      min-width 3em
+      margin-right .5em
+
+  .editor
+    height 15em
+    background white
+    border 1px solid darken($light, 10)
+    border-top none
+
+.campsi_collection-designer_field[data-comp-type="text/rich"]
+  .form_field[data-name="toolbarButtons"]
+    .component.checkbox
+      display inline-block
+      margin-right .5em
+      input
+        width auto
