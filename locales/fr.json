@@ -106,5 +106,6 @@
 	"panels.billing.email.label": "Email de facturation",
 	"panels.billing.cc.label": "Carte bancaire",
 	"panels.designer.advancedForm.fields.hide": "Affichage dans la liste des entrées",
-	"panels.designer.advancedForm.fields.hide.checkboxText": "Masquer"
+	"panels.designer.advancedForm.fields.hide.checkboxText": "Masquer",
+	"btns.home": "btns.home"
 }

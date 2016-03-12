@@ -3,11 +3,24 @@
 
   .invitation
     background lighten($dark, 20)
+    //background $theme url(/images/airmail.png)
     background $theme
+    background-size 30%
+    background-position 100%
+    background-repeat no-repeat
     border-radius .5em
     padding 1em
     margin-top 1em
     box-shadow 0 1px 2px black
+
+    .envelope
+      text-align center
+    img
+      width 50%
+
+    h3
+      text-shadow 0 1px 1px darken($theme, 20)
+      text-align center
 
     button
       dark-button darken($theme, 20)
@@ -19,6 +32,7 @@
       margin-bottom 1em
       .label
         text-shadow none
+        color $light
 
 
 
@@ -26,6 +40,7 @@
     background lighten($dark, 10)
     box-shadow 0 1px 2px black
     padding 1em
+    margin-bottom 1em
     border-radius .5em
 
     .roles

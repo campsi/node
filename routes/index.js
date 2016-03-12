@@ -174,7 +174,8 @@ var createOptions = function (layout) {
 };
 
 var redirectToDashboardIfLoggedIn = function (req, res, next) {
-    return (req.user) ? res.redirect('/dashboard') : next();
+    //return (req.user) ? res.redirect('/dashboard') : next();
+    return next();
 };
 
 router.get(routes.welcome.path, redirectToDashboardIfLoggedIn, getLanding, resources.getProjects, createOptions(routes.welcome.layout));

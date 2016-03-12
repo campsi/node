@@ -60,13 +60,13 @@
     &:hover
       .wrapper .logo
         //border-color darken($dark, 6)
-        background-color #4b586c
+        background-color lighten($dark, 20)
         border 1px solid lighten($dark, 20)
         transform scaleX(1.05) scaleY(1.05)
 
     &.active .wrapper .logo, &.active:hover .wrapper .logo
       //border darken($light, 20) 3px solid
-      background-color #4b586c
+      background-color lighten($dark, 20)
       border 1px solid lighten($dark, 30)
       transform scaleX(1.1) scaleY(1.1)
 
@@ -112,7 +112,7 @@
 
 
         box-sizing content-box
-        background-color #4b586c
+        background-color lighten($dark, 10)
         background-size 80%
         background-clip content-box
         background-position: 50% 50%

@@ -14,6 +14,7 @@ var Campsi = require('campsi-core');
 // todo use process.env
 var config = require('../../../config');
 var sendgrid = require('sendgrid')(config.sendgrid_api_key);
+var emailValidator = require('email-validator');
 
 resources.patchRouter(router);
 
@@ -146,6 +147,10 @@ router.post('/projects/:project/collections/:collection/entries', function (req,
 });
 
 router.post('/projects/:project/invitation', function (req, res) {
+
+    if (emailValidator.validate(req.body.email) === false){
+        return res.status(400).json({error: true});
+    }
 
     User.findOne({'emails.value': req.body.email}, function (err, user) {
 
