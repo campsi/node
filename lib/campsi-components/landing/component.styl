@@ -10,10 +10,11 @@
     //background url(http://campsi.imgix.net/56b0f1c85f9e20f80551b670-4kEq9Wa2l.jpg?h=650&fit=max)//&blend=CC2c7af4&blur=30)
     //background url(http://campsi.imgix.net/56b0f1c85f9e20f80551b670-NJBAP7T3e.jpeg?h=650&fit=max&blend=552c7af4)//&blend=CC2c7af4&blur=30)
     //background url(http://campsi.imgix.net/56b0f1c85f9e20f80551b670-NJtW97p2x.jpg?h=650&fit=max)//&blend=CC2c7af4&blur=30)
-    background url(http://campsi.imgix.net/56b0f1c85f9e20f80551b670-NJtW97p2x.jpg?h=650&fit=max&blend=CC2c7af4)
-    background-position center
-    background-size cover
-    background-repeat no-repeat
+    //background url(http://campsi.imgix.net/56b0f1c85f9e20f80551b670-NJtW97p2x.jpg?h=650&fit=max&blend=CC2c7af4)
+    //background-position center
+    //background-size cover
+    //background-repeat no-repeat
+    background linear-gradient(30deg, $theme, lighten($theme, 15))
     text-align center
     max-height 650px
     padding 0
@@ -23,8 +24,9 @@
     &::after
       display block
       content ''
-      height 10em
-      background linear-gradient(rgba($theme, 0), rgba(darken($theme, 50), .8))
+      height 140px
+      //background linear-gradient(rgba($theme, 0), rgba(darken($theme, 50), .8))
+      background url(/images/clouds.png)
       position absolute
       bottom 0
       width 100%
@@ -37,7 +39,7 @@
     h1
       //transform scale(100%)
       padding-top 30px
-      font-size 20vw
+      font-size 16vw
       font-weight 100
 
       span
@@ -54,7 +56,7 @@
 
     h2
       font-style italic
-      font-size 4vw
+      font-size 3vw
       font-weight 500
       //text-shadow 0 1px 2px rgba(black, .6)
       margin-top 10px
