@@ -69,7 +69,7 @@
 	"panels.collection.fields.fields": "Champs qui composent la liste",
 	"panels.project.noCollectionYet": "<p>Votre projet ne contient pour l'instant aucune liste.</p>",
 	"panels.project.fields.icon": "Icône",
-	"panels.collection.fieldsPlaceholder": "Glissez-déposez des composants depuis le panneau à droite pour ajouter des champs",
+	"panels.collection.fieldsPlaceholder": "Glissez-déposez des composants depuis le panneau à droite pour ajouter des champs à la liste",
 	"dashboard.greeting": "dashboard.greeting",
 	"btns.billing": "facturation",
 	"panels.billing.header.title": "Facturation",

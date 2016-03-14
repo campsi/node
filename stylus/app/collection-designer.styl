@@ -36,27 +36,39 @@
   padding-bottom 1em
 
   > .placeholder
+    //display none
+    user-select none
     color $light
     font-size 1.5em
     position absolute
-    top 50%
+    top 0
     margin-top -.75em
     font-weight 100
     text-align center
-    padding-bottom 1em
     width 100%
+    line-height 2em
+    padding 3em
 
   >.items.dropzone
     padding-bottom 1em
     border-radius 1em
     transition padding-bottom .5s ease-in
+    border 6px dashed transparent
+
+    .gu-transit
+      display none
 
     &:empty
-      height 300px
-      border 6px dashed lighten($dark, 10)
+      border-color lighten($dark, 10)
 
-body.dragging .campsi_component-list > .items.dropzone.hovered
-  padding-bottom 6em
+
+
+body.dragging .campsi_component-list
+  > .items.dropzone.hovered
+    padding-bottom 6em
+
+  > .placeholder
+    display none
 
 .campsi_collection-designer_field
   background white
