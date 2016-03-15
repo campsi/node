@@ -96,7 +96,10 @@ module.exports = {
                 return next();
             }
 
+            console.info("resource middleware get project", req.method);
+
             var query = getQueryForObjectIdOrIdentifier(project);
+            var isGetApiCall = (req.api === true && req.method === 'GET');
 
             Project.find(query)
                 .populate({
@@ -107,8 +110,16 @@ module.exports = {
                 .exec(function (err, projects) {
                     if (projects.length > 0) {
                         req.project = projects[0];
+
                         if (req.user) {
                             req.project.roles = req.user.getRolesForProject(projects[0]);
+                            if(req.project.roles.length === 0 && project.demo !== true && !isGetApiCall){
+                                res.status(403);
+                                res.send('');
+                            }
+                        } else if (project.demo !== true && !isGetApiCall){
+                            res.status(403);
+                            res.send('');
                         }
 
                         req.context.set('project', req.project);

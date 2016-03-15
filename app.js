@@ -61,6 +61,7 @@ app.set('trust proxy', 1); // trust first proxy
 
 
 app.get('/api/v1/*', function (req, res, next) {
+    req.api = true;
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,OPTIONS,HEAD');
     res.header('Access-Control-Allow-Headers', 'origin, x-requested-with, content-type, accept, authorization, cache-control');
