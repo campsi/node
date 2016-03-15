@@ -66,6 +66,7 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
     });
 
     var queryParameters = {};
+
     var param;
     for (param in req.query) {
         if (req.query.hasOwnProperty(param) && param.indexOf('data.') === 0) {
@@ -74,7 +75,6 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
     }
 
     var params = extend({}, queryParameters, {_collection: req.collection._id});
-
     var query = Entry.find(params).select('data');
 
     if (req.query.sort) {
@@ -86,7 +86,7 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
     }
 
     if (req.query.skip) {
-        query.limit(req.query.skip);
+        query.skip(req.query.skip);
     }
 
     query.exec(function (err, entries) {
