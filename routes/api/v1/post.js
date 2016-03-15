@@ -158,7 +158,7 @@ router.post('/projects/:project/invitation', function (req, res) {
             user.addToProject(req.project._id, req.body.roles);
             user.save(function () {
                 res.json(user);
-
+                //todo envoyer un email quand même
                 Campsi.eventbus.emit('user:addedToProject', {
                     project: req.project,
                     user: req.user
