@@ -45,7 +45,7 @@
 	"panels.project.newCollectionBtn": "Créer une nouvelle collection",
 	"panels.designer.advancedForm.fields.name": "Nom du champ",
 	"panels.designer.advancedForm.fields.required": "Est obligatoire",
-	"panels.entriesAndDrafts.drafts.title": "Brouillons",
+	"panels.entriesAndDrafts.drafts.title": "Brouillons non publiés",
 	"panels.entriesAndDrafts.entries.title": "Entrées publiées",
 	"panels.project.wizard.title": "Créer une liste",
 	"panels.project.wizard.description": "Partez de zéro, ou utilisez un modèle de données préconfiguré",
