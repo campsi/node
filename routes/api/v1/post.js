@@ -165,11 +165,14 @@ router.post('/projects/:project/collections/:collection/entries', function (req,
 router.post('/projects/:project/invitation', function (req, res) {
 
     if (emailValidator.validate(req.body.email) === false) {
-        return res.status(400).json({error: true});
+        return res.status(400).json({error: true, message: 'invalid email'});
+    }
+
+    if (req.body.roles.length === 0) {
+        return res.status(400).json({error: true, message: 'no roles checked'});
     }
 
     User.findOne({'emails.value': req.body.email}, function (err, user) {
-
         if (user) {
             user.addToProject(req.project._id, req.body.roles);
             user.save(function () {

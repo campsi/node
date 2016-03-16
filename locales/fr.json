@@ -110,5 +110,7 @@
 	"btns.home": "btns.home",
 	"entry.save.button": "Enregistrer un brouillon sans publier",
 	"entry.publish.draft": "Publier les modifications",
-	"entry.remove.draft": "Supprimer l'entrée"
+	"entry.remove.draft": "Supprimer l'entrée",
+	"panels.project.fields.ID.label": "Identifiant",
+	"panels.project.fields.ID.placeholder": "Laissez vide pour générer automatiquement"
 }
