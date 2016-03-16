@@ -107,5 +107,8 @@
 	"panels.billing.cc.label": "Carte bancaire",
 	"panels.designer.advancedForm.fields.hide": "Affichage dans la liste des entrées",
 	"panels.designer.advancedForm.fields.hide.checkboxText": "Masquer",
-	"btns.home": "btns.home"
+	"btns.home": "btns.home",
+	"entry.save.button": "Enregistrer un brouillon sans publier",
+	"entry.publish.draft": "Publier les modifications",
+	"entry.remove.draft": "Supprimer l'entrée"
 }

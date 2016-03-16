@@ -160,6 +160,7 @@ var createOptions = function (layout) {
 
         if (req.draft) {
             options.entry.componentValue = req.draft.toObject();
+            options.entry.additionalClasses = ['draft'];
         }
 
         if (req.components) {

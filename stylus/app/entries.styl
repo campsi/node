@@ -136,6 +136,7 @@
 
 #entry
 
+
   header
     a.back
       @media screen and (min-width: 600px)
@@ -145,6 +146,39 @@
       light-button($red)
 
     button.publish
+      dark-button($green)
+
+  &.draft
+    header button.publish
+        display inline-block
+    .big-buttons button.publish
+        display inherit
+
+  &.modified
+    .big-buttons button.save
+      display inherit
+
+  .big-buttons
+    display none
+    background darken($light, 20)
+    margin-top 1em
+    padding .5em
+    text-align center
+    font-size 1.2em
+    border-radius .2em
+
+    button
+      margin .5em
+    button.save
+      display none
+      dark-button($theme)
+
+    button.remove
+      display none
+      dark-button($red)
+
+    button.publish
+      display none
       dark-button($green)
 
   .campsi_entry
