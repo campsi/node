@@ -56,6 +56,19 @@ module.exports = {
             next();
         });
     },
+
+    getProjectGuests: function (req, res, next) {
+        req.project.getGuests(function (err, guests) {
+
+            req.projectGuests = guests.map(function (u) {
+                var obj = u.toObject();
+                //delete obj.projects;
+                return obj;
+            });
+            next();
+        });
+    },
+
     patchRouter: function (router) {
 
         var getQueryForObjectIdOrIdentifier = function (param) {

@@ -112,5 +112,7 @@
 	"entry.publish.draft": "Publier les modifications",
 	"entry.remove.draft": "Supprimer l'entrée",
 	"panels.project.fields.ID.label": "Identifiant",
-	"panels.project.fields.ID.placeholder": "Laissez vide pour générer automatiquement"
+	"panels.project.fields.ID.placeholder": "Laissez vide pour générer automatiquement",
+	"panels.projectUsers.users.title": "Utilisateurs enregistrés",
+	"panels.projectUsers.guests.title": "Invitations envoyées"
 }

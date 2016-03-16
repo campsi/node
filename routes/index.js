@@ -121,6 +121,7 @@ var createOptions = function (layout) {
         if (req.projectUsers) {
             options.projectUsers.componentValue = req.project.identity();
             options.projectUsers.componentValue.users = req.projectUsers;
+            options.projectUsers.componentValue.guests = req.projectGuests;
         }
 
         if (req.projectDeployments) {
@@ -183,7 +184,7 @@ router.get(routes.welcome.path, redirectToDashboardIfLoggedIn, getLanding, resou
 router.get(routes.dashboard.path, resources.getProjects, createOptions(routes.dashboard.layout));
 router.get(routes.projects.path, resources.getProjects, createOptions(routes.projects.layout));
 router.get(routes.project.path, resources.getProjects, resources.getTemplates, createOptions(routes.project.layout));
-router.get(routes.projectUsers.path, resources.getTemplates, resources.getProjectUsers, createOptions(routes.projectUsers.layout));
+router.get(routes.projectUsers.path, resources.getTemplates, resources.getProjectUsers, resources.getProjectGuests, createOptions(routes.projectUsers.layout));
 router.get(routes.projectDeployments.path, resources.getTemplates, resources.getProjectDeployments, createOptions(routes.projectDeployments.layout));
 router.get(routes.billing.path, createOptions(routes.billing.layout));
 router.get(routes.collection.path, resources.getComponents, createOptions(routes.collection.layout));
