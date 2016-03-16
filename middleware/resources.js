@@ -111,25 +111,31 @@ module.exports = {
 
                         if (req.user) {
                             req.project.roles = req.user.getRolesForProject(projects[0]);
-                            if(req.project.roles.length === 0 && project.demo !== true && !isGetApiCall){
+                            if (req.project.roles.length === 0 && project.demo !== true && !isGetApiCall) {
                                 res.status(403);
                                 res.send('');
+                            } else {
+                                req.context.set('project', req.project);
+                                return next();
                             }
-                        } else if (project.demo !== true || !isGetApiCall){
-                            res.status(403);
-                            res.send('');
                         }
 
-                        req.context.set('project', req.project);
-                        return next();
+                        if (req.project.demo || isGetApiCall) {
+                            req.context.set('project', req.project);
+                            return next();
+                        }
+
+                        res.status(403);
+                        res.send('');
                     }
+
                     res.status(404);
                     res.send('');
                 });
         });
 
         router.param('collection', function (req, res, next, collection) {
-            if(collection === 'new'){
+            if (collection === 'new') {
                 return next();
             }
 
