@@ -15,6 +15,7 @@ module.exports = (function () {
             givenName: String
         },
         emails: [{value: String}],
+        email: String,
         picture: String,
         nickname: String,
         projects: [{
@@ -39,6 +40,10 @@ module.exports = (function () {
                 cb(err, results[0]);
             }
         });
+    };
+
+    schema.methods.getEmail = function () {
+        return this.email || this.emails[0].value;
     };
 
     schema.methods.addToProject = function (projectId, roles) {
@@ -76,7 +81,7 @@ module.exports = (function () {
         return this._projectRoles;
     });
 
-    schema.virtual('projectRoles').set(function(roles){
+    schema.virtual('projectRoles').set(function (roles) {
         this._projectRoles = roles;
     });
 

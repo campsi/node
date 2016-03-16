@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var Invitation = require('../models/guest');
+var Guest = require('../models/guest');
 var browserConfig = require('../browser-config');
 
 router.get('/:token', function (req, res, next) {
-    Invitation.findOne({_id: req.params.token})
+    Guest.findOne({_id: req.params.token})
         .populate('invitations._project')
         .populate('invitations._inviter')
         .exec(function (err, guest) {

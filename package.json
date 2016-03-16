@@ -45,6 +45,7 @@
     "page": "*",
     "passport": "*",
     "passport-auth0": "*",
+    "querystringify": "0.0.3",
     "sendgrid": "*",
     "shortid": "*",
     "slug": "*",

@@ -31,6 +31,22 @@ var sendInvitationEmail = function (guest) {
     });
 };
 
+var sendUserAddedToProjectEmail = function (user, project) {
+
+    var url = config.host + '/projects/' + project.identifier || project._id;
+
+    sendgrid.send({
+        to: user.getEmail(),
+        from: 'invitations@campsi.io',
+        subject: 'Your contribution is wanted',
+        text: 'You\'re invited to contribute. ' + url
+    }, function (err) {
+        if (err) {
+            return console.error(err);
+        }
+    });
+};
+
 router.post('/projects', function (req, res) {
     if (req.user) {
 
@@ -148,7 +164,7 @@ router.post('/projects/:project/collections/:collection/entries', function (req,
 
 router.post('/projects/:project/invitation', function (req, res) {
 
-    if (emailValidator.validate(req.body.email) === false){
+    if (emailValidator.validate(req.body.email) === false) {
         return res.status(400).json({error: true});
     }
 
@@ -158,7 +174,7 @@ router.post('/projects/:project/invitation', function (req, res) {
             user.addToProject(req.project._id, req.body.roles);
             user.save(function () {
                 res.json(user);
-                //todo envoyer un email quand même
+                sendUserAddedToProjectEmail(user, req.project);
                 Campsi.eventbus.emit('user:addedToProject', {
                     project: req.project,
                     user: req.user

@@ -127,12 +127,12 @@ gulp.task('editor', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('lib/campsi-app/*.js', ['app']);
+    gulp.watch('lib/campsi-app/*.js', ['app', 'invitation']);
     gulp.watch('lib/components/**/*.js', ['standard-components']);
     gulp.watch('lib/campsi-components/**/*.js', ['editor']);
     gulp.watch('**/*.styl', ['stylus']);
 });
 
-gulp.task('compile', ['core', 'app', 'editor', 'standard-components', 'stylus']);
+gulp.task('compile', ['core', 'app', 'editor', 'invitation', 'standard-components', 'stylus']);
 
 gulp.task('default', ['compile', 'watch', 'serve']);
