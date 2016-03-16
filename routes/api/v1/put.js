@@ -5,6 +5,7 @@ var slug = require('slug');
 var Draft = require('../../../models/draft');
 var extend = require('extend');
 var Campsi = require('campsi-core');
+var createAppEvent = require('../../../lib/campsi-app/event');
 
 resources.patchRouter(router);
 
@@ -18,6 +19,9 @@ var returnId = function (item) {
 router.put('/projects/:project', function (req, res) {
 
     var project = req.project;
+
+    var event = createAppEvent(req);
+    event.previousValue = req.project.toObject();
 
     if (typeof req.body.title !== 'undefined') {
         project.title = req.body.title;
@@ -56,12 +60,15 @@ router.put('/projects/:project', function (req, res) {
             return res.json(err);
         }
         res.json(result.toObject());
-        Campsi.eventbus.emit('project:update', {project: project, user: req.user});
+        Campsi.eventbus.emit('project:update', event);
     });
 });
 
 router.put('/projects/:project/collections/:collection', function (req, res) {
     var collection = req.collection;
+
+    var event = createAppEvent(req);
+    event.previousValue = req.collection.toObject();
 
     if (typeof req.body.name !== 'undefined') {
         collection.name = req.body.name;
@@ -92,13 +99,16 @@ router.put('/projects/:project/collections/:collection', function (req, res) {
 
     collection.save(function (err, result) {
         res.json(result.toObject());
-        Campsi.eventbus.emit('collection:update', {project: req.project, collection: result, user: req.user});
+        Campsi.eventbus.emit('collection:update', event);
     });
 });
 
 router.put('/projects/:project/collections/:collection/entries/:entry', function (req, res) {
 
     var entry = req.entry;
+
+    var event = createAppEvent(req);
+    event.previousValue = req.entry.toObject();
 
     if (typeof req.body.data !== 'undefined') {
         entry.markModified('data');
@@ -110,21 +120,27 @@ router.put('/projects/:project/collections/:collection/entries/:entry', function
             Draft.remove({_id: req.body._draft}, function () {
                 res.json(result.toObject());
             });
+
+            Campsi.eventbus.emit('draft:delete', {
+                project: req.project._id.toString(),
+                collection: req.collection._id.toString(),
+                draft: req.body._draft,
+                user: req.user._id.toString()
+            });
         } else {
             res.json(result.toObject());
-            Campsi.eventbus.emit('entry:update', {
-                project: req.project,
-                collection: req.collection,
-                entry: result,
-                user: req.user
-            });
         }
+
+        Campsi.eventbus.emit('entry:update', event);
     });
 });
 
 router.put('/projects/:project/collections/:collection/drafts/:draft', function (req, res) {
 
     var draft = req.draft;
+
+    var event = createAppEvent(req);
+    event.previousValue = req.draft.toObject();
 
     if (typeof req.body.data !== 'undefined') {
         draft.markModified('data');
@@ -133,22 +149,19 @@ router.put('/projects/:project/collections/:collection/drafts/:draft', function 
 
     draft.save(function (err, result) {
         res.json(result.toObject());
-        Campsi.eventbus.emit('draft:update', {
-            project: req.project,
-            collection: req.collection,
-            draft: result,
-            user: req.user
-        });
+        Campsi.eventbus.emit('draft:update', event);
     });
 });
 
 router.put('/users/me', function (req, res) {
+
+    var event = createAppEvent(req);
+    event.previousValue = req.user.toObject();
+
     extend(req.user, req.body);
     req.user.save(function () {
         res.json(req.user);
-        Campsi.eventbus.emit('user:update', {
-            user: req.user
-        });
+        Campsi.eventbus.emit('user:update', event);
     });
 });
 

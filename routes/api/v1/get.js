@@ -2,6 +2,7 @@ var router = require('express').Router();
 var resources = require('../../../middleware/resources');
 var Project = require('../../../models/project');
 var Entry = require('../../../models/entry');
+var Event = require('../../../models/event');
 var Draft = require('../../../models/draft');
 var Template = require('../../../models/template');
 var handlebars = require('handlebars');
@@ -146,7 +147,6 @@ router.get('/projects/:project/collections/:collection/entries/:entry', function
 
 });
 
-
 router.get('/projects/:project/collections/:collection/drafts/:draft', function (req, res) {
     res.json(req.draft.toObject());
 });
@@ -157,6 +157,29 @@ router.get('/templates', function (req, res) {
             return t.toObject()
         }));
     });
+});
+
+router.get('/me/events', function (req, res) {
+    if (typeof req.user === 'undefined') {
+        return res.status(404).json({error: true, message: 'no events for unauthentificated user'});
+    }
+
+    var projectIds = req.user.projects.map(function (p) {
+        return p._id.toString();
+    });
+
+    Event.find({
+            '$or': [
+                {'data.user._id': req.user._id.toString()},
+                {'data.project._id': {'$in': projectIds}}
+            ]
+        })
+        .select('-data.previousValue -_id')
+        .limit(12)
+        .sort({date: 'desc'}).exec(function (err, events) {
+        res.json(events);
+    });
+
 });
 
 module.exports = router;

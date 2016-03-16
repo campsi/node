@@ -114,5 +114,6 @@
 	"panels.project.fields.ID.label": "Identifiant",
 	"panels.project.fields.ID.placeholder": "Laissez vide pour générer automatiquement",
 	"panels.projectUsers.users.title": "Utilisateurs enregistrés",
-	"panels.projectUsers.guests.title": "Invitations envoyées"
+	"panels.projectUsers.guests.title": "Invitations envoyées",
+	"btns.favorite": "ajouter aux favoris"
 }

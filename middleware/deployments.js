@@ -27,7 +27,6 @@ var sendBackupByEmail = function(address, filename, payload){
 };
 
 Campsi.eventbus.on('entry:*', function(data){
-
     Project.findOne({_id: data.project._id}).select('deployments').exec(function (err, p) {
         p.deployments.forEach(function(d){
             if(d.connection === 'EMAIL'){
@@ -37,5 +36,4 @@ Campsi.eventbus.on('entry:*', function(data){
             }
         })
     });
-
 });

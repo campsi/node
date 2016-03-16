@@ -88,21 +88,6 @@ module.exports = {
             next();
         });
 
-        router.param('organization', function (req, res, next, organization) {
-
-            var query = getQueryForObjectIdOrIdentifier(organization);
-
-            Organization.find(query).exec(function (err, organizations) {
-                if (organizations.length > 0) {
-                    req.organization = organizations[0];
-                    req.context.set('organization', req.organization);
-                    return next();
-                }
-                res.status(404);
-                res.send('');
-            });
-        });
-
         router.param('project', function (req, res, next, project) {
 
             if (project === 'new') {

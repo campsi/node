@@ -8,8 +8,9 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var strategy = require('./lib/auth-strategy');
 var app = express();
-
+var Campsi = require('campsi-core');
 var Guest = require('./models/guest');
+var Event = require('./models/event');
 var config = require('./config');
 
 //i18n
@@ -59,6 +60,9 @@ app.use(i18n.init);
 
 app.set('trust proxy', 1); // trust first proxy
 
+Campsi.eventbus.on('*', function (data, event) {
+    Event.create({event: event, data: data, date: new Date()});
+});
 
 app.get('/api/v1/*', function (req, res, next) {
     req.api = true;
@@ -100,7 +104,6 @@ app.get('/logout', function (req, res) {
 require('./lib/components');
 require('./lib/campsi-components');
 
-//require('./middleware/deployments');
 
 // Routes
 app.use('/api/v1', require('./routes/api/v1/get'));
@@ -117,10 +120,6 @@ app.use('/invitation', require('./routes/invitation'));
 app.use('/profile', require('./routes/profile'));
 
 app.use('/', require('./routes/index'));
-
-app.get('/undefined', function (req, res) {
-    res.send('U MAD BRO');
-});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
