@@ -96,8 +96,6 @@ module.exports = {
                 return next();
             }
 
-            console.info("resource middleware get project", req.method);
-
             var query = getQueryForObjectIdOrIdentifier(project);
             var isGetApiCall = (req.api === true && req.method === 'GET');
 
