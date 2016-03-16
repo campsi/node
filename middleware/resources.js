@@ -115,7 +115,7 @@ module.exports = {
                                 res.status(403);
                                 res.send('');
                             }
-                        } else if (project.demo !== true && !isGetApiCall){
+                        } else if (project.demo !== true || !isGetApiCall){
                             res.status(403);
                             res.send('');
                         }
