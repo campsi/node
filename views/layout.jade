@@ -21,22 +21,22 @@ html
     //link(rel='stylesheet', href='/lib/dragula.js/dist/dragula.css')
     //link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Raleway:400,200,700,900', type='text/css')
     link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.min.css')
-body
-  div#app(class = user ? 'logged-in' : 'visitor')
-    block content
+  body
+    div#app(class = user ? 'logged-in' : 'visitor')
+      block content
 
-  div#loading
+    div#loading
 
-  div#modal
-    block modal
+    div#modal
+      block modal
 
-  script(src='/lib/jquery/dist/jquery.min.js')
-  block scripts
+    script(src='/lib/jquery/dist/jquery.min.js')
+    block scripts
 
 
-  script(type='application/javascript') window.I18N = !{JSON.stringify(translations)};
-  script(src='/javascripts/campsi.core.js')
-  script(src='/javascripts/campsi.app.js')
+    script(type='application/javascript') window.I18N = !{JSON.stringify(translations)};
+    script(src='/javascripts/campsi.core.js')
+    script(src='/javascripts/campsi.app.js')
 
 
 

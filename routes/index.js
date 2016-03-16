@@ -157,11 +157,11 @@ var createOptions = function (layout) {
 
         if (req.entry) {
             options.entry.componentValue = req.entry.toObject();
-        }
-
-        if (req.draft) {
+        } else if (req.draft) {
             options.entry.componentValue = req.draft.toObject();
             options.entry.additionalClasses = ['draft'];
+        } else {
+            options.entry.additionalClasses = ['new'];
         }
 
         if (req.components) {
