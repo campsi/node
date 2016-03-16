@@ -1,5 +1,9 @@
 .panel.dark .campsi_project_users
   padding 1em
+  > h3
+    margin-top 2em
+    font-weight 200
+    color $light
 
   .invitation
     background lighten($dark, 20)
@@ -14,9 +18,11 @@
     box-shadow 0 1px 2px black
 
     .envelope
+      //position absolute
       text-align center
+
     img
-      width 50%
+      width 30%
 
     h3
       text-shadow 0 1px 1px darken($theme, 20)
@@ -37,6 +43,7 @@
 
 
   .array_item, .newItem
+    position relative
     background lighten($dark, 10)
     box-shadow 0 1px 2px black
     padding 1em

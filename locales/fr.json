@@ -115,5 +115,20 @@
 	"panels.project.fields.ID.placeholder": "Laissez vide pour générer automatiquement",
 	"panels.projectUsers.users.title": "Utilisateurs enregistrés",
 	"panels.projectUsers.guests.title": "Invitations envoyées",
-	"btns.favorite": "ajouter aux favoris"
+	"btns.favorite": "ajouter aux favoris",
+	"event.user:update": "mise à jour du profil utilisateur",
+	"event.guest:invitedToProject": "a invité un utilisateur au projet",
+	"event.project:update": "a modifié le projet",
+	"event.project:create": "a créé le projet projet",
+	"event.project:delete": "a supprimé le projet",
+	"event.collection:update": "a modifié la liste",
+	"event.collection:create": "a créé la liste",
+	"event.collection:delete": "a supprimé la liste",
+	"event.entry:create": "a créé une entrée",
+	"event.entry:update": "a modifié une entrée",
+	"event.entry:delete": "a supprimé une entrée",
+	"event.draft:create": "a créé un brouillon",
+	"event.draft:update": "a modifié un brouillon",
+	"event.draft:delete": "a supprimé un brouillon"
+
 }

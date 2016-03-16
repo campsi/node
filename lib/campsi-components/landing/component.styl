@@ -5,15 +5,6 @@
       transform none
 
   header
-    //display none
-    //background url(http://campsi.imgix.net/56b0f1c85f9e20f80551b670-E1ejFWa3g.jpg?h=650)
-    //background url(http://campsi.imgix.net/56b0f1c85f9e20f80551b670-4kEq9Wa2l.jpg?h=650&fit=max)//&blend=CC2c7af4&blur=30)
-    //background url(http://campsi.imgix.net/56b0f1c85f9e20f80551b670-NJBAP7T3e.jpeg?h=650&fit=max&blend=552c7af4)//&blend=CC2c7af4&blur=30)
-    //background url(http://campsi.imgix.net/56b0f1c85f9e20f80551b670-NJtW97p2x.jpg?h=650&fit=max)//&blend=CC2c7af4&blur=30)
-    //background url(http://campsi.imgix.net/56b0f1c85f9e20f80551b670-NJtW97p2x.jpg?h=650&fit=max&blend=CC2c7af4)
-    //background-position center
-    //background-size cover
-    //background-repeat no-repeat
     background linear-gradient(30deg, $theme, lighten($theme, 15))
     text-align center
     max-height 650px
@@ -80,10 +71,15 @@ section.auth
     border 1px solid darken($theme, 10)
 
 section.articles
+  background white
   padding 2em
   article
-    intro()
+    //intro()
+    background $light
+    border-radius .5em
+    padding 1em
     margin-bottom 2em
+    box-shadow inset 0 1px 3px darken($light, 5)
 
 section.pricing
   background $dark
