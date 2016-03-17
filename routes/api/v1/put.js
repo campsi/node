@@ -115,6 +115,8 @@ router.put('/projects/:project/collections/:collection/entries/:entry', function
         entry.data = req.body.data;
     }
 
+    entry.modifiedAt = new Date();
+
     entry.save(function (err, result) {
         if (req.body._draft) {
             Draft.remove({_id: req.body._draft}, function () {
@@ -146,6 +148,8 @@ router.put('/projects/:project/collections/:collection/drafts/:draft', function 
         draft.markModified('data');
         draft.data = req.body.data;
     }
+
+    draft.modifiedAt = new Date();
 
     draft.save(function (err, result) {
         res.json(result.toObject());

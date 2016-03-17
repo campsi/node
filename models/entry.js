@@ -3,7 +3,9 @@ var mongoose = require('mongoose');
 module.exports = (function () {
     var schema = new mongoose.Schema({
         _collection: {type: mongoose.Schema.Types.ObjectId, ref: 'Collection'},
-        data: mongoose.Schema.Types.Mixed
+        data: mongoose.Schema.Types.Mixed,
+        createdAt: Date,
+        modifiedAt: Date
     });
 
     schema.methods.identity = function () {

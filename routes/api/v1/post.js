@@ -114,6 +114,7 @@ router.post('/projects/:project/collections/:collection/drafts', function (req, 
         _collection: req.collection._id,
         _user: req.user._id,
         _entry: req.body._entry,
+        createdAt: new Date(),
         data: req.body.data
     }, function (err, draft) {
         res.json(draft.toObject());
@@ -125,6 +126,7 @@ router.post('/projects/:project/collections/:collection/drafts', function (req, 
 router.post('/projects/:project/collections/:collection/entries', function (req, res) {
     Entry.create({
         _collection: req.collection._id,
+        createdAt: new Date(),
         data: req.body.data
     }, function (err, entry) {
 
