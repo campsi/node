@@ -1,4 +1,3 @@
-var Organization = require('../models/organization');
 var Project = require('../models/project');
 var Collection = require('../models/collection');
 var Entry = require('../models/entry');

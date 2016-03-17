@@ -117,7 +117,6 @@ app.use('/import', require('./routes/import'));
 
 app.use('/api/v1/components', require('./routes/api/v1/components'));
 app.use('/invitation', require('./routes/invitation'));
-app.use('/profile', require('./routes/profile'));
 
 app.use('/', require('./routes/index'));
 
