@@ -7,6 +7,7 @@ var Draft = require('../../../models/draft');
 var Template = require('../../../models/template');
 var handlebars = require('handlebars');
 var extend = require('extend');
+var async = require('async');
 
 resources.patchRouter(router);
 
@@ -22,12 +23,8 @@ router.get('/projects/:project', function (req, res) {
 });
 
 router.get('/projects/:project/users', function (req, res) {
-    req.project.getUsers(function (err, users) {
-        res.json(users.map(function (u) {
-            var obj = u.toObject();
-            delete obj.projects;
-            return obj;
-        }));
+    req.project.getUsersAndGuests(function(err, usersAndGuests){
+        res.json(usersAndGuests);
     })
 });
 

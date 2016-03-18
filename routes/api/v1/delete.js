@@ -5,7 +5,7 @@ var Collection = require('../../../models/collection');
 var Entry = require('../../../models/entry');
 var Draft = require('../../../models/draft');
 var Campsi = require('campsi-core');
-var createAppEvent = require('../../../lib/campsi-app/event');
+var createAppEvent = require('../../../lib/campsi-app/server/event');
 
 resources.patchRouter(router);
 

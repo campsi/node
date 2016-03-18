@@ -5,8 +5,7 @@ var slug = require('slug');
 var Draft = require('../../../models/draft');
 var extend = require('extend');
 var Campsi = require('campsi-core');
-var createAppEvent = require('../../../lib/campsi-app/event');
-
+var createAppEvent = require('../../../lib/campsi-app/server/event');
 resources.patchRouter(router);
 
 var returnId = function (item) {

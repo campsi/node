@@ -129,6 +129,7 @@
 	"event.entry:delete": "a supprimé une entrée",
 	"event.draft:create": "a créé un brouillon",
 	"event.draft:update": "a modifié un brouillon",
-	"event.draft:delete": "a supprimé un brouillon"
-
+	"event.draft:delete": "a supprimé un brouillon",
+	"welcome": "welcome",
+	"btns.projectBilling": "facturation"
 }

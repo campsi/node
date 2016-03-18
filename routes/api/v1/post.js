@@ -16,7 +16,7 @@ var config = require('../../../config');
 var sendgrid = require('sendgrid')(config.sendgrid_api_key);
 var emailValidator = require('email-validator');
 
-var createAppEvent = require('../../../lib/campsi-app/event');
+var createAppEvent = require('../../../lib/campsi-app/server/event');
 
 resources.patchRouter(router);
 
