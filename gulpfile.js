@@ -34,7 +34,19 @@ var coreDependencies = [
     'handlebars'
 ];
 
-var serverOnlyDependencies = ['util','cheerio', 'console.table', 'request', 'jade', 'path', 'i18n', 'fs', 'node-redis-pubsub'];
+var serverOnlyDependencies = [
+    'util',
+    'cheerio',
+    'console.table',
+    'request',
+    'jade',
+    'path',
+    'i18n',
+    'fs',
+    'node-redis-pubsub',
+    'mongoose',
+    './lib/campsi-app/server'
+];
 
 gulp.task('serve', function () {
     nodemon({
