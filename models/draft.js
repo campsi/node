@@ -8,7 +8,7 @@ var schema = new mongoose.Schema({
     createdAt: Date,
     modifiedAt: Date,
     data: mongoose.Schema.Types.Mixed
-});
+},{ id: false });
 
 schema.statics.findDraftsInCollectionForUser = function (collection, user, cb) {
     this.find({

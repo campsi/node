@@ -19,7 +19,7 @@ var schema = new mongoose.Schema({
         markup: String,
         scope: String
     }]
-});
+}, {id: false});
 
 schema.methods.createCollection = function (project, cb) {
 

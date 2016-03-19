@@ -14,7 +14,7 @@ var schema = new mongoose.Schema({
         uri: String
     },
     collections: [{type: mongoose.Schema.Types.ObjectId, ref: 'Collection'}]
-});
+}, {id: false});
 
 schema.index({identifier: 1}, {unique: true});
 
