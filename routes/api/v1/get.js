@@ -8,51 +8,32 @@ var Template = require('../../../models/template');
 var handlebars = require('handlebars');
 var extend = require('extend');
 var async = require('async');
+var docsToObject = require('../../../lib/campsi-app/server/docToObject');
 
 resources.patchRouter(router);
 
 router.get('/projects/', function (req, res) {
     Project.list(req.user, function (err, projects) {
-        res.json(projects.map(function (p) {
-            return p.toObject()
-        }));
+        res.json(docsToObject(projects));
     });
 });
 router.get('/projects/:project', function (req, res) {
-    res.json(req.project.toObject());
+    res.json(docsToObject(req.project));
 });
 
 router.get('/projects/:project/users', function (req, res) {
-    req.project.getUsersAndGuests(function(err, usersAndGuests){
+    req.project.getUsersAndGuests(function (err, usersAndGuests) {
         res.json(usersAndGuests);
     })
 });
 
-router.get('/projects/:project/deployments', function (req, res) {
-    Project.findOne({_id: req.project._id}).select('deployments').exec(function (err, project) {
-        res.json(project);
-    });
-});
-
-router.get('/projects/:project/guests', function (req, res) {
-    req.project.getGuests(function (err, guests) {
-        res.json(guests);
-    })
-});
-
 router.get('/projects/:project/collections/:collection', function (req, res) {
-    res.json(req.collection.toObject());
+    res.json(docsToObject(req.collection));
 });
 
 router.get('/projects/:project/collections/:collection/entries-and-drafts', function (req, res) {
-    req.collection.getEntriesAndDrafts(req.user, function (err, items) {
-        var drafts = items.drafts.map(function (i) {
-            return i.toObject();
-        });
-        var entries = items.entries.map(function (i) {
-            return i.toObject();
-        });
-        res.json({drafts: drafts, entries: entries});
+    req.collection.getEntriesAndDrafts(req.user, function (err, entriesAndDrafts) {
+        res.json(docsToObject(entriesAndDrafts));
     });
 });
 
@@ -90,9 +71,7 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
     query.exec(function (err, entries) {
 
         if (req.query.sort) {
-            return res.json(entries.map(function (e) {
-                return e.toObject();
-            }))
+            return res.json(docsToObject(entries))
         }
 
         var sortedEntries = {};
@@ -103,16 +82,11 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
         var result = [];
         req.collection.entries.forEach(function (id) {
             if (typeof sortedEntries[id] !== 'undefined') {
-                result.push(sortedEntries[id].toObject());
+                result.push(docsToObject(sortedEntries[id]));
             }
         });
 
-        if (req.query.template && templates[req.query.template]) {
-            var template = handlebars.compile(templates[req.query.template]);
-            res.send(template({entries: result}));
-        } else {
-            res.json(result);
-        }
+        res.json(result);
     });
 });
 
@@ -124,35 +98,16 @@ router.get('/projects/:project/collections/:collection/drafts', function (req, r
 });
 
 router.get('/projects/:project/collections/:collection/entries/:entry', function (req, res) {
-    if (typeof req.query.template === 'undefined') {
-        return res.json(req.entry.toObject());
-    }
-    var templateObj;
-
-    req.collection.templates.forEach(function (t) {
-        if (t.identifier === req.query.template) {
-            templateObj = t;
-        }
-    });
-
-    if (typeof templateObj !== 'undefined') {
-        var template = handlebars.compile(templateObj.markup);
-        return res.send(template(req.entry.toObject()));
-    }
-
-    return res.json(req.entry.toObject());
-
+    res.json(docsToObject(req.entry));
 });
 
 router.get('/projects/:project/collections/:collection/drafts/:draft', function (req, res) {
-    res.json(req.draft.toObject());
+    res.json(docsToObject(req.draft));
 });
 
 router.get('/templates', function (req, res) {
     Template.find({}).select('name icon tags identifier').exec(function (err, templates) {
-        res.json(templates.map(function (t) {
-            return t.toObject()
-        }));
+        res.json(docsToObject(templates));
     });
 });
 
@@ -174,7 +129,7 @@ router.get('/me/events', function (req, res) {
         .select('-data.previousValue -_id')
         .limit(12)
         .sort({date: 'desc'}).exec(function (err, events) {
-        res.json(events);
+        res.json(docsToObject(events));
     });
 
 });
