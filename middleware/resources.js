@@ -40,7 +40,7 @@ module.exports = {
                     path: 'collections',
                     select: 'name _id identifier hasFields icon'
                 })
-                .select("title demo icon identifier collections websiteUrl")
+                .select("title demo icon identifier collections")
                 .exec(function (err, projects) {
                     if (projects.length > 0) {
                         req.project = projects[0];

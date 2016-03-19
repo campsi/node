@@ -44,8 +44,7 @@ var serverOnlyDependencies = [
     'i18n',
     'fs',
     'node-redis-pubsub',
-    'mongoose',
-    './lib/campsi-app/server'
+    'mongoose'
 ];
 
 gulp.task('serve', function () {

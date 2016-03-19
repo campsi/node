@@ -13,22 +13,7 @@ var schema = new mongoose.Schema({
     icon: {
         uri: String
     },
-    websiteUrl: String,
-    collections: [{type: mongoose.Schema.Types.ObjectId, ref: 'Collection'}],
-    deployments: [{
-        connection: String,
-        ftpConfig: {
-            host: String,
-            port: Number,
-            username: String,
-            password: String,
-            path: String
-        },
-        email: {
-            value: String,
-            frequency: String
-        }
-    }]
+    collections: [{type: mongoose.Schema.Types.ObjectId, ref: 'Collection'}]
 });
 
 schema.index({identifier: 1}, {unique: true});

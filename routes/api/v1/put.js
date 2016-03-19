@@ -46,9 +46,6 @@ router.put('/projects/:project', function (req, res) {
     if (typeof req.body.identifier !== 'undefined') {
         project.identifier = slug(req.body.identifier);
     }
-    if (typeof req.body.deployments !== 'undefined') {
-        project.deployments = req.body.deployments;
-    }
     if (typeof req.body.websiteUrl !== 'undefined') {
         project.websiteUrl = req.body.websiteUrl;
     }
