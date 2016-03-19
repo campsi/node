@@ -13,23 +13,8 @@ var schema = new mongoose.Schema({
     icon: {
         uri: String
     },
-    websiteUrl: String,
-    collections: [{type: mongoose.Schema.Types.ObjectId, ref: 'Collection'}],
-    deployments: [{
-        connection: String,
-        ftpConfig: {
-            host: String,
-            port: Number,
-            username: String,
-            password: String,
-            path: String
-        },
-        email: {
-            value: String,
-            frequency: String
-        }
-    }]
-});
+    collections: [{type: mongoose.Schema.Types.ObjectId, ref: 'Collection'}]
+}, {id: false});
 
 schema.index({identifier: 1}, {unique: true});
 
@@ -110,6 +95,31 @@ schema.methods.getGuests = function (cb) {
             }
         }
     }).exec(cb);
+};
+
+schema.methods.getUsersAndGuests = function (cb) {
+    var self = this;
+    var usersAndGuests = {};
+    async.parallel([
+        function (next) {
+            self.getUsers(function (err, users) {
+                usersAndGuests.users = users.map(function (u) {
+                    var obj = u.toObject();
+                    delete obj.projects;
+                    return obj;
+                });
+                next();
+            });
+        },
+        function (next) {
+            self.getGuests(function (err, guests) {
+                usersAndGuests.guests = guests;
+                next();
+            });
+        }
+    ], function () {
+        cb(null, usersAndGuests)
+    });
 };
 
 schema.set('toObject', {

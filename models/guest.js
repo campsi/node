@@ -9,7 +9,7 @@ var schema = new mongoose.Schema({
         _project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: true},
         roles: [String]
     }]
-});
+}, {id: false});
 
 schema.index({email: 1}, {unique: true});
 

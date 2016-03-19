@@ -21,7 +21,7 @@ var schema = new mongoose.Schema({
     }],
     hasFields: Boolean,
     entries: [{type: mongoose.Schema.Types.ObjectId, ref: 'Entry'}]
-});
+},{ id: false });
 
 schema.index({_project: 1, identifier: 1}, {unique: true});
 

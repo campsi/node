@@ -5,9 +5,10 @@ var schema = new mongoose.Schema({
     _collection: {type: mongoose.Schema.Types.ObjectId, ref: 'Collection'},
     _entry: {type: mongoose.Schema.Types.ObjectId, ref: 'Entry'},
     _user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    date: {type: Date, default: Date.now},
+    createdAt: Date,
+    modifiedAt: Date,
     data: mongoose.Schema.Types.Mixed
-});
+},{ id: false });
 
 schema.statics.findDraftsInCollectionForUser = function (collection, user, cb) {
     this.find({

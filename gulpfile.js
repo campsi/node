@@ -34,7 +34,18 @@ var coreDependencies = [
     'handlebars'
 ];
 
-var serverOnlyDependencies = ['cheerio', 'console.table', 'request', 'jade', 'path', 'i18n', 'fs', 'node-redis-pubsub'];
+var serverOnlyDependencies = [
+    'util',
+    'cheerio',
+    'console.table',
+    'request',
+    'jade',
+    'path',
+    'i18n',
+    'fs',
+    'node-redis-pubsub',
+    'mongoose'
+];
 
 gulp.task('serve', function () {
     nodemon({
@@ -49,17 +60,17 @@ gulp.task('stylus', function () {
     gulp.src('./stylus/main.styl')
         .pipe(stylus({compress: true}))
         .pipe(autoprefixer({
-                  browsers: ['last 2 versions'],
-                  cascade: false
-              }))
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(gulp.dest('./public/stylesheets'));
 
     gulp.src('./stylus/invitation.styl')
         .pipe(stylus({compress: true}))
         .pipe(autoprefixer({
-                  browsers: ['last 2 versions'],
-                  cascade: false
-              }))
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(gulp.dest('./public/stylesheets'));
 
 });
@@ -81,13 +92,13 @@ gulp.task('core', function () {
 
     var bundle = b.bundle().pipe(source('campsi.core.js'));
 
-    if(config.env !== 'dev'){
+    if (config.env !== 'dev') {
         bundle.pipe(streamify(uglify()));
     }
     return bundle.pipe(gulp.dest('./public/javascripts/'));
 });
 
-var packComponents = function(map, dest){
+var packComponents = function (map, dest) {
     // set up the browserify instance on a task basis
     var b = browserify(map, {
         bundleExternals: false
@@ -104,14 +115,14 @@ var packComponents = function(map, dest){
     });
 
     var bundle = b.bundle().pipe(source(dest));
-    if(config.env !== 'dev'){
+    if (config.env !== 'dev') {
         bundle.pipe(streamify(uglify()));
     }
     return bundle.pipe(gulp.dest('./public/javascripts/'));
 };
 
 gulp.task('app', function () {
-    return packComponents('./lib/campsi-app/init.js', 'campsi.app.js');
+    return packComponents('./lib/campsi-app/browser.js', 'campsi.app.js');
 });
 
 gulp.task('invitation', function () {
@@ -127,12 +138,12 @@ gulp.task('editor', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('lib/campsi-app/*.js', ['app', 'invitation']);
+    gulp.watch('lib/campsi-app/**/*.js', ['app']);
     gulp.watch('lib/components/**/*.js', ['standard-components']);
     gulp.watch('lib/campsi-components/**/*.js', ['editor']);
     gulp.watch('**/*.styl', ['stylus']);
 });
 
-gulp.task('compile', ['core', 'app', 'editor', 'invitation', 'standard-components', 'stylus']);
+gulp.task('compile', ['core', 'app', 'editor', 'standard-components', 'stylus']);
 
 gulp.task('default', ['compile', 'watch', 'serve']);

@@ -91,7 +91,6 @@ app.get('/callback', passport.authenticate('auth0'), function (req, res) {
             })
         });
     } else {
-        console.info("should redirect");
         res.redirect('/dashboard');
     }
 });
@@ -117,15 +116,13 @@ app.use('/import', require('./routes/import'));
 
 app.use('/api/v1/components', require('./routes/api/v1/components'));
 app.use('/invitation', require('./routes/invitation'));
-app.use('/profile', require('./routes/profile'));
 
 app.use('/', require('./routes/index'));
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+app.use(function (req, res) {
+    res.status(404);
+    res.end();
 });
 
 // production error handler
@@ -136,21 +133,6 @@ app.use(function (err, req, res) {
     if (err.status === 404) {
         return res.send('404 / NOT FOUND');
     }
-
-    winston.log('error', {
-        req: {
-            method: req.method,
-            headers: req.headers
-        },
-        err: {
-            message: err.message,
-            stack: err.stack
-        }
-    });
-    res.json({
-        message: err.message,
-        error: err.stack.split('\n')
-    });
 });
 
 

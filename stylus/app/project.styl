@@ -39,6 +39,7 @@
 
     &.big-title
       padding 0
+      margin-top 1em
 
   //.form_field.icon
   //  background white
@@ -184,16 +185,9 @@
   button.remove
     dark-button($red)
 
-#projectUsers, #projectDeployments, #billing
+#projectUsers, #billing
   > .content
     padding-top $headerHeight
-
-
-#projectDeployments
-
-  input[type=submit]
-    display block
-    light-button($theme)
 
 #project.empty
   .btn.design,

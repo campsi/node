@@ -5,8 +5,7 @@ var slug = require('slug');
 var Draft = require('../../../models/draft');
 var extend = require('extend');
 var Campsi = require('campsi-core');
-var createAppEvent = require('../../../lib/campsi-app/event');
-
+var createAppEvent = require('../../../lib/campsi-app/server/event');
 resources.patchRouter(router);
 
 var returnId = function (item) {
@@ -46,9 +45,6 @@ router.put('/projects/:project', function (req, res) {
     }
     if (typeof req.body.identifier !== 'undefined') {
         project.identifier = slug(req.body.identifier);
-    }
-    if (typeof req.body.deployments !== 'undefined') {
-        project.deployments = req.body.deployments;
     }
     if (typeof req.body.websiteUrl !== 'undefined') {
         project.websiteUrl = req.body.websiteUrl;
@@ -115,6 +111,8 @@ router.put('/projects/:project/collections/:collection/entries/:entry', function
         entry.data = req.body.data;
     }
 
+    entry.modifiedAt = new Date();
+
     entry.save(function (err, result) {
         if (req.body._draft) {
             Draft.remove({_id: req.body._draft}, function () {
@@ -146,6 +144,8 @@ router.put('/projects/:project/collections/:collection/drafts/:draft', function 
         draft.markModified('data');
         draft.data = req.body.data;
     }
+
+    draft.modifiedAt = new Date();
 
     draft.save(function (err, result) {
         res.json(result.toObject());
