@@ -61,15 +61,19 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
     }
 
     if (req.query.limit) {
-        query.limit(req.query.limit);
+        query.limit(parseInt(req.query.limit));
     }
 
     if (req.query.skip) {
-        query.skip(req.query.skip);
+        query.skip(parseInt(req.query.skip));
     }
 
     query.exec(function (err, entries) {
 
+        if(err){
+            console.error(err);
+            return res.json([]);
+        }
         if (req.query.sort) {
             return res.json(docsToObject(entries))
         }

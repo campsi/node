@@ -1,8 +1,11 @@
-.logged-in #welcome section.auth
+.logged-in #welcome .auth
   display none
 
 #welcome
   > header
-    display none
+    background rgba($dark, .5)
+    border-bottom-color rgba($dark, .7)
+    button
+      dark-button($theme)
   .content
     padding-top 0

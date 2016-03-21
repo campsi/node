@@ -1,0 +1,28 @@
+.campsi_collection_api-doc
+  background white
+  margin 1.5em
+  border-radius .5em
+  //box-shadow 0 0 10px darken($light, 20)
+  border 1px solid darken($light, 10)
+  overflow hidden
+
+  header
+    background $light
+    //border 1px solid transparent
+    //border-bottom-color darken($light, 5)
+    a
+      display inline-block
+      padding .5em 1em
+      color $darkText
+      font-weight 500
+
+      &:hover, &.active
+        background darken($light, 5)
+
+  .container
+    border-top 1px solid darken($light, 10)
+    article
+      display none
+      color $darkText
+      &.active
+        display block

@@ -13,7 +13,7 @@ var streamify = require('gulp-streamify');
 var bower = require('gulp-bower');
 var config = require('./config');
 var shouldMinify = false;
-
+var isProd = (config.env === 'prod');
 var i18n = require('i18n');
 var locales = ['en', 'fr'];
 
@@ -58,7 +58,10 @@ gulp.task('serve', function () {
 
 gulp.task('stylus', function () {
     gulp.src('./stylus/main.styl')
-        .pipe(stylus({compress: true}))
+        .pipe(stylus({
+            compress: isProd,
+            'include css': true
+        }))
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
             cascade: false
@@ -66,7 +69,7 @@ gulp.task('stylus', function () {
         .pipe(gulp.dest('./public/stylesheets'));
 
     gulp.src('./stylus/invitation.styl')
-        .pipe(stylus({compress: true}))
+        .pipe(stylus({compress: isProd}))
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
             cascade: false
@@ -92,7 +95,7 @@ gulp.task('core', function () {
 
     var bundle = b.bundle().pipe(source('campsi.core.js'));
 
-    if (config.env !== 'dev') {
+    if (isProd) {
         bundle.pipe(streamify(uglify()));
     }
     return bundle.pipe(gulp.dest('./public/javascripts/'));
@@ -115,7 +118,7 @@ var packComponents = function (map, dest) {
     });
 
     var bundle = b.bundle().pipe(source(dest));
-    if (config.env !== 'dev') {
+    if (isProd) {
         bundle.pipe(streamify(uglify()));
     }
     return bundle.pipe(gulp.dest('./public/javascripts/'));

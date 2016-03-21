@@ -35,6 +35,7 @@
     "gulp-stylus": "*",
     "gulp-uglify": "*",
     "handlebars": "*",
+    "highlight.js": "^9.2.0",
     "i18n": "*",
     "is-browser": "*",
     "is-image": "*",

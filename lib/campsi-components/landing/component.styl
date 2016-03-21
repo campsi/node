@@ -5,33 +5,44 @@
       transform none
 
   header
-    background linear-gradient(30deg, $theme, lighten($theme, 15))
+    background linear-gradient(#02236a, #0474c7, #a5ccf2)
+    //background url(http://campsi.imgix.net/56b0f1c85f9e20f80551b670-Ek8i4sOpl.jpg) no-repeat
+    background-size cover
     text-align center
-    max-height 650px
-    padding 0
-    padding-bottom 100px
+    height 100vh
     position relative
+    padding-bottom 200px
 
     &::after
       display block
       content ''
-      height 140px
-      //background linear-gradient(rgba($theme, 0), rgba(darken($theme, 50), .8))
-      background url(/images/clouds.png)
+      height 200px
+      background url(/images/clouds-smokey.png)
+      //background-size 50%
+      background-repeat repeat-x
       position absolute
-      bottom 0
+      bottom -10px
       width 100%
-
-    h1, h2
-      //color darken($light, 10)
-      color lighten($theme, 50)
-      text-shadow 1px 1px 0 rgba($theme,.3), -1px -1px 0 rgba(white, .5)
+      //filter blur(10px)
 
     h1
-      //transform scale(100%)
-      padding-top 30px
-      font-size 10vw
+      color lighten($theme, 50)
+      text-shadow 1px 1px 0 darken($theme, 10), -1px -1px 0 rgba(white, .3)
+
+    .center
+      position absolute
+      top 50%
+      margin-top -150px
+      height 300px
+      width 100%
+
+    h1
+      font-size 160px
       font-weight 100
+      height 200px
+      text-align center
+      width 100%
+      line-height 160px
 
       span
         display inline-block
@@ -43,44 +54,218 @@
       .m
         transform rotate(-5deg) translateY(-30px)
       .s
-        transform rotate(-7deg) translateY(-40px)
+        transform rotate(-7deg) translateY(-45px)
 
     h2
-      font-style italic
-      font-size 1.5vw
-      font-weight 500
-      //text-shadow 0 1px 2px rgba(black, .6)
-      margin-top 10px
-      margin-bottom 100px
-section h2
-  font-size 2.5em
-  font-weight 200
-  text-align center
-  margin-bottom 1.5em
+      font-size 32px
+      font-weight 100
+      padding-bottom 100px
+      color lighten($theme, 50)
+      strong
+        font-weight 300
 
-section.auth
-  $authHeight = 3em
-  height $authHeight
-  background $theme
-  text-align center
-  line-height $authHeight
-  font-size 2em
-  border-bottom 1px solid darken($theme, 10)
-  button
-    dark-button lighten($theme, 5)
-    margin-right 1em
-    border 1px solid darken($theme, 10)
 
-section.articles
-  background white
-  padding 2em
-  article
-    //intro()
-    background $light
-    border-radius .5em
-    padding 1em
-    margin-bottom 2em
-    box-shadow inset 0 1px 3px darken($light, 5)
+    .auth
+      $authHeight = 3em
+      height $authHeight
+      text-align center
+      line-height $authHeight
+      font-size 2em
+      button
+        width 300px
+        dark-button darken($theme, 15)
+        margin-right 1em
+        border 1px solid darken($theme, 20)
+        border-bottom-width 2px
+
+
+
+
+
+
+
+
+
+
+
+
+
+  section.about
+    background white
+    padding 2em
+    padding-top 4em
+    text-align center
+    font-weight 200
+
+    article
+      max-width 940px
+      margin 0 auto
+      padding 1em
+      color $darkText
+      margin-bottom 2em
+
+      h3
+        font-size 2.2em
+        font-weight 100
+        margin 2em
+
+        strong
+          color $theme
+
+      .text
+        text-align center
+        margin 2em auto
+        font-size 1.2em
+        color darken($light, 40)
+        line-height 2em
+
+        p
+          margin-bottom 1.5em
+    div.image
+      overflow hidden
+      border-radius .5em
+      box-shadow 0 2px 10px rgba($dark, .5)
+      height 500px
+      img
+        width 100%
+
+  .activities
+    overflow hidden
+    height 540px
+    width 100%
+    margin-bottom 1em
+    position relative
+    list-style-type none
+
+    li
+      position absolute
+      top 50%
+      left 50%
+      margin-top -70px
+      margin-left -70px
+      //overflow hidden
+      display table
+      padding 10px
+      background $theme
+      border-radius 140px
+      height 140px
+      width 140px
+      font-size 14px
+      color white
+      line-height 20px
+      //box-shadow 0 2px 20px rgba($theme, .3)
+      background radial-gradient($theme, darken($theme, 10))
+      //animation-name animateSpans
+      //animation-duration 3s
+      transition transform 1s ease-out, opacity 1s ease-out
+
+      h4
+        //display inline-block
+        //line-height 0
+        display table-cell
+        vertical-align middle
+        font-weight 200
+
+      &.with-campsi
+        border-radius 5px
+        background $light
+        color black
+        width 200px
+        height 220px
+        transform translate(255px, -55px) scale(0)
+        opacity 0
+        border 1px solid darken($light,10)
+
+  .added-value.visible
+    li
+      &.activity-cms
+        transform scale(1.6, 1.6)
+      &.activity-visual-identity
+        transform scale(1.2, 1.2) translate(-120px, -135px)
+      &.activity-consulting
+        transform scale(.9, .9) translate(19px, -203px)
+      &.activity-emailing
+        transform scale(.8, .8) translate(178px, -146px)
+      &.activity-seo
+        transform scale(1.1, 1.1) translate(-133px, 133px)
+      &.activity-ui
+        transform scale(1.3, 1.3) translate(120px, 120px)
+      &.activity-dev
+        transform scale(1.2, 1.2) translate(-203px, 0)
+      &.activity-hosting
+        transform scale(.8, .8) translate(-3px, 225px)
+      &.activity-cm
+        transform scale(.8, .8) translate(224px, 0)
+
+
+  .activities.with-campsi, .activities:hover
+    li
+      &.with-campsi
+        transform translate(255px, -55px) scale(1, 1)
+        opacity 1
+      &.activity-cms
+        transform scale(1.2, 1.2) translate(238px, 0)
+        background $green
+      &.activity-visual-identity
+        transform scale(1.3, 1.3) translate(-125px, -112px)
+      &.activity-consulting
+        transform scale(1.1, 1.1) translate(-88px, 22px)
+      &.activity-emailing
+        transform scale(.9, .9) translate(13px, -117px)
+      &.activity-seo
+        transform scale(1.1, 1.1) translate(-159px, 148px)
+      &.activity-ui
+        transform scale(1.2, 1.2) translate(3px, 135px)
+      &.activity-dev
+        transform scale(1.3, 1.3) translate(-213px, 13px)
+      &.activity-hosting
+        transform scale(.8, .8) translate(60px, 28px)
+      &.activity-cm
+        transform scale(.9,.9) translate(-357px, 191px)
+
+
+  .editing
+    .components
+      list-style none
+      margin 0 auto
+      li
+        display inline-block
+        height 130px
+        width 100px
+        color $dark
+        margin 1em
+        font-size 12px
+        text-align center
+        .icon
+          display table-cell
+          vertical-align middle
+          background darken($light, 50)
+          border-radius 10px
+          height 100px
+          width 100px
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 section.pricing
   background $dark
