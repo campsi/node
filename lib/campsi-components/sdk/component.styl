@@ -23,7 +23,6 @@
   ol
     margin-left 1.5em
 
-
   div[data-type="url"]
     margin-top .5em
     display flex
@@ -39,4 +38,9 @@
       font-size .9em
       font-weight 200
     .block
-      display none
+      height 0
+      visibility hidden
+
+    &.visible .block
+      height auto
+      visibility visible
