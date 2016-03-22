@@ -21,7 +21,7 @@
     "cookie-parser": "*",
     "debug": "^2.2.0",
     "deepcopy": "*",
-    "dragula": "^3.6.8",
+    "dragula": "*",
     "email-validator": "^1.0.4",
     "equals": "*",
     "express": "*",
