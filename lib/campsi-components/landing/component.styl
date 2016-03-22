@@ -257,13 +257,85 @@
 
 
 
+  article.api
+    div.applications
+      position relative
+      margin-bottom 5em
+
+      span.arrow
+        z-index 0
+        top 60px
+        left 50%
+        margin-left -120px
+        position absolute
+        display block
+        height 240px
+        width 240px
+        &.left
+          background url(../images/arrows/left.png)
+          transform translate(-52px, 0)
+        &.middle
+          background url(../images/arrows/middle.png)
+        &.right
+          background url(../images/arrows/right.png)
+          transform translate(60px, 0)
+
+      div
+        z-index 10
+        display inline-block
+        .icon
+          height 150px
+          width 150px
+          margin 30px
+          overflow hidden
+          img
+            height 100%
+            width 100%
+        &.website, &.api
+          .icon
+            box-shadow 0 1px 5px rgba($dark, .3)
+            border-radius 8px
+
+        &.placeholder
+          display block
+          height 230px
+        &.api
+          width 200px
+          top 0
+          left 50%
+          margin-left -100px
+          display block
+          position absolute
 
 
 
 
+    .tech
+      background $light
+      border 1px solid darken($light, 5)
+      border-radius 10px
+      list-style-type none
 
+      h3
+        font-size 25px
+        margin 20px auto
+        font-weight 500
+        color $darkText
 
+      li
+        display inline-block
+        margin 10px
+        h4
+          font-weight 100
 
+        .icon
+          border 1px solid darken($light, 5)
+          border-radius 5px
+          width 100px
+          height 100px
+          overflow hidden
+        img
+          width 100%
 
 
 
