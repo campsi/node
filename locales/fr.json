@@ -117,5 +117,6 @@
 	"btns.download": "Télécharger",
 	"btns.login": "Se connecter",
 	"btns.signup": "Créer un compte",
-	"component.file.upload.btn": "Lancer le téléchargement"
+	"component.file.upload.btn": "Lancer le téléchargement",
+	"panels.designer.field.label.placeholder": "Intitulé du champ (par ex. titre, contenu, illustration)"
 }
