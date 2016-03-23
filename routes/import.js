@@ -5,7 +5,10 @@ var Template = require('../models/template');
 resources.patchRouter(router);
 
 router.post('/templates', function (req, res) {
-    Template.create(req.body, function(err, template){
+    Template.create(req.body, function (err, template) {
+        if (err) {
+            res.status(400);
+        }
         res.json(err || template);
     });
 });
