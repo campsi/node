@@ -9,7 +9,7 @@
         display none
     &.modified
       > header button.save
-          display inherit
+        display inherit
     .campsi_collection_api-doc
       display none
     .campsi_collection_intro
@@ -36,20 +36,30 @@
 
   .form_field.fields
     margin-top 3em
-    //padding-bottom 8em
-    //background linear-gradient(160deg, rgba(#BBB, .5), 15%, rgba(#EEE, .5))
+    padding-bottom 1em
     background lighten($dark, 20)
     > .label
       display none
-    //  color #525252
-    //  font-size 2em
-    //  margin-bottom .5em
     .form_field
       padding 0
 
-    >.control > .campsi_component-list > .items.dropzone
+    > .control > .campsi_component-list > .items.dropzone:empty
       padding-bottom 10em
+      border dashed 6px lighten($dark, 10)
 
+      &:after
+        content attr(data-placeholder)
+        display block
+        position absolute
+        top 0
+        left 0
+        right 0
+        bottom 0
+        font-size 1.5em
+        font-weight 100
+        color white
+        text-align center
+        padding 2em
 
 .campsi_collection_intro
   intro()

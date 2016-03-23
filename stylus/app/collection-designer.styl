@@ -17,46 +17,30 @@
   > button.remove
     display none
 
-  .placeholder
-    padding .5em
-    display none
-    overflow hidden
-    color darken($light, 20)
-    font-style italic
-    border 3px dashed darken($light, 10)
-    text-align center
-    border-radius .5em
-    //float left
-    margin-right 1em
-    background darken($light, 1)
 
 .campsi_component-list
 
   position relative
-  padding-bottom 1em
+  padding 1em
 
-  > .placeholder
-    //display none
-    user-select none
-    color $light
-    font-size 1.5em
-    position absolute
-    top 0
-    margin-top -.75em
-    font-weight 100
-    text-align center
-    width 100%
-    line-height 2em
-    padding 3em
-
-  >.items.dropzone
+  > .items.dropzone
     padding-bottom 1em
     border-radius 1em
     transition padding-bottom .5s ease-in
-    border 6px dashed transparent
+    border 2px dashed transparent
 
     &:empty
-      border-color lighten($dark, 10)
+      border-color darken($light, 10)
+
+      &:after
+        content attr(data-placeholder)
+        display block
+        font-size 1.5em
+        font-weight 100
+        color $dark
+        text-align center
+        padding 2em
+
       .gu-transit
         display none
 
@@ -71,10 +55,6 @@ body.dragging .campsi_component-list
 
 .campsi_collection-designer_field
   background white
-  //border 1px solid tint($dark, 50)
-  //box-shadow 0 2px 25px tint($dark, 60)
-  //border-bottom-width 3px
-  //border-bottom-color lighten($dark, 50)
   width 100%
   border-radius .5em
   overflow hidden
@@ -97,18 +77,22 @@ body.dragging .campsi_component-list
     font-size .9em
     transition background .2s linear
 
-    .type, .identifier
+    .identifier
       line-height 1.5em
       margin-left .5em
       color $nearWhite
       font-size 1.2em
-
-    .type
-      font-weight lighter
-
-    .identifier
       font-weight 500
       text-shadow lighten($dark, 40) 0 1px 0
+
+    .type
+      margin-left .5em
+      //border 1px solid red
+      //display table-cell
+      //vertical-align middle
+      height 1.5em
+      img
+        max-height 100%
 
     .spacer
       flex 1

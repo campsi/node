@@ -61,7 +61,7 @@
       background tint($dark, 10)
 
     img
-      box-shadow rgba(0,0,0,0.8) 0 1px 10px
+      box-shadow rgba(0, 0, 0, 0.8) 0 1px 10px
       border-radius .5em
       max-width 15em
       max-height 8em
@@ -90,7 +90,6 @@
       font-size: .8em
       padding 0 .5em
       transition height .2s ease-out
-
 
     &.active + .rel {
       border-top 1px solid $dark
@@ -132,10 +131,7 @@
       &.rel
         display none
 
-
-
 #entry
-
 
   header
     a.back
@@ -150,15 +146,16 @@
 
   &.draft
     header button.publish
-        display inline-block
+      display inline-block
     .big-buttons button.publish
-        display inline-block
+      display inline-block
     .big-buttons
       display block
 
   &.modified
-    .big-buttons button.save
-      display inline-block
+    .big-buttons
+      button.save, button.publish
+        display inline-block
     .big-buttons
       display block
 
@@ -224,7 +221,6 @@
         font-size .90em
         color black
 
-
 #entry .array_item, #entry .newItem, .array_item[data-panel='entry']
   background white
   box-shadow 0 1px 2px rgba(black, .2)
@@ -259,7 +255,6 @@
     border-left 0
     margin-left 0
 
-
   > .component
     flex 1
 
@@ -282,14 +277,13 @@
       opacity 1
 
   > .control
-        flex 1
+    flex 1
 
+  button.remove
+    align-self flex-start
+    margin-left 1em
+    dark-button($red)
 
-      button.remove
-        align-self flex-start
-        margin-left 1em
-        dark-button($red)
-
-      //&[data-item-type="form"]
-      //  > button.remove
-      //    margin -.5em -.5em 0 0
+//&[data-item-type="form"]
+//  > button.remove
+//    margin -.5em -.5em 0 0
