@@ -118,5 +118,22 @@
 	"btns.login": "Se connecter",
 	"btns.signup": "Créer un compte",
 	"component.file.upload.btn": "Lancer le téléchargement",
-	"panels.designer.field.label.placeholder": "Intitulé du champ (par ex. titre, contenu, illustration)"
+	"panels.designer.field.label.placeholder": "Intitulé du champ (par ex. titre, contenu, illustration)",
+	"sdk.intro.name": "Pour commencer",
+	"sdk.intro.title": "Comment fonctionne l'API de Campsi.io ?",
+	"sdk.http.name": "HTTP",
+	"sdk.http.title": "Appeler l'API en direct",
+	"sdk.http.getURL.title": "Récupérer l'URL de la liste",
+	"sdk.http.customizeURL.title": "Ajouter des paramètres à l'URL",
+	"sdk.http.customizeURL.filtering": "<p>Pour filtrer les entrées en effectuant une recherche sur le contenu des champs, il suffit d'ajouter un ou plusieurs paramètres <code>data.{nomDuChamp}</code>.</p>",
+	"sdk.http.customizeURL.sorting": "<p>Pour trier les entrées d'après la valeur d'un champ, il faut ajouter le paramètre <code>sort=data.{nomDuChamp}</code> à l'URL.</p>",
+	"sdk.http.customizeURL.paging": "<p>Pour limiter le nombre de résultat, on utilise le paramêtre <code>limit={nombreEntrees}</code>. Pour sauter des enregistrements, il faut utiliser le paramètre <code>skip={nombreEntrees}</code>. En combinant les deux, il est alors possible de paginer les résultats.</p>",
+	"panels.collection.sdk.step.optional": "(optionnel)",
+	"sdk.js.name": "Ajax",
+	"sdk.js.title": "Utiliser le SDK Ajax",
+	"sdk.js.intro": "<p>Le SDK Ajax fourni par Campsi est l'outil le plus rapide pour créer un site administrable. Il suffit de remplacer le portion de code HTML que vous souhaitez rendre éditable par une template Handlebars.</p>",
+	"sdk.js.lib.title": "Inclure le SDK",
+	"sdk.js.lib.text": "Il faut ajouter la balise <code>&lt;script&gt;></code> juste avant la balise fermante <code>&lt;/body&gt;></code>",
+	"sdk.js.template.title": "Remplacer le HTML de votre site par la template handlebars",
+	"sdk.js.template.text": "Afin de faciliter l'intégration, nous vous proposons un exemple de template à copier/coller. Bien évidemment, vous êtes tout à fait libres de modifier le contenu de cette balise afin qu'il respecte votre code HTML."
 }
