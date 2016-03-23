@@ -3,14 +3,11 @@
 var browserify = require('browserify');
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
-var transform = require('vinyl-transform');
-var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
 var nodemon = require('gulp-nodemon');
 var stylus = require('gulp-stylus');
 var autoprefixer = require('gulp-autoprefixer');
 var streamify = require('gulp-streamify');
-var bower = require('gulp-bower');
 var config = require('./config');
 var shouldMinify = false;
 var isProd = (config.env === 'prod');
@@ -49,9 +46,9 @@ var serverOnlyDependencies = [
 
 gulp.task('serve', function () {
     nodemon({
-        "verbose": false,
-        'ignore': ['**/*.css', '**/*.styl', 'public/**/*'],
-        'script': 'bin/www'
+        verbose: false,
+        ignore: ['**/*.css', '**/*.styl', 'public/**/*'],
+        script: 'bin/www'
     });
 });
 

@@ -5,9 +5,7 @@ var Entry = require('../../../models/entry');
 var Event = require('../../../models/event');
 var Draft = require('../../../models/draft');
 var Template = require('../../../models/template');
-var handlebars = require('handlebars');
 var extend = require('extend');
-var async = require('async');
 var docsToObject = require('../../../lib/campsi-app/server/docToObject');
 
 resources.patchRouter(router);

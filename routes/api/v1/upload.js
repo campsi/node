@@ -24,7 +24,7 @@ router.post('/upload', function (req, res) {
         var s3obj = new AWS.S3({params: {Bucket: 'campsi-eu', Key: key}});
 
         s3obj.upload({Body: part})
-            .on('httpUploadProgress', function (evt) {
+            .on('httpUploadProgress', function (/*evt*/) {
                 // todo : try to find a way to inform the client
             })
             .send(function (err, data) {

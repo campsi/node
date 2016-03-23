@@ -1,9 +1,7 @@
-var config = require('../config');
 var mongoose = require('mongoose');
 var async = require('async');
 
 var User = require('./user');
-var Collection = require('./collection');
 var Template = require('./template');
 
 var schema = new mongoose.Schema({

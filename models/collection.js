@@ -1,6 +1,4 @@
 var mongoose = require('mongoose');
-var config = require('../config');
-var Entry = require('./entry');
 var Draft = require('./draft');
 
 

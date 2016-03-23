@@ -18,7 +18,7 @@ schema.virtual('__collection').get(function () {
 });
 
 schema.virtual('__collection').set(function (collection) {
-    return this.___collection = collection;
+    this.___collection = collection;
 });
 
 schema.virtual('draft').get(function () {
@@ -26,7 +26,7 @@ schema.virtual('draft').get(function () {
 });
 
 schema.virtual('draft').set(function (draft) {
-    return this._draft = draft;
+    this._draft = draft;
 });
 
 schema.set('toObject', {
