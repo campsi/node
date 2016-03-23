@@ -152,18 +152,25 @@
     header button.publish
         display inline-block
     .big-buttons button.publish
-        display inherit
+        display inline-block
+    .big-buttons
+      display block
 
   &.modified
     .big-buttons button.save
-      display inherit
+      display inline-block
+    .big-buttons
+      display block
 
   &.new
     header button.delete
       display none
+    .big-buttons
+      display block
 
   .big-buttons
     display none
+    text-align center
     background darken($light, 20)
     margin-top 1em
     padding .5em
