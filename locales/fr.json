@@ -138,5 +138,6 @@
 	"sdk.js.template.text": "Afin de faciliter l'intégration, nous vous proposons un exemple de template à copier/coller. Bien évidemment, vous êtes tout à fait libres de modifier le contenu de cette balise afin qu'il respecte votre code HTML.",
 	"panels.entriesAndDrafts.seePublished": "Voir l'entrée publiée",
 	"panels.entriesAndDrafts.seeDraft": "Voir le brouillon non publié",
-	"panels.dashboard.activity.see": "Voir"
+	"panels.dashboard.activity.see": "Voir",
+	"panels.project.fields.notes.label": "Notes"
 }

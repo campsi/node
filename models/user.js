@@ -45,22 +45,33 @@ schema.methods.getEmail = function () {
     return this.email || this.emails[0].value;
 };
 
-schema.methods.addToProject = function (projectId, roles) {
-    var found = false;
-    this.projects.forEach(function (project) {
+schema.methods.getProjectIndex = function (projectId) {
+    var projectIndex = -1;
+    this.projects.forEach(function (project, index) {
         if (project._id.toString() === projectId.toString()) {
-            project.roles = arrayUniq(project.roles.concat(roles));
-            found = true;
+            projectIndex = index;
         }
     });
+    return projectIndex;
+};
 
-    if (found === false) {
+schema.methods.addToProject = function (projectId, roles) {
+    var projectIndex = this.getProjectIndex(projectId);
+    if (projectIndex > -1) {
+        this.projects[projectIndex].roles = arrayUniq(this.projects[projectIndex].roles.concat(roles));
+    } else {
         this.projects.push({_id: projectId, roles: roles});
     }
 };
 
-schema.methods.getRolesForProject = function (project) {
+schema.methods.removeFromProject = function (projectId) {
+    var projectIndex = this.getProjectIndex(projectId);
+    if(projectIndex > -1){
+        this.projects.splice(projectIndex, 1);
+    }
+};
 
+schema.methods.getRolesForProject = function (project) {
     var roles = [];
     this.projects.forEach(function (p) {
         if (project._id.toString() === p._id.toString()) {
@@ -69,7 +80,6 @@ schema.methods.getRolesForProject = function (project) {
     });
     return roles;
 };
-
 
 schema.set('toObject', {
     getters: true,

@@ -6,6 +6,8 @@ var Draft = require('../../../models/draft');
 var extend = require('extend');
 var Campsi = require('campsi-core');
 var createAppEvent = require('../../../lib/campsi-app/server/event');
+var slugOptions = require('../../../config').slug;
+
 resources.patchRouter(router);
 
 var returnId = function (item) {
@@ -22,20 +24,24 @@ router.put('/projects/:project', function (req, res) {
     var event = createAppEvent(req);
     event.previousValue = req.project.toObject();
 
-    if (typeof req.body.title !== 'undefined') {
+    if (req.body.title) {
         project.title = req.body.title;
     }
+
+    if(!req.body.identifier && !project.identifier){
+        project.identifier = slug(project.name, slugOptions);
+    }
+
+    if(req.body.identifier){
+        project.identifier = slug(req.body.identifier, slugOptions);
+    }
+
+    project.notes = req.body.notes;
 
     var returnId = function (item) {
         return mongoose.Types.ObjectId(item._id);
     };
 
-    if (typeof req.body.admins !== 'undefined') {
-        project.admins = req.body.admins.map(returnId);
-    }
-    if (typeof req.body.designers !== 'undefined') {
-        project.designers = req.body.designers.map(returnId);
-    }
     if (typeof req.body.collections !== 'undefined') {
         // todo DELETE obsolete collections
         project.collections = req.body.collections.map(returnId);
@@ -43,15 +49,9 @@ router.put('/projects/:project', function (req, res) {
     if (typeof req.body.icon !== 'undefined') {
         project.icon = req.body.icon;
     }
-    if (typeof req.body.identifier !== 'undefined') {
-        project.identifier = slug(req.body.identifier);
-    }
-    if (typeof req.body.websiteUrl !== 'undefined') {
-        project.websiteUrl = req.body.websiteUrl;
-    }
 
     project.save(function (err, result) {
-        if(err){
+        if (err) {
             res.status(500);
             return res.json(err);
         }
@@ -64,23 +64,26 @@ router.put('/projects/:project/collections/:collection', function (req, res) {
     var collection = req.collection;
 
     var event = createAppEvent(req);
+
     event.previousValue = req.collection.toObject();
 
-    if (typeof req.body.name !== 'undefined') {
+    if (req.body.name) {
         collection.name = req.body.name;
-        if (typeof req.body.identifier !== 'undefined') {
-            collection.identifier = slug(req.body.identifier);
-        } else if (typeof collection.identifier === 'undefined') {
-            collection.identifier = slug(req.body.name);
-        }
     }
 
-    collection.name = req.body.name || collection.name;
+    if(!req.body.identifier && !collection.identifier){
+        collection.identifier = slug(collection.name, slugOptions);
+    }
+
+    if(req.body.identifier){
+        collection.identifier = slug(req.body.identifier, slugOptions);
+    }
 
     if (typeof req.body.fields !== 'undefined') {
         collection.fields = req.body.fields;
         collection.hasFields = req.body.fields.length > 0;
     }
+
     if (typeof req.body.icon !== 'undefined') {
         collection.icon = req.body.icon;
     }

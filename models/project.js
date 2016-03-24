@@ -8,6 +8,7 @@ var schema = new mongoose.Schema({
     title: String,
     identifier: String,
     demo: Boolean,
+    notes: String,
     icon: {
         uri: String
     },
@@ -84,6 +85,7 @@ schema.methods.getUsers = function (cb) {
         });
 };
 
+
 schema.methods.getGuests = function (cb) {
     var Guest = require('./guest');
     Guest.find({
@@ -111,7 +113,9 @@ schema.methods.getUsersAndGuests = function (cb) {
         },
         function (next) {
             self.getGuests(function (err, guests) {
-                usersAndGuests.guests = guests;
+                usersAndGuests.guests = guests.map(function (g){
+                    return g.toObject();
+                });
                 next();
             });
         }

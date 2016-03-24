@@ -13,6 +13,23 @@ var schema = new mongoose.Schema({
 
 schema.index({email: 1}, {unique: true});
 
+schema.methods.getInvitationIndex = function(projectId){
+    var index = -1;
+    this.invitations.forEach(function(invitation, i){
+       if(invitation._project.toString() === projectId.toString()) {
+           index = i;
+       }
+    });
+    return index;
+};
+
+schema.methods.cancelInvitation= function(projectId){
+    var index = this.getInvitationIndex(projectId);
+    if(index > -1){
+        this.invitations.splice(index, 1);
+    }
+};
+
 schema.methods.turnIntoUser = function (user, callback) {
 
     var self = this;

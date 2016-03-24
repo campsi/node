@@ -1,5 +1,10 @@
 #project
 
+  .form_field
+    //border-bottom 1px solid darken($light, 4)
+    .label
+      text-indent .5em
+
   .campsi_project.admin
     header .buttons.right
       display none
@@ -18,15 +23,23 @@
         display inline-block
 
   &.new
-    > header .buttons.right
-      button, a
+    > header .buttons.right button, a
         display none
-      .save
-        display inherit
-    .form_field.collections, .form_field.icon
+    .form_field.collections, .form_field.icon, .form_field.notes
+      display none
+    .form_field .errors
       display none
     .campsi_project_intro
       display block
+
+  &.new.modified
+    > header .buttons.right .save
+      display inline-block
+
+    .form_field .errors
+      display block
+      &:empty
+        display none
 
   .campsi_project_intro
     display none

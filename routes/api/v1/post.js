@@ -7,12 +7,12 @@ var Entry = require('../../../models/entry');
 var Draft = require('../../../models/draft');
 var Guest = require('../../../models/guest');
 var User = require('../../../models/user');
-var slug = require('slug');
-
 var Campsi = require('campsi-core');
+var slug = require('slug');
 
 // todo use process.env
 var config = require('../../../config');
+var slugOptions = config.slug;
 var sendgrid = require('sendgrid')(config.sendgrid_api_key);
 var emailValidator = require('email-validator');
 
@@ -53,13 +53,14 @@ router.post('/projects', function (req, res) {
     if (req.user) {
 
         var projectPayload = {
-            title: req.body.title || req.context.translate('api.projects.defaultTitle'),
+            title: req.body.title,
             identifier: req.body.identifier,
-            icon: req.body.icon || {}
+            icon: req.body.icon || {},
+            notes: req.body.notes
         };
 
-        if (typeof projectPayload.identifier === 'undefined') {
-            projectPayload.identifier = slug(String(projectPayload.title));
+        if (!projectPayload.identifier) {
+            projectPayload.identifier = slug(String(projectPayload.title), slugOptions);
         }
 
         Project.create(projectPayload, function (err, project) {
@@ -67,10 +68,10 @@ router.post('/projects', function (req, res) {
                 res.status(400);
                 res.json(err);
             } else {
+                req.project = project;
                 req.user.addToProject(project._id, ['admin', 'designer']);
                 req.user.save(function (/*err, data*/) {
                     res.json(project.toObject());
-                    req.project = project;
                     Campsi.eventbus.emit('project:create', createAppEvent(req));
                 });
             }
@@ -82,6 +83,7 @@ router.post('/projects', function (req, res) {
     }
 });
 
+
 router.post('/projects/:project/collections', function (req, res) {
 
     if (req.query.template) {
@@ -92,11 +94,21 @@ router.post('/projects/:project/collections', function (req, res) {
         return;
     }
 
+    var payload = {
+        name: req.body.name,
+        identifier: req.body.identifier,
+        fields: req.body.fields || []
+    };
+
+    if (!payload.identifier) {
+        payload.identifier = slug(String(payload.name), slugOptions);
+    }
+
     Collection.create({
         _project: req.project._id,
-        name: req.body.name,
-        identifier: (typeof req.body.identifier === 'undefined' || req.body.identifier === '') ? slug(req.body.name) : slug(req.body.identifier),
-        fields: req.body.fields || []
+        name: payload.name,
+        identifier: payload.identifier,
+        fields: payload.fields
     }, function (err, collection) {
         req.project.collections.push(collection._id);
         var collectionObject = collection.toObject();

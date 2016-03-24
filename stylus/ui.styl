@@ -179,13 +179,14 @@ button, a.btn, .buttons > a, input[type=submit]
     display none*/
 
 input.component.text
+  background lighten($light, 5)
   padding: 0.5em 0.5em 0.4em 0.5em;
   font-size 0.94em
   width: 100%;
   border-radius 4px
   border: darken($light, 6) solid 1px
   border-bottom-color: darken($light, 10)
-  box-shadow: inset transparent 0 1px 5px 1px
+  //box-shadow: inset transparent 0 1px 5px 1px
   transition box-shadow .2s
 
 input.component.text::placeholder
@@ -194,9 +195,10 @@ input.component.text::placeholder
   font-style: italic
 
 input.component.text:focus
+  background white
   outline: none;
-  border-color: darken($light, 12)
-  box-shadow: inset tint($light, 50%) 0 1px 5px 1px
+  border-color: darken($light, 14)
+  //box-shadow: inset tint($light, 50%) 0 1px 5px 1px
 
 input.component.text:disabled
   background darken(white, 5)
@@ -211,25 +213,14 @@ input.component.text:disabled
 
 
 #app .form_field.big-title
-  //background linear-gradient(45deg, #FFF, darken(#FFF, 2))
-  //background tint($light, 60)
-  //border-bottom 1px solid darken($nearWhite, 14)
-  //border-top 1px solid darken($nearWhite, 10)
   font-size 1.5em
-  //background: url(/images/ui/low_contrast_linen.png)
-  //box-shadow inset black 0 2px 10px 2px
-  //margin-bottom .5em
-
-
   padding 0
-  //border-top 1px solid darken($light, 5);
 
   .label
     font-weight 600
     font-size 1.2em
     padding 1em
-    //text-indent 1.5em
-    //text-align center
+
   .control
     position relative
     padding 0
@@ -243,7 +234,7 @@ input.component.text:disabled
       font-size 1.5em
       line-height 1.2em
       position absolute
-      left 0
+      left .5em
       top .8em
 
     input
@@ -270,12 +261,19 @@ input.component.text:disabled
         font-weight 200
         font-style: italic
 
+  .errors
+    margin 1em
+    font-size .8em
+    &:before
+      line-height 2em
+
 .component.text_area
   position relative
   width 100%
   min-height 5rem
-  border: darken($light, 10) solid 1px;
-  box-shadow: inset rgba(black, .1) 0 1px 1px 1px
+  background lighten($light, 5)
+  border darken($light, 10) solid 1px;
+  //box-shadow: inset rgba(black, .1) 0 1px 1px 1px
   border-radius 4px
   padding .5em
   font-size .90em
@@ -283,8 +281,10 @@ input.component.text:disabled
 
   &:focus
     outline: none;
-    border-color: lighten($theme, 20)
-    box-shadow: inset lighten($theme, 20) 0 0 2px;
+    background white
+    //border-color: lighten($theme, 20)
+    border-color: darken($light, 14)
+    //box-shadow: inset lighten($theme, 20) 0 0 2px;
 
 
 #app .form_field.url

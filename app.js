@@ -87,7 +87,7 @@ app.get('/callback', passport.authenticate('auth0'), function (req, res) {
             }
 
             guest.turnIntoUser(req.user, function () {
-                res.redirect('/projects');
+                res.redirect('/dashboard');
             })
         });
     } else {
