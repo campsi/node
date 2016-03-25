@@ -113,7 +113,7 @@
 	"event.draft:create": "a créé un brouillon",
 	"event.draft:update": "a modifié un brouillon",
 	"event.draft:delete": "a supprimé un brouillon",
-	"btns.projectBilling": "facturation",
+	"btns.projectBilling": "Facturation",
 	"btns.download": "Télécharger",
 	"btns.login": "Se connecter",
 	"btns.signup": "Créer un compte",
@@ -139,5 +139,17 @@
 	"panels.entriesAndDrafts.seePublished": "Voir l'entrée publiée",
 	"panels.entriesAndDrafts.seeDraft": "Voir le brouillon non publié",
 	"panels.dashboard.activity.see": "Voir",
-	"panels.project.fields.notes.label": "Notes"
+	"panels.project.fields.notes.label": "Notes",
+	"component.file/renderer.meta.size": "Taille du fichier",
+	"component.file/renderer.meta.name": "Nom du fichier",
+	"component.file/renderer.download": "Télécharger le fichier original",
+	"component.file/renderer.meta.type": "Type MIME",
+	"component.file/renderer/image.meta.dimensions": "Dimensions",
+	"panels.dashboard.widget.activity.title": "Activité récente",
+	"panels.dashboard.widget.profile.title": "Mon profil",
+	"panels.dashboard.widget.favorites.title": "Mes favoris",
+	"panels.dashboard.widget.news.title": "Actualité",
+	"panels.dashboard.favorites.profile.title": "panels.dashboard.favorites.profile.title",
+	"panels.dashboard.news.profile.title": "panels.dashboard.news.profile.title",
+	"component.file/renderer.info": "Métadonnées"
 }

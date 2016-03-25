@@ -68,7 +68,7 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
 
     query.exec(function (err, entries) {
 
-        if(err){
+        if (err) {
             console.error(err);
             return res.json([]);
         }
@@ -134,6 +134,10 @@ router.get('/me/events', function (req, res) {
         res.json(docsToObject(events));
     });
 
+});
+
+router.get('/users/me', function (req, res) {
+    res.json(req.user.toObject());
 });
 
 module.exports = router;

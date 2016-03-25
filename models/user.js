@@ -3,8 +3,14 @@ var arrayUniq = require('array-uniq');
 
 var schema = new mongoose.Schema({
     fullname: String,
+    newsletterSubscribe: Boolean,
     avatar: {
-        uri: String
+        uri: String,
+        src: String,
+        size: Number,
+        mime: String,
+        height: Number,
+        width: Number
     },
     provider: String,
     displayName: String,
@@ -66,7 +72,7 @@ schema.methods.addToProject = function (projectId, roles) {
 
 schema.methods.removeFromProject = function (projectId) {
     var projectIndex = this.getProjectIndex(projectId);
-    if(projectIndex > -1){
+    if (projectIndex > -1) {
         this.projects.splice(projectIndex, 1);
     }
 };

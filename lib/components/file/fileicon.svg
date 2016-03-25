@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 49 64" style="enable-background:new 0 0 49 64;" xml:space="preserve">
+<g>
+	<path class="file" d="M49,16.8v42.1c0,2.8-2.3,5.1-5.1,5.1H5.1C2.3,64,0,61.7,0,58.9V5.1C0,2.3,2.3,0,5.1,0h27L49,16.8z"/>
+	<path class="corner" d="M49,15.9V18H35.2c-2.9,0-4.2-2.3-4.2-5.2V0h2.1L49,15.9z"/>
+</g>
+</svg>

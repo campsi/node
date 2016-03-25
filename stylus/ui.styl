@@ -153,64 +153,34 @@ button, a.btn, .buttons > a, input[type=submit]
   font-weight normal
   color darken($light, 60)
 
-/*#app .component.form_field.identifier
-  display flex
-  background darken($light, 20)
-  padding 1em
-  font-size 1em
-  align-items baseline
 
-  .label
-    margin 0 .5em 0 0
-    font-size 1em
-    font-weight 200
-    padding 0
-    color #000
-
-  .control
-    flex 1
-    input
-      font-family "Consolas", "Menlo", "Courier", monospace
-      font-size .8em
-      padding .75em
-      padding-bottom .5em
-
-  .help .errors
-    display none*/
-
-input.component.text
-  background lighten($light, 5)
-  padding: 0.5em 0.5em 0.4em 0.5em;
-  font-size 0.94em
-  width: 100%;
+lightInput()
+  background $inputIdleBackground
+  border $inputIdleBorderColor solid 1px
+  border-bottom-color $inputIdleBorderColorShadow
   border-radius 4px
-  border: darken($light, 6) solid 1px
-  border-bottom-color: darken($light, 10)
-  //box-shadow: inset transparent 0 1px 5px 1px
-  transition box-shadow .2s
 
-input.component.text::placeholder
-  padding-top 0
-  font-weight 200
-  font-style: italic
+  &:focus, &.focus
+    background $inputFocusBackground
+    outline none
+    border-color $inputFocusBorderColor
 
-input.component.text:focus
-  background white
-  outline: none;
-  border-color: darken($light, 14)
-  //box-shadow: inset tint($light, 50%) 0 1px 5px 1px
+  &:disabled, &.disabled
+    background $inputDisabledBackground
+    color $inputDisabledTextColor
 
-input.component.text:disabled
-  background darken(white, 5)
-  color lighten($dark, 20)
+
+
+
+
+
+
+
+
+
 
 .component.draggable.gu-mirror
   opacity 1
-
-//.newItem > input[type=submit]
-//  display none
-
-
 
 #app .form_field.big-title
   font-size 1.5em
@@ -267,24 +237,6 @@ input.component.text:disabled
     &:before
       line-height 2em
 
-.component.text_area
-  position relative
-  width 100%
-  min-height 5rem
-  background lighten($light, 5)
-  border darken($light, 10) solid 1px;
-  //box-shadow: inset rgba(black, .1) 0 1px 1px 1px
-  border-radius 4px
-  padding .5em
-  font-size .90em
-  margin 0
-
-  &:focus
-    outline: none;
-    background white
-    //border-color: lighten($theme, 20)
-    border-color: darken($light, 14)
-    //box-shadow: inset lighten($theme, 20) 0 0 2px;
 
 
 #app .form_field.url

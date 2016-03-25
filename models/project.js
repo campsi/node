@@ -10,7 +10,13 @@ var schema = new mongoose.Schema({
     demo: Boolean,
     notes: String,
     icon: {
-        uri: String
+        uri: String,
+        src: String,
+        name: String,
+        mime: String,
+        size: Number,
+        width: Number,
+        height: Number
     },
     collections: [{type: mongoose.Schema.Types.ObjectId, ref: 'Collection'}]
 }, {id: false});

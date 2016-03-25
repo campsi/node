@@ -1,51 +1,79 @@
 .component.file, .component.file_image
-
-  width 100%
-  background lighten($light, 5)
-  border: darken($light, 6) solid 1px
-  border-radius .4em
-  position relative
+  lightInput()
   overflow hidden
-  z-index 2
-  transition background .2s ease-out
+  position relative
+  border-bottom none
 
-  input[type=submit]
-    visibility hidden
-
-  &.has-files
-    input[type=submit]
-      visibility visible
-
-  .control
-    display flex
-    align-items center
-    padding .5em
-    background rgba($dark, .8)
-
-    input[type=file]
-      flex 1
-      color white
-      font-size .9em
-
-  .value
-    text-align center
-    img
-      margin 1em
-      max-height 200px
   &.is-dragover
     background $theme
 
-
-  input[type=submit]
-    dark-button $theme
-
-  .progress
-    background linear-gradient(rgba($theme, .8), $theme)
-    position: absolute;
+  .buttons
+    position absolute
     top 0
-    left 0
-    height 100%
-    width 0
+    right 0
+
+  .download, .info
+    dark-button($theme)
+    min-width 3em
+    margin .5em
+    margin-left 0
+    &.info
+      dark-button($green)
+
+
+  .preview
     display none
-    box-shadow 1px 1px 30px $theme
-    transition width .1s linear
+    position relative
+    text-align center
+    padding 1em
+
+    svg
+      height 140px
+      width 105px
+      .file
+        fill $theme
+      .corner
+        fill lighten($theme, 20)
+
+    &:after
+      content: attr(data-ext)
+      color white
+      position absolute
+      text-align center
+      top 50%
+      width 100%
+      left 0
+      display block
+      font-size 1.5em
+
+    img
+      max-width 100%
+
+  .meta
+    position absolute
+    top 0
+    display none
+    width 100%
+    height 100%
+    overflow-y scroll
+    background $dark
+    color white
+    font-size 0.8em
+
+    table
+      width 100%
+
+    tr
+      border-bottom 1px solid lighten($dark, 10)
+    th, td
+      padding 0 .5em
+    td
+      font-family monospace
+
+  .has-file
+    .preview, .buttons
+      display block
+
+  .show-info
+    .meta
+      display block

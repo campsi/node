@@ -46,6 +46,7 @@ router.put('/projects/:project', function (req, res) {
         // todo DELETE obsolete collections
         project.collections = req.body.collections.map(returnId);
     }
+
     if (typeof req.body.icon !== 'undefined') {
         project.icon = req.body.icon;
     }
@@ -161,9 +162,17 @@ router.put('/users/me', function (req, res) {
     var event = createAppEvent(req);
     event.previousValue = req.user.toObject();
 
-    extend(req.user, req.body);
-    req.user.save(function () {
-        res.json(req.user);
+    req.user.fullname = req.body.fullname;
+    req.user.avatar = req.body.avatar;
+    req.user.email = req.body.email;
+    req.user.newsletterSubscribe = req.body.newsletterSubscribe;
+
+    req.user.save(function (err, json) {
+        if(err){
+            console.error(err);
+            return res.status(400).json(err);
+        }
+        res.json(json);
         Campsi.eventbus.emit('user:update', event);
     });
 });
