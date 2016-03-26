@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var arrayUniq = require('array-uniq');
 
 var schema = new mongoose.Schema({
+    locale: String,
     fullname: String,
     newsletterSubscribe: Boolean,
     avatar: {

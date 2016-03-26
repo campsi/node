@@ -1,6 +1,10 @@
 .logged-in #welcome
   .auth, > header
-    display none
+    .login, .signup
+      display none
+    .dashboard
+      display inline-block
+
 
 #welcome
   > header
@@ -8,5 +12,8 @@
     border-bottom-color rgba($dark, .7)
     button
       dark-button($theme)
+
+    .dashboard
+      display none
   .content
     padding-top 0

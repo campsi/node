@@ -16,7 +16,8 @@
     &::after
       display block
       content ''
-      height 200px
+      max-height 200px
+      height 18%
       background url(/images/clouds-smokey.png)
       //background-size 50%
       background-repeat repeat-x
@@ -65,6 +66,9 @@
         font-weight 300
 
     .auth
+      position absolute
+      z-index 200
+      width 100%
       $authHeight = 3em
       height $authHeight
       text-align center
@@ -94,6 +98,7 @@
     article
       h3
         font-size 2.2em
+        line-height 1.5em
         font-weight 100
         margin 2em
 
@@ -210,16 +215,8 @@
       overflow hidden
       border-radius .5em
       box-shadow 0 2px 10px rgba($dark, .5)
-      height 500px
-      //transform-style preserve-3d
-      //transform rotateY(30deg) scale(0.8, 0.8)
-      //transition transform 1s ease-out
       img
         width 100%
-
-    //&.visible
-    //  div.image
-    //    transform rotateY(-5deg)
 
   .components
     list-style none
@@ -409,3 +406,65 @@
         transform rotate(-3deg)
 
 
+@media screen and (max-width: 600px)
+  .campsi_landing
+    article
+      width 100%
+      padding 0
+      h3
+        font-size 24px
+    header
+      .center
+        top 0
+        margin-top 100px
+      h1
+        font-size 30vw
+      h2
+        font-size 20px
+        line-height 30px
+
+    .added-value
+      aside
+        display none
+        height 240px
+        ul
+          transform scale(.45)
+          width 820px
+          height 500px
+          top 0
+          left 0
+          transform-origin -72px 0px
+
+    article.api
+      div.applications span.arrow
+        display none
+      .tech
+        h3
+          font-size 18px
+        li
+          margin 5px
+          font-size 12px
+          .icon
+            width 50px
+            height 50px
+
+    section.pricing
+      article
+        width 100%
+      .price
+        float none
+
+      .bullets
+        padding 12px
+        margin-left 40px
+        font-size 12px
+
+        li
+          margin-bottom 2em
+          line-height 20px
+
+  .logged-in
+    .campsi_landing
+      header
+        .center
+          margin-top 40vh

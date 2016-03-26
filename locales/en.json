@@ -144,5 +144,16 @@
 	"panels.dashboard.widget.activity.title": "Recent activity",
 	"panels.dashboard.widget.profile.title": "My Profile",
 	"panels.dashboard.widget.favorites.title": "My Favorites",
-	"panels.dashboard.widget.news.title": "News"
+	"panels.dashboard.widget.news.title": "News",
+	"btns.dashboard": "Dashboard",
+	"btns.collection": "List",
+	"component.profile.contact.email.placeholder": "Email",
+	"component.profile.contact.fullname.placeholder": "Full Name",
+	"component.profile.contact.avatar.placeholder": "Profile image",
+	"component.profile.contact.locale.label": "Language",
+	"component.profile.contact.locale.fr": "French",
+	"component.profile.contact.locale.en": "English",
+	"component.profile.contact.newsletter.label": "Subscribe to the newsletter",
+	"component.profile.contact.newsletter.checkboxText": "I want to receive emails about Campsi",
+	"component.file/renderer.info": "File info"
 }

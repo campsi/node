@@ -12,15 +12,8 @@ var Campsi = require('campsi-core');
 var Guest = require('./models/guest');
 var Event = require('./models/event');
 var config = require('./config');
-
-//i18n
 var i18n = require('i18n');
 
-i18n.configure({
-    locales: ['en', 'fr'],
-    cookie: 'campsi-app-locale',
-    directory: __dirname + '/locales'
-});
 
 // db
 mongoose.connect(config.mongo_uri);
@@ -33,6 +26,13 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+i18n.configure({
+    locales: ['en', 'fr'],
+    cookie: 'campsi-app-locale',
+    directory: __dirname + '/locales'
+});
+
 
 // view engine setup
 app.locals.pretty = true;
@@ -57,6 +57,13 @@ app.use(cookieParser());
 
 // i18n accept-language negociation is after cookieParser
 app.use(i18n.init);
+
+app.use(function (req, res, next) {
+    if (req.user && req.user.locale) {
+        i18n.setLocale(req, req.user.locale);
+    }
+    next();
+});
 
 app.set('trust proxy', 1); // trust first proxy
 

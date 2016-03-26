@@ -151,5 +151,17 @@
 	"panels.dashboard.widget.news.title": "Actualité",
 	"panels.dashboard.favorites.profile.title": "panels.dashboard.favorites.profile.title",
 	"panels.dashboard.news.profile.title": "panels.dashboard.news.profile.title",
-	"component.file/renderer.info": "Métadonnées"
+	"component.file/renderer.info": "Métadonnées",
+	"btns.duplicate": "Dupliquer",
+	"btns.collection": "Modifier la structure",
+	"btns.dashboard": "Tableau de bord",
+	"errors.required": "Ce champ est requis",
+	"component.profile.contact.newsletter.label": "Inscription à la newsletter",
+	"component.profile.contact.locale.label": "Langue",
+	"component.profile.contact.avatar.placeholder": "Avatar",
+	"component.profile.contact.fullname.placeholder": "Nom complet",
+	"component.profile.contact.email.placeholder": "Email",
+	"component.profile.contact.locale.fr": "Français",
+	"component.profile.contact.locale.en": "Anglais",
+	"component.profile.contact.newsletter.checkboxText": "Je veux recevoir la newsletter Campsi"
 }

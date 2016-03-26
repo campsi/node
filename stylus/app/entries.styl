@@ -133,6 +133,8 @@
 
 #entry
 
+  > .content
+    padding-top $headerHeight
   header
     a.back
       @media screen and (min-width: 600px)
@@ -147,7 +149,7 @@
   &.draft
     header button.publish
       display inline-block
-    .big-buttons button.publish
+    .big-buttons button.publish, .big-buttons button.remove
       display inline-block
     .big-buttons
       display block
@@ -166,14 +168,11 @@
       display block
 
   .big-buttons
-    display none
     text-align center
     background darken($light, 20)
     margin-top 1em
     padding .5em
-    text-align center
     font-size 1.2em
-    border-radius .2em
 
     button
       margin .5em
@@ -182,7 +181,6 @@
       dark-button($theme)
 
     button.remove
-      display none
       dark-button($red)
 
     button.publish
@@ -190,31 +188,31 @@
       dark-button($green)
 
   .campsi_entry
-    padding 1em
     margin 0
     border-left none
 
     .form_field
-      .label
-        font-weight 200
-        color lighten($dark, 10)
-        font-size 1.6em
-        margin-bottom .5em
-        border-bottom 1px solid rgba($dark, .2)
+      padding 1em
+
+      &:nth-child(odd)
+        background rgba(white, .3)
+
       &.horizontal
         .label
           border none
           min-width 0
           margin-bottom 0
 
-  .form_field
-    margin-bottom 2em
-    &:last-child
-      margin-bottom 0
+      .label
+        font-weight 200
+        color lighten($dark, 10)
+        font-size 1.6em
+        margin-bottom .5em
 
   .component.form .component.form
-    padding 0 0 0 1em
-    //border-left 1px solid $light
+    margin-left 1em
+    border 1px solid darken($light, 10)
+
     .form_field
       .label
         font-weight 200

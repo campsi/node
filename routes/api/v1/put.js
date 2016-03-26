@@ -165,6 +165,7 @@ router.put('/users/me', function (req, res) {
     req.user.fullname = req.body.fullname;
     req.user.avatar = req.body.avatar;
     req.user.email = req.body.email;
+    req.user.locale = req.body.locale;
     req.user.newsletterSubscribe = req.body.newsletterSubscribe;
 
     req.user.save(function (err, json) {
