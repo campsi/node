@@ -137,7 +137,11 @@ router.get('/me/events', function (req, res) {
 });
 
 router.get('/users/me', function (req, res) {
-    res.json(req.user.toObject());
+    if(req.user){
+        return res.json(req.user.toObject());
+    }
+
+    res.json({});
 });
 
 module.exports = router;
