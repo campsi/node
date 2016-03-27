@@ -172,6 +172,7 @@ router.put('/users/me', function (req, res) {
     req.user.email = req.body.email;
     req.user.locale = req.body.locale;
     req.user.newsletterSubscribe = req.body.newsletterSubscribe;
+    req.user.showDemoProjects = req.body.showDemoProjects;
 
     req.user.save(function (err, json) {
         if(err){

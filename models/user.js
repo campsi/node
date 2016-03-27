@@ -5,6 +5,7 @@ var schema = new mongoose.Schema({
     locale: String,
     fullname: String,
     newsletterSubscribe: Boolean,
+    showDemoProjects: {type: Boolean, default: true},
     avatar: {
         uri: String,
         src: String,

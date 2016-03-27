@@ -71,15 +71,35 @@ schema.statics.list = function (user, cb) {
                 self.findOne({_id: p._id}).select('_id title icon identifier demo').exec(function (err, project) {
                     if (project) {
                         project.roles = p.roles;
-                        projectsArray.push(p._id);
+                        projectsArray.push(p._id.toString());
                         projectHash[project._id.toString()] = project;
                     }
                     next();
                 });
             }, function () {
-                cb(null, projectsArray.map(function (_id) {
-                    return projectHash[_id];
-                }));
+
+                var finish = function(){
+                    cb(null, projectsArray.map(function (_id) {
+                        return projectHash[_id];
+                    }));
+                };
+
+                if (user.showDemoProjects !== false) {
+
+                    self.find({demo: true}).select('_id title icon identifier demo').exec(function (err, demoProjects) {
+
+                        demoProjects.forEach(function (demoProject) {
+                            var demoId = demoProject._id.toString();
+                            if (projectsArray.indexOf(demoId) === -1) {
+                                projectsArray.push(demoId);
+                                projectHash[demoId] = demoProject;
+                            }
+                        });
+                        finish();
+                    });
+                } else {
+                    finish();
+                }
             });
         });
     }
