@@ -63,19 +63,27 @@ router.post('/projects', function (req, res) {
             projectPayload.identifier = slug(String(projectPayload.title), slugOptions);
         }
 
-        Project.create(projectPayload, function (err, project) {
-            if (err) {
-                res.status(400);
-                res.json(err);
-            } else {
-                req.project = project;
-                req.user.addToProject(project._id, ['admin', 'designer']);
-                req.user.save(function (/*err, data*/) {
-                    res.json(project.toObject());
-                    Campsi.eventbus.emit('project:create', createAppEvent(req));
-                });
+        Project.identifierExists(projectPayload.identifier, function (exists) {
+
+            if (exists) {
+                delete projectPayload.identifier;
             }
+
+            Project.create(projectPayload, function (err, project) {
+                if (err) {
+                    res.status(400);
+                    res.json(err);
+                } else {
+                    req.project = project;
+                    req.user.addToProject(project._id, ['admin', 'designer']);
+                    req.user.save(function (/*err, data*/) {
+                        res.json(project.toObject());
+                        Campsi.eventbus.emit('project:create', createAppEvent(req));
+                    });
+                }
+            });
         });
+
 
     } else {
         res.status(401);
@@ -97,7 +105,7 @@ router.post('/projects/:project/collections', function (req, res) {
     var payload = {
         name: req.body.name,
         identifier: req.body.identifier,
-        fields: req.body.fields || []
+        fields: req.body.fields || []
     };
 
     if (!payload.identifier) {

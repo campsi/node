@@ -52,6 +52,12 @@ schema.methods.addUser = function (role, userId) {
     }
 };
 
+schema.statics.identifierExists = function (identifier, cb) {
+    this.find({identifier: identifier}).select('_id').exec(function (err, results) {
+        cb(results.length > 0);
+    });
+};
+
 schema.statics.list = function (user, cb) {
     var self = this;
 
@@ -119,7 +125,7 @@ schema.methods.getUsersAndGuests = function (cb) {
         },
         function (next) {
             self.getGuests(function (err, guests) {
-                usersAndGuests.guests = guests.map(function (g){
+                usersAndGuests.guests = guests.map(function (g) {
                     return g.toObject();
                 });
                 next();
