@@ -155,5 +155,6 @@
 	"component.profile.contact.locale.en": "English",
 	"component.profile.contact.newsletter.label": "Subscribe to the newsletter",
 	"component.profile.contact.newsletter.checkboxText": "I want to receive emails about Campsi",
-	"component.file/renderer.info": "File info"
+	"component.file/renderer.info": "File info",
+	"btns.newProject": "btns.newProject"
 }

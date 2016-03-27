@@ -41,6 +41,9 @@ schema.statics.findOrCreate = function (profile, cb) {
 
     model.find({id: profile.id}).exec(function (err, results) {
         if (results.length === 0) {
+            if (profile.provider === 'facebook') {
+                profile.fullname = profile.nickname;
+            }
             model.create(profile, cb);
         } else {
             cb(err, results[0]);

@@ -1,6 +1,8 @@
-
-
 #projects
+
+  &.w20
+    > header .buttons span
+      display none
 
   text-align center
 
@@ -68,7 +70,7 @@
       overflow auto
       width 12em
       height 12em
-      transition all .1s ease-out
+      transition transform .1s linear
 
       img
         width 100%
@@ -81,6 +83,7 @@
       .logo
         background lighten($dark, 13)
         transform scale(1.1)
+        border-color $theme
 
 
 
