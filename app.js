@@ -112,6 +112,7 @@ require('./lib/campsi-components');
 
 
 // Routes
+app.use('/api/v1', require('./routes/api/v1/acl'));
 app.use('/api/v1', require('./routes/api/v1/get'));
 app.use('/api/v1', require('./routes/api/v1/put'));
 app.use('/api/v1', require('./routes/api/v1/post'));

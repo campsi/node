@@ -17,10 +17,15 @@ var returnId = function (item) {
     return mongoose.Types.ObjectId(item._id);
 };
 
+router.put('/projects/:project*', function(req, res, next){
+    if(req.user.getRolesForProject(req.project).length === 0){
+        return res.status(401).json({error: true, message: 'unauthorized'});
+    }
+    next();
+});
+
 router.put('/projects/:project', function (req, res) {
-
     var project = req.project;
-
     var event = createAppEvent(req);
     event.previousValue = req.project.toObject();
 

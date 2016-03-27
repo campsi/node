@@ -11,7 +11,15 @@ var createAppEvent = require('../../../lib/campsi-app/server/event');
 
 resources.patchRouter(router);
 
+router.put('/projects/:project*', function(req, res, next){
+    if(req.user.getRolesForProject(req.project).length === 0){
+        return res.status(401).json({error: true, message: 'unauthorized'});
+    }
+    next();
+});
+
 router.delete('/projects/:project', function (req, res) {
+
     Project.remove({_id: req.project._id}, function (err) {
         if (err) {
             res.status(500);
