@@ -163,5 +163,6 @@
 	"component.profile.contact.email.placeholder": "Email",
 	"component.profile.contact.locale.fr": "Français",
 	"component.profile.contact.locale.en": "Anglais",
-	"component.profile.contact.newsletter.checkboxText": "Je veux recevoir la newsletter Campsi"
+	"component.profile.contact.newsletter.checkboxText": "Je veux recevoir la newsletter Campsi",
+	"btns.newProject": "Nouveau projet"
 }
