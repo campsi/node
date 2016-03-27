@@ -34,15 +34,27 @@
   animation-duration .3s
   animation-delay .5s
 
-//
-//#loading
-//  background rgba(white, .2)
-//  display none
-//  opacity 0
-//
-//  &.visible
-//    display block
-//    animation-name fadeIn
-//    animation-duration .5s
-//    opacity 1
-//
+#confirm
+  display none
+  width 100%
+  background $light
+  box-shadow 0 0 100px black
+  padding 2em
+  text-align center
+  h1
+    font-size 1.5em
+    color $red
+    margin 1em
+  p
+    font-weight 200
+
+  form
+    display inline
+  .btn
+    margin 1em
+  .btn.confirm
+    dark-button($red)
+  .btn.cancel
+    dark-button($green)
+  &.visible
+    display block

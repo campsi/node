@@ -164,5 +164,13 @@
 	"component.profile.contact.locale.fr": "Français",
 	"component.profile.contact.locale.en": "Anglais",
 	"component.profile.contact.newsletter.checkboxText": "Je veux recevoir la newsletter Campsi",
-	"btns.newProject": "Nouveau projet"
+	"btns.newProject": "Nouveau projet",
+	"confirm.exitWithChanges.header": "Êtes-vous sûr de vouloir continuer ?",
+	"confirm.exitWithChanges.message": "Vous vous apprétez à quitter une page contenant des modifications non sauvegardées.",
+	"confirm.exitWithChanges.confirm": "Quitter la page sans enregistrer",
+	"confirm.exitWithChanges.cancel": "Annuler et revoir les modifications",
+	"confirm.deletion.header": "Confirmer la suppression",
+	"confirm.deletion.message": "Attention, la suppression est définitive.",
+	"confirm.deletion.confirm": "Supprimer l'enregistrement",
+	"confirm.deletion.cancel": "Annuler"
 }

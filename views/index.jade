@@ -6,11 +6,14 @@ block content
       | !{panel}
 
 block modal
-  #code-editor-container
-    #code-editor
-    .buttons
-      button.close close
-      button.validate validate
+  #confirm
+    h1.title
+    p.message
+    div.buttons
+      form.confirm
+        button.btn.confirm
+      form.cancel
+        button.btn.cancel
 
 block scripts
   if user
