@@ -53,7 +53,13 @@ schema.statics.findOrCreate = function (profile, cb) {
 };
 
 schema.methods.getEmail = function () {
-    return this.email || this.emails[0].value;
+    if(this.email){
+        return this.email;
+    }
+
+    if(this.emails.length > 0){
+        return this.emails[0].value;
+    }
 };
 
 schema.methods.getProjectIndex = function (projectId) {

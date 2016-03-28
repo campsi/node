@@ -7,7 +7,8 @@ var schema = new mongoose.Schema({
     invitations: [{
         _inviter: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
         _project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: true},
-        roles: [String]
+        roles: [String],
+        message: String
     }]
 }, {id: false});
 

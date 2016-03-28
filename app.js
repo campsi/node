@@ -49,9 +49,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // will parse body to JSON when content-type is passed
 app.use(bodyParser.json());
 
-// don't know why it's here
-//app.use(bodyParser.urlencoded({extended: false}));
-
 // auth, session, cookies
 app.use(cookieParser());
 

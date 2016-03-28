@@ -51,7 +51,7 @@
 	"app.og.title": "l'API au ♥ du CMS",
 	"app.og.description": "Campsi est une nouvelle plateforme de gestion de contenu web pour les pros de la création de site internet.",
 	"panels.projectUsers.invite.button": "Envoyer l'invitation",
-	"panels.projectUsers.invite.title": "Invitez quelqu'un à participer !",
+	"panels.projectUsers.invite.title": "Invitez quelqu'un à participer&nbsp;!",
 	"panels.project.fields.title.help": "panels.project.fields.title.help",
 	"panels.collection.fields.fields": "Champs qui composent la liste",
 	"panels.project.noCollectionYet": "<p>Votre projet ne contient pour l'instant aucune liste.</p>",
@@ -174,5 +174,10 @@
 	"confirm.deletion.header": "Confirmer la suppression",
 	"confirm.deletion.message": "Attention, la suppression est définitive.",
 	"confirm.deletion.confirm": "Supprimer l'enregistrement",
-	"confirm.deletion.cancel": "Annuler"
+	"confirm.deletion.cancel": "Annuler",
+	"mail.invitation.subject": "Vous avez été invité à contribuer",
+	"mail.invitation.message": "[corps]",
+	"panels.projectUsers.invite.email.label": "Email de l'invité",
+	"panels.projectUsers.invite.roles.label": "Droits d'édition",
+	"panels.projectUsers.invite.message.label": "Ajoutez un message pour personnaliser l'invitation"
 }

@@ -14,39 +14,45 @@ var slug = require('slug');
 var config = require('../../../config');
 var slugOptions = config.slug;
 var sendgrid = require('sendgrid')(config.sendgrid_api_key);
+var i18n = require('i18n');
 var emailValidator = require('email-validator');
 
 var createAppEvent = require('../../../lib/campsi-app/server/event');
 
 resources.patchRouter(router);
 
-var sendInvitationEmail = function (guest) {
-    sendgrid.send({
-        to: guest.email,
-        from: 'invitations@campsi.io',
-        subject: 'Your contribution is wanted',
-        text: 'You\'re invited to contribute. ' + config.host + '/invitation/' + guest._id
-    }, function (err) {
-        if (err) {
-            return console.error(err);
-        }
-    });
+var sendInvitationEmailToGuest = function (locale, guest, inviter) {
+    sendInvitation(
+        locale,
+        guest.email,
+        inviter,
+        config.host + '/invitation/' + guest._id
+    );
 };
 
-var sendUserAddedToProjectEmail = function (user, project) {
+var sendInvitationEmailToUser = function (locale, user, inviter, project) {
+    sendInvitation(
+        user.locale || locale,
+        user.getEmail(),
+        inviter,
+        config.host + '/projects/' + project.identifier || project._id
+    );
+};
 
-    var url = config.host + '/projects/' + project.identifier || project._id;
-
+var sendInvitation = function (locale, to, from, url) {
     sendgrid.send({
-        to: user.getEmail(),
-        from: 'invitations@campsi.io',
-        subject: 'Your contribution is wanted',
-        text: 'You\'re invited to contribute. ' + url
+        to: to,
+        from: 'support@campsi.io',
+        subject: i18n.__({message: 'mail.invitation.subject', locale: locale}),
+        text: i18n.__({message: 'mail.invitation.message', locale: locale}) + url
     }, function (err) {
         if (err) {
             return console.error(err);
         }
     });
+
+    console.info("send invite to", to, "from", from.nickname, "locale", locale, "url", url);
+
 };
 
 router.post('/projects', function (req, res) {
@@ -194,31 +200,29 @@ router.post('/projects/:project/invitation', function (req, res) {
             user.addToProject(req.project._id, req.body.roles);
             user.save(function () {
                 res.json(user);
-                sendUserAddedToProjectEmail(user, req.project);
+                sendInvitationEmailToUser(req.locale, user, req.user, req.project, req.body.message);
                 Campsi.eventbus.emit('user:addedToProject', createAppEvent(req));
             });
         } else {
             Guest.findOne({email: req.body.email}, function (err, guest) {
+                var invitation = {
+                    _project: req.project._id,
+                    _inviter: req.user._id,
+                    roles: req.body.roles,
+                    message: req.body.message
+                };
                 if (guest === null) {
                     guest = new Guest({
                         email: req.body.email,
-                        invitations: [{
-                            _project: req.project._id,
-                            _inviter: req.user._id,
-                            roles: req.body.roles
-                        }]
+                        invitations: [invitation]
                     });
                 } else {
-                    guest.invitations.push({
-                        _project: req.project._id,
-                        _inviter: req.user._id,
-                        roles: req.body.roles
-                    })
+                    guest.invitations.push(invitation)
                 }
 
                 guest.save(function (err, guest) {
                     res.json(guest);
-                    sendInvitationEmail(guest);
+                    sendInvitationEmailToGuest(req.locale, guest, req.user);
 
                     req.guest = {
                         _id: guest._id.toString(),

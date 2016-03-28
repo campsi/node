@@ -1,32 +1,56 @@
 .panel.dark .campsi_project_users
   padding 1em
   > h3
-    margin-top 2em
+    padding 2em 0 1em 0
+    font-size 1.5em
+    display none
     font-weight 200
     color $light
+    &.visible
+      display block
 
   .invitation
-    background lighten($dark, 20)
-    //background $theme url(/images/airmail.png)
+    z-index 100
+    position relative
+    overflow hidden
     background $theme
     background-size 30%
     background-position 100%
     background-repeat no-repeat
     border-radius .5em
-    padding 1em
     margin-top 4em
     box-shadow 0 1px 2px black
+
+    > .content
+      margin-top 1em
+      display none
+      padding 1em
+      &.visible
+        display block
 
     .envelope
       //position absolute
       text-align center
 
-    img
-      width 30%
 
     h3
+      background lighten($theme, 5)
+      cursor pointer
+      padding 1em
       text-shadow 0 1px 1px darken($theme, 20)
-      text-align center
+      text-align left
+      text-indent 2em
+      font-size 1.5em
+      position relative
+      img
+        position absolute
+        left .5em
+        top .5em
+        height 2em
+        vertical-align middle
+        margin-right 1em
+      &:hover
+        background $theme
 
     button
       dark-button darken($theme, 20)
