@@ -37,15 +37,31 @@
         fill lighten($theme, 20)
 
     &:after
-      content: attr(data-ext)
+      content: attr(data-filename)
       color white
       position absolute
       text-align center
-      top 50%
+      top 55px
+      width 100px
+      height 70px
+      vertical-align middle
+      left 50%
+      margin-left -50px
+      display block
+      font-size .9em
+      font-weight 600
+      text-overflow ellipsis
+      word-wrap break-word
+    &:before
+      content: attr(data-ext)
+      color rgba(white, .6)
+      position absolute
+      text-align center
+      bottom 25px
       width 100%
       left 0
       display block
-      font-size 1.5em
+      font-size 1.3em
 
     img
       max-width 100%
