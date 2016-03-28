@@ -81,14 +81,15 @@ router.post('/upload', function (req, res) {
                     width: file.width
                 }
             }));
+
+            async.forEach(files, function(file, cb){
+                fs.unlink(file.path, cb);
+            });
+
         });
     });
 
     form.parse(req);
 });
-/*
- router.post('/upload-multipart', function (req, res) {
 
- });
- */
 module.exports = router;
