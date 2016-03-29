@@ -1,0 +1,21 @@
+extends template
+
+block content
+    p(style='font-size:24px')= __('mail.invitation.greeting')
+    p= __('mail.invitation.intro')
+    div(style='background:white;border: 1px solid #D5DADE;border-radius:10px;')
+        if(project.icon)
+            img(src=project.icon.src + '?w=350', width='100%')
+        else
+            img(src='https://campsi.imgix.net/56b0f1c85f9e20f80551b670-NJ9JFeZCx.png?w=350', width='100%')
+        p=project.title
+
+
+    if(message)
+        pre.message(style='font-family:\'Helvetica Neue\',Helvetica, sans-serif;font-size:12px;line-height:16px;background:#ebecf0;margin: 20px auto;padding: 15px;text-align: left;font-style: italic;border-radius:10px;')= message
+
+    p= __('mail.invitation.invitedBy')
+        span(style='color:#2c7af4;margin-left:10px;')= inviter.nickname
+
+    p(style='margin-top:50px')
+        a(href=url, style='background:#2c7af4;color:white;font-size: 20px;padding: 10px 20px;text-decoration:none;')= __('mail.invitation.linkText')

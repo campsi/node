@@ -179,5 +179,11 @@
 	"mail.invitation.message": "[corps]",
 	"panels.projectUsers.invite.email.label": "Email de l'invité",
 	"panels.projectUsers.invite.roles.label": "Droits d'édition",
-	"panels.projectUsers.invite.message.label": "Ajoutez un message pour personnaliser l'invitation"
+	"panels.projectUsers.invite.message.label": "Ajoutez un message pour personnaliser l'invitation",
+	"mail.invitation.intro": "Vous avez été invité à contribuer au projet suivant",
+	"mail.invitation.invitedBy": "Vous avez été invité par",
+	"mail.invitation.linkText": "Accéder au projet",
+	"panels.projectUsers.invite.sendEmail.label": "Envoyer un email",
+	"panels.projectUsers.guest.invitationLink.label": "Lien de connexion",
+	"mail.invitation.greeting": "Bonjour,"
 }

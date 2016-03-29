@@ -13,7 +13,7 @@
     z-index 100
     position relative
     overflow hidden
-    background $theme
+    background lighten($dark, 20)
     background-size 30%
     background-position 100%
     background-repeat no-repeat
@@ -34,12 +34,12 @@
 
 
     h3
-      background lighten($theme, 5)
+      background lighten($dark, 10)
       cursor pointer
       padding 1em
       text-shadow 0 1px 1px darken($theme, 20)
       text-align left
-      text-indent 2em
+      padding-left 3em
       font-size 1.5em
       position relative
       img
@@ -129,3 +129,24 @@
       top .5em
       right .5em
       dark-button $red
+
+  div.link
+    display flex
+    margin-top .5em
+    label
+      display inline-block
+      margin-right .5em
+      font-size .7em
+      color rgba(white, .7)
+      i
+        margin-right .5em
+
+    input
+      flex 1
+      background lighten($dark, 20)
+      border 1px solid lighten($dark, 5)
+      border-radius .5em
+      color white
+      padding .3em .5em .2em .5em
+      font-size .7em
+      font-family Menlo, monospace

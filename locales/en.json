@@ -156,5 +156,11 @@
 	"component.profile.contact.newsletter.label": "Subscribe to the newsletter",
 	"component.profile.contact.newsletter.checkboxText": "I want to receive emails about Campsi",
 	"component.file/renderer.info": "File info",
-	"btns.newProject": "btns.newProject"
+	"btns.newProject": "btns.newProject",
+	"panels.projectUsers.invite.email.label": "panels.projectUsers.invite.email.label",
+	"panels.projectUsers.invite.roles.label": "panels.projectUsers.invite.roles.label",
+	"panels.projectUsers.invite.message.label": "panels.projectUsers.invite.message.label",
+	"component.profile.contact.showDemoProjects.label": "component.profile.contact.showDemoProjects.label",
+	"component.profile.contact.showDemoProjects.checkboxText": "component.profile.contact.showDemoProjects.checkboxText",
+	"mail.invitation.subject": "You're invited"
 }
