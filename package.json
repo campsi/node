@@ -56,5 +56,8 @@
     "vinyl-buffer": "*",
     "vinyl-source-stream": "*",
     "vinyl-transform": "*"
+  },
+  "devDependencies": {
+    "gulp-rev": "^7.0.0"
   }
 }
