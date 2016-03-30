@@ -1,0 +1,114 @@
+@keyframes animateSpans
+  from
+    transform none
+
+@keyframes arrow
+  0%
+    opacity 0
+  40%
+    opacity 1
+  80%
+    opacity 0
+  100%
+    opacity 0
+
+#landing-brand
+  background linear-gradient(#02236a, #0474c7, #a5ccf2)
+  //background url(http://campsi.imgix.net/56b0f1c85f9e20f80551b670-Ek8i4sOpl.jpg) no-repeat
+  background-size cover
+  text-align center
+  height 90vh
+  position relative
+  padding-bottom 200px
+
+  &::after
+    display block
+    content ''
+    max-height 200px
+    height 18%
+    background url(/images/clouds-smokey.png)
+    //background-size 50%
+    background-repeat repeat-x
+    position absolute
+    bottom -10px
+    width 100%
+  //filter blur(10px)
+
+  h1
+    color lighten($theme, 50)
+    letter-spacing -6pt
+    text-shadow 1px 1px 0 darken($theme, 10), -1px -1px 0 rgba(white, .3)
+
+  .center
+    position absolute
+    top 50%
+    margin-top -150px
+    height 300px
+    width 100%
+
+  h1
+    font-size 160px
+    font-weight 100
+    height 200px
+    text-align center
+    width 100%
+    line-height 160px
+
+    span
+      display inline-block
+      animation-name animateSpans
+      animation-duration 4s
+
+    .c
+      transform rotate(-5deg) translateY(-20px)
+    .m
+      transform rotate(-5deg) translateY(-30px)
+    .s
+      transform rotate(-7deg) translateY(-45px)
+
+  h2
+    font-size 32px
+    font-weight 500
+    padding-bottom 100px
+    color lighten($theme, 50)
+    strong
+      font-weight 300
+
+  .auth
+    position absolute
+    z-index 200
+    width 100%
+    $authHeight = 3em
+    height $authHeight
+    text-align center
+    line-height $authHeight
+    font-size 2em
+    button
+      width 300px
+      dark-button darken($theme, 15)
+      margin-right 1em
+      border 1px solid darken($theme, 20)
+      border-bottom-width 2px
+
+  .scroll-arrows
+    width 60px
+    height 72px
+    position absolute
+    z-index 500
+    left 50%
+    margin-left -30px
+    bottom -80px
+    path
+      stroke $theme
+      fill transparent
+      stroke-width 2px
+      animation arrow 2s infinite
+      &.a1
+        animation-delay -1s
+      &.a2
+        animation-delay -0.5s
+      &.a3
+        animation-delay 0s
+
+#welcome.scroll .scroll-arrows
+  display none
