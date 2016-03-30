@@ -133,7 +133,7 @@
 	"sdk.js.title": "Utiliser le SDK Ajax",
 	"sdk.js.intro": "<p>Le SDK Ajax fourni par Campsi est l'outil le plus rapide pour créer un site administrable. Il suffit de remplacer le portion de code HTML que vous souhaitez rendre éditable par une template Handlebars.</p>",
 	"sdk.js.lib.title": "Inclure le SDK",
-	"sdk.js.lib.text": "Il faut ajouter la balise <code>&lt;script&gt;></code> juste avant la balise fermante <code>&lt;/body&gt;></code>",
+	"sdk.js.lib.text": "Il faut ajouter la balise <code>&lt;script&gt;</code> juste avant la balise fermante <code>&lt;/body&gt;</code>",
 	"sdk.js.template.title": "Remplacer le HTML de votre site par la template handlebars",
 	"sdk.js.template.text": "Afin de faciliter l'intégration, nous vous proposons un exemple de template à copier/coller. Bien évidemment, vous êtes tout à fait libres de modifier le contenu de cette balise afin qu'il respecte votre code HTML.",
 	"panels.entriesAndDrafts.seePublished": "Voir l'entrée publiée",
