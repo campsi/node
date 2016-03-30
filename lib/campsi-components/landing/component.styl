@@ -1,9 +1,21 @@
 @keyframes animateSpans
   from
     transform none
+@keyframes arrow
+  0%
+    opacity 0
+  40%
+    opacity 1
+  80%
+    opacity 0
+  100%
+    opacity 0
+
+#welcome.scroll
+  .scroll-arrows
+    display none
 
 .campsi_landing
-
   header
     background linear-gradient(#02236a, #0474c7, #a5ccf2)
     //background url(http://campsi.imgix.net/56b0f1c85f9e20f80551b670-Ek8i4sOpl.jpg) no-repeat
@@ -80,6 +92,27 @@
         margin-right 1em
         border 1px solid darken($theme, 20)
         border-bottom-width 2px
+
+    .scroll-arrows
+      width 60px
+      height 72px
+      position absolute
+      z-index 500
+      left 50%
+      margin-left -30px
+      bottom -80px
+      path
+        stroke $theme
+        fill transparent
+        stroke-width 2px
+        animation arrow 2s infinite
+        &.a1
+          animation-delay -1s
+        &.a2
+          animation-delay -0.5s
+        &.a3
+          animation-delay 0s
+
 
   article
     max-width 940px
