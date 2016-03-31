@@ -13,6 +13,7 @@ var shouldMinify = false;
 var isProd = (config.env === 'prod');
 var i18n = require('i18n');
 var locales = ['en', 'fr'];
+var concat = require('gulp-concat');
 
 i18n.configure({
     locales: locales,
@@ -145,6 +146,16 @@ gulp.task('watch', function () {
     gulp.watch('**/*.styl', ['stylus']);
 });
 
-gulp.task('compile', ['core', 'app', 'editor', 'standard-components', 'stylus']);
+gulp.task('bundle', function () {
+    return gulp.src([
+        './public/javascripts/campsi.core.js',
+        './public/javascripts/campsi.app.js',
+        './public/javascripts/campsi.components.js',
+        './public/javascripts/campsi.editor.js'
+    ]).pipe(concat('bundle.js'))
+        .pipe(gulp.dest('./public/javascripts/'));
+});
+
+gulp.task('compile', ['core', 'app', 'editor', 'standard-components', 'bundle', 'stylus']);
 
 gulp.task('default', ['compile', 'watch', 'serve']);

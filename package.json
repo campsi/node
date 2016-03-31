@@ -58,6 +58,7 @@
     "vinyl-transform": "*"
   },
   "devDependencies": {
+    "gulp-concat": "^2.6.0",
     "gulp-rev": "^7.0.0"
   }
 }
