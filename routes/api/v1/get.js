@@ -7,26 +7,69 @@ var Draft = require('../../../models/draft');
 var Template = require('../../../models/template');
 var extend = require('extend');
 var docsToObject = require('../../../lib/campsi-app/server/docToObject');
+var async = require('async');
+
+var app = require('../../../lib/campsi-app/app')({
+    config: require('../../../config')
+});
 
 resources.patchRouter(router);
 
 router.get('/projects/', function (req, res) {
     Project.list(req.user, function (err, projects) {
-        res.json(docsToObject(projects));
+        var jsonProjects = docsToObject(projects);
+        jsonProjects.map(function (p) {
+            p._links = {
+                self: app.getResource('project').getUrl({project: p}),
+                canonical: app.getResource('project').getUrl({project: p}, true),
+                users: app.getResource('projectUsers').getUrl({project: p})
+            };
+        });
+        res.json(jsonProjects)
     });
 });
+
 router.get('/projects/:project', function (req, res) {
-    res.json(docsToObject(req.project));
+    var json = docsToObject(req.project);
+
+    json._links = {
+        self: app.getResource('project').getUrl({project: json}),
+        canonical: app.getResource('project').getUrl({project: json}, true),
+        projects: app.getResource('projects').getUrl()
+    };
+
+    json.collections.map(function (c) {
+        c._links = {
+            self: app.getResource('collection').getUrl({project: req.project, collection: c}),
+            canonical: app.getResource('collection').getUrl({project: req.project, collection: c}, true),
+            entries: app.getResource('entries').getUrl({project: req.project, collection: c})
+        }
+    });
+    res.json(json);
 });
 
 router.get('/projects/:project/users', function (req, res) {
     req.project.getUsersAndGuests(function (err, usersAndGuests) {
-        res.json(usersAndGuests);
+        var json = usersAndGuests;
+        json._links = {
+            self: app.getResource('projectUsers').getUrl({project: req.project}),
+            canonical: app.getResource('projectUsers').getUrl({project: req.project}, true),
+            project: app.getResource('project').getUrl({project: req.project})
+        };
+        res.json(json);
     })
 });
 
 router.get('/projects/:project/collections/:collection', function (req, res) {
-    res.json(docsToObject(req.collection));
+    var json = docsToObject(req.collection);
+    json._links = {
+        self: app.getResource('collection').getUrl({project: req.project, collection: json}),
+        canonical: app.getResource('collection').getUrl({project: req.project, collection: json}, true),
+        entries: app.getResource('entries').getUrl({project: req.project, collection: json}),
+        project: app.getResource('project').getUrl({project: req.project})
+    };
+
+    res.json(json);
 });
 
 router.get('/projects/:project/collections/:collection/entries-and-drafts', function (req, res) {
@@ -37,14 +80,9 @@ router.get('/projects/:project/collections/:collection/entries-and-drafts', func
 
 router.get('/projects/:project/collections/:collection/entries', function (req, res) {
 
-    var templates = {};
-    req.collection.templates.map(function (template) {
-        templates[template.identifier] = template.markup
-    });
-
     var queryParameters = {};
-
     var param;
+
     for (param in req.query) {
         if (req.query.hasOwnProperty(param) && param.indexOf('data.') === 0) {
             queryParameters[param] = req.query[param];
@@ -52,46 +90,101 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
     }
 
     var params = extend({}, queryParameters, {_collection: req.collection._id});
-    var query = Entry.find(params).select('data');
 
-    if (req.query.sort) {
-        query.sort(req.query.sort);
-    }
+    var json = {
+        count: 0,
+        _links: {
+            self: app.getResource('entries').getUrl({project: req.project, collection: req.collection}),
+            canonical: app.getResource('entries').getUrl({project: req.project, collection: req.collection}, true),
+            collection: app.getResource('collection').getUrl({project: req.project, collection: req.collection}),
+            project: app.getResource('project').getUrl({project: req.project})
+        },
+        entries: []
+    };
 
-    if (req.query.limit) {
-        query.limit(parseInt(req.query.limit));
-    }
-
-    if (req.query.skip) {
-        query.skip(parseInt(req.query.skip));
-    }
-
-    query.exec(function (err, entries) {
-
-        if (err) {
-            console.error(err);
-            return res.json([]);
-        }
-        if (req.query.sort) {
-            return res.json(docsToObject(entries))
-        }
-
-        var sortedEntries = {};
-        entries.forEach(function (e) {
-            sortedEntries[e._id.toString()] = e;
-        });
-
-        var result = [];
-        req.collection.entries.forEach(function (id) {
-            if (typeof sortedEntries[id] !== 'undefined') {
-                result.push(docsToObject(sortedEntries[id]));
+    function addLinksToEntries() {
+        json.entries.forEach(function (e) {
+            e._links = {
+                self: app.getResource('entry').getUrl({project: req.project, collection: req.collection, entry: e}),
+                canonical: app.getResource('entry').getUrl({
+                    project: req.project,
+                    collection: req.collection,
+                    entry: e
+                }, true)
             }
         });
+    }
 
-        res.json(result);
+    async.series([
+        function countEntries(cb) {
+            Entry.count(params, function (countError, count) {
+                json.count = count;
+                cb();
+            });
+        },
+        function getEntries(cb) {
+
+            var query = Entry.find(params).select('data');
+
+            req.query.skip = (req.query.skip) ? parseInt(req.query.skip) : 0;
+            req.query.limit = (req.query.limit) ? parseInt(req.query.limit) : 100; // todo const
+
+            if (req.query.sort) {
+                query.sort(req.query.sort);
+            }
+
+            query.limit(req.query.limit);
+
+            var nextIndex = req.query.skip + req.query.limit;
+
+            if (nextIndex < json.count) {
+                json._links.next = json._links.self + '?skip=' + nextIndex + '&limit=' + req.query.limit;
+            }
+
+            var prevIndex = req.query.skip - req.query.limit;
+
+            if (prevIndex < 0) {
+                prevIndex = 0;
+            }
+
+            if (req.query.skip > 0) {
+                json._links.prev = json._links.self + '?skip=' + prevIndex + '&limit=' + req.query.limit;
+            }
+
+            query.skip(parseInt(req.query.skip));
+
+            query.exec(function (err, entries) {
+
+                if (err) {
+                    console.error(err);
+                    return cb();
+                }
+
+                if (req.query.sort) {
+                    json.entries = docsToObject(entries);
+                    addLinksToEntries();
+                    return cb();
+                }
+
+                var sortedEntries = {};
+                entries.forEach(function (e) {
+                    sortedEntries[e._id.toString()] = e;
+                });
+
+                req.collection.entries.forEach(function (id) {
+                    if (typeof sortedEntries[id] !== 'undefined') {
+                        json.entries.push(docsToObject(sortedEntries[id]));
+                    }
+                });
+
+                addLinksToEntries();
+                cb();
+            });
+        }
+    ], function () {
+        res.json(json);
     });
 });
-
 
 router.get('/projects/:project/collections/:collection/drafts', function (req, res) {
     Draft.findDraftsInCollectionForUser(req.collection, req.user, function (err, drafts) {
@@ -100,7 +193,15 @@ router.get('/projects/:project/collections/:collection/drafts', function (req, r
 });
 
 router.get('/projects/:project/collections/:collection/entries/:entry', function (req, res) {
-    res.json(docsToObject(req.entry));
+    var json = docsToObject(req.entry);
+    var params = {project: req.project, collection: req.collection, entry: req.entry};
+    json._links = {
+        self: app.getResource('entry').getUrl(params),
+        canonical: app.getResource('entry').getUrl(params, true),
+        collection: app.getResource('collection').getUrl(params),
+        project: app.getResource('project').getUrl(params)
+    };
+    res.json(json);
 });
 
 router.get('/projects/:project/collections/:collection/drafts/:draft', function (req, res) {
@@ -137,7 +238,7 @@ router.get('/me/events', function (req, res) {
 });
 
 router.get('/users/me', function (req, res) {
-    if(req.user){
+    if (req.user) {
         return res.json(req.user.toObject());
     }
 
