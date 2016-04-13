@@ -10,7 +10,7 @@ $componentSize = 3.5em;
     color white
     border-left-color: transparentify($theme, #7cedfd, .2);
     h3
-      font-weight 200
+      font-weight 400
       padding .2em 1em 0 1em
     h2, h3
       text-shadow 0 1px 1px #333
@@ -19,11 +19,11 @@ $componentSize = 3.5em;
     h3
       margin 0
       padding .2em .5em .1em .5em
-      font-weight 200
+      font-weight 400
       color white
       //background linear-gradient($theme, 5%, darken($dark, 5))
       background darken($dark, 10)
-      text-align right
+      text-align center
 
   .components
     text-align center
@@ -31,6 +31,8 @@ $componentSize = 3.5em;
     .component
       padding 1em
       display inline-block
+      vertical-align top
+      max-width 10em
       margin: 0
       .name
         text-shadow: 0 1px 1px #333

@@ -64,7 +64,8 @@ router.post('/projects', function (req, res) {
             title: req.body.title,
             identifier: req.body.identifier,
             icon: req.body.icon || {},
-            notes: req.body.notes
+            notes: req.body.notes,
+            url: req.body.url
         };
 
         if (!projectPayload.identifier) {

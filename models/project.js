@@ -9,6 +9,7 @@ var schema = new mongoose.Schema({
     identifier: String,
     demo: Boolean,
     notes: String,
+    url: String,
     icon: {
         uri: String,
         src: String,

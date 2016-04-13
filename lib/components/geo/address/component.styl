@@ -1,0 +1,19 @@
+.component.geo_address, #entry .component.geo_address
+  padding .5em
+  border 1px solid darken($light, 10)
+  .form_field
+    padding .2em
+    margin 0
+    > .label
+      font-size 1em
+      padding 0
+      padding-top .2em
+      font-weight 400
+
+    &.postal-code, &.city
+      float left
+      input.component.text
+        width auto
+
+    &.country, &.region
+      clear left

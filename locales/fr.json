@@ -212,10 +212,14 @@
 	"panels.collections.header.title": "Collections",
 	"panels.project.collectionList.entriesCount": "entrée(s)",
 	"panels.project.fields.collections.label": "Collections",
-	"panels.templates.header.title": "panels.templates.header.title",
-	"panels.template.header.title": "panels.template.header.title",
+	"panels.templates.header.title": "Modèles de collection",
+	"panels.template.header.title": "Modèle",
 	"component.tags": "Tags",
 	"panels.project.collections.wizard.intro": "<h3>Créer une collection</h3><p>Afin de faciliter la création de projet, nous mettons à votre disposition des modèles de collection pré-remplis.</p>",
 	"panels.project.templates.empty": "Vide",
-	"component.select/ajax": "component.select/ajax"
+	"component.select/ajax": "Ajax",
+	"panels.project.fields.url": "URL du projet",
+	"component.url": "URL",
+	"component.category.geo": "Géographie & cartographie",
+	"component.geo/address": "Adresse postale"
 }

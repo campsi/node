@@ -42,6 +42,7 @@ router.put('/projects/:project', function (req, res) {
     }
 
     project.notes = req.body.notes;
+    project.url = req.body.url;
 
     var returnId = function (item) {
         return mongoose.Types.ObjectId(item._id);
