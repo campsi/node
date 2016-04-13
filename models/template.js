@@ -4,21 +4,22 @@ var Collection = require('./collection');
 var Entry = require('./entry');
 var async = require('async');
 
-
 var schema = new mongoose.Schema({
     name: String,
     identifier: String,
     tags: [String],
+    locale: String,
     icon: {
-        uri: String
+        uri: String,
+        src: String,
+        name: String,
+        mime: String,
+        size: Number,
+        width: Number,
+        height: Number
     },
     entries: [{data: mongoose.Schema.Types.Mixed}],
-    fields: [mongoose.Schema.Types.Mixed],
-    templates: [{
-        name: String,
-        markup: String,
-        scope: String
-    }]
+    fields: [mongoose.Schema.Types.Mixed]
 }, {id: false});
 
 schema.methods.createCollection = function (project, cb) {
@@ -30,7 +31,6 @@ schema.methods.createCollection = function (project, cb) {
         name: this.name,
         identifier: this.identifier,
         fields: this.fields,
-        templates: this.templates,
         entries: []
     }, function (err, collection) {
         async.forEachSeries(instance.entries, function (e, iterationCB) {

@@ -1,0 +1,81 @@
+@import "./wizard/component.styl"
+
+.campsi_collection-list
+  .newItem
+    input[type=submit]
+      dark-button($theme)
+
+.array_item[data-item-type="campsi/collection-list/collection"]
+  position relative
+  background lighten($light, 10)
+  color $darkText
+  box-shadow 0 1px 2px rgba(black, .2)
+  border-radius .5em
+  margin-bottom: 1em
+  overflow hidden
+
+  padding 1em
+  padding-left 3em
+
+  > button.remove
+    display none
+
+  > .drag-handle
+    position absolute
+    top 50%
+    cursor all-scroll
+    width 1em
+    height 20px
+    margin-right .5em
+    margin-top -10px
+    left 1em
+    //border 1px solid red
+    display block
+    opacity 1
+    background url('../images/ui/drag-handle-3.png') no-repeat
+    background-size: 100% 100%;
+    transition opacity .2s ease-out
+
+    &:hover
+      opacity 1
+
+  &.active
+    background darken(#FFF, 5)
+    border .1em solid darken($light, 2)
+    border-top-color darken($light, 10)
+
+  .name
+    font-size 1.2em
+    font-weight 500
+  .actions
+    //border 1px solid blue
+    position absolute
+    right 0
+    top 0
+    height 100%
+
+    a
+      display block
+      float left
+      height 100%
+      text-align center
+      padding .5em
+      //border 1px solid red
+      opacity .8
+
+      img
+        //border 1px solid greenyellow
+        margin 0 auto
+        display block
+        height 40px
+        width 40px
+
+      span
+        color $theme
+        font-size .8em
+
+      &:hover
+        background $theme
+        opacity 1
+        span
+          color white

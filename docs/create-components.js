@@ -7,6 +7,7 @@ db.components.insert([
     {category: 'input', name: 'text/rich', vendor: 'campsi'},
     {category: 'input', name: 'file', vendor: 'campsi'},
     {category: 'input', name: 'file/image', vendor: 'campsi'},
+    {category: 'input', name: 'tags', vendor: 'campsi'},
     {category: 'select', name: 'select/dropdown', vendor: 'campsi'},
     {category: 'select', name: 'select/radios', vendor: 'campsi'},
     {category: 'select', name: 'checkbox', vendor: 'campsi'},

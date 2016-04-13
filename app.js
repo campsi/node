@@ -13,8 +13,7 @@ var Guest = require('./models/guest');
 var Event = require('./models/event');
 var config = require('./config');
 var i18n = require('i18n');
-
-
+var request = require('request');
 
 
 // db
@@ -123,6 +122,14 @@ app.use('/import', require('./routes/import'));
 
 app.use('/api/v1/components', require('./routes/api/v1/components'));
 app.use('/invitation', require('./routes/invitation'));
+
+app.use('/ajax-proxy', function(req, res){
+    request({url: req.query.url}, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        }
+    });
+});
 
 app.use('/', require('./routes/index'));
 

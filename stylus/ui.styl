@@ -80,8 +80,6 @@ button, a.btn, .buttons > a, input[type=submit]
     line-height 1.8em
     color lighten($dark, 15)
 
-    text-shadow 0 1px 0px #FFF
-
   .help, .errors
     opacity .2
     position relative
@@ -161,12 +159,10 @@ lightInput()
     background $inputDisabledBackground
     color $inputDisabledTextColor
 
-
-
-
-
-
-
+  &::placeholder
+    //padding-top .35em
+    font-weight 400
+    font-style: italic
 
 
 
@@ -220,7 +216,7 @@ lightInput()
       //box-shadow: inset #ededed 0 1px 1px;
       &.component.text::placeholder
         padding-top .35em
-        font-weight 200
+        font-weight 400
         font-style: italic
 
   .errors
@@ -246,7 +242,7 @@ lightInput()
       color lighten($dark, 10)
       font-weight 100
 
-select.select_dropdown
+select.select_dropdown, select.select_ajax
   width 100%
 
 .number_rating
@@ -267,26 +263,6 @@ select.select_dropdown
       opacity 1
 
 
-
-.campsi_help-tour-step
-  display inline-block
-  display none
-  background rgba($theme, 0.2)
-  color lighten($theme, 20)
-  //text-shadow 0 1px 1px $theme
-  margin 1.5em
-  border-radius .5em
-  border 1px solid rgba($theme, 0.4)
-  border-bottom-width 2px
-  position relative
-  max-width 50em
-  opacity 1
-  //
-  //&.hidden
-  //
-  //  animation-name fadeOut
-  //  animation-duration 5s
-  //  animation-fill-mode forwards
 
   .counter
     position absolute
@@ -314,10 +290,12 @@ select.select_dropdown
 
 .panel.dark > .content .fields
 
-
   .form_field
     padding 1em
     border-bottom 1px solid darken($dark, 5)
+
+    &:nth-child(even)
+      background rgba(black,0.1)
 
   .label
     color transparentify(white, $dark, .7)
@@ -331,12 +309,12 @@ select.select_dropdown
     padding .5em 0
 
   input.text, textarea
-    background rgba(#FFF, .1);
-    border 1px solid rgba(#FFF, .2);
+    background rgba(#FFF, .08);
+    border 1px solid rgba(#FFF, .1);
     border-radius .5em
     color white
     &:focus
-      border 1px solid rgba(#FFF, .6);
+      border 1px solid rgba(#FFF, .2);
       box-shadow none
 
 
@@ -376,11 +354,11 @@ intro()
   border-radius .3em
   box-shadow 0 0 30px lighten($dark, 70)
   padding 1.5em
-  margin 1em .5em
+  margin 1em
   display block
   background white
   font-size 1.2em
-  font-weight 200
+  font-weight 400
   line-height 1.8em
   color lighten($dark, 30)
 

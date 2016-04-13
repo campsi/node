@@ -2,6 +2,7 @@ var Project = require('../models/project');
 var Collection = require('../models/collection');
 var Entry = require('../models/entry');
 var Draft = require('../models/draft');
+var Template = require('../models/template');
 var Context = require('../lib/campsi-app/context');
 var browserConfig = require('../browser-config');
 
@@ -38,7 +39,7 @@ module.exports = {
             Project.find(query)
                 .populate({
                     path: 'collections',
-                    select: 'name _id identifier hasFields icon'
+                    select: 'name _id identifier hasFields icon entries'
                 })
                 .select("title demo icon identifier collections notes")
                 .exec(function (err, projects) {
@@ -114,6 +115,19 @@ module.exports = {
                     return next();
                 }
 
+                res.status(404);
+                res.send('');
+            });
+        });
+
+        router.param('template', function (req, res, next, template) {
+
+            var query = getQueryForObjectIdOrIdentifier(template);
+            Template.find(query, function (err, templates) {
+                if (templates.length > 0) {
+                    req.template = templates[0];
+                    return next();
+                }
                 res.status(404);
                 res.send('');
             });

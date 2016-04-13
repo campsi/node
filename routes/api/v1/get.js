@@ -214,6 +214,10 @@ router.get('/templates', function (req, res) {
     });
 });
 
+router.get('/templates/:template', function (req, res) {
+    res.json(docsToObject(req.template));
+});
+
 router.get('/me/events', function (req, res) {
     if (typeof req.user === 'undefined') {
         return res.status(404).json({error: true, message: 'no events for unauthentificated user'});

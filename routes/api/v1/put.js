@@ -17,8 +17,8 @@ var returnId = function (item) {
     return mongoose.Types.ObjectId(item._id);
 };
 
-router.put('/projects/:project*', function(req, res, next){
-    if(req.user.getRolesForProject(req.project).length === 0){
+router.put('/projects/:project*', function (req, res, next) {
+    if (req.user.getRolesForProject(req.project).length === 0) {
         return res.status(401).json({error: true, message: 'unauthorized'});
     }
     next();
@@ -33,11 +33,11 @@ router.put('/projects/:project', function (req, res) {
         project.title = req.body.title;
     }
 
-    if(!req.body.identifier && !project.identifier){
+    if (!req.body.identifier && !project.identifier) {
         project.identifier = slug(project.name, slugOptions);
     }
 
-    if(req.body.identifier){
+    if (req.body.identifier) {
         project.identifier = slug(req.body.identifier, slugOptions);
     }
 
@@ -77,11 +77,11 @@ router.put('/projects/:project/collections/:collection', function (req, res) {
         collection.name = req.body.name;
     }
 
-    if(!req.body.identifier && !collection.identifier){
+    if (!req.body.identifier && !collection.identifier) {
         collection.identifier = slug(collection.name, slugOptions);
     }
 
-    if(req.body.identifier){
+    if (req.body.identifier) {
         collection.identifier = slug(req.body.identifier, slugOptions);
     }
 
@@ -175,12 +175,19 @@ router.put('/users/me', function (req, res) {
     req.user.showDemoProjects = req.body.showDemoProjects;
 
     req.user.save(function (err, json) {
-        if(err){
+        if (err) {
             console.error(err);
             return res.status(400).json(err);
         }
         res.json(json);
         Campsi.eventbus.emit('user:update', event);
+    });
+});
+
+router.put('/templates/:template', function (req, res) {
+    extend(req.template, req.body);
+    req.template.save(function (err, template) {
+        res.json(template);
     });
 });
 

@@ -7,6 +7,7 @@ var Entry = require('../../../models/entry');
 var Draft = require('../../../models/draft');
 var Guest = require('../../../models/guest');
 var User = require('../../../models/user');
+var Template = require('../../../models/template');
 var Campsi = require('campsi-core');
 var slug = require('slug');
 
@@ -15,7 +16,7 @@ var config = require('../../../config');
 var slugOptions = config.slug;
 var emailValidator = require('email-validator');
 var createAppEvent = require('../../../lib/campsi-app/server/event');
-
+var docsToObj = require('../../../lib/campsi-app/server/docToObject');
 var Mail = require('../../../lib/campsi-app/mail');
 
 resources.patchRouter(router);
@@ -97,6 +98,7 @@ router.post('/projects', function (req, res) {
         res.json({});
     }
 });
+
 
 
 router.post('/projects/:project/collections', function (req, res) {
@@ -240,6 +242,14 @@ router.post('/projects/:project/invitation', function (req, res) {
             });
         }
 
+    });
+});
+
+router.post('/templates', function(req, res){
+    delete req.body._id;
+
+    Template.create(req.body, function(err, template){
+        res.json(docsToObj(template))
     });
 });
 

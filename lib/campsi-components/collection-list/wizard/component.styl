@@ -1,0 +1,36 @@
+.campsi_collection-list_wizard
+
+  .intro
+    margin 2em 0
+    color $darkText
+    h3
+      font-size 1.2em
+  .template
+    display inline-block
+    margin-right 0.5em
+
+    input
+      display none
+    .icon
+      border-radius .5em
+      display block
+      height 6em
+      width 6em
+      background white
+      background-size 4em
+      background-clip content-box
+      background-position: 50% 50%
+      background-repeat no-repeat
+      border 1px solid darken($light, 10)
+      transition background-color .1s ease-out
+    &.selected
+      .icon
+        background-color darken($light, 5)
+      .name
+        font-weight 500
+
+    .name
+      color $darkText
+      text-align center
+      font-size 0.85em
+      display block

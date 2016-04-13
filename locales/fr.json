@@ -80,9 +80,9 @@
 	"panels.designer.advancedForm.fields.additionalClasses": "Style",
 	"panels.fieldProperties.header.title": "Propriétés",
 	"panels.project.intro": "<p>Un projet est une <strong>base de donnée</strong> haute performance, dans laquelle vous pouvez stocker toutes les informations que vous souhaitez rendre éditables.</p><p>Créez des listes pour stocker des <a href='#'>produits</a>, des <a href='#'>actualités</a>, des <a href='#'>événements</a> et toute autre structure d'information imaginable… Ces listes sont <strong>automatiquement accessibles</strong> depuis l'<a href='#'>API RESTful</a> du projet, dans un format <strong>JSON</strong> clair et concis.</p><p><strong>Avec cette API, vous pouvez alimenter en quelques minutes un site, une application ou un logiciel.</strong></p><p>Invitez des personnes à contribuer, elle pourront ainsi éditer et publier les contenus, dans une <a href='#'>interface d'administration</a> personnalisable, accessible et facile.</p><p>Parcourez nos <a href='#'>projets d'exemple</a> ou commencez dès-maintenant&nbsp;:&nbsp;<strong>le premier projet est gratuit et illimité&nbsp;!</strong></p>",
-	"panels.project.fields.title.label": "Quel est le nom de votre projet ?",
+	"panels.project.fields.title.label": "Titre",
 	"panels.project.fields.title.placeholder": "Titre du projet",
-	"panels.collection.fields.name.label": "Quel est le nom de la liste ?",
+	"panels.collection.fields.name.label": "Nom de la collection",
 	"panels.collection.fields.name.placeholder": "actus, produits, carrousel, événements, etc.",
 	"panels.collection.intro": "<h3>Comment gérer les listes ?</h3><p>Pour créer le <strong>formulaire de saisie</strong> de la liste, glissez-déposez des composants depuis le <b>panneau à droite</b>. Dans le champ texte, écrivez le libellé du champ, qui deviendra également le nom de la propriété dans l'objet JSON.</p><p>Vous pouvez ajouter des composants simples, comme un champ <a href=''>texte</a>, un <a href=''>nombre</a>, une <a href=''>date</a>, mais également créer des listes imbriquées (<a href=''>composant liste</a>) ou des sous-objets (<a>composant formulaire</a>).</p>",
 	"btns.projects": "Mes projets",
@@ -208,5 +208,14 @@
 	"component.date": "Date",
 	"component.category.layout": "Mise en page",
 	"component.layout/divider": "Division",
-	"component.file.autoUpload.label": "Téléchargement automatique"
+	"component.file.autoUpload.label": "Téléchargement automatique",
+	"panels.collections.header.title": "Collections",
+	"panels.project.collectionList.entriesCount": "entrée(s)",
+	"panels.project.fields.collections.label": "Collections",
+	"panels.templates.header.title": "panels.templates.header.title",
+	"panels.template.header.title": "panels.template.header.title",
+	"component.tags": "Tags",
+	"panels.project.collections.wizard.intro": "<h3>Créer une collection</h3><p>Afin de faciliter la création de projet, nous mettons à votre disposition des modèles de collection pré-remplis.</p>",
+	"panels.project.templates.empty": "Vide",
+	"component.select/ajax": "component.select/ajax"
 }

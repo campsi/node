@@ -21,7 +21,6 @@
 .campsi_component-list
 
   position relative
-  padding 1em
 
   > .items.dropzone
     padding-bottom 1em
@@ -125,7 +124,7 @@ body.dragging .campsi_component-list
       overflow hidden
 
   > .form
-    padding .5em
+    padding 0
     background $light
 
   &.closed
@@ -133,13 +132,11 @@ body.dragging .campsi_component-list
     > .form
       display none
 
-  .form_field
-    //display flex
-    //margin-bottom .2em
-
+  .component-options-form > .fields > .form_field
+    padding .5em !important
     .label
       text-align left
-      font-size .9em
+      font-size .9em !important
       font-weight 900
       padding .5em
 
@@ -153,6 +150,11 @@ body.dragging .campsi_component-list
 
       input
         width 100%
+        &[type=radio], &[type=checkbox]
+          width auto
+
+    .form_field
+      margin-left 1em
 
   .form_field[data-comp-type="campsi/component-chooser"]
     margin-top .5em
@@ -228,6 +230,8 @@ body.dragging .campsi_component-list
       display flex
       .form_field
         margin-right .5em
+        padding 0
+        margin-left 0
 
         &[data-name="value"]
           width 6em
@@ -248,7 +252,9 @@ body.dragging .campsi_component-list
     .fields
       display flex
       .form_field
+        padding 0
         margin-right .5em
+        margin-left 0
         &[data-name="value"]
           width 6em
         &[data-name="label"]

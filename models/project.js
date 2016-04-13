@@ -33,7 +33,7 @@ schema.methods.identity = function () {
 
 schema.methods.createCollectionFromTemplate = function (templateIdentifier, cb) {
     var project = this;
-    Template.findOne({identifier: templateIdentifier}).exec(function (err, template) {
+    Template.findOne({_id: templateIdentifier}).exec(function (err, template) {
         template.createCollection(project, cb);
     });
 };

@@ -1,12 +1,19 @@
 #project
 
+  .campsi_project > .form > .fields > .form_field
+    padding 1em
+    .label
+      font-size 1.2em
+      padding .5em 0
+    &:nth-child(even)
+      background lighten($light, 2)
+    &.big-title
+      padding 0
+      margin-top 1em
+
   .billing
     display none
 
-  .form_field
-    //border-bottom 1px solid darken($light, 4)
-    .label
-      text-indent .5em
 
   .campsi_project.admin
     header .buttons.right
@@ -44,21 +51,16 @@
       &:empty
         display none
 
+  &.demo
+    > header .buttons.right
+      display none
+
   .campsi_project_intro
     display none
 
   > .content
     padding-top $headerHeight
 
-  .form_field
-    padding 1em 1.5em 0 1.5em
-
-    &.big-title
-      padding 0
-      margin-top 1em
-
-  //.form_field.icon
-  //  background white
 
   .project-name
     font-size: 2em
@@ -69,138 +71,7 @@
     padding-bottom 8em
     background lighten($dark, 10)
     clear left
-  //border-radius .3em
-  //box-shadow inset 0 3px 40px black
 
-  .campsi_collection-list
-    .newItem
-      input[type=submit]
-        display inherit
-        dark-button $theme
-    .placeholder
-      color $light
-      font-weight 100
-      font-size 1.2em
-
-  .template
-    display block
-    float left
-    margin-right 0.5em
-
-    input
-      display none
-    .icon
-      border-radius .5em
-      display block
-      height 6em
-      width 6em
-      background lighten($dark, 20)
-      background-size 4em
-      background-clip content-box
-      background-position: 50% 50%
-      background-repeat no-repeat
-      border 1px solid darken($dark, 5)
-      border-bottom-color darken($dark, 20)
-      transition background-color .1s ease-out
-    &.selected
-      .icon
-        background-color lighten($dark, 30)
-        border-bottom-color darken($dark, 5)
-        border-top-color darken($dark, 20)
-      .name
-        font-weight 500
-
-    .name
-      color $lightText
-      text-align center
-      font-size 0.85em
-      display block
-
-  [data-comp-type="campsi/collection-list"]
-    > .label
-      font-size 1.3em
-      font-weight 500
-      color white
-      text-shadow none
-      padding 1em .5em
-
-.array_item[data-item-type="campsi/collection-list/collection"]
-
-  background #FFF
-  background lighten($dark, 20)
-  color white
-  //border .1em solid darken($light, 2)
-  //border-bottom-color darken($light, 10)
-  box-shadow 0 1px 2px rgba(black, .2)
-  border-radius .5em
-  margin-bottom: 1em
-  padding 1em
-  display flex
-  align-items center
-
-  img
-    display none
-
-  > button.remove
-    display none
-
-  > .container
-    flex 1
-
-  > .drag-handle
-    position relative
-    cursor all-scroll
-    width 1em
-    height 1.5em
-    //outline 1px solid red
-    margin-right .5em
-    display block
-    opacity 0.3
-    background url('../images/ui/drag-handle-3.png') no-repeat
-    background-size: 100% 100%;
-    transition opacity .2s ease-out
-
-    &:hover
-      opacity 1
-
-  &.active
-    background darken(#FFF, 5)
-    border .1em solid darken($light, 2)
-    border-top-color darken($light, 10)
-
-  .campsi_collection-list_collection
-    display: flex;
-    align-items: center;
-    flex 1
-    width 100%
-    .icon
-      float left
-      margin 0 1em
-      height 2em
-      width 2em
-      border none
-    .name
-      line-height 2em
-      display inline
-      flex 1
-      padding 0 1em
-    .buttons
-      float right
-
-  .buttons a, .buttons button
-    margin-left .5em
-    //text-shadow rgba(black, .5) 0 1px 1px
-    dark-button $green
-    font-size 1.1em
-
-    &.edit
-      dark-button $orange
-
-    &:hover
-      opacity 1
-
-  button.remove
-    dark-button($red)
 
 #projectUsers, #billing
   > .content
@@ -214,19 +85,6 @@
   .form_field.collections
     display none
 
-.campsi_collection-list_wizard
-  margin-top 3em
-  h4
-    font-weight 500
-    color $light
-    font-size 1.2em
-  p
-    font-size 0.85em
-    color $lightText
-
-.campsi_collection-list
-  input[type=submit]
-    light-button($theme)
 
 #projectUsers .pane.confirmation, #projectUsers .pane.error
   position absolute

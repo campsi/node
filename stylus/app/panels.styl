@@ -23,6 +23,14 @@ $headerHeight = 3.2em
     //outline: 1px solid darken($light, 5);
     box-sizing content-box
 
+    /*> header
+      a, button
+        span
+          display none
+        &:hover
+          span
+            display inline-block*/
+
     > .content
       padding-top $headerHeight + 1em
       overflow-y auto
@@ -30,6 +38,17 @@ $headerHeight = 3.2em
       -webkit-overflow-scrolling touch
       background-size 100%
       transform translate3d(0,0,0)
+
+      .form_field
+        padding 1em
+        .label
+          font-size 1.2em
+          padding .5em 0
+        &:nth-child(even)
+          background rgba(white, .2)
+          .form_field
+            padding auto
+
 
     &.next
       display none
@@ -73,8 +92,6 @@ $headerHeight = 3.2em
         text-shadow black 0 1px 1px
 
       > header
-        background darken($dark, 10)
-        border-bottom-color black
         h2
           color white
         .buttons
@@ -134,10 +151,12 @@ $headerHeight = 3.2em
       padding .5em
       padding-bottom .4em
 
-      .buttons.left
-        float left
+      .buttons
+        position absolute
+        left 0
       .buttons.right
-        float right
+        right 0
+        left auto
 
       h2
         font-size 1.5em

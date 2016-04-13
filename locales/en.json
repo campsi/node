@@ -186,5 +186,8 @@
 	"component.date": "Date",
 	"component.category.layout": "Form Layout",
 	"component.layout/divider": "Divider",
-	"component.file.autoUpload.label": "Automatic upload"
+	"component.file.autoUpload.label": "Automatic upload",
+	"panels.collections.header.title": "panels.collections.header.title",
+	"panels.templates.header.title": "panels.templates.header.title",
+	"panels.template.header.title": "panels.template.header.title"
 }
