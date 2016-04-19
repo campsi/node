@@ -16,5 +16,6 @@ db.components.insert([
     {category: 'date & time', name: 'date', vendor: 'campsi'},
     {category: 'structure', name: 'array', vendor: 'campsi'},
     {category: 'structure', name: 'form', vendor: 'campsi'},
-    {category: 'geo', name: 'geo/address', vendor: 'campsi'}
+    {category: 'geo', name: 'geo/address', vendor: 'campsi'},
+    {category: 'structure', name: 'campsi/reference', vendor: 'campsi'}
 ]);
