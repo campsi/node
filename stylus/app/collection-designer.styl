@@ -78,13 +78,20 @@ body.dragging .campsi_component-list
     transition background .2s linear
 
     .identifier
+      background transparent
+      border none
       line-height 1.5em
       margin-left .5em
+      padding 0 .5em
+      border-radius .2em
       color $nearWhite
       font-size 1.2em
       font-weight 500
       text-shadow lighten($dark, 40) 0 1px 0
-
+      flex 1
+      &:focus, &:hover
+        outline none
+        background rgba(white, .2)
     .type
       margin-left .5em
       //border 1px solid red
@@ -95,8 +102,6 @@ body.dragging .campsi_component-list
         max-height 100%
         vertical-align baseline
 
-    .spacer
-      flex 1
     //border 1px solid greenyellow
 
     .drag-handle
@@ -133,11 +138,11 @@ body.dragging .campsi_component-list
       display none
 
   .component-options-form > .fields > .form_field
-    padding .5em !important
+    padding .5em
     .label
       text-align left
-      font-size .9em !important
-      font-weight 900
+      font-size 1em !important
+      font-weight 400
       padding .5em
 
     &.form-field-label
@@ -154,7 +159,9 @@ body.dragging .campsi_component-list
           width auto
 
     .form_field
-      margin-left 1em
+      padding 0
+      //.label
+        //padding 0 .5em
 
   .form_field[data-comp-type="campsi/component-chooser"]
     margin-top .5em
@@ -203,62 +210,7 @@ body.dragging .campsi_component-list
 .component-type
   display block
 
-.campsi_collection-designer_field .form_field.dropdown-options
-  margin-top .5em
 
-  .placeholder
-    display none
-
-  > .label
-    align-self auto
-
-  .newItem
-    background #f9f9f9
-    border-radius .3em
-    box-shadow 0 1px 3px rgba(black, .3)
-    padding .5em
-    display flex
-    align-items center
-    margin-top .5em
-    .form
-      flex 1
-    input[type=submit]
-      dark-button($theme)
-      display inline-block
-      width auto
-    .fields
-      display flex
-      .form_field
-        margin-right .5em
-        padding 0
-        margin-left 0
-
-        &[data-name="value"]
-          width 6em
-        &[data-name="label"]
-          flex 1
-
-  .array_item
-    display flex
-    align-items center
-    margin-bottom .4em
-    .remove
-      //margin-top -2px
-      dark-button($red)
-
-    .container
-      flex 1
-
-    .fields
-      display flex
-      .form_field
-        padding 0
-        margin-right .5em
-        margin-left 0
-        &[data-name="value"]
-          width 6em
-        &[data-name="label"]
-          flex 1
 
 #fieldProperties
   > .content

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Draft = require('./draft');
-
+var deepCopy = require('deepcopy');
 
 var schema = new mongoose.Schema({
     _project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'},
@@ -19,7 +19,7 @@ var schema = new mongoose.Schema({
     }],
     hasFields: Boolean,
     entries: [{type: mongoose.Schema.Types.ObjectId, ref: 'Entry'}]
-},{ id: false });
+}, {id: false});
 
 schema.index({_project: 1, identifier: 1}, {unique: true});
 
@@ -62,6 +62,64 @@ schema.methods.getEntriesAndDrafts = function (user, cb) {
     });
 };
 
+
+schema.methods.getReferenceFields = function (fields, path) {
+    var referencesFields = [];
+    var self = this;
+    if (typeof fields === 'undefined') {
+        fields = this.fields;
+    }
+
+    fields.forEach(function (field) {
+
+        var fieldPath = (path) ? path + '/' + field.name : field.name;
+
+        if (field.type === 'campsi/reference') {
+            var copy = deepCopy(field);
+            copy.path = fieldPath;
+            referencesFields.push(copy);
+        }
+
+        if (Array.isArray(field.fields)) {
+            referencesFields.concat(self.getReferenceFields(field.fields), fieldPath);
+        }
+
+        if (field.items && Array.isArray(field.items.fields)){
+            referencesFields.concat(self.getReferenceFields(field.items.fields), fieldPath);
+        }
+    });
+
+    return referencesFields;
+
+};
+/*
+ schema.methods.containsReferenceField = function (fields, contains) {
+
+ if (typeof fields === 'undefined') {
+ fields = this.fields;
+ contains = false;
+ }
+
+ fields.forEach(function (field) {
+ if (field.type === 'campsi/reference') {
+ contains = true;
+ }
+
+ if(Array.isArray(field.fields)){
+ //noinspection JSPotentiallyInvalidUsageOfThis
+ this.containsReferenceField(field.fields, contains);
+ }
+
+ if(field.items && Array.isArray(field.items.fields)){
+ //noinspection JSPotentiallyInvalidUsageOfThis
+ this.containsReferenceField(field.items.fields, contains);
+ }
+ });
+
+ return contains;
+ };
+
+ */
 
 schema.methods.export = function (cb) {
     this.populate('entries', function (err, populated) {

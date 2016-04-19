@@ -8,6 +8,7 @@ var Template = require('../../../models/template');
 var extend = require('extend');
 var docsToObject = require('../../../lib/campsi-app/server/docToObject');
 var async = require('async');
+var deepCopy = require('deepcopy');
 
 var app = require('../../../lib/campsi-app/app')({
     config: require('../../../config')
@@ -115,6 +116,80 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
         });
     }
 
+    function getFieldValue(data, path) {
+        var fieldValue = data;
+        var parts = path.split('/');
+        parts.forEach(function (part) {
+            if (part && fieldValue[part]) {
+                fieldValue = fieldValue[part];
+            } else {
+                fieldValue = undefined;
+            }
+        });
+
+        return fieldValue;
+    }
+
+    function setFieldValue(data, value, path) {
+
+        var fieldValue = data;
+        var parts = path.split('/');
+        var i = 0;
+        for (; i < parts.length; i++) {
+            if (i === parts.length - 1 && fieldValue) {
+                fieldValue[parts[i]] = value;
+            } else if (fieldValue[parts[i]]) {
+                fieldValue = fieldValue[parts[i]];
+            } else {
+                return;
+            }
+        }
+    }
+
+    function embedReferenceFields(next) {
+        var refFields = req.collection.getReferenceFields();
+        var entryHash = {};
+
+        async.forEach(json.entries, function (entry, eachEntryCallback) {
+            async.forEach(refFields, function (refField, eachRefFieldCallback) {
+
+                var fieldValue = getFieldValue(entry.data, refField.path);
+
+                console.info('');
+                console.info(refField.path, fieldValue);
+
+                if (typeof fieldValue === 'undefined') {
+                    return eachRefFieldCallback();
+                }
+
+                var _ids = deepCopy(fieldValue);
+                if (!Array.isArray(fieldValue)) {
+                    _ids = [_ids];
+                }
+
+                async.forEachOf(_ids, function (_id, index, eachIdCallback) {
+                    if (entryHash[_id]) {
+                        _id = entryHash[_id];
+                        return eachIdCallback();
+                    }
+                    Entry.findOne({_id: _id}, function (err, entry) {
+                        if (err) {
+                            return eachIdCallback();
+                        }
+                        _ids[index] = entry.toObject().data;
+                        eachIdCallback();
+                    });
+                }, function () {
+                    fieldValue = (refField.multiple) ? _ids : _ids[0];
+
+                    setFieldValue(entry.data, fieldValue, refField.path);
+
+                    eachRefFieldCallback();
+                })
+            }, eachEntryCallback);
+        }, next);
+    }
+
     async.series([
         function countEntries(cb) {
             Entry.count(params, function (countError, count) {
@@ -160,10 +235,12 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
                     return cb();
                 }
 
+                //var containsRef = req.collection.containsReferenceField();
+
                 if (req.query.sort) {
                     json.entries = docsToObject(entries);
                     addLinksToEntries();
-                    return cb();
+                    embedReferenceFields(cb);
                 }
 
                 var sortedEntries = {};
@@ -178,7 +255,7 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
                 });
 
                 addLinksToEntries();
-                cb();
+                embedReferenceFields(cb);
             });
         }
     ], function () {

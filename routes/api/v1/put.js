@@ -104,6 +104,10 @@ router.put('/projects/:project/collections/:collection', function (req, res) {
     }
 
     collection.save(function (err, result) {
+        if(err){
+            res.status(500);
+            return res.json(err);
+        }
         res.json(result.toObject());
         Campsi.eventbus.emit('collection:update', event);
     });

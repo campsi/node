@@ -1,0 +1,56 @@
+.dropdown-options
+  margin-top .5em
+
+  .placeholder
+    display none
+
+  > .label
+    align-self auto
+
+  .newItem
+    background #f9f9f9
+    border-radius .3em
+    box-shadow 0 1px 3px rgba(black, .3)
+    padding .5em
+    display flex
+    align-items center
+    margin-top .5em
+    .form
+      flex 1
+    input[type=submit]
+      dark-button($theme)
+      display inline-block
+      width auto
+    .fields
+      display flex
+      .form_field
+        margin-right .5em
+        padding 0
+        margin-left 0
+
+        &[data-name="value"]
+          width 6em
+        &[data-name="label"]
+          flex 1
+
+  .array_item
+    display flex
+    align-items center
+    margin-bottom .4em
+    .remove
+      //margin-top -2px
+      dark-button($red)
+
+    .container
+      flex 1
+
+    .fields
+      display flex
+      .form_field
+        padding 0
+        margin-right .5em
+        margin-left 0
+        &[data-name="value"]
+          width 6em
+        &[data-name="label"]
+          flex 1

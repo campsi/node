@@ -221,5 +221,6 @@
 	"panels.project.fields.url": "URL du projet",
 	"component.url": "URL",
 	"component.category.geo": "Géographie & cartographie",
-	"component.geo/address": "Adresse postale"
+	"component.geo/address": "Adresse postale",
+	"component.campsi/reference": "Référence"
 }

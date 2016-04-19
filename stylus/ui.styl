@@ -1,16 +1,16 @@
 light-button($color)
 
   //background linear-gradient(tint($color, 50), tint($color, 30))
-  background tint($color, 50)
+  background tint($color, 30)
   color white
-  border-bottom-color darken($color, 20)
-  text-shadow 0 1px 1px rgba(black, .5)
+  border-bottom-color tint($color, 20)
+  text-shadow 1px 1px 0px rgba(black, .3)
   //box-shadow 0 1px 1px 0 rgba(darken($color, 30), .9)
   border 1px solid tint($color, 20)
 
   &:hover
     //background linear-gradient(tint($color, 60), tint($color, 50))
-    background tint($color, 60)
+    background tint($color, 50)
     border 1px solid tint($color, 50)
 
   &:focus
@@ -54,10 +54,10 @@ button, a.btn, .buttons > a, input[type=submit]
     outline none
     border-radius 4px
     cursor pointer
-    font-size: 0.9em
+    font-size: 0.95em
     padding 0 0.8em
-    height 2.4em
-    line-height 2.4em
+    height 2.3em
+    line-height 2.3em
     font-weight 500
     border none
     color white
@@ -73,12 +73,25 @@ button, a.btn, .buttons > a, input[type=submit]
       display none
 
 
+
 .form_field
+  padding 1rem
   position relative
+
+  &.title
+    font-size 1.5em
+
+  &:nth-child(even)
+    background rgba(white, .2)
+
   .label
-    font-size .9em
+    font-size 1.2em
+    padding .5em 0
     line-height 1.8em
     color lighten($dark, 15)
+
+  .form_field
+    padding .5em
 
   .help, .errors
     opacity .2
@@ -170,123 +183,9 @@ lightInput()
 .component.draggable.gu-mirror
   opacity 1
 
-#app .form_field.big-title
-  font-size 1.5em
-  padding 0
-
-  .label
-    font-weight 600
-    font-size 1.2em
-    padding 1em
-
-  .control
-    position relative
-    padding 0
-
-    &::before
-      content '✎'
-      color lighten($theme, 10)
-      width 1.5em
-      height 50%
-      text-align center
-      font-size 1.5em
-      line-height 1.2em
-      position absolute
-      left .5em
-      top .8em
-
-    input
-      background tint($light, 60)
-      border none
-      outline none
-      text-indent 1.5em
-      display block
-      transition background .2s ease-out
-      padding .75em
-      font-size: 1.5em
-      font-weight lighter
-      box-shadow none
-      border-radius 0
-      //color white
-      //text-shadow black 1px 1px 2px
-      &:focus
-        //box-shadow none;
-        background: white
-        align-self: center
-      //box-shadow: inset #ededed 0 1px 1px;
-      &.component.text::placeholder
-        padding-top .35em
-        font-weight 400
-        font-style: italic
-
-  .errors
-    margin 1em
-    font-size .8em
-    &:before
-      line-height 2em
-
-
-
-#app .form_field.url
-
-  .label, .control
-    padding 0
-    display inline-block
-    margin 0 1em 0 0
-    text-overflow ellipsis
-    white-space: nowrap;
-    overflow: hidden;
-    a
-      font-family Menlo, Monaco, Consolas, "Lucida Console", monospace
-      font-size .8em
-      color lighten($dark, 10)
-      font-weight 100
 
 select.select_dropdown, select.select_ajax
   width 100%
-
-.number_rating
-  user-select none
-  span
-    user-select none
-    display inline-block
-    height 1.5em
-    width 1.5em
-    opacity .3
-    text-align center
-    cursor pointer
-
-    &:last-child
-      margin 0
-
-    &.checked
-      opacity 1
-
-
-
-  .counter
-    position absolute
-    bottom 0.25em
-    right .5em
-    color rgba($theme, .6)
-    font-weight bold
-    font-size 1.5em
-  button
-    box-shadow none
-    background transparent
-    border none
-    position absolute
-    padding 0
-    margin 0
-    right .5em
-    top .5em
-    color $theme
-  .message
-    padding 1em 2em 1em 1em
-    text-align left
-    p:last-child
-      margin-bottom 0
-
 
 .panel.dark > .content .fields
 

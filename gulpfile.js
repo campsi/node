@@ -43,7 +43,8 @@ var serverOnlyDependencies = [
     'fs',
     'node-redis-pubsub',
     'mongoose',
-    'unicode/category/So'
+    'unicode/category/So',
+    'najax'
 ];
 
 gulp.task('serve', function () {

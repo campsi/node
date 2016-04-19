@@ -1,0 +1,109 @@
+#entry .campsi_entry .component.campsi_reference
+  display flex
+  align-items stretch
+  flex-wrap wrap
+  > div.entry
+    margin .5em
+    border-radius .5em
+    background white
+    color $darkText
+    border 1px solid $light
+    font-size .9em
+    width 20em
+    //display inline-block
+    box-shadow 0 1px 2px darken($light, 10)
+    display flex
+
+    >.input
+      display inline-block
+      text-align center
+      vertical-align top
+      padding .5em
+      height 100%
+
+    > .form
+      display inline-block
+      padding .5em
+      flex 1
+    ul
+      margin-left 1em
+    .form > .form-field
+      > .label
+        font-size 1em
+        font-weight 500
+        color $dark
+        display inline-block
+        margin-right 1em
+        vertical-align top
+        padding 0
+        line-height inherit
+        &:after
+          content ' :'
+      > .value
+        display inline-block
+        vertical-align top
+
+.array_item[data-item-type="campsi/entries-and-drafts/item"] .reference
+  display inline-block
+  font-size .9em
+  font-family Monaco, Consolas, Courier, monospace
+  background $orange
+  border-radius 4px
+  padding 0 .5em
+  margin 0 .5em .5em 0
+
+.campsi_reference_collection-options
+  border 1px solid darken($light, 2)
+  overflow hidden
+  border-radius .5em
+  background lighten($light, 5)
+  .label
+    display none
+  .collection-select .control
+    padding .5em
+    margin-bottom 1em
+
+.campsi_reference_collection-fields
+  width 100%
+
+  td, th
+    text-align left
+    padding 0 1em
+
+  .field
+    background white
+    border-bottom 1px solid $light
+    &:hover
+      background lighten($light, 5)
+    &:first-child
+      border-top 1px solid $light
+    &:last-child
+      border-bottom none
+
+  .field-label
+    width 50%
+    padding 0 .5em !important
+    text-align left
+    font-size 1em
+    font-weight 400
+  .field-name
+    width 50%
+    text-align left
+    font-size .9em
+    font-weight 200
+  button
+    background transparent
+    color $dark
+    text-shadow none
+    border-color transparent
+    padding 0 .2em
+
+    &[data-option="hide"]
+      opacity 1
+      &.checked
+        opacity .5
+
+  button[data-option="embed"]
+    opacity .5
+    &.checked
+      opacity 1

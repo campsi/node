@@ -6,13 +6,13 @@
       dark-button($theme)
 
 .array_item[data-item-type="campsi/collection-list/collection"]
+  display inline-block
   position relative
   background lighten($light, 10)
   color $darkText
   box-shadow 0 1px 2px rgba(black, .2)
-  border-radius .5em
-  margin-bottom: 1em
-  overflow hidden
+  border-radius 4px
+  margin 0 1em 1em 0
 
   padding 1em
   padding-left 3em
@@ -47,35 +47,8 @@
   .name
     font-size 1.2em
     font-weight 500
+
   .actions
-    //border 1px solid blue
-    position absolute
-    right 0
-    top 0
-    height 100%
-
-    a
-      display block
-      float left
-      height 100%
-      text-align center
-      padding .5em
-      //border 1px solid red
-      opacity .8
-
-      img
-        //border 1px solid greenyellow
-        margin 0 auto
-        display block
-        height 40px
-        width 40px
-
-      span
-        color $theme
-        font-size .8em
-
-      &:hover
-        background $theme
-        opacity 1
-        span
-          color white
+    img
+      height 1.5em
+      width 1.5em
