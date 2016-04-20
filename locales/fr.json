@@ -222,5 +222,7 @@
 	"component.url": "URL",
 	"component.category.geo": "Géographie & cartographie",
 	"component.geo/address": "Adresse postale",
-	"component.campsi/reference": "Référence"
+	"component.campsi/reference": "Référence",
+	"panels.billing.contact": "panels.billing.contact",
+	"panels.billing.vat": "panels.billing.vat"
 }
