@@ -109,7 +109,7 @@ schema.statics.list = function (user, cb) {
 schema.methods.getUsers = function (cb) {
     var project = this;
     User.find({projects: {$elemMatch: {_id: project._id}}})
-        .select("displayName _id email picture nickname avatar fullname projects")
+        .select('displayName _id email picture nickname avatar fullname projects')
         .exec(function (err, users) {
             users.forEach(function (u) {
                 u.projectRoles = u.getRolesForProject(project);
