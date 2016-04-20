@@ -45,6 +45,61 @@
 
 
 
+.form_field[data-comp-type="campsi/component-chooser"]
+  margin-top .5em
+
+  .campsi_component-chooser
+    padding 1em
+    background $light
+    border 1px solid darken($light, 5)
+    border-radius .5em
+    display flex
+
+    .placeholder
+      align-self center
+      margin-right 1em
+
+    .form
+      flex 1
+
+  .label
+    display none
+
+  .form_field.form_fields
+    margin-top .75em
+    > .label
+      display none
+
+.form-field-name
+  font-size 0.75em
+
+.form-field-name input
+  font-size 1em
+
+#designer
+
+  background darken($light, 2)
+
+  .component.title
+    font-size 2em
+
+    input
+      font-size 2em;
+      font-weight lighter
+
+  .content
+    padding 2rem
+    padding-top $headerHeight + 2rem
+
+.component-type
+  display block
+
+
+
+#fieldProperties
+  > .content
+    padding-top $headerHeight
+
 body.dragging .campsi_component-list
   > .items.dropzone.hovered
     padding-bottom 6em
@@ -160,58 +215,3 @@ body.dragging .campsi_component-list
 
     .form_field
       padding 0
-      //.label
-        //padding 0 .5em
-
-  .form_field[data-comp-type="campsi/component-chooser"]
-    margin-top .5em
-
-    .campsi_component-chooser
-      padding .5em
-      background $light
-      border 1px solid darken($light, 5)
-      border-radius .5em
-      display flex
-      .placeholder
-        align-self center
-
-      .form
-        flex 1
-
-    .label
-      display none
-
-  .form_field.form_fields
-    margin-top .75em
-    > .label
-      display none
-
-.form-field-name
-  font-size 0.75em
-
-.form-field-name input
-  font-size 1em
-
-#designer
-
-  background darken($light, 2)
-
-  .component.title
-    font-size 2em
-
-    input
-      font-size 2em;
-      font-weight lighter
-
-  .content
-    padding 2rem
-    padding-top $headerHeight + 2rem
-
-.component-type
-  display block
-
-
-
-#fieldProperties
-  > .content
-    padding-top $headerHeight

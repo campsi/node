@@ -6,7 +6,8 @@ var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-var strategy = require('./lib/auth-strategy');
+require('./lib/auth-strategy');
+
 var app = express();
 var Campsi = require('campsi-core');
 var Guest = require('./models/guest');
@@ -123,11 +124,12 @@ app.use('/import', require('./routes/import'));
 app.use('/api/v1/components', require('./routes/api/v1/components'));
 app.use('/invitation', require('./routes/invitation'));
 
-app.use('/ajax-proxy', function(req, res){
+app.use('/ajax-proxy', function (req, res) {
     request({url: req.query.url}, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            res.send(body);
+        if (!error) {
+            return res.send(body);
         }
+        return res.status(500).json({error: error})
     });
 });
 
