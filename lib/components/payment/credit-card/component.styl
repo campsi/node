@@ -8,6 +8,9 @@
     padding 2em 1em
     box-shadow 0 2px 5px black
 
+    .control
+      margin-bottom .5em
+
     label
       font-size .9em
       font-weight 600
@@ -26,12 +29,14 @@
 
       &:focus
         background rgba(white, .2)
+
     .line
       display flex
-      margin-top 2em
 
     .control.expiration
       flex 1
+      text-align right
+      padding-right 2em
 
     .control.number
       input

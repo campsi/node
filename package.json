@@ -56,6 +56,7 @@
     "shortid": "*",
     "slug": "*",
     "stripe": "^4.5.0",
+    "stripe-webhook-middleware": "^0.2.0",
     "stylus": "*",
     "vinyl-buffer": "*",
     "vinyl-source-stream": "*",

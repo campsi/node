@@ -4,6 +4,13 @@ var async = require('async');
 var User = require('./user');
 var Template = require('./template');
 var schema = new mongoose.Schema({
+    customerId: String,
+    billing: {
+        companyName: String,
+        contact: String,
+        email: String,
+        customerDetails: mongoose.Schema.Types.Mixed
+    },
     title: String,
     identifier: String,
     demo: Boolean,
@@ -19,11 +26,11 @@ var schema = new mongoose.Schema({
         height: Number
     },
     collections: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Collection'
-        }]
-}, { id: false });
-schema.index({ identifier: 1 }, { unique: true });
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Collection'
+    }]
+}, {id: false});
+schema.index({identifier: 1}, {unique: true});
 schema.methods.identity = function () {
     return {
         _id: this._id.toString(),
@@ -33,7 +40,7 @@ schema.methods.identity = function () {
 };
 schema.methods.createCollectionFromTemplate = function (templateIdentifier, cb) {
     var project = this;
-    Template.findOne({ _id: templateIdentifier }).exec(function (err, template) {
+    Template.findOne({_id: templateIdentifier}).exec(function (err, template) {
         template.createCollection(project, cb);
     });
 };
@@ -50,20 +57,25 @@ schema.methods.addUser = function (role, userId) {
     }
 };
 schema.statics.identifierExists = function (identifier, cb) {
-    this.find({ identifier: identifier }).select('_id').exec(function (err, results) {
+    this.find({identifier: identifier}).select('_id').exec(function (err, results) {
         cb(results.length > 0);
     });
 };
+
+schema.statics.findByCustomerId = function (customerId, cb) {
+    this.findOne({'billing.customerDetails.id': customerId}).exec(cb);
+};
+
 schema.statics.list = function (user, cb) {
     var self = this;
     if (typeof user === 'undefined') {
-        self.find({ demo: true }).select('_id title icon identifier demo').exec(cb);
+        self.find({demo: true}).select('_id title icon identifier demo').exec(cb);
     } else {
         var projectHash = {};
         var projectsArray = [];
-        User.findOne({ _id: user._id }).select('projects').exec(function (err, populatedUser) {
+        User.findOne({_id: user._id}).select('projects').exec(function (err, populatedUser) {
             async.forEach(populatedUser.projects, function (p, next) {
-                self.findOne({ _id: p._id }).select('_id title icon identifier demo').exec(function (err, project) {
+                self.findOne({_id: p._id}).select('_id title icon identifier demo').exec(function (err, project) {
                     if (project) {
                         project.roles = p.roles;
                         projectsArray.push(p._id.toString());
@@ -78,7 +90,7 @@ schema.statics.list = function (user, cb) {
                     }));
                 };
                 if (user.showDemoProjects !== false) {
-                    self.find({ demo: true }).select('_id title icon identifier demo').exec(function (err, demoProjects) {
+                    self.find({demo: true}).select('_id title icon identifier demo').exec(function (err, demoProjects) {
                         demoProjects.forEach(function (demoProject) {
                             var demoId = demoProject._id.toString();
                             if (projectsArray.indexOf(demoId) === -1) {
@@ -97,7 +109,7 @@ schema.statics.list = function (user, cb) {
 };
 schema.methods.getUsers = function (cb) {
     var project = this;
-    User.find({ projects: { $elemMatch: { _id: project._id } } }).select('displayName _id email picture nickname avatar fullname projects').exec(function (err, users) {
+    User.find({projects: {$elemMatch: {_id: project._id}}}).select('displayName _id email picture nickname avatar fullname projects').exec(function (err, users) {
         users.forEach(function (u) {
             u.projectRoles = u.getRolesForProject(project);
         });
@@ -106,7 +118,7 @@ schema.methods.getUsers = function (cb) {
 };
 schema.methods.getGuests = function (cb) {
     var Guest = require('./guest');
-    Guest.find({ invitations: { $elemMatch: { _project: this._id } } }).exec(cb);
+    Guest.find({invitations: {$elemMatch: {_project: this._id}}}).exec(cb);
 };
 schema.methods.getUsersAndGuests = function (cb) {
     var self = this;

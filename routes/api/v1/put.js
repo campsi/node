@@ -7,7 +7,10 @@ var Draft = require('../../../models/draft');
 var extend = require('extend');
 var Campsi = require('campsi-core');
 var createAppEvent = require('../../../lib/campsi-app/server/event');
-var slugOptions = require('../../../config').slug;
+var config = require('../../../config');
+var slugOptions = config.slug;
+var stripe = require('stripe')(config.stripe.secretKey);
+
 resources.patchRouter(router);
 var returnId = function (item) {
     if (typeof item === 'string') {
@@ -15,6 +18,7 @@ var returnId = function (item) {
     }
     return mongoose.Types.ObjectId(item._id);
 };
+
 router.put('/projects/:project*', function (req, res, next) {
     if (req.user.getRolesForProject(req.project).length === 0) {
         return res.status(401).json({
@@ -58,6 +62,42 @@ router.put('/projects/:project', function (req, res) {
         Campsi.eventbus.emit('project:update', event);
     });
 });
+
+router.put('/projects/:project/billing', function (req, res) {
+
+    var stripePayload = {
+        source: req.body.token.id,
+        plan: "project_fr",
+        email: req.body.email,
+        description: req.body.companyName
+    };
+
+    if (req.body.vat) {
+        stripePayload.business_vat_id = req.body.vat;
+    }
+
+    stripe.customers.create(stripePayload, function (err, customer) {
+
+        if (customer) {
+
+            req.project.billing = {
+                companyName: req.body.companyName,
+                contact: req.body.contact,
+                email: req.body.email,
+                creditCard: customer.sources[0],
+                customerDetails: customer
+            };
+
+            req.project.save(function () {
+                res.json(customer);
+            });
+        } else {
+            res.json(err);
+        }
+
+    });
+});
+
 router.put('/projects/:project/collections/:collection', function (req, res) {
     var collection = req.collection;
     var event = createAppEvent(req);
@@ -93,6 +133,7 @@ router.put('/projects/:project/collections/:collection', function (req, res) {
         Campsi.eventbus.emit('collection:update', event);
     });
 });
+
 router.put('/projects/:project/collections/:collection/entries/:entry', function (req, res) {
     var entry = req.entry;
     var event = createAppEvent(req);
@@ -104,7 +145,7 @@ router.put('/projects/:project/collections/:collection/entries/:entry', function
     entry.modifiedAt = new Date();
     entry.save(function (err, result) {
         if (req.body._draft) {
-            Draft.remove({ _id: req.body._draft }, function () {
+            Draft.remove({_id: req.body._draft}, function () {
                 res.json(result.toObject());
             });
             Campsi.eventbus.emit('draft:delete', {
@@ -119,6 +160,7 @@ router.put('/projects/:project/collections/:collection/entries/:entry', function
         Campsi.eventbus.emit('entry:update', event);
     });
 });
+
 router.put('/projects/:project/collections/:collection/drafts/:draft', function (req, res) {
     var draft = req.draft;
     var event = createAppEvent(req);

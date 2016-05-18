@@ -125,6 +125,7 @@ app.use('/import', require('./routes/import'));
 
 app.use('/api/v1/components', require('./routes/api/v1/components'));
 app.use('/invitation', require('./routes/invitation'));
+app.use('/stripe', require('./routes/stripe'));
 
 app.use('/ajax-proxy', function (req, res) {
     request({url: req.query.url}, function (error, response, body) {

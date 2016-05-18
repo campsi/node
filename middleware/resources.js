@@ -32,7 +32,7 @@ module.exports = {
             Project.find(query).populate({
                 path: 'collections',
                 select: 'name _id identifier hasFields icon entries'
-            }).select('title demo icon identifier collections notes url').exec(function (err, projects) {
+            }).select('title demo icon identifier collections notes url billing').exec(function (err, projects) {
                 if (projects.length > 0) {
                     req.project = projects[0];
                     if (req.user) {
