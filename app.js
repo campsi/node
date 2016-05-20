@@ -87,22 +87,30 @@ app.get('/callback', passport.authenticate('auth0'), function (req, res) {
         throw new Error('user null');
     }
 
+    var redirectTo = req.query.redirectTo || '/dashboard';
+
     if (req.query.token) {
         Guest.findOne({_id: req.query.token}, function (err, guest) {
 
             if (guest === null) {
-                return res.redirect('/');
+                return res.redirect(redirectTo);
             }
 
             guest.turnIntoUser(req.user, function () {
-                res.redirect('/dashboard');
+                res.redirect(redirectTo);
             })
         });
     } else {
-        res.redirect('/dashboard');
+        res.redirect(redirectTo);
     }
 });
 
+app.get('/login', function(req, res){
+    res.render('login', {
+        config: require('./browser-config'),
+        redirectTo: req.query.redirectTo
+    });
+});
 app.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect('/');

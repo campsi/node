@@ -1,0 +1,9 @@
+html
+    head
+        title Campsi Login
+        //link(rel='stylesheet',media='all',href='/stylesheets/invitation.css')
+    body(style='background:#ebecf0')
+        script window.CONF = !{JSON.stringify(config)};
+        script window.redirectTo = !{JSON.stringify(redirectTo)};
+        script(src=config.auth0.lockURL)
+        script(src='/javascripts/login.js')

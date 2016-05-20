@@ -47,11 +47,16 @@ module.exports = {
                     if (req.project.demo || isGetApiCall) {
                         return next();
                     }
-                    res.status(403);
-                    return res.send('');
+
+                    if (req.api === true) {
+                        res.status(403);
+                        return res.send('');
+                    }
+
+                    return res.redirect('/login?redirectTo=' + req.originalUrl);
                 }
                 res.status(404);
-                res.send('');
+                res.send('Page not found');
             });
         });
         router.param('collection', function (req, res, next, collection) {
