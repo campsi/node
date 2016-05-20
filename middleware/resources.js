@@ -48,7 +48,7 @@ module.exports = {
                         return next();
                     }
                     res.status(403);
-                    res.send('');
+                    return res.send('');
                 }
                 res.status(404);
                 res.send('');
