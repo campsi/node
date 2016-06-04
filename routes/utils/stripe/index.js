@@ -2,9 +2,9 @@
 
 var express = require('express');
 var router = express.Router();
-var config = require('../../config');
+var config = require('../../../config');
 var stripe = require('stripe')(config.stripe.secretKey);
-var Project = require('../../models/project');
+var Project = require('../../../models/project');
 
 var processStripeEvent = function (err, event) {
     if (err) {

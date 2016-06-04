@@ -72,6 +72,106 @@ Campsi.eventbus.on('*', function (data, event) {
     Event.create({event: event, data: data, date: new Date()});
 });
 
+// todo move ;-)
+var Collection = require('./models/collection');
+var Entry = require('./models/entry');
+var util = require('util');
+
+var getPropertyValue = function (obj, path) {
+    if (typeof path !== 'string') {
+        return;
+    }
+    var parts = path.split('/');
+    var ref = obj;
+    parts.forEach(function (part) {
+        ref = ref && ref[part] ? ref[part] : undefined;
+    });
+    return ref;
+};
+
+var setPropertyValue = function (obj, path, value) {
+    if (typeof path !== 'string') {
+        return;
+    }
+    var parts = path.split('/');
+    var lastPart = parts.pop();
+    var ref = obj;
+
+    parts.forEach(function (part) {
+        ref = ref && ref[part] ? ref[part] : undefined;
+    });
+
+    ref[lastPart] = value;
+};
+
+var cleanParams = function (params) {
+    var cleaned = {};
+    for (var p in params) {
+        if (params.hasOwnProperty(p)) {
+            if (typeof params[p] !== 'undefined') {
+                cleaned[p] = params[p];
+            }
+        }
+    }
+
+    return cleaned;
+};
+
+Campsi.eventbus.on('entry:create', function (data) {
+
+    Collection.findOne({_id: data.collection._id}, function (err, collection) {
+        var facebookFields = collection.getFieldsByType('campsi/publish/facebook');
+        if (facebookFields.length > 0) {
+            Entry.findOne({_id: data.entry}, function (err, entry) {
+                facebookFields.forEach(function (facebookField) {
+                    var facebookEntryValue = getPropertyValue(entry.data, facebookField.path);
+                    if (facebookField.feed.id
+                        && facebookField.feed.access_token
+                        && (facebookEntryValue.post === 'now' || facebookEntryValue.post === 'later')
+                    ) {
+                        var url = 'https://graph.facebook.com/v2.6/' + facebookField.feed.id + '/feed?access_token=' + facebookField.feed.access_token;
+
+                        var params = {};
+
+                        params.message = facebookEntryValue.message;
+                        params.picture = getPropertyValue(entry.data, facebookField.linkFields.image);
+
+                        if (params.picture) {
+                            params.picture = params.picture.src;
+                        }
+
+                        params.link = getPropertyValue(entry.data, facebookField.linkFields.url);
+                        params.description = getPropertyValue(entry.data, facebookField.linkFields.description);
+                        params.name = getPropertyValue(entry.data, facebookField.linkFields.name);
+
+                        //todo schedule
+                        //params.scheduled_publish_time = '';
+
+                        request.post({
+                            url: url,
+                            formData: cleanParams(params)
+                        }, function optionalCallback(err, httpResponse, body) {
+                            var post = JSON.parse(body);
+                            if (post.id) {
+                                setPropertyValue(entry.data, facebookField.path + '/post_id', post.id);
+                                setPropertyValue(entry.data, facebookField.path + '/status', 'published');
+                                entry.markModified('data');
+                                entry.save(function (err) {
+                                    if (err) {
+                                        console.error(err);
+                                    } else {
+                                        console.info('Saved Facebook post ID', post);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    });
+});
+
 app.get('/api/v1/*', function (req, res, next) {
     req.api = true;
     res.header('Access-Control-Allow-Origin', '*');
@@ -105,7 +205,7 @@ app.get('/callback', passport.authenticate('auth0'), function (req, res) {
     }
 });
 
-app.get('/login', function(req, res){
+app.get('/login', function (req, res) {
     res.render('login', {
         config: require('./browser-config'),
         redirectTo: req.query.redirectTo
@@ -128,21 +228,11 @@ app.use('/api/v1', require('./routes/api/v1/post'));
 app.use('/api/v1', require('./routes/api/v1/delete'));
 app.use('/api/v1', require('./routes/api/v1/upload'));
 
-app.use('/export', require('./routes/export'));
-app.use('/import', require('./routes/import'));
 
 app.use('/api/v1/components', require('./routes/api/v1/components'));
 app.use('/invitation', require('./routes/invitation'));
-app.use('/stripe', require('./routes/stripe'));
+app.use('/utils', require('./routes/utils'));
 
-app.use('/ajax-proxy', function (req, res) {
-    request({url: req.query.url}, function (error, response, body) {
-        if (!error) {
-            return res.send(body);
-        }
-        return res.status(500).json({error: error})
-    });
-});
 
 app.use('/', require('./routes/index'));
 

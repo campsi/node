@@ -1,7 +1,7 @@
 'use strict';
 var express = require('express');
 var router = express.Router();
-var resources = require('../middleware/resources');
+var resources = require('../../middleware/resources');
 resources.patchRouter(router);
 router.get('/projects/:project/collections/:collection', function (req, res) {
     var filename = req.collection.identifier || req.collection.name;
