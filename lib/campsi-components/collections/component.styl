@@ -2,4 +2,13 @@
   .content
     padding 1em
     padding-top $headerHeight + 1em
-    background lighten($dark, 15)
+
+  a
+    background white
+    border-bottom 1px solid darken($light, 10)
+    padding 1em
+    display block
+
+    &.active
+      background $theme
+      color white

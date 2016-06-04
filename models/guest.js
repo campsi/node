@@ -8,21 +8,21 @@ var schema = new mongoose.Schema({
         required: true
     },
     invitations: [{
-            _inviter: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User',
-                required: true
-            },
-            _project: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Project',
-                required: true
-            },
-            roles: [String],
-            message: String
-        }]
-}, { id: false });
-schema.index({ email: 1 }, { unique: true });
+        _inviter: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
+        },
+        _project: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Project',
+            required: true
+        },
+        roles: [String],
+        message: String
+    }]
+}, {id: false});
+schema.index({email: 1}, {unique: true});
 schema.methods.getInvitationIndex = function (projectId) {
     var index = -1;
     this.invitations.forEach(function (invitation, i) {
@@ -41,7 +41,7 @@ schema.methods.cancelInvitation = function (projectId) {
 schema.methods.turnIntoUser = function (user, callback) {
     var self = this;
     async.forEach(this.invitations, function (invitation, cb) {
-        Project.findOne({ _id: invitation._project }, function (err, project) {
+        Project.findOne({_id: invitation._project}, function (err, project) {
             if (project === null) {
                 return cb();
             }
@@ -50,7 +50,7 @@ schema.methods.turnIntoUser = function (user, callback) {
         });
     }, function () {
         user.save(function () {
-            self.delete(callback);
+            self.constructor.delete({_id: self._id}, callback);
         });
     });
 };

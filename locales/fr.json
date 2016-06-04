@@ -228,5 +228,6 @@
 	"component.category.publish": "Publication automatisée",
 	"component.campsi/publish/facebook": "Facebook",
 	"component.date/datetime": "Date & heure",
-	"component.blocks": "Blocs"
+	"component.blocks": "Blocs",
+	"component.date/time": "Heure"
 }
