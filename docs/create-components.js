@@ -14,8 +14,12 @@ db.components.insert([
     {category: 'select', name: 'checkbox', vendor: 'campsi'},
     {category: 'select', name: 'checkbox/group', vendor: 'campsi'},
     {category: 'date & time', name: 'date', vendor: 'campsi'},
+    {category: 'date & time', name: 'date/datetime', vendor: 'campsi'},
+    {category: 'date & time', name: 'date/time', vendor: 'campsi'},
     {category: 'structure', name: 'array', vendor: 'campsi'},
     {category: 'structure', name: 'form', vendor: 'campsi'},
+    {category: 'structure', name: 'blocks', vendor: 'campsi'},
     {category: 'geo', name: 'geo/address', vendor: 'campsi'},
-    {category: 'structure', name: 'campsi/reference', vendor: 'campsi'}
+    {category: 'structure', name: 'campsi/reference', vendor: 'campsi'},
+    {category: 'publish', name: 'campsi/publish/facebook', vendor: 'campsi'}
 ]);
