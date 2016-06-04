@@ -14,6 +14,7 @@ var isProd = (config.env === 'prod');
 var i18n = require('i18n');
 var locales = ['en', 'fr'];
 var concat = require('gulp-concat');
+var debug = require('gulp-debug');
 
 i18n.configure({
     locales: locales,
@@ -44,7 +45,8 @@ var serverOnlyDependencies = [
     'node-redis-pubsub',
     'mongoose',
     'unicode/category/So',
-    'najax'
+    'najax',
+    '@risingstack/trace'
 ];
 
 gulp.task('serve', function () {
@@ -80,9 +82,8 @@ gulp.task('stylus', function () {
 
 gulp.task('core', function () {
 
-    // set up the browserify instance on a task basis
     var b = browserify({
-        debug: !shouldMinify
+        debug: true
     });
 
     coreDependencies.forEach(function (dep) {
@@ -94,14 +95,15 @@ gulp.task('core', function () {
     });
 
     var bundle = b.bundle().pipe(source('campsi.core.js'));
-
     if (isProd) {
         bundle.pipe(streamify(uglify()));
     }
+
     return bundle.pipe(gulp.dest('./public/javascripts/'));
 });
 
 var packComponents = function (map, dest) {
+
     // set up the browserify instance on a task basis
     var b = browserify(map, {
         bundleExternals: false
@@ -121,7 +123,9 @@ var packComponents = function (map, dest) {
     if (isProd) {
         bundle.pipe(streamify(uglify()));
     }
+
     return bundle.pipe(gulp.dest('./public/javascripts/'));
+
 };
 
 gulp.task('app', function () {
