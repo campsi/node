@@ -66,56 +66,28 @@ schema.methods.getEntriesAndDrafts = function (user, cb) {
         });
     });
 };
-schema.methods.getReferenceFields = function (fields, path) {
-    var referencesFields = [];
+schema.methods.getFieldsByType = function (fieldType, fields, path){
+    var foundFields = [];
     var self = this;
     if (typeof fields === 'undefined') {
-        fields = this.fields;
+        fields = self.fields;
     }
     fields.forEach(function (field) {
         var fieldPath = path ? path + '/' + field.name : field.name;
-        if (field.type === 'campsi/reference') {
+        if (field.type === fieldType) {
             var copy = deepCopy(field);
             copy.path = fieldPath;
-            referencesFields.push(copy);
+            foundFields.push(copy);
         }
         if (Array.isArray(field.fields)) {
-            referencesFields.concat(self.getReferenceFields(field.fields), fieldPath);
+            foundFields.concat(self.getFieldsByType(fieldType, field.fields, fieldPath));
         }
         if (field.items && Array.isArray(field.items.fields)) {
-            referencesFields.concat(self.getReferenceFields(field.items.fields), fieldPath);
+            foundFields.concat(self.getFieldsByType(fieldType, field.items.fields, fieldPath));
         }
     });
-    return referencesFields;
+    return foundFields;
 };
-/*
- schema.methods.containsReferenceField = function (fields, contains) {
-
- if (typeof fields === 'undefined') {
- fields = this.fields;
- contains = false;
- }
-
- fields.forEach(function (field) {
- if (field.type === 'campsi/reference') {
- contains = true;
- }
-
- if(Array.isArray(field.fields)){
- //noinspection JSPotentiallyInvalidUsageOfThis
- this.containsReferenceField(field.fields, contains);
- }
-
- if(field.items && Array.isArray(field.items.fields)){
- //noinspection JSPotentiallyInvalidUsageOfThis
- this.containsReferenceField(field.items.fields, contains);
- }
- });
-
- return contains;
- };
-
- */
 schema.methods.export = function (cb) {
     this.populate('entries', function (err, populated) {
         var collection = populated.toObject();
