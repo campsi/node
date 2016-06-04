@@ -1,0 +1,76 @@
+.designer-blocks-components
+  > .control > .array > .items
+    display flex
+    > .array_item > .drag-handle
+      height 1.5em
+      width 1.5em
+      text-align center
+      font-size 0.8em
+      color white;
+      background url(/images/ui/drag-handle-3.png) no-repeat
+      cursor all-scroll
+      background-size: 100% 100%;
+      transition opacity .2s ease-out
+      opacity 0.5
+
+.designer-blocks-block
+  position relative
+  background darken($light, 10)
+  padding .5em
+  margin .5em
+
+  > button.remove
+    position absolute
+    top 0
+    right 0
+
+.component.blocks
+  text-align center
+  .components
+    margin-top 1em
+    border-radius .5em
+    display inline-block
+    overflow hidden
+    button
+      margin 0
+      margin-left -1px
+      light-button $dark
+      border-radius 0
+
+.blocks_block
+
+  $uiTextColor = darken($light, 30)
+
+  position relative
+  padding 1.5em .5em .5em .5em
+  border 1px dashed darken($light, 10)
+  border-bottom none
+  span.remove
+    position absolute
+    top 0
+    right 0
+    display none
+    color $uiTextColor
+    padding 0 .5em
+    cursor pointer
+
+  &:hover span.remove
+    display: block
+
+  span.role
+    position absolute
+    text-transform uppercase
+    font-size .7em
+    padding-left .5em
+    display block
+    color $uiTextColor
+    top 0
+    left 0
+    cursor move
+  &:last-child
+    border-bottom 1px dashed darken($light, 10)
+
+
+//.campsi_component-chooser
+//  > .form
+//    display none

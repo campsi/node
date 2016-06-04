@@ -224,5 +224,9 @@
 	"component.geo/address": "Adresse postale",
 	"component.campsi/reference": "Référence",
 	"panels.billing.contact": "Nom du contact commercial",
-	"panels.billing.vat": "Numéro de TVA Intracommunautaire"
+	"panels.billing.vat": "Numéro de TVA Intracommunautaire",
+	"component.category.publish": "Publication automatisée",
+	"component.campsi/publish/facebook": "Facebook",
+	"component.date/datetime": "Date & heure",
+	"component.blocks": "Blocs"
 }

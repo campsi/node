@@ -18,7 +18,7 @@ light-button($color)
     //background linear-gradient(tint($color, 60), tint($color, 50))
     background tint($color, 60)
 
-  &:active, &.active
+  &:active, &.active, &.pressed
     box-shadow inset darken($color, 20) 0 1px 1px
     border-bottom none
 
@@ -40,7 +40,7 @@ dark-button($color)
     //background linear-gradient(tint($color, 40), tint($color, 10))
     background tint($color, 10)
 
-  &:active, &.active
+  &:active, &.active, &.pressed
     //box-shadow inset darken($color, 30) 0 2px 2px
     background tint($color, 20)
 
@@ -65,6 +65,10 @@ button, a.btn, .buttons > a, input[type=submit]
 
   span
     margin-left .5em
+
+  .icon
+    vertical-align text-bottom
+    height 1.4em
 
   @media screen and (max-width: 1000px)
     i
