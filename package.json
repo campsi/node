@@ -6,6 +6,7 @@
     "postinstall": "./postinstall.sh"
   },
   "dependencies": {
+    "@risingstack/trace": "^2.13.3",
     "array-swap": "0.0.4",
     "array-uniq": "*",
     "async": "*",
@@ -23,7 +24,7 @@
     "deepcopy": "*",
     "dragula": "*",
     "email-validator": "^1.0.4",
-    "equals": "*",
+    "equals": "1.1.0",
     "express": "*",
     "express-session": "*",
     "extend": "*",
@@ -64,6 +65,7 @@
   },
   "devDependencies": {
     "gulp-concat": "^2.6.0",
+    "gulp-debug": "^2.1.2",
     "gulp-rev": "^7.0.0"
   }
 }
