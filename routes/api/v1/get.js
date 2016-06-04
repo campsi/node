@@ -156,7 +156,7 @@ router.get('/projects/:project/collections/:collection/entries', function (req, 
         }
     }
     function embedReferenceFields(next) {
-        var refFields = req.collection.getReferenceFields();
+        var refFields = req.collection.getFieldsByType('campsi/reference');
         var entryHash = {};
         async.forEach(json.entries, function (entry, eachEntryCallback) {
             async.forEach(refFields, function (refField, eachRefFieldCallback) {
