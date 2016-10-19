@@ -1,0 +1,238 @@
+html, body, #app
+  height 100%
+  margin 0
+  padding 0
+  overflow hidden
+  font-size 13px
+  font-family $font
+  color $textColor
+  background $backgroundColor
+
+*
+  box-sizing border-box
+
+//::-webkit-scrollbar
+//  display none
+
+a
+  text-decoration none
+  color $actionColor
+  &:active
+    color darken($actionColor, 20)
+  &:visited
+    color darken($actionColor, 5)
+  &:hover
+    color lighten($actionColor, 10)
+
+img
+  max-width 100%
+
+h2, h3
+  padding 1rem 0 .5rem 0
+  font-size 3rem
+  font-weight 100
+  font-family $fontNarrow
+
+h3
+  font-size 1.8rem
+
+i + span
+  margin-left .5rem
+
+button, a.button, .buttons > a, input[type=submit]
+  text-align center
+  font-size 1rem
+  vertical-align middle
+  display inline-block
+  background transparent
+  border 1px solid $themeColor
+  border-radius 3px
+  line-height 1em
+  color $themeColor
+  padding .5em
+
+  img
+    max-height 1rem
+
+  &:focus
+    outline none
+
+.campsi_panel
+  $w0 = rgba(#FFF, 0)
+  $shade = darken($backgroundColor, 10)
+  outline 1px solid darken($backgroundColor, 5)
+  background linear-gradient(130deg, $w0, $w0 , 49.99%, $w0, 50%, rgba($shade, .15), 50.1%, rgba($shade, .1)), linear-gradient(45deg, $backgroundColor, lighten($backgroundColor, 10))
+  
+  header
+
+    h2
+      padding $panelHeaderPadding
+      padding-top $panelHeaderPadding * 3
+
+    nav
+      display block
+      outline 1px solid rgba($borderColor, .4)
+      padding-left $panelHeaderPadding - .5em
+
+      &:before
+        content: '⇨'
+
+
+      &:empty
+        display none
+      a
+        display inline-block
+        padding .5em
+        //border 1px solid transparent
+        &:hover
+          text-decoration underline
+          //border $borderStyle
+    .save
+      display none
+
+  .filter
+    padding $panelContentPadding
+    display flex
+    align-items center
+    input
+      flex 1
+      margin-left .5rem
+
+  h3
+    padding 3rem 2rem 0 2rem
+
+.entriesAndDrafts-item
+  margin 2em
+  .drag-handle
+    display none
+  .label
+    color rgba($textColor, .5)
+  &:first-child
+    border-top $borderStyle
+  a
+    border $borderStyle
+    box-shadow $boxShadow
+    background white
+    color $textColor
+    padding 1rem
+    &:hover
+      box-shadow $hoverBoxShadow
+      background $hoverBackgroundColor
+    &:active, &.active
+      background $activeBackgroundColor
+      color $activeTextColor
+      box-shadow none
+
+.form_field
+  padding .5rem
+
+  > .label
+    padding .5rem
+
+#project
+
+  .project
+    background $imageBackgroundColor
+  .collections div
+    //border-bottom 1px solid darken($backgroundColor, 5)
+    //
+    //&:first-child
+    //  border-top 1px solid darken($backgroundColor, 5)
+
+    a
+      display block
+      padding $panelContentPadding
+      &:hover
+        background $hoverBackgroundColor
+      &:active, &.active, &.selected
+        background $activeBackgroundColor
+        color $activeTextColor
+
+#projects
+  .array_item
+    margin 2rem
+    text-align center
+    a
+      transition box-shadow .2s linear
+      display block
+      border $borderStyle
+      box-shadow $boxShadow
+      &:hover
+        box-shadow $hoverBoxShadow
+      &:active, &.active, &.active:hover
+        box-shadow none
+
+    .drag-handle
+      display none
+    .remove
+      display none
+    .title
+      display block
+      padding $panelContentPadding
+    .logo
+      background $imageBackgroundColor
+
+#project-editor > .content,
+#collection > .content,
+#fieldProperties > .content
+#entry > .content
+  padding $panelContentPadding
+  padding-top $panelContentPadding * 2
+  > .component > .form > .fields > .form_field
+    padding-top 2rem
+    > .label
+      font-size 1.6rem
+  .campsi_collection_intro
+    display none
+
+.component.text
+  font-size $inputFontSize
+  padding $inputFontSize
+
+
+.collection-designer-field-item > .remove,
+.collection-designer-field-item > .drag-handle
+    display none
+
+.array_item > .drag-handle
+  //border 1px solid blue
+  height 1.5em
+  width 1.5em
+  text-align center
+  font-size 0.8em
+  color white;
+  background url(/images/ui/drag-handle-3.png) no-repeat
+  cursor all-scroll
+  background-size: 100% 100%;
+  transition opacity .2s ease-out
+  opacity 0.5
+
+  &:hover
+    opacity 1
+
+.campsi_component-list > .items.dropzone:empty
+  min-height 5rem
+  background lighten($backgroundColor, 5)
+  border 1px dashed darken($backgroundColor, 10)
+
+.collection-designer-field-item
+  margin-bottom 1rem
+  box-shadow $boxShadow
+  border-radius .5rem
+  overflow hidden
+
+.component.file, .component.file_image
+  box-shadow $boxShadow
+  border $borderStyle
+
+.component-type .icon
+  border $borderStyle
+  background $backgroundColor
+
+
+#entry
+  > .content
+    padding 2rem
+  .array_item
+    background white
+    box-shadow $boxShadow

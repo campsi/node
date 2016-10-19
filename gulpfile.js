@@ -78,6 +78,14 @@ gulp.task('stylus', function () {
         }))
         .pipe(gulp.dest('./public/stylesheets'));
 
+    gulp.src('./stylus/themes/monochrome/main.styl')
+        .pipe(stylus({compress: isProd}))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(gulp.dest('./public/stylesheets/monochrome'));
+
 });
 
 gulp.task('core', function () {

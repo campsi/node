@@ -1,25 +1,7 @@
-#entriesAndDrafts
-  > .content
-    padding-top $headerHeight
-    padding-bottom 6em
-  h3
-    font-weight 600
-    font-size .9em
-    text-transform: uppercase
-    text-shadow 0 1px 1px $dark
-    color white
-    background darken($dark, 10)
-    border-bottom 1px solid black
-    padding .5em
-    padding-top .8em
-    margin 0
-
-    i
-      margin 0 1em
-
 .array_item[data-item-type='campsi/entries-and-drafts/item']
   position relative
-
+  line-height 1.9em
+  //font-size .9em
   .form-field
     margin-left 1em
     .value, .label
@@ -28,15 +10,11 @@
     p
       margin-bottom 0
   .label
-    opacity .3
-    text-shadow 1px 1px 1px #000
     display inline
     margin-right .2em
 
     &::after
       content ' > '
-      font-weight 200
-      opacity .3
 
   ul li
     clear left
@@ -51,38 +29,28 @@
     position relative
     text-decoration none
     display block
-    color white
     //background rgba(white, .1)
-    transition background .1s ease-out
-    padding .5em
-    padding-bottom 1.5em
-
-    &:hover
-      background tint($dark, 10)
 
     img
-      box-shadow rgba(0, 0, 0, 0.8) 0 1px 10px
-      border-radius .5em
       max-width 15em
       max-height 8em
       margin .5em
 
     span.id
       display none
-      top 0
-      right .5em
-      z-index 100
+      //top 0
+      //right .5em
+      //z-index 100
       text-transform uppercase
       font-size .7em
-      color lighten($dark, 40)
+      background black
+      color white
       &::before
         content: '#'
 
     .tags li
       display inline-block
       padding .2em .3em 0 .3em
-      background $theme
-      color white
       font-size .9em
       margin 0 .5em .5em 0
       border-radius .3em
@@ -91,8 +59,6 @@
 
     &.hidden
       display none
-    &.active, &:active
-      background tint($dark, 20)
 
     &.rel
       height 0
@@ -103,15 +69,11 @@
       transition height .2s ease-out
 
     &.active + .rel {
-      border-top 1px solid $dark
       height 2em
     }
 
   &.gu-mirror
     border none
-    background $dark
-    border-radius .4em
-    box-shadow 0 3px 3px rgba(black, .3)
     a
       background transparent
       &.rel
@@ -119,18 +81,10 @@
 
 #entry
 
-  > .content
-    padding-top $headerHeight
   header
     a.back
       @media screen and (min-width: 600px)
         display none
-
-    button.remove
-      light-button($red)
-
-    button.publish
-      dark-button($green)
 
   &.draft
     header button.publish
@@ -154,24 +108,11 @@
       display block
 
   .big-buttons
-    text-align center
-    background darken($light, 20)
-    margin-top 1em
-    padding .5em
-    font-size 1.2em
-
-    button
-      margin .5em
     button.save
       display none
-      dark-button($theme)
-
-    button.remove
-      dark-button($red)
 
     button.publish
       display none
-      dark-button($green)
 
   .campsi_entry
     margin 0
@@ -179,7 +120,7 @@
 
     .form_field
       padding 1em
-
+      margin-top 1rem
       &.horizontal
         .label
           border none
@@ -188,24 +129,20 @@
 
       .label
         font-weight 200
-        color lighten($dark, 10)
         font-size 1.6em
         //margin-bottom .5em
 
   .component.form .component.form
     margin-left 1em
-    border 1px solid darken($light, 4)
     border-bottom-width 2px
-    border-radius 4px
     .form_field
       .label
         font-weight 200
         font-size .90em
-        color black
+        color $textColor
 
 #entry .array_item, #entry .newItem, .array_item[data-panel='entry']
   background transparent
-  box-shadow 0 1px 2px rgba(black, .2)
   //border 1px solid darken($light, 1)
   width 100%
   padding 0.5em
@@ -222,11 +159,10 @@
 
   &.newItem
     margin-bottom 0
-    background white
 
     input[type=submit]
       align-self flex-start
-      dark-button($theme)
+      //dark-button($theme)
 
   input[type=submit]
     margin .5em
@@ -262,8 +198,3 @@
   button.remove
     align-self flex-start
     margin-left 1em
-    dark-button($red)
-
-//&[data-item-type="form"]
-//  > button.remove
-//    margin -.5em -.5em 0 0

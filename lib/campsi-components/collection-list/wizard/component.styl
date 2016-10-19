@@ -2,7 +2,6 @@
 
   .intro
     margin 2em 0
-    color $darkText
     h3
       font-size 1.2em
   .template
@@ -21,16 +20,12 @@
       background-clip content-box
       background-position: 50% 50%
       background-repeat no-repeat
-      border 1px solid darken($light, 10)
       transition background-color .1s ease-out
     &.selected
-      .icon
-        background-color darken($light, 5)
       .name
         font-weight 500
 
     .name
-      color $darkText
       text-align center
       font-size 0.85em
       display block

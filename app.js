@@ -187,7 +187,7 @@ app.get('/callback', passport.authenticate('auth0'), function (req, res) {
         throw new Error('user null');
     }
 
-    var redirectTo = req.query.redirectTo || '/dashboard';
+    var redirectTo = req.query.redirectTo || '/projects';
 
     if (req.query.token) {
         Guest.findOne({_id: req.query.token}, function (err, guest) {
@@ -228,12 +228,9 @@ app.use('/api/v1', require('./routes/api/v1/post'));
 app.use('/api/v1', require('./routes/api/v1/delete'));
 app.use('/api/v1', require('./routes/api/v1/upload'));
 
-
 app.use('/api/v1/components', require('./routes/api/v1/components'));
 app.use('/invitation', require('./routes/invitation'));
 app.use('/utils', require('./routes/utils'));
-
-
 app.use('/', require('./routes/index'));
 
 // catch 404 and forward to error handler
@@ -246,7 +243,6 @@ app.use(function (req, res) {
 // no stacktraces leaked to user
 app.use(function (err, req, res) {
     res.status(err.status || 500);
-
     if (err.status === 404) {
         return res.send('404 / NOT FOUND');
     }

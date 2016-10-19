@@ -29,7 +29,6 @@
     border 2px dashed transparent
 
     &:empty
-      border-color darken($light, 10)
 
       &:after
         content attr(data-placeholder)
@@ -50,8 +49,6 @@
 
   .campsi_component-chooser
     padding 1em
-    background $light
-    border 1px solid darken($light, 5)
     border-radius .5em
     display flex
 
@@ -78,7 +75,6 @@
 
 #designer
 
-  background darken($light, 2)
 
   .component.title
     font-size 2em
@@ -116,18 +112,12 @@ body.dragging .campsi_component-list
   &.noname .advanced
     display none
 
-  .campsi_collection-designer_field
-    border 1px solid darken($light, 10)
-
   > .items
-    background darken($light, 10)
     padding .5em
 
   header
-    $background = darken($light, 30)
     display flex
     align-items center
-    background $background
     padding .25em .5em .3em .5em
     font-size .9em
     transition background .2s linear
@@ -139,14 +129,11 @@ body.dragging .campsi_component-list
       margin-left .5em
       padding 0 .5em
       border-radius .2em
-      color $nearWhite
       font-size 1.2em
       font-weight 500
-      text-shadow lighten($dark, 40) 0 1px 0
       flex 1
       &:focus, &:hover
         outline none
-        background rgba(white, .2)
     .type
       margin-left .5em
       //border 1px solid red
@@ -176,7 +163,6 @@ body.dragging .campsi_component-list
         opacity 1
 
     button
-      dark-button $background
       margin-left .2em
       color white
 
@@ -185,7 +171,6 @@ body.dragging .campsi_component-list
 
   > .form
     padding 0
-    background $light
 
   &.closed
     border-bottom-width 1px

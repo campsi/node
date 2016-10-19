@@ -1,0 +1,181 @@
+form()
+  display block
+  .form_field
+    padding 1rem
+    position relative
+
+    &.title
+      font-size 1.5em
+
+    //&:nth-child(even)
+    //  background rgba(white, .2)
+
+    .label
+      //outline 1px solid white
+      font-family $fontNarrow
+      font-weight 200
+      font-size 1.7rem
+      padding .5em
+      //line-height 1.8em
+
+    .form_field
+      padding .5em
+
+    .help, .errors
+      opacity .2
+      position relative
+      font-style italic
+      padding .25em .5em .25em 3em
+      margin-top .8em
+      border-radius .5em
+      font-size .8em
+      overflow hidden
+
+      &::before
+        text-indent 0
+        position absolute
+        top 0
+        left 0
+        content: '?'
+        color white
+        display inline-block
+        width 2.5em
+        height 100%
+        text-align center
+        line-height 2.5em
+        font-weight bold
+        border-radius .5em 0 0 .5em
+        margin-right 1em
+
+      &.errors
+        background rgba($red, .2)
+        border-color rgba($red, .1)
+        color $red
+
+        &::before
+          background rgba(red, .5)
+          content: '!'
+
+      &:empty
+        display none
+
+    &.horizontal
+      flex-wrap wrap
+      display flex
+      align-items top
+      .label
+        //margin-right 1em
+        min-width 8em
+        background rgba($backgroundColor, .2)
+      .control
+        flex 1
+      .help, .errors
+        flex 100%
+
+    .form_field.focus .help, .form_field.focus .errors
+      opacity 1
+      &:empty
+        display none
+
+    .control .label
+      font-weight normal
+
+//color darken($light, 60)
+
+input()
+  font-size 1.6rem
+  background-color $inputIdleBackground
+  color $inputIdleColor
+  border none
+  border-radius none
+  &:focus, &.focus
+    background-color $inputFocusBackground
+    color $inputFocusColor
+    outline none
+  &::placeholder
+    font-weight 400
+    font-style: italic
+    color $inputPlaceholderColor
+
+panel()
+  overflow hidden
+  &::before
+    content ''
+    display block
+    position absolute
+    height 1500px
+    width 500px
+    top -230px
+    right -260px
+    background transparentify(white, $themeColor, .05)
+    transform rotate(330deg)
+
+  > header
+    padding 1rem 4rem
+    height $panelHeaderHeight
+    z-index 100
+    border 1px solid transparent
+
+  h2
+    font-family $fontNarrow
+    font-weight 200
+    text-shadow 1px 1px rgba($backgroundColor, .5)
+    font-size 3.5rem
+    text-transform uppercase
+    padding-top 7rem
+    transition padding .1s linear
+
+  .buttons
+    position absolute
+    top 2em
+    &.left
+      left 2em
+    &.right
+      transition top .1s linear
+      top 7rem
+      right 2em
+      button, a
+        display inline-block
+        height 3rem
+        width 3rem
+        text-align center
+        line-height 3rem
+        color $textColor
+        font-size 2rem
+        margin .5rem
+        background none
+        border none
+      span
+        display none
+  .back
+    $circleButtonSize = 3rem
+    font-size 1.5rem
+    height $circleButtonSize
+    line-height $circleButtonSize
+    vertical-align middle
+    &::before
+      background rgba($backgroundColor, .2)
+      color rgba($textColor, .2)
+      content '←'
+      height $circleButtonSize
+      width $circleButtonSize
+      border-radius $circleButtonSize
+      text-align center
+      display inline-block
+      margin-right .5rem
+    &:hover::before
+      background rgba($backgroundColor, .3)
+      color rgba($textColor, .8)
+
+  > .content
+    padding 3rem
+    padding-top $panelHeaderHeight + 1rem
+  &.scroll
+    > header
+      background rgba(darken($themeColor, 5), .9)
+      height auto
+      h2
+        padding 0
+        padding-left 10rem
+      .buttons.right
+        top 1rem

@@ -19,11 +19,13 @@ var schema = new mongoose.Schema({
             scope: String
         }],
     hasFields: Boolean,
+    isPublicForm: Boolean,
     entries: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Entry'
         }]
 }, { id: false });
+
 schema.index({
     _project: 1,
     identifier: 1

@@ -1,28 +1,42 @@
-$duration = .3s
+$duration = .5s
 $easing = cubic-bezier(0.29, 0.56, 0.57, 0.9)
-$headerHeight = 3.2em
-
-.panels
+$easing = linear
+#panels
   width 100%
   height 100%
   margin 0
   position relative
-  //overflow: hidden
 
-  > .panel
-    display none
-    height 100%
-    width 100%
-    position absolute
-    //top 0
-    //left 0
-    background $nearWhite
-    transition  transform $duration $easing//, width $duration $easing
-    overflow none
-    transform: translateZ(0);
-    //outline: 1px solid darken($light, 5);
-    box-sizing content-box
+.campsi_panel
+  height 100%
+  width 100%
+  display none
+  position absolute
+  background white
+  //top 0
+  //left 0
+  transition transform $duration $easing, width $duration $easing
+  overflow-y scroll
+  -webkit-overflow-scrolling touch
+  //outline: 1px solid darken($light, 5);
+  box-sizing content-box
 
+  &.scroll
+    > header
+      position fixed
+
+  &.modified
+    > header
+      h2::after
+        content ' *'
+    .buttons button.save
+      display inline-block
+
+    .buttons button.publish
+      display inline-block
+
+  > header
+    z-index 999
     /*> header
       a, button
         span
@@ -32,163 +46,172 @@ $headerHeight = 3.2em
             display inline-block*/
 
     > .content
-      padding-top $headerHeight + 1em
       overflow-y auto
-      height 100%
-      -webkit-overflow-scrolling touch
+      //height 100%
       background-size 100%
       transform translate3d(0,0,0)
 
+    &.hidden
+      display none !important
 
-    &.next
-      display none
-      transform: translateX(100%)
-      &.hidden
-        display none
+@media screen and (max-width: 600px)
+  .campsi_panel.main
+    display block
+    transform translateX(0)
+    width 100%
 
-    &.prev
+
+activePanel($left = 0, $top = 0)
+  display block
+  transform translateX($left) translateY($top) translateZ(0)
+
+@media screen and (min-width: 600px)
+
+  #welcome
+    width 100%
+  #entriesAndDrafts
+    width 50%
+  #entry
+    width 50%
+  #collection
+    width 60%
+  #components,#fieldProperties
+    width 40%
+  #project
+    width 70%
+  #projects
+    width 30%
+  #project-editor
+    width 70%
+  #project-users
+    width 30%
+
+  #panels.root
+    #welcome
       display block
-      transform: translateX(-100%)
-      &.hidden
-        display none
 
-
-    .filter
-      display inline-block
+  #panels.projects
+    #projects
       width 100%
-      padding 1em
-      position relative
-      i
-        position absolute
-        top 50%
-        left 2em
-        height 1em
-        margin-top -.5em
-      input
-        -webkit-appearance textfield
-        width 100%
-        padding .5em
-        border-radius 2em
-        text-indent 1.5em
+      activePanel()
+    #collections
+      activePanel(145%)
 
-    &.light
-      background $light
+  #panels.project
+    #projects
+      activePanel()
+    #project
+      activePanel(43%)
+    #project-editor
+      activePanel(43%, -100%)
+    #entriesAndDrafts
+      activePanel(200%)
+    #entry
+      activePanel(300%)
+    #collection
+      activePanel(200%)
+    #components
+      activePanel(250%)
 
-    &.dark
-      color white
-      background $dark
+  #panels.editProject, #panels.newProject
+    #projects
+      activePanel()
+    #collections
+      activePanel(42.9%, 100%)
+    #project-editor
+      activePanel(42.9%)
 
-      .form_field .label
-        text-shadow black 0 1px 1px
+  #panels.collection, #panels.entry, #panels.draft, #panels.newEntry
+    #projects
+      activePanel(-200%)
+    #project
+      activePanel(-100%)
+    #entriesAndDrafts
+      activePanel()
+    #entry
+      activePanel(100%)
 
-      > header
-        h2
-          color white
-        .buttons
-          a, button
-            dark-button($dark)
+  #panels.editCollection,#panels.newCollection
+    #projects
+      activePanel(-200%)
+    #project
+      activePanel(-100%)
+    #collections
+      activePanel(-100%)
+    #collection
+      activePanel()
+    #components
+      activePanel(150%)
+    #fieldProperties
+      activePanel(250%)
+    #entriesAndDrafts
+      activePanel(250%)
+    #entry
+      activePanel(300%)
 
-      > .content
-        input[type=submit], button
-          dark-button($theme)
+  #panels.fieldProperties
+    #projects
+      activePanel(-200%)
+    #project
+      activePanel(-100%)
+    #collections
+      activePanel(-100%)
+    #collection
+      activePanel()
+    #fieldProperties
+      activePanel(150%)
+    #components
+      activePanel(230%)
+    #entriesAndDrafts
+      activePanel(250%)
+    #entry
+      activePanel(300%)
 
-      &.scroll > header
-        background rgba(black, .7)
+  #panels.projectUsers
+    #project-editor
+      activePanel()
+    #project-users
+      activePanel(233%)
 
-      .filter input
-        color white
-        border 1px solid rgba(black, .4)
-        background rgba(black, .2)
-        box-shadow inset 0 1px 3px 0 rgba(black, .6)
 
-        &:focus
-          outline none
-          background rgba(black, .1)
 
-    @media screen and (max-width: 600px)
-      &.main
-        display block
-        transform translateX(0)
-        width 100%
+@media screen and (min-width: 1100px)
+  #entriesAndDrafts
+    width 40%
+  #entry
+    width 40%
+  #projects
+    width 30%
+  #project-editor
+    width 70%
 
-    @media screen and (min-width: 600px)
-      for $i in 1..10
-        $w = $i * 10
+  #panels.project
+    #entriesAndDrafts
+      activePanel(250%)
+    #collection
+      display none
 
-        &.w{$w}
-          display block
-          width unit($w, '%')
-          transform translateX(0)
-          &.next
-            transform translateX(unit(100 / $w * 100, '%'))
-          &.prev
-            transform translateX(unit(-100, '%'))
+  #panels.editCollection,#panels.newCollection
+    #entriesAndDrafts
+      activePanel(250%)
 
-        for $j in 1..10
-          $l = $j * 10
+  #panels.collection, #panels.entry, #panels.draft, #panels.newEntry
+    #projects
+      activePanel(-200%)
+    #project
+      width 20%
+      activePanel()
+    #entriesAndDrafts
+      activePanel(50%)
+    #entry
+      activePanel(149.6%)
 
-          &.w{$w}.l{$l}
-            transform translateX(unit(100 / $w * $l, '%'));
+  #panels.projectUsers
+    #projects
+      activePanel()
+    #project-editor
+      width 40%
+      activePanel(74.5%)
+    #project-users
+      activePanel(233%)
 
-    > header
-      transform: translateZ(0);
-      width 100%
-      height $headerHeight
-      position fixed
-      z-index 100
-      border 1px solid transparent
-      //transition background .3s ease-out//, transform 0 linear .1s
-      padding .5em
-      padding-bottom .4em
-
-      .buttons
-        position absolute
-        left 0
-      .buttons.right
-        right 0
-        left auto
-
-      h2
-        font-size 1.5em
-        line-height 1.5em
-        font-weight 400
-        text-align center
-        margin 0 auto
-        color $dark
-
-      .buttons
-
-        button, a
-          display inline-block
-          margin 0 .25rem
-          light-button(darken($light, 30))
-
-          &.save
-            dark-button($theme)
-            display none
-
-          //&.favorite
-            //dark-button($orange)
-
-          &.publish
-            display none
-
-          &.delete
-            dark-button($red)
-
-    &.scroll
-      > header
-        background rgba(darken($light, 5), .9)
-
-    &.modified
-
-      header
-        h2:
-        :after, h2:after
-          content ' *'
-
-        .buttons button.save
-          display inline-block
-
-        .buttons button.publish
-          display inline-block

@@ -8,7 +8,6 @@ $componentSize = 3.5em;
   > .content
     padding-top $headerHeight
     color white
-    border-left-color: transparentify($theme, #7cedfd, .2);
     h3
       font-weight 400
       padding .2em 1em 0 1em
@@ -21,8 +20,6 @@ $componentSize = 3.5em;
       padding .2em .5em .1em .5em
       font-weight 400
       color white
-      //background linear-gradient($theme, 5%, darken($dark, 5))
-      background darken($dark, 10)
       text-align center
 
   .components
@@ -44,7 +41,6 @@ $componentSize = 3.5em;
 
   .icon
     background url(../images/ui/component-icon-bg.png) repeat, linear-gradient(45deg, darken($theme, 20), $theme)
-    background lighten($dark, 10)
     height $componentSize
     width $componentSize
     border-radius .5rem
@@ -66,10 +62,6 @@ $componentSize = 3.5em;
       margin 0 auto
 
 
-  &:hover
-    .icon
-      background linear-gradient(45deg, darken($theme, 10), $theme)
-      border-bottom-color darken($theme, 70)
 
   .name
     //border 1px solid orangered

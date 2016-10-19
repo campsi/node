@@ -1,0 +1,144 @@
+@import 'vars.styl'
+
+html, body, .panel
+  background $themeColor
+  color $textColor
+  font-family $font
+a
+  color $textColor
+
+.campsi_entries-and-drafts_item
+  background rgba($backgroundColor, .3)
+  color $textColor
+
+  form()
+  display block
+  .form_field
+    padding 1rem
+    position relative
+
+    &.title
+      font-size 1.5em
+
+    //&:nth-child(even)
+    //  background rgba(white, .2)
+
+    .label
+      //outline 1px solid white
+      font-family $fontNarrow
+      font-weight 200
+      font-size 1.7rem
+      padding .5em
+    //line-height 1.8em
+
+    .form_field
+      padding .5em
+
+    .help, .errors
+      opacity .2
+      position relative
+      font-style italic
+      padding .25em .5em .25em 3em
+      margin-top .8em
+      border-radius .5em
+      font-size .8em
+      overflow hidden
+
+      &::before
+        text-indent 0
+        position absolute
+        top 0
+        left 0
+        content: '?'
+        color white
+        display inline-block
+        width 2.5em
+        height 100%
+        text-align center
+        line-height 2.5em
+        font-weight bold
+        border-radius .5em 0 0 .5em
+        margin-right 1em
+
+      &.errors
+        background rgba($errorColor, .2)
+        border-color rgba($errorColor, .1)
+        color $errorColor
+
+        &::before
+          background rgba($errorColor, .5)
+          content: '!'
+
+      &:empty
+        display none
+
+    &.horizontal
+      flex-wrap wrap
+      display flex
+      align-items top
+      .label
+        //margin-right 1em
+        min-width 8em
+        background rgba($backgroundColor, .2)
+      .control
+        flex 1
+      .help, .errors
+        flex 100%
+
+    .form_field.focus .help, .form_field.focus .errors
+      opacity 1
+      &:empty
+        display none
+
+    .control .label
+      font-weight normal
+
+//color darken($light, 60)
+
+input[type=text],input[type=number],textarea
+  font-size 1.6rem
+  background-color $inputIdleBackground
+  color $inputIdleColor
+  border none
+  border-radius none
+  &:focus, &.focus
+    background-color $inputFocusBackground
+    color $inputFocusColor
+    outline none
+  &::placeholder
+    font-weight 400
+    font-style: italic
+    color $inputPlaceholderColor
+
+.panel
+  overflow hidden
+
+  h2
+    font-family $fontNarrow
+    font-weight 200
+    text-shadow 1px 1px rgba($backgroundColor, .5)
+    font-size 3.5rem
+    text-transform uppercase
+    transition padding .1s linear
+
+  .back
+    border none
+    $circleButtonSize = 3rem
+    font-size 1.5rem
+    height $circleButtonSize
+    line-height $circleButtonSize
+    vertical-align middle
+    &::before
+      background rgba($backgroundColor, .2)
+      color rgba($textColor, .2)
+      content '←'
+      height $circleButtonSize
+      width $circleButtonSize
+      border-radius $circleButtonSize
+      text-align center
+      display inline-block
+      margin-right .5rem
+    &:hover::before
+      background rgba($backgroundColor, .3)
+      color rgba($textColor, .8)
+

@@ -1,7 +1,6 @@
 extends layout
 block content
-  #panels.panels
-
+  #panels(class=route.name)
     each panel in panels
       | !{panel}
 

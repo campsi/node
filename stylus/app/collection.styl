@@ -22,27 +22,21 @@
     > header button.delete
       display none
 
-  .buttons .admin
-    dark-button($green)
+  //.buttons .admin
+  //  dark-button($green)
 
   > .content
     padding-top $headerHeight
 
 
-
-  .component.button
-    light-button $theme
-
-
   .form_field.fields
     margin-top 3em
-    background lighten($dark, 20)
     > .label
       display none
     > .control > .campsi_component-list > .items.dropzone
       padding-bottom 20em
       &:empty
-        border dashed 6px lighten($dark, 10)
+        //border dashed 6px lighten($dark, 10)
 
         &:after
           content attr(data-placeholder)
@@ -63,9 +57,6 @@
   > .label
     font-size 1.2em
     padding .5em 0
-
-  &:nth-child(even)
-    background lighten($light, 2)
 
 .campsi_collection_intro
   intro()

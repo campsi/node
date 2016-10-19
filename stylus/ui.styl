@@ -1,83 +1,3 @@
-light-button($color)
-
-  //background linear-gradient(tint($color, 50), tint($color, 30))
-  background tint($color, 30)
-  color white
-  border-bottom-color tint($color, 20)
-  text-shadow 1px 1px 0px rgba(black, .3)
-  //box-shadow 0 1px 1px 0 rgba(darken($color, 30), .9)
-  border 1px solid tint($color, 20)
-
-  &:hover
-    //background linear-gradient(tint($color, 60), tint($color, 50))
-    background tint($color, 50)
-    border 1px solid tint($color, 50)
-
-  &:focus
-    box-shadow 0 1px 2px 0 rgba(darken($color, 30), .4)
-    //background linear-gradient(tint($color, 60), tint($color, 50))
-    background tint($color, 60)
-
-  &:active, &.active, &.pressed
-    box-shadow inset darken($color, 20) 0 1px 1px
-    border-bottom none
-
-
-dark-button($color)
-
-  //background linear-gradient(tint($color, 30), tint($color, 10))
-  background $color
-  //box-shadow 0 1px 1px 0 rgba(darken($color, 50), .5)
-  border 1px solid darken($color, 5)
-
-  &:hover
-    color lighten($color, 50)
-    border-color darken($color, 10)
-    //background linear-gradient(tint($color, 40), tint($color, 10))
-    background tint($color, 10)
-  &:focus
-    box-shadow 0 1px 2px 0 rgba(darken($color, 30), .4)
-    //background linear-gradient(tint($color, 40), tint($color, 10))
-    background tint($color, 10)
-
-  &:active, &.active, &.pressed
-    //box-shadow inset darken($color, 30) 0 2px 2px
-    background tint($color, 20)
-
-
-button, a.btn, .buttons > a, input[type=submit]
-  &:not(.link)
-    display inline-block
-    -webkit-appearance none
-    text-decoration none
-    text-align center
-    outline none
-    border-radius 4px
-    cursor pointer
-    font-size: 0.95em
-    padding 0 0.8em
-    height 2.3em
-    line-height 2.3em
-    font-weight 500
-    border none
-    color white
-    light-button($light)
-
-  span
-    margin-left .5em
-
-  .icon
-    vertical-align text-bottom
-    height 1.4em
-
-  @media screen and (max-width: 1000px)
-    i
-      opacity .9
-    span
-      display none
-
-
-
 .form_field
   padding 1rem
   position relative
@@ -92,7 +12,6 @@ button, a.btn, .buttons > a, input[type=submit]
     font-size 1.2em
     padding .5em 0
     line-height 1.8em
-    color lighten($dark, 15)
 
   .form_field
     padding .5em
@@ -100,8 +19,6 @@ button, a.btn, .buttons > a, input[type=submit]
   .help, .errors
     opacity .2
     position relative
-    background tint($theme, 80)
-    color $theme
     font-style italic
     padding .25em .5em .25em 3em
     margin-top .8em
@@ -115,7 +32,6 @@ button, a.btn, .buttons > a, input[type=submit]
       position absolute
       top 0
       left 0
-      background rgba($theme, .5)
       content: '?'
       color white
       display inline-block
@@ -161,28 +77,6 @@ button, a.btn, .buttons > a, input[type=submit]
   color darken($light, 60)
 
 
-lightInput()
-  background $inputIdleBackground
-  border $inputIdleBorderColor solid 1px
-  border-bottom-color $inputIdleBorderColorShadow
-  border-radius 4px
-
-  &:focus, &.focus
-    background $inputFocusBackground
-    outline none
-    border-color $inputFocusBorderColor
-
-  &:disabled, &.disabled
-    background $inputDisabledBackground
-    color $inputDisabledTextColor
-
-  &::placeholder
-    //padding-top .35em
-    font-weight 400
-    font-style: italic
-
-
-
 
 .component.draggable.gu-mirror
   opacity 1
@@ -195,13 +89,11 @@ select.select_dropdown, select.select_ajax
 
   .form_field
     padding 1em
-    border-bottom 1px solid darken($dark, 5)
 
     &:nth-child(even)
       background rgba(black,0.1)
 
   .label
-    color transparentify(white, $dark, .7)
     font-weight 400
     margin-bottom .3em
     font-size 1.1em
@@ -224,17 +116,11 @@ select.select_dropdown, select.select_ajax
 
   form
     font-size .9em
-    button
-      dark-button $theme
 
 
   .form_field[data-comp-type='checkbox']
     .label
       display none
-
-    .checkbox label
-    span
-      color transparentify(white, $dark, .7)
 
   h3
     margin-top 2em
@@ -243,8 +129,6 @@ select.select_dropdown, select.select_ajax
 
   .array_item, .newItem
     color white
-    background-color $dark
-    border 1px solid lighten($dark, 30)
     padding .5em
     margin-bottom 1em
     border-radius .5em
